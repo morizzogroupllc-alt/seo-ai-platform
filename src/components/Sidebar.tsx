@@ -46,6 +46,7 @@ const navigation: NavItem[] = [
         icon: Heart,
         children: [
             { name: 'The Heart (NAP)', href: '/dashboard', icon: Heart },
+            { name: 'Meta Description Gen', href: '/dashboard/tools/meta-description-gen', icon: FileText },
             { name: 'GMB Optimizer', href: '#', icon: MapPin },
             { name: 'Local Rank Tracker', href: '#', icon: Search },
         ]
