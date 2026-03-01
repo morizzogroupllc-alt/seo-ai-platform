@@ -7,8 +7,9 @@ interface PageProps {
     params: { toolId: string }
 }
 
-export default async function ToolPage({ params }: PageProps) {
-    const tool = getToolById(params.toolId)
+export default async function ToolPage({ params }: { params: Promise<{ toolId: string }> }) {
+    const { toolId } = await params
+    const tool = getToolById(toolId)
 
     if (!tool) {
         notFound()
