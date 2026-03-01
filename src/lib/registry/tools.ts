@@ -1154,6 +1154,71 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Create manual citation plan for {{business_name}}...`,
         inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 16: SYSTEM CORE (HEART / GLUE LAYER) ---
+    'unified-nap-hub': {
+        id: 'unified-nap-hub',
+        name: 'Unified Business Profile NAP Hub',
+        description: 'The "HEART" of the platform. Centralized hub to manage NAP and business data across all listings.',
+        icon: 'Heart',
+        category: 'System Core',
+        promptTemplate: `Sync NAP data for {{business_name}}: {{address}}, {{phone}}, {{website}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'address', label: 'Business Address', type: 'text', required: true },
+            { id: 'phone', label: 'Phone Number', type: 'text', required: true },
+            { id: 'website', label: 'Website URL', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'api-health-monitor': {
+        id: 'api-health-monitor',
+        name: 'API Health Monitor',
+        description: 'Real-time monitoring of GMB API, OpenAI, and other integrations for 100% uptime.',
+        icon: 'Activity',
+        category: 'System Core',
+        promptTemplate: `Check system health for {{service_name}}...`,
+        inputs: [{ id: 'service_name', label: 'Service Name', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'multi-language-seo': {
+        id: 'multi-language-seo',
+        name: 'Multi-Language Local SEO Engine',
+        description: 'Automatically translates and localizes SEO data for multi-cultural and international markets.',
+        icon: 'Globe',
+        category: 'System Core',
+        promptTemplate: `Localize SEO data to {{target_language}} for {{business_name}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'target_language', label: 'Target Language', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'voice-search-opt': {
+        id: 'voice-search-opt',
+        name: 'Voice Search Data Optimizer',
+        description: 'Optimizes business data for Alexa, Siri, and Google Assistant voice queries.',
+        icon: 'Mic',
+        category: 'System Core',
+        promptTemplate: `Optimize for voice search: {{business_name}} in {{city}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'zero-click-opt': {
+        id: 'zero-click-opt',
+        name: 'Zero-Click Search Optimizer',
+        description: 'Maximizes visibility in featured snippets and knowledge panels for non-click traffic.',
+        icon: 'MousePointer2',
+        category: 'System Core',
+        promptTemplate: `Optimize for zero-click search: {{topic}} for {{business_name}}...`,
+        inputs: [
+            { id: 'topic', label: 'Target Topic/Query', type: 'text', required: true },
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
     }
 }
 

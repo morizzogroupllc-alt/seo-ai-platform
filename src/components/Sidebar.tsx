@@ -73,7 +73,8 @@ import {
     Upload,
     ExternalLink,
     FileStack,
-    Play
+    Play,
+    Mic
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -281,6 +282,17 @@ const navigation: NavItem[] = [
             { name: 'CRM Integrator', href: '/dashboard/tools/crm-integrator', icon: Users },
             { name: 'Spam Signal Detector', href: '/dashboard/tools/spam-signal-detector', icon: ShieldAlert },
             { name: 'Citation Manual Mgr', href: '/dashboard/tools/citation-manual-mgr', icon: ClipboardList },
+        ]
+    },
+    {
+        name: 'System Core',
+        icon: Heart,
+        children: [
+            { name: 'Unified NAP Hub', href: '/dashboard/tools/unified-nap-hub', icon: Heart },
+            { name: 'API Health Monitor', href: '/dashboard/tools/api-health-monitor', icon: Activity },
+            { name: 'Multi-Language SEO', href: '/dashboard/tools/multi-language-seo', icon: Globe },
+            { name: 'Voice Search Opt', href: '/dashboard/tools/voice-search-opt', icon: Mic },
+            { name: 'Zero-Click Opt', href: '/dashboard/tools/zero-click-opt', icon: MousePointer2 },
         ]
     },
 ]
