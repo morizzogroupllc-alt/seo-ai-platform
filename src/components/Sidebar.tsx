@@ -16,7 +16,15 @@ import {
     DollarSign,
     BarChart3,
     FileText,
-    LucideIcon
+    LucideIcon,
+    Zap,
+    MapPin,
+    PenTool,
+    Cpu,
+    MousePointer2,
+    Share2,
+    Image as ImageIcon,
+    Code
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -33,31 +41,47 @@ interface NavItem {
 
 const navigation: NavItem[] = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
-    { name: 'Marketplace', icon: ShoppingBag, href: '#' },
-    { name: 'Bulk Analysis', icon: BarChart3, href: '#' },
     {
         name: 'Local SEO',
         icon: Heart,
         children: [
             { name: 'The Heart (NAP)', href: '/dashboard', icon: Heart },
-            { name: 'AI Website Generator', href: '#', icon: Globe },
-            { name: 'GBP Audit', href: '#', icon: Search },
+            { name: 'GMB Optimizer', href: '#', icon: MapPin },
+            { name: 'Local Rank Tracker', href: '#', icon: Search },
         ]
     },
     {
-        name: 'Content Creation',
-        icon: FileText,
+        name: 'AI Website Builder',
+        icon: Globe,
         children: [
-            { name: 'Blog Generator', href: '#', icon: FileText },
-            { name: 'Schema Markup', href: '#', icon: Layers },
+            { name: 'AI Page Generator', href: '#', icon: Cpu },
+            { name: 'Service Area Pages', href: '#', icon: MousePointer2 },
+            { name: 'Schema Injector', href: '#', icon: Code },
         ]
     },
-    { name: 'SEO Tools', icon: Layers, href: '#' },
+    {
+        name: 'Content Engine',
+        icon: PenTool,
+        children: [
+            { name: 'AI Blog Writer', href: '#', icon: FileText },
+            { name: 'Social Post Gen', href: '#', icon: Share2 },
+            { name: 'AI Image Gen', href: '#', icon: ImageIcon },
+        ]
+    },
+    {
+        name: 'Technical SEO',
+        icon: Layers,
+        children: [
+            { name: 'Bulk Site Audit', href: '#', icon: BarChart3 },
+            { name: 'Speed Optimizer', href: '#', icon: Zap },
+        ]
+    },
+    { name: 'Marketplace', icon: ShoppingBag, href: '#' },
 ]
 
 export default function Sidebar() {
     const pathname = usePathname()
-    const [openMenus, setOpenMenus] = useState<string[]>(['Local SEO'])
+    const [openMenus, setOpenMenus] = useState<string[]>(['Local SEO', 'AI Website Builder'])
 
     const toggleMenu = (name: string) => {
         setOpenMenus(prev =>
@@ -74,14 +98,14 @@ export default function Sidebar() {
                 <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
                     <span className="text-white font-bold text-xl italic">S</span>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left">
                     <span className="text-white font-black text-lg tracking-tighter leading-none">SEO AI</span>
                     <span className="text-[10px] text-indigo-400 font-black uppercase tracking-[0.2em] leading-none mt-0.5">Platform</span>
                 </div>
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 px-4 space-y-1">
+            <nav className="flex-1 px-4 space-y-1 pb-8">
                 {navigation.map((item) => {
                     const hasChildren = !!item.children
                     const isOpen = openMenus.includes(item.name)
@@ -97,7 +121,7 @@ export default function Sidebar() {
                                         isOpen || isActive ? "text-white" : "text-slate-400 hover:text-white hover:bg-slate-800/50"
                                     )}
                                 >
-                                    <div className="flex items-center space-x-3">
+                                    <div className="flex items-center space-x-3 text-left">
                                         <item.icon size={20} className={cn(isOpen || isActive ? "text-indigo-400" : "text-slate-500 group-hover:text-slate-300")} />
                                         <span className="text-sm font-medium">{item.name}</span>
                                     </div>
@@ -126,7 +150,7 @@ export default function Sidebar() {
                                             key={child.name}
                                             href={child.href}
                                             className={cn(
-                                                "flex items-center space-x-3 p-2 rounded-lg text-sm transition-all",
+                                                "flex items-center space-x-3 p-2 rounded-lg text-sm transition-all text-left",
                                                 pathname === child.href && child.href !== '#'
                                                     ? "bg-indigo-600/20 text-indigo-400 font-medium"
                                                     : "text-slate-500 hover:text-white hover:bg-slate-800/30"
@@ -144,13 +168,13 @@ export default function Sidebar() {
             </nav>
 
             {/* Footer Nav */}
-            <div className="p-4 border-t border-slate-800 bg-[#0f172a]/50">
+            <div className="p-4 border-t border-slate-800 bg-[#0f172a]/50 mt-auto">
                 <Link
                     href="#"
                     className="flex items-center space-x-3 p-3 text-slate-400 hover:text-white transition-all group"
                 >
                     <DollarSign size={20} className="text-slate-500 group-hover:text-indigo-400" />
-                    <span className="text-sm font-medium">Earn Forever</span>
+                    <span className="text-sm font-medium">Affiliate Program</span>
                 </Link>
                 <Link
                     href="#"
