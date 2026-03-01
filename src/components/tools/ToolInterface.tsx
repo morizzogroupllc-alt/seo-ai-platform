@@ -21,7 +21,14 @@ import {
     Type,
     LinkIcon,
     Database,
-    ImageIcon
+    ImageIcon,
+    Activity,
+    Smartphone,
+    Bug,
+    Network,
+    Bot,
+    ClipboardCheck,
+    MonitorCheck
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -41,7 +48,14 @@ const IconMap: Record<string, LucideIcon> = {
     Type,
     LinkIcon,
     Database,
-    ImageIcon
+    ImageIcon,
+    Activity,
+    Smartphone,
+    Bug,
+    Network,
+    Bot,
+    ClipboardCheck,
+    MonitorCheck
 }
 
 interface ToolInterfaceProps {

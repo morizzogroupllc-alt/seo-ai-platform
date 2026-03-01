@@ -36,7 +36,14 @@ import {
     RefreshCw,
     Type,
     Link as LinkIcon,
-    Database
+    Database,
+    Activity,
+    Smartphone,
+    Bug,
+    Network,
+    Bot,
+    ClipboardCheck,
+    MonitorCheck
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -102,6 +109,19 @@ const navigation: NavItem[] = [
             { name: 'Image ALT Text Generator', href: '/dashboard/tools/image-alt-gen', icon: ImageIcon },
             { name: 'Internal Keyword Mapper', href: '/dashboard/tools/keyword-mapping', icon: LinkIcon },
             { name: 'Schema Markup Generator', href: '/dashboard/tools/schema-gen', icon: Database },
+        ]
+    },
+    {
+        name: 'Technical SEO',
+        icon: Settings,
+        children: [
+            { name: 'Core Web Vitals Checker', href: '/dashboard/tools/vitals-checker', icon: Activity },
+            { name: 'Mobile Checker', href: '/dashboard/tools/mobile-checker', icon: Smartphone },
+            { name: 'Indexation & Crawl Audit', href: '/dashboard/tools/crawl-audit', icon: Bug },
+            { name: 'XML Sitemap Generator', href: '/dashboard/tools/sitemap-gen', icon: Network },
+            { name: 'Robots.txt Generator', href: '/dashboard/tools/robots-gen', icon: Bot },
+            { name: 'Technical SEO Audit', href: '/dashboard/tools/tech-audit', icon: ClipboardCheck },
+            { name: 'Full Website Audit', href: '/dashboard/tools/full-site-audit', icon: MonitorCheck },
         ]
     },
     {

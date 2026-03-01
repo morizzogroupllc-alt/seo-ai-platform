@@ -311,6 +311,77 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Generate JSON-LD Schema for {{business_name}}...`,
         inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
         outputFormat: 'text'
+    },
+    // --- CATEGORY 5: TECHNICAL SEO ---
+    'vitals-checker': {
+        id: 'vitals-checker',
+        name: 'Core Web Vitals Checker',
+        description: 'AI-based speed and performance analysis.',
+        icon: 'Activity',
+        category: 'Technical SEO',
+        promptTemplate: `Analyze Core Web Vitals for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'mobile-checker': {
+        id: 'mobile-checker',
+        name: 'Mobile Checker',
+        description: 'Mobile-friendly audit with auto-fix suggestions.',
+        icon: 'Smartphone',
+        category: 'Technical SEO',
+        promptTemplate: `Check mobile responsiveness for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'crawl-audit': {
+        id: 'crawl-audit',
+        name: 'Indexation & Crawl Audit',
+        description: 'Crawl issues, index bloat, and crawl budget check.',
+        icon: 'Bug',
+        category: 'Technical SEO',
+        promptTemplate: `Audit indexation and crawl for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'sitemap-gen': {
+        id: 'sitemap-gen',
+        name: 'XML Sitemap Generator',
+        description: 'Auto-generates SEO-friendly XML sitemaps.',
+        icon: 'Network',
+        category: 'Technical SEO',
+        promptTemplate: `Generate XML sitemap for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'robots-gen': {
+        id: 'robots-gen',
+        name: 'Robots.txt Generator',
+        description: 'Correct robots.txt with local SEO rules.',
+        icon: 'Bot',
+        category: 'Technical SEO',
+        promptTemplate: `Generate robots.txt for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'tech-audit': {
+        id: 'tech-audit',
+        name: 'Technical SEO Audit Tool',
+        description: 'Full technical SEO audit with improvement report.',
+        icon: 'ClipboardCheck',
+        category: 'Technical SEO',
+        promptTemplate: `Perform full technical SEO audit for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'full-site-audit': {
+        id: 'full-site-audit',
+        name: 'Local SEO Full Website Audit Tool',
+        description: 'Complete Local SEO website audit + PDF suggestions report.',
+        icon: 'MonitorCheck',
+        category: 'Technical SEO',
+        promptTemplate: `Complete Local SEO audit for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'markdown'
     }
 }
 
