@@ -33,7 +33,10 @@ import {
     Palette,
     MessageSquare,
     ShieldCheck,
-    RefreshCw
+    RefreshCw,
+    Type,
+    Link as LinkIcon,
+    Database
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -88,6 +91,17 @@ const navigation: NavItem[] = [
             { name: 'FAQ Schema Generator', href: '/dashboard/tools/faq-schema-gen', icon: MessageSquare },
             { name: 'E-E-A-T Content Booster', href: '/dashboard/tools/eeat-booster', icon: ShieldCheck },
             { name: 'AI Content Rewriter', href: '/dashboard/tools/content-rewriter', icon: RefreshCw },
+        ]
+    },
+    {
+        name: 'On-Page SEO',
+        icon: Search,
+        children: [
+            { name: 'Title & Meta Generator', href: '/dashboard/tools/title-meta-gen', icon: FileText },
+            { name: 'Header Structure Optimizer', href: '/dashboard/tools/header-optimizer', icon: Type },
+            { name: 'Image ALT Text Generator', href: '/dashboard/tools/image-alt-gen', icon: ImageIcon },
+            { name: 'Internal Keyword Mapper', href: '/dashboard/tools/keyword-mapping', icon: LinkIcon },
+            { name: 'Schema Markup Generator', href: '/dashboard/tools/schema-gen', icon: Database },
         ]
     },
     {

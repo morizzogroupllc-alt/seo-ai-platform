@@ -260,6 +260,57 @@ export const toolRegistry: Record<string, ToolConfig> = {
             { id: 'area', label: 'Target Area/City', type: 'text', required: true }
         ],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 4: ON-PAGE SEO ---
+    'title-meta-gen': {
+        id: 'title-meta-gen',
+        name: 'Title & Meta Generator',
+        description: 'SEO-optimized title tags and meta descriptions.',
+        icon: 'FileText',
+        category: 'On-Page SEO',
+        promptTemplate: `Generate Title & Meta for {{topic}}...`,
+        inputs: [{ id: 'topic', label: 'Page Topic', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'header-optimizer': {
+        id: 'header-optimizer',
+        name: 'Header Structure Optimizer',
+        description: 'Proper H1-H6 hierarchy enforced automatically.',
+        icon: 'Type',
+        category: 'On-Page SEO',
+        promptTemplate: `Optimize header structure for {{content}}...`,
+        inputs: [{ id: 'content', label: 'Page Content', type: 'textarea', required: true }],
+        outputFormat: 'markdown'
+    },
+    'image-alt-gen': {
+        id: 'image-alt-gen',
+        name: 'Image ALT Text Generator',
+        description: 'Local keyword-rich ALT text for all images.',
+        icon: 'ImageIcon',
+        category: 'On-Page SEO',
+        promptTemplate: `Generate Alt text for image...`,
+        inputs: [{ id: 'context', label: 'Image Context/Subject', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'keyword-mapping': {
+        id: 'keyword-mapping',
+        name: 'Internal Keyword Mapping Tool',
+        description: 'Maps keywords to correct pages for targeting.',
+        icon: 'LinkIcon',
+        category: 'On-Page SEO',
+        promptTemplate: `Map these keywords: {{keywords}}...`,
+        inputs: [{ id: 'keywords', label: 'Keywords List', type: 'textarea', required: true }],
+        outputFormat: 'markdown'
+    },
+    'schema-gen': {
+        id: 'schema-gen',
+        name: 'Schema Markup Generator',
+        description: 'JSON-LD LocalBusiness schema auto-injected.',
+        icon: 'Database',
+        category: 'On-Page SEO',
+        promptTemplate: `Generate JSON-LD Schema for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'text'
     }
 }
 

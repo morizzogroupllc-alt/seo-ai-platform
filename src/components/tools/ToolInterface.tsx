@@ -17,7 +17,11 @@ import {
     MessageSquare,
     ShieldCheck,
     RefreshCw,
-    PenTool
+    PenTool,
+    Type,
+    LinkIcon,
+    Database,
+    ImageIcon
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -33,7 +37,11 @@ const IconMap: Record<string, LucideIcon> = {
     MessageSquare,
     ShieldCheck,
     RefreshCw,
-    PenTool
+    PenTool,
+    Type,
+    LinkIcon,
+    Database,
+    ImageIcon
 }
 
 interface ToolInterfaceProps {
