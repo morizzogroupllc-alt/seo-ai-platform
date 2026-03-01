@@ -792,6 +792,83 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Log link building for {{target_url}}...`,
         inputs: [{ id: 'target_url', label: 'Target URL', type: 'text', required: true }],
         outputFormat: 'text'
+    },
+    // --- CATEGORY 11: RANK & RENT AUTOMATION (PHASE 1 & 2) ---
+    'bulk-page-gen': {
+        id: 'bulk-page-gen',
+        name: 'Bulk Page Generator Programmatic',
+        description: 'Generates thousands of optimized local landing pages using programmatic templates.',
+        icon: 'Layers',
+        category: 'Rank & Rent',
+        promptTemplate: `Generate programmatic pages for {{niche}} targeting {{cities}}...`,
+        inputs: [
+            { id: 'niche', label: 'Niche/Service', type: 'text', required: true },
+            { id: 'cities', label: 'Cities List (one per line)', type: 'textarea', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'bulk-publisher-wp': {
+        id: 'bulk-publisher-wp',
+        name: 'Bulk Page Publisher WP Plugin',
+        description: 'Push programmatic pages directly to WordPress via REST API or plugin.',
+        icon: 'FileStack',
+        category: 'Rank & Rent',
+        promptTemplate: `Publish {{count}} pages to {{wp_url}}...`,
+        inputs: [
+            { id: 'wp_url', label: 'WordPress Site URL', type: 'text', required: true },
+            { id: 'count', label: 'Page Count', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'seo-slug-automation': {
+        id: 'seo-slug-automation',
+        name: 'SEO Slug Automation Tool',
+        description: 'Automatically generates SEO-friendly, keyword-rich URL slugs.',
+        icon: 'Link',
+        category: 'Rank & Rent',
+        promptTemplate: `Generate SEO slugs for: {{titles}}...`,
+        inputs: [{ id: 'titles', label: 'Page Titles', type: 'textarea', required: true }],
+        outputFormat: 'text'
+    },
+    'internal-linking-engine': {
+        id: 'internal-linking-engine',
+        name: 'Mass Internal Linking Engine',
+        description: 'AI-powered engine to build complex internal link silos between local pages.',
+        icon: 'Network',
+        category: 'Rank & Rent',
+        promptTemplate: `Build linking silo for {{site_map}}...`,
+        inputs: [{ id: 'site_map', label: 'Site Map/Pages', type: 'textarea', required: true }],
+        outputFormat: 'markdown'
+    },
+    'silo-hierarchy-builder': {
+        id: 'silo-hierarchy-builder',
+        name: 'Silo & Hierarchy Builder',
+        description: 'Designs the perfect site architecture for multi-location SEO dominance.',
+        icon: 'Layout',
+        category: 'Rank & Rent',
+        promptTemplate: `Design silo hierarchy for {{niche}}...`,
+        inputs: [{ id: 'niche', label: 'Niche', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'rank-rent-blueprint': {
+        id: 'rank-rent-blueprint',
+        name: 'Rank & Rent Website Blueprint',
+        description: 'Complete blueprint for high-converting Rank & Rent websites.',
+        icon: 'Map',
+        category: 'Rank & Rent',
+        promptTemplate: `Generate Rank & Rent blueprint for {{niche}}...`,
+        inputs: [{ id: 'niche', label: 'Niche', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'seo-safety-controller': {
+        id: 'seo-safety-controller',
+        name: 'Programmatic SEO Safety Controller',
+        description: 'Checks for footprint, thin content, and overkill to avoid penalties.',
+        icon: 'ShieldCheck',
+        category: 'Rank & Rent',
+        promptTemplate: `Check safety for programmatic project {{project_name}}...`,
+        inputs: [{ id: 'project_name', label: 'Project Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
     }
 }
 

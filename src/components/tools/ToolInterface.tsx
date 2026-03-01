@@ -57,7 +57,14 @@ import {
     CheckCircle2,
     Locate,
     Upload,
-    ExternalLink
+    ExternalLink,
+    Rocket,
+    Layers,
+    FileStack,
+    Link,
+    Network,
+    Layout,
+    ShieldCheck
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -113,7 +120,14 @@ const IconMap: Record<string, LucideIcon> = {
     CheckCircle2,
     Locate,
     Upload,
-    ExternalLink
+    ExternalLink,
+    Rocket,
+    Layers,
+    FileStack,
+    Link,
+    Network,
+    Layout,
+    ShieldCheck
 }
 
 interface ToolInterfaceProps {

@@ -71,7 +71,14 @@ import {
     CheckCircle2,
     Locate,
     Upload,
-    ExternalLink
+    ExternalLink,
+    Rocket,
+    Layers,
+    FileStack,
+    Link,
+    Network,
+    Layout,
+    ShieldCheck
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -218,6 +225,19 @@ const navigation: NavItem[] = [
             { name: 'Citation Auto Builder', href: '/dashboard/tools/citation-auto-builder', icon: Zap },
             { name: 'AI Link Building', href: '/dashboard/tools/ai-link-building', icon: Bot },
             { name: 'Link Manual Tracker', href: '/dashboard/tools/link-manual-tracker', icon: ClipboardList },
+        ]
+    },
+    {
+        name: 'Rank & Rent',
+        icon: Rocket,
+        children: [
+            { name: 'Bulk Page Gen', href: '/dashboard/tools/bulk-page-gen', icon: Layers },
+            { name: 'Bulk Publisher (WP)', href: '/dashboard/tools/bulk-publisher-wp', icon: FileStack },
+            { name: 'SEO Slug Automation', href: '/dashboard/tools/seo-slug-automation', icon: Link },
+            { name: 'Internal Link Engine', href: '/dashboard/tools/internal-linking-engine', icon: Network },
+            { name: 'Silo & Hierarchy', href: '/dashboard/tools/silo-hierarchy-builder', icon: Layout },
+            { name: 'Rank & Rent Blueprint', href: '/dashboard/tools/rank-rent-blueprint', icon: Map },
+            { name: 'SEO Safety Controller', href: '/dashboard/tools/seo-safety-controller', icon: ShieldCheck },
         ]
     },
 ]
