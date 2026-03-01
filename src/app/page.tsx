@@ -14,7 +14,7 @@ export default function Home() {
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-2xl shadow-indigo-500/40">
             <span className="text-white font-black text-2xl italic">S</span>
           </div>
-          <span className="text-xl font-black tracking-tighter text-white uppercase italic">SemanticsX</span>
+          <span className="text-xl font-black tracking-tighter text-white uppercase italic">SEO AI Platform</span>
         </div>
         <div className="flex space-x-8 text-xs font-bold uppercase tracking-widest text-slate-400">
           <span className="hover:text-white cursor-pointer transition-colors">Features</span>

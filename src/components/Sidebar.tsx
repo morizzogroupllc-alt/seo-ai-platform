@@ -15,10 +15,10 @@ import {
     Settings,
     DollarSign,
     BarChart3,
-    FileText
+    FileText,
+    LucideIcon
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { LucideIcon } from 'lucide-react'
 
 interface NavItem {
     name: string
@@ -74,7 +74,10 @@ export default function Sidebar() {
                 <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
                     <span className="text-white font-bold text-xl italic">S</span>
                 </div>
-                <span className="text-white font-bold text-xl tracking-tight">SemanticsX</span>
+                <div className="flex flex-col">
+                    <span className="text-white font-black text-lg tracking-tighter leading-none">SEO AI</span>
+                    <span className="text-[10px] text-indigo-400 font-black uppercase tracking-[0.2em] leading-none mt-0.5">Platform</span>
+                </div>
             </div>
 
             {/* Navigation */}
@@ -82,7 +85,7 @@ export default function Sidebar() {
                 {navigation.map((item) => {
                     const hasChildren = !!item.children
                     const isOpen = openMenus.includes(item.name)
-                    const isActive = pathname === item.href
+                    const isActive = pathname === item.href || item.children?.some(c => c.href === pathname && pathname !== '#')
 
                     return (
                         <div key={item.name}>
@@ -91,11 +94,11 @@ export default function Sidebar() {
                                     onClick={() => toggleMenu(item.name)}
                                     className={cn(
                                         "w-full flex items-center justify-between p-3 rounded-xl transition-all group",
-                                        isOpen ? "text-white" : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                                        isOpen || isActive ? "text-white" : "text-slate-400 hover:text-white hover:bg-slate-800/50"
                                     )}
                                 >
                                     <div className="flex items-center space-x-3">
-                                        <item.icon size={20} className={cn(isOpen ? "text-indigo-400" : "text-slate-500 group-hover:text-slate-300")} />
+                                        <item.icon size={20} className={cn(isOpen || isActive ? "text-indigo-400" : "text-slate-500 group-hover:text-slate-300")} />
                                         <span className="text-sm font-medium">{item.name}</span>
                                     </div>
                                     {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
@@ -124,7 +127,7 @@ export default function Sidebar() {
                                             href={child.href}
                                             className={cn(
                                                 "flex items-center space-x-3 p-2 rounded-lg text-sm transition-all",
-                                                pathname === child.href
+                                                pathname === child.href && child.href !== '#'
                                                     ? "bg-indigo-600/20 text-indigo-400 font-medium"
                                                     : "text-slate-500 hover:text-white hover:bg-slate-800/30"
                                             )}
