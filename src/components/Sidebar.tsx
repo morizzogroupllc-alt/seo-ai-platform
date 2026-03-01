@@ -24,7 +24,12 @@ import {
     MousePointer2,
     Share2,
     Image as ImageIcon,
-    Code
+    Code,
+    Layout,
+    Cloud,
+    Rocket,
+    Server,
+    Hammer
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -42,6 +47,24 @@ interface NavItem {
 const navigation: NavItem[] = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
     {
+        name: 'Website Builder',
+        icon: Layout,
+        children: [
+            { name: 'AI Elementor Generator (#108)', href: '/dashboard/tools/ai-elementor-gen', icon: Cpu },
+            { name: 'AI Website Generator WP (#1)', href: '/dashboard/tools/ai-website-gen-wp', icon: Globe },
+            { name: 'SEO Structure Enforcer (#2)', href: '/dashboard/tools/seo-structure-enforcer', icon: Hammer },
+            { name: 'Homepage Layout Builder (#3)', href: '/dashboard/tools/homepage-layout-builder', icon: Layout },
+            { name: 'Service Page Generator (#4)', href: '/dashboard/tools/service-page-gen', icon: Layers },
+            { name: 'Location Page Generator (#5)', href: '/dashboard/tools/location-page-gen', icon: MapPin },
+            { name: 'Near-Me Page Generator (#6)', href: '/dashboard/tools/near-me-page-gen', icon: Search },
+            { name: 'Elementor Section Builder (#7)', href: '/dashboard/tools/elementor-section-builder', icon: Code },
+            { name: 'Static Website Gen (#101)', href: '/dashboard/tools/static-site-gen', icon: Globe },
+            { name: 'Netlify/Vercel Hosting (#102)', href: '/dashboard/tools/auto-hosting', icon: Cloud },
+            { name: 'Hosting Presets (#103)', href: '/dashboard/tools/hosting-presets', icon: Server },
+            { name: 'WP Migration Tool (#104)', href: '/dashboard/tools/wp-migration', icon: Rocket },
+        ]
+    },
+    {
         name: 'Local SEO',
         icon: Heart,
         children: [
@@ -51,38 +74,11 @@ const navigation: NavItem[] = [
             { name: 'Local Rank Tracker', href: '#', icon: Search },
         ]
     },
-    {
-        name: 'AI Website Builder',
-        icon: Globe,
-        children: [
-            { name: 'AI Page Generator', href: '#', icon: Cpu },
-            { name: 'Service Area Pages', href: '#', icon: MousePointer2 },
-            { name: 'Schema Injector', href: '#', icon: Code },
-        ]
-    },
-    {
-        name: 'Content Engine',
-        icon: PenTool,
-        children: [
-            { name: 'AI Blog Writer', href: '#', icon: FileText },
-            { name: 'Social Post Gen', href: '#', icon: Share2 },
-            { name: 'AI Image Gen', href: '#', icon: ImageIcon },
-        ]
-    },
-    {
-        name: 'Technical SEO',
-        icon: Layers,
-        children: [
-            { name: 'Bulk Site Audit', href: '#', icon: BarChart3 },
-            { name: 'Speed Optimizer', href: '#', icon: Zap },
-        ]
-    },
-    { name: 'Marketplace', icon: ShoppingBag, href: '#' },
 ]
 
 export default function Sidebar() {
     const pathname = usePathname()
-    const [openMenus, setOpenMenus] = useState<string[]>(['Local SEO', 'AI Website Builder'])
+    const [openMenus, setOpenMenus] = useState<string[]>(['Website Builder'])
 
     const toggleMenu = (name: string) => {
         setOpenMenus(prev =>
@@ -110,7 +106,7 @@ export default function Sidebar() {
                 {navigation.map((item) => {
                     const hasChildren = !!item.children
                     const isOpen = openMenus.includes(item.name)
-                    const isActive = pathname === item.href || item.children?.some(c => c.href === pathname && pathname !== '#')
+                    const isActive = pathname === item.href || item.children?.some(c => c.href === pathname && c.href !== '#')
 
                     return (
                         <div key={item.name}>
@@ -158,7 +154,7 @@ export default function Sidebar() {
                                             )}
                                         >
                                             {child.icon && <child.icon size={16} />}
-                                            <span>{child.name}</span>
+                                            <span className="truncate">{child.name}</span>
                                         </Link>
                                     ))}
                                 </div>
