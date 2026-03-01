@@ -227,7 +227,7 @@ const navigation: NavItem[] = [
         children: [
             { name: 'Bulk Page Gen', href: '/dashboard/tools/bulk-page-gen', icon: Layers },
             { name: 'Bulk Publisher (WP)', href: '/dashboard/tools/bulk-publisher-wp', icon: FileStack },
-            { name: 'SEO Slug Automation', href: '/dashboard/tools/seo-slug-automation', icon: Link },
+            { name: 'SEO Slug Automation', href: '/dashboard/tools/seo-slug-automation', icon: LinkIcon },
             { name: 'Internal Link Engine', href: '/dashboard/tools/internal-linking-engine', icon: Network },
             { name: 'Silo & Hierarchy', href: '/dashboard/tools/silo-hierarchy-builder', icon: Layout },
             { name: 'Rank & Rent Blueprint', href: '/dashboard/tools/rank-rent-blueprint', icon: Map },

@@ -19,7 +19,7 @@ import {
     RefreshCw,
     PenTool,
     Type,
-    LinkIcon,
+    Link as LinkIcon,
     Database,
     ImageIcon,
     Activity,
@@ -60,7 +60,8 @@ import {
     ExternalLink,
     Rocket,
     Layers,
-    FileStack
+    FileStack,
+    Layout
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -120,7 +121,8 @@ const IconMap: Record<string, LucideIcon> = {
     Rocket,
     Layers,
     FileStack,
-    Link: LinkIcon
+    Link: LinkIcon,
+    Layout
 }
 
 interface ToolInterfaceProps {
