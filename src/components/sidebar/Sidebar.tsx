@@ -159,10 +159,34 @@ export default function Sidebar() {
                                         </Link>
 
                                         {isExpanded && (
-                                            <div className="ml-10 py-1 space-y-1 border-l border-white/10">
-                                                <div className="px-4 py-2 text-[11px] font-medium text-slate-500 italic">
-                                                    Tools coming soon...
-                                                </div>
+                                            <div className="ml-4 py-1 space-y-1 border-l border-white/10">
+                                                {phase.id === 'research' ? (
+                                                    <div className="space-y-1">
+                                                        {[
+                                                            { name: 'Niche Finder', href: '/research', active: pathname === '/research' },
+                                                            { name: 'SERP Analyzer', href: '/research/serp', soon: true },
+                                                            { name: 'Competitor', href: '/research/competitor', soon: true },
+                                                            { name: 'Keywords', href: '/research/keywords', soon: true },
+                                                        ].map((sub) => (
+                                                            <div key={sub.name} className="flex items-center">
+                                                                <Link
+                                                                    href={sub.soon ? '#' : sub.href}
+                                                                    className={cn(
+                                                                        "flex-1 flex items-center justify-between pl-8 pr-4 py-1.5 text-xs font-medium transition-colors",
+                                                                        sub.active ? "text-purple-400" : "text-gray-400 hover:text-white"
+                                                                    )}
+                                                                >
+                                                                    <span>{sub.name}</span>
+                                                                    {sub.soon && <span className="text-[8px] bg-white/5 px-1 rounded text-gray-600">Soon</span>}
+                                                                </Link>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <div className="px-4 py-2 text-[11px] font-medium text-slate-500 italic">
+                                                        Tools coming soon...
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </div>
