@@ -72,7 +72,8 @@ import {
     Locate,
     Upload,
     ExternalLink,
-    FileStack
+    FileStack,
+    Play
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -241,6 +242,21 @@ const navigation: NavItem[] = [
             { name: 'Image Geo-Tagging', href: '/dashboard/tools/image-geo-tagging', icon: MapPin },
             { name: 'Image Compression', href: '/dashboard/tools/image-compression', icon: Zap },
             { name: 'GMB Image Optimizer', href: '/dashboard/tools/gmb-image-optimizer', icon: ImageIcon },
+        ]
+    },
+    {
+        name: 'Automation & Social',
+        icon: Bot,
+        children: [
+            { name: '1-Click Automation', href: '/dashboard/tools/full-seo-automation', icon: Zap },
+            { name: 'GMB Auto-Responder', href: '/dashboard/tools/gmb-auto-responder', icon: MessageCircle },
+            { name: 'GMB Social Auto', href: '/dashboard/tools/gmb-social-auto', icon: Share2 },
+            { name: 'Review Outreach', href: '/dashboard/tools/review-outreach', icon: Mail },
+            { name: 'Heatmap Analysis', href: '/dashboard/tools/heatmap-analysis', icon: Grid3X3 },
+            { name: 'Social Connector', href: '/dashboard/tools/social-connector', icon: TrendingUp },
+            { name: 'Video SEO Script', href: '/dashboard/tools/video-seo-script', icon: Play },
+            { name: 'Local PPC Gen', href: '/dashboard/tools/local-ppc-gen', icon: DollarSign },
+            { name: 'Fast Indexing Pusher', href: '/dashboard/tools/indexing-pusher', icon: Send },
         ]
     },
 ]

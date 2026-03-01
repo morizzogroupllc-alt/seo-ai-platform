@@ -910,6 +910,109 @@ export const toolRegistry: Record<string, ToolConfig> = {
             { id: 'city', label: 'City', type: 'text', required: true }
         ],
         outputFormat: 'text'
+    },
+    // --- CATEGORY 13: AUTOMATION & SOCIAL (PHASE 2 & 3) ---
+    'full-seo-automation': {
+        id: 'full-seo-automation',
+        name: '1-Click Full Local SEO Automation',
+        description: 'Runs a complete sequence of SEO tasks (audit, on-page, citations, schema) for a business in one click.',
+        icon: 'Zap',
+        category: 'Automation & Social',
+        promptTemplate: `Automate full SEO for {{business_name}} at {{website}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'website', label: 'Website URL', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'gmb-auto-responder': {
+        id: 'gmb-auto-responder',
+        name: 'GMB Messaging Auto-Responder',
+        description: 'AI-powered auto-responder for GBP messages to improve response time scores.',
+        icon: 'MessageCircle',
+        category: 'Automation & Social',
+        promptTemplate: `Generate auto-response for GBP message: {{message_text}}...`,
+        inputs: [{ id: 'message_text', label: 'Inbound Message', type: 'textarea', required: true }],
+        outputFormat: 'text'
+    },
+    'gmb-social-auto': {
+        id: 'gmb-social-auto',
+        name: 'GMB Post-to-Social Automation',
+        description: 'Automatically cross-posts your GBP updates to Facebook, Instagram, and X.',
+        icon: 'Share2',
+        category: 'Automation & Social',
+        promptTemplate: `Format GBP post for social sharing: {{post_content}}...`,
+        inputs: [{ id: 'post_content', label: 'GBP Post Content', type: 'textarea', required: true }],
+        outputFormat: 'text'
+    },
+    'review-outreach': {
+        id: 'review-outreach',
+        name: 'Automated Review Outreach',
+        description: 'Sends automated requests and reminders to customers for new reviews.',
+        icon: 'Mail',
+        category: 'Automation & Social',
+        promptTemplate: `Create review request sequence for {{customer_name}}...`,
+        inputs: [{ id: 'customer_name', label: 'Customer Name', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'heatmap-analysis': {
+        id: 'heatmap-analysis',
+        name: 'Local Business Heatmap Analysis',
+        description: 'Generates ranking heatmaps across a service area to identify weak spots.',
+        icon: 'Grid3X3',
+        category: 'Automation & Social',
+        promptTemplate: `Generate heatmap report for {{keyword}} in {{city}}...`,
+        inputs: [
+            { id: 'keyword', label: 'Keyword', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'social-connector': {
+        id: 'social-connector',
+        name: 'Social Signal Local Connector',
+        description: 'Builds social signals and local brand mentions to boost authority.',
+        icon: 'TrendingUp',
+        category: 'Automation & Social',
+        promptTemplate: `Build social signals for {{brand_name}}...`,
+        inputs: [{ id: 'brand_name', label: 'Brand Name', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'video-seo-script': {
+        id: 'video-seo-script',
+        name: 'Video SEO for Local Script Gen',
+        description: 'Generates high-converting scripts for local business promo videos.',
+        icon: 'Play',
+        category: 'Automation & Social',
+        promptTemplate: `Write video script for {{business_type}} in {{city}}...`,
+        inputs: [
+            { id: 'business_type', label: 'Business Type', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'local-ppc-gen': {
+        id: 'local-ppc-gen',
+        name: 'Local PPC Campaign Generator',
+        description: 'Creates perfect Google/FB Ads campaigns for local lead generation.',
+        icon: 'DollarSign',
+        category: 'Automation & Social',
+        promptTemplate: `Generate PPC campaign for {{service}} targeting {{radius}}...`,
+        inputs: [
+            { id: 'service', label: 'Service', type: 'text', required: true },
+            { id: 'radius', label: 'Target Radius (miles)', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'indexing-pusher': {
+        id: 'indexing-pusher',
+        name: 'Fast Indexing & URL Pusher',
+        description: 'Force-indexes new pages and backlinks using API-level indexing tools.',
+        icon: 'Send',
+        category: 'Automation & Social',
+        promptTemplate: `Submit for indexing: {{urls}}...`,
+        inputs: [{ id: 'urls', label: 'URLs to Index (one per line)', type: 'textarea', required: true }],
+        outputFormat: 'text'
     }
 }
 

@@ -61,7 +61,8 @@ import {
     Rocket,
     Layers,
     FileStack,
-    Layout
+    Layout,
+    Play
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -122,7 +123,8 @@ const IconMap: Record<string, LucideIcon> = {
     Layers,
     FileStack,
     Link: LinkIcon,
-    Layout
+    Layout,
+    Play
 }
 
 interface ToolInterfaceProps {
