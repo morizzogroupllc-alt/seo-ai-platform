@@ -869,6 +869,47 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Check safety for programmatic project {{project_name}}...`,
         inputs: [{ id: 'project_name', label: 'Project Name', type: 'text', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 12: IMAGE OPTIMIZATION (PHASE 2) ---
+    'image-geo-tagging': {
+        id: 'image-geo-tagging',
+        name: 'Image Geo-Tagging Tool',
+        description: 'Injects GPS coordinates and location metadata into images for local SEO.',
+        icon: 'MapPin',
+        category: 'Image Optimization',
+        promptTemplate: `Generate geo-tagging metadata for image at {{city}}, {{state}}. Coordinates: {{latitude}}, {{longitude}}...`,
+        inputs: [
+            { id: 'city', label: 'City', type: 'text', required: true },
+            { id: 'latitude', label: 'Latitude', type: 'text', required: true },
+            { id: 'longitude', label: 'Longitude', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'image-compression': {
+        id: 'image-compression',
+        name: 'Image Compression & SEO Tool',
+        description: 'Compresses images without quality loss and optimizes filename/ALT tags.',
+        icon: 'Zap',
+        category: 'Image Optimization',
+        promptTemplate: `Optimize image for SEO: {{filename}}, Niche: {{niche}}...`,
+        inputs: [
+            { id: 'filename', label: 'Original Filename', type: 'text', required: true },
+            { id: 'niche', label: 'Niche/Keyword', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'gmb-image-optimizer': {
+        id: 'gmb-image-optimizer',
+        name: 'GMB Image Optimizer & Metadata',
+        description: 'Prepares images specifically for Google Business Profile with optimal metadata.',
+        icon: 'ImageIcon',
+        category: 'Image Optimization',
+        promptTemplate: `Optimize GMB image for {{business_name}} in {{city}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
     }
 }
 

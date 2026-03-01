@@ -234,6 +234,15 @@ const navigation: NavItem[] = [
             { name: 'SEO Safety Controller', href: '/dashboard/tools/seo-safety-controller', icon: ShieldCheck },
         ]
     },
+    {
+        name: 'Image Optimization',
+        icon: ImageIcon,
+        children: [
+            { name: 'Image Geo-Tagging', href: '/dashboard/tools/image-geo-tagging', icon: MapPin },
+            { name: 'Image Compression', href: '/dashboard/tools/image-compression', icon: Zap },
+            { name: 'GMB Image Optimizer', href: '/dashboard/tools/gmb-image-optimizer', icon: ImageIcon },
+        ]
+    },
 ]
 
 export default function Sidebar() {
