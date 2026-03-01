@@ -28,7 +28,16 @@ import {
     Network,
     Bot,
     ClipboardCheck,
-    MonitorCheck
+    MonitorCheck,
+    FileCheck,
+    ShieldAlert,
+    MessageSquareQuote,
+    Send,
+    Tags,
+    Eye,
+    Copy,
+    ClipboardList,
+    BarChart3
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -55,7 +64,16 @@ const IconMap: Record<string, LucideIcon> = {
     Network,
     Bot,
     ClipboardCheck,
-    MonitorCheck
+    MonitorCheck,
+    FileCheck,
+    ShieldAlert,
+    MessageSquareQuote,
+    Send,
+    Tags,
+    Eye,
+    Copy,
+    ClipboardList,
+    BarChart3
 }
 
 interface ToolInterfaceProps {

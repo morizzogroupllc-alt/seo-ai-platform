@@ -382,6 +382,132 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Complete Local SEO audit for {{url}}...`,
         inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 6: GBP MANAGEMENT (PHASE 2) ---
+    'gbp-audit': {
+        id: 'gbp-audit',
+        name: 'GBP Audit Tool',
+        description: 'Full Google Business Profile audit + suggestions.',
+        icon: 'FileCheck',
+        category: 'GBP Management',
+        promptTemplate: `Audit GBP for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'gbp-insights': {
+        id: 'gbp-insights',
+        name: 'GBP Insights Analyzer',
+        description: 'Views, calls, clicks trends from GBP data.',
+        icon: 'BarChart3',
+        category: 'GBP Management',
+        promptTemplate: `Analyze GBP insights for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'gbp-spam-fighter': {
+        id: 'gbp-spam-fighter',
+        name: 'GBP Spam Fighter/Detector',
+        description: 'Detects spam GBP tactics & suspension risks.',
+        icon: 'ShieldAlert',
+        category: 'GBP Management',
+        promptTemplate: `Detect GBP spam for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'gbp-qa-responder': {
+        id: 'gbp-qa-responder',
+        name: 'GBP Q&A Auto-Responder',
+        description: 'AI generates GBP Q&A with approval workflow.',
+        icon: 'MessageSquareQuote',
+        category: 'GBP Management',
+        promptTemplate: `Respond to GBP Q&A for {{question}}...`,
+        inputs: [{ id: 'question', label: 'Question', type: 'textarea', required: true }],
+        outputFormat: 'text'
+    },
+    'gbp-post-gen': {
+        id: 'gbp-post-gen',
+        name: 'GBP Post Generator',
+        description: 'AI post templates + scheduling for GBP.',
+        icon: 'Send',
+        category: 'GBP Management',
+        promptTemplate: `Generate GBP post for {{topic}}...`,
+        inputs: [{ id: 'topic', label: 'Post Topic', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'gbp-ai-agent': {
+        id: 'gbp-ai-agent',
+        name: 'GBP AI Agent (Auto Management)',
+        description: 'Unified AI bot managing posts/reviews/Q&A.',
+        icon: 'Bot',
+        category: 'GBP Management',
+        promptTemplate: `AI Agent task for {{business_name}}: {{task}}...`,
+        inputs: [
+            { id: 'task', label: 'Task Description', type: 'textarea', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'gmb-category-finder': {
+        id: 'gmb-category-finder',
+        name: 'GMB Category Finder',
+        description: 'Correct GMB category suggestions.',
+        icon: 'Tags',
+        category: 'GBP Management',
+        promptTemplate: `Find GMB categories for {{business_type}}...`,
+        inputs: [{ id: 'business_type', label: 'Business Type', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'competitor-gbp-spy': {
+        id: 'competitor-gbp-spy',
+        name: 'Competitor GBP Spy',
+        description: 'Spy competitor reviews, services, keywords.',
+        icon: 'Eye',
+        category: 'GBP Management',
+        promptTemplate: `Spy on competitor {{competitor_name}}...`,
+        inputs: [{ id: 'competitor_name', label: 'Competitor Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'duplicate-gbp-detector': {
+        id: 'duplicate-gbp-detector',
+        name: 'Duplicate GBP Detector',
+        description: 'Finds & helps merge duplicate GBP listings.',
+        icon: 'Copy',
+        category: 'GBP Management',
+        promptTemplate: `Find duplicates for {{business_name}} at {{address}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'address', label: 'Address', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'gbp-website-builder': {
+        id: 'gbp-website-builder',
+        name: 'GBP Website Builder',
+        description: 'AI-generated SEO-optimized GBP built-in website.',
+        icon: 'Globe',
+        category: 'GBP Management',
+        promptTemplate: `Build GBP website for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'html'
+    },
+    'gmb-full-audit': {
+        id: 'gmb-full-audit',
+        name: 'GMB Full Audit Tool',
+        description: 'Complete GMB audit with report & improvement plan.',
+        icon: 'ClipboardList',
+        category: 'GBP Management',
+        promptTemplate: `Full GMB Audit for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'review-aggregator': {
+        id: 'review-aggregator',
+        name: 'Multi-Platform Review Aggregator',
+        description: 'Google + Yelp + Facebook reviews in one dashboard.',
+        icon: 'MessageSquare',
+        category: 'GBP Management',
+        promptTemplate: `Aggregate reviews for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
     }
 }
 

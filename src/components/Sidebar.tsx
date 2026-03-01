@@ -43,7 +43,15 @@ import {
     Network,
     Bot,
     ClipboardCheck,
-    MonitorCheck
+    MonitorCheck,
+    FileCheck,
+    ShieldAlert,
+    MessageSquareQuote,
+    Send,
+    Tags,
+    Eye,
+    Copy,
+    ClipboardList
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -122,6 +130,24 @@ const navigation: NavItem[] = [
             { name: 'Robots.txt Generator', href: '/dashboard/tools/robots-gen', icon: Bot },
             { name: 'Technical SEO Audit', href: '/dashboard/tools/tech-audit', icon: ClipboardCheck },
             { name: 'Full Website Audit', href: '/dashboard/tools/full-site-audit', icon: MonitorCheck },
+        ]
+    },
+    {
+        name: 'GBP Management',
+        icon: MapPin,
+        children: [
+            { name: 'GBP Audit Tool', href: '/dashboard/tools/gbp-audit', icon: FileCheck },
+            { name: 'GBP Insights Analyzer', href: '/dashboard/tools/gbp-insights', icon: BarChart3 },
+            { name: 'GBP Spam Fighter', href: '/dashboard/tools/gbp-spam-fighter', icon: ShieldAlert },
+            { name: 'GBP Q&A Responder', href: '/dashboard/tools/gbp-qa-responder', icon: MessageSquareQuote },
+            { name: 'GBP Post Generator', href: '/dashboard/tools/gbp-post-gen', icon: Send },
+            { name: 'GBP AI Agent', href: '/dashboard/tools/gbp-ai-agent', icon: Bot },
+            { name: 'GMB Category Finder', href: '/dashboard/tools/gmb-category-finder', icon: Tags },
+            { name: 'Competitor GBP Spy', href: '/dashboard/tools/competitor-gbp-spy', icon: Eye },
+            { name: 'Duplicate GBP Detector', href: '/dashboard/tools/duplicate-gbp-detector', icon: Copy },
+            { name: 'GBP Website Builder', href: '/dashboard/tools/gbp-website-builder', icon: Globe },
+            { name: 'GMB Full Audit', href: '/dashboard/tools/gmb-full-audit', icon: ClipboardList },
+            { name: 'Review Aggregator', href: '/dashboard/tools/review-aggregator', icon: MessageSquare },
         ]
     },
     {
