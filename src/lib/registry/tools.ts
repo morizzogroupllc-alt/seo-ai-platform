@@ -675,6 +675,123 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Estimate difficulty for keywords: {{keywords}}...`,
         inputs: [{ id: 'keywords', label: 'Keywords', type: 'textarea', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 10: CITATIONS & OFF-PAGE (PHASE 2) ---
+    'nap-consistency': {
+        id: 'nap-consistency',
+        name: 'NAP Consistency Checker',
+        description: 'Checks Name, Address, Phone consistency across major directories.',
+        icon: 'CheckCircle2',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Check NAP consistency for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'citation-finder': {
+        id: 'citation-finder',
+        name: 'Citation Finder',
+        description: 'Finds niche-specific and local directory citation opportunities.',
+        icon: 'Locate',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Find citations for {{niche}} in {{city}}...`,
+        inputs: [
+            { id: 'niche', label: 'Niche', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'citation-tracker': {
+        id: 'citation-tracker',
+        name: 'Citation Tracker',
+        description: 'Track your live citations and their indexation status.',
+        icon: 'Activity',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Track citations for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'auto-citation-builder': {
+        id: 'auto-citation-builder',
+        name: 'Auto Citation Builder/Submitter',
+        description: 'Automated submission tool for local citations.',
+        icon: 'Upload',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Submit citations for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'duplicate-resolver': {
+        id: 'duplicate-resolver',
+        name: 'Duplicate Listings Resolver',
+        description: 'Find and fix duplicate citation listings automatically.',
+        icon: 'Copy',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Resolve duplicates for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'knowledge-graph-opt': {
+        id: 'knowledge-graph-opt',
+        name: 'Knowledge Graph Optimizer',
+        description: 'Optimize your business for Google Knowledge Graph.',
+        icon: 'Share2',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Optimize Knowledge Graph for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'business-info-sync': {
+        id: 'business-info-sync',
+        name: 'Business Info Sync Tool',
+        description: 'Sync NAP updates across all platforms simultaneously.',
+        icon: 'RefreshCw',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Sync business info for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'local-backlink-finder': {
+        id: 'local-backlink-finder',
+        name: 'Hyper-Local Backlink Finder',
+        description: 'Find local sponsorship and backlink opportunities.',
+        icon: 'ExternalLink',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Find local backlinks in {{city}} for {{niche}}...`,
+        inputs: [
+            { id: 'city', label: 'City', type: 'text', required: true },
+            { id: 'niche', label: 'Niche', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'citation-auto-builder': {
+        id: 'citation-auto-builder',
+        name: 'Local Citation Auto Builder',
+        description: 'AI-assisted automatic citation generation.',
+        icon: 'Zap',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Build citations for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'ai-link-building': {
+        id: 'ai-link-building',
+        name: 'Link Building Auto AI-assisted',
+        description: 'AI generates outreach templates and finds targets.',
+        icon: 'Bot',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Start link building for {{topic}}...`,
+        inputs: [{ id: 'topic', label: 'Topic', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'link-manual-tracker': {
+        id: 'link-manual-tracker',
+        name: 'Link Building Manual Tracker',
+        description: 'Manual tracking dashboard for link building outreach.',
+        icon: 'ClipboardList',
+        category: 'Citations & Off-Page',
+        promptTemplate: `Log link building for {{target_url}}...`,
+        inputs: [{ id: 'target_url', label: 'Target URL', type: 'text', required: true }],
+        outputFormat: 'text'
     }
 }
 

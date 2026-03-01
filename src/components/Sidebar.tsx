@@ -66,7 +66,12 @@ import {
     Telescope,
     Key,
     Combine,
-    BarChart
+    BarChart,
+    Link2,
+    CheckCircle2,
+    Locate,
+    Upload,
+    ExternalLink
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -196,6 +201,23 @@ const navigation: NavItem[] = [
             { name: 'Local Keyword Gen', href: '/dashboard/tools/local-keyword-gen', icon: Key },
             { name: 'Service+City Combiner', href: '/dashboard/tools/service-city-kw-combiner', icon: Combine },
             { name: 'Difficulty Estimator', href: '/dashboard/tools/keyword-difficulty-estimator', icon: BarChart },
+        ]
+    },
+    {
+        name: 'Citations & Off-Page',
+        icon: Link2,
+        children: [
+            { name: 'NAP Consistency Check', href: '/dashboard/tools/nap-consistency', icon: CheckCircle2 },
+            { name: 'Citation Finder', href: '/dashboard/tools/citation-finder', icon: Locate },
+            { name: 'Citation Tracker', href: '/dashboard/tools/citation-tracker', icon: Activity },
+            { name: 'Auto Citation Builder', href: '/dashboard/tools/auto-citation-builder', icon: Upload },
+            { name: 'Duplicate Resolver', href: '/dashboard/tools/duplicate-resolver', icon: Copy },
+            { name: 'Knowledge Graph Opt', href: '/dashboard/tools/knowledge-graph-opt', icon: Share2 },
+            { name: 'Business Info Sync', href: '/dashboard/tools/business-info-sync', icon: RefreshCw },
+            { name: 'Local Backlink Finder', href: '/dashboard/tools/local-backlink-finder', icon: ExternalLink },
+            { name: 'Citation Auto Builder', href: '/dashboard/tools/citation-auto-builder', icon: Zap },
+            { name: 'AI Link Building', href: '/dashboard/tools/ai-link-building', icon: Bot },
+            { name: 'Link Manual Tracker', href: '/dashboard/tools/link-manual-tracker', icon: ClipboardList },
         ]
     },
 ]

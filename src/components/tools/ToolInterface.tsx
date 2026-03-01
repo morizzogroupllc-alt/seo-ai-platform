@@ -52,7 +52,12 @@ import {
     Telescope,
     Key,
     Combine,
-    BarChart
+    BarChart,
+    Link2,
+    CheckCircle2,
+    Locate,
+    Upload,
+    ExternalLink
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -103,7 +108,12 @@ const IconMap: Record<string, LucideIcon> = {
     Telescope,
     Key,
     Combine,
-    BarChart
+    BarChart,
+    Link2,
+    CheckCircle2,
+    Locate,
+    Upload,
+    ExternalLink
 }
 
 interface ToolInterfaceProps {
