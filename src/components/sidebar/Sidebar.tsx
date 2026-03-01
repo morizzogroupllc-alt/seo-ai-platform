@@ -69,7 +69,7 @@ export default function Sidebar() {
 
             {/* Sidebar Content */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-40 w-64 bg-[#0F0C29] border-r border-white/5 flex flex-col transition-transform duration-300",
+                "fixed inset-y-0 left-0 z-40 w-56 bg-[#0F0C29] border-r border-white/5 flex flex-col transition-transform duration-300",
                 isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
             )}>
                 {/* Header Section */}
