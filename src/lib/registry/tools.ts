@@ -35,7 +35,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     // --- CATEGORY 1: WEBSITE BUILDER ---
     'ai-elementor-gen': {
         id: 'ai-elementor-gen',
-        name: 'AI Elementor Auto Page Generator (#108)',
+        name: 'AI Elementor Auto Page Generator',
         description: 'Generates full Elementor page JSON structure.',
         icon: 'Cpu',
         category: 'Website Builder',
@@ -45,7 +45,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'ai-website-gen-wp': {
         id: 'ai-website-gen-wp',
-        name: 'AI Website Generator WP + Elementor (#1)',
+        name: 'AI Website Generator WP + Elementor',
         description: 'Wordpress + Elementor based full website generator.',
         icon: 'Globe',
         category: 'Website Builder',
@@ -55,7 +55,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'seo-structure-enforcer': {
         id: 'seo-structure-enforcer',
-        name: 'Local SEO Structure Enforcer (#2)',
+        name: 'Local SEO Structure Enforcer',
         description: 'Enforces course-based locked structure on site.',
         icon: 'Hammer',
         category: 'Website Builder',
@@ -65,7 +65,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'homepage-layout-builder': {
         id: 'homepage-layout-builder',
-        name: 'Homepage SEO Layout Builder (#3)',
+        name: 'Homepage SEO Layout Builder',
         description: 'AI generates SEO-friendly homepage layout.',
         icon: 'Layout',
         category: 'Website Builder',
@@ -75,7 +75,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'service-page-gen': {
         id: 'service-page-gen',
-        name: 'Service Page Generator (#4)',
+        name: 'Service Page Generator',
         description: 'Auto-creates multiple service-specific pages.',
         icon: 'Layers',
         category: 'Website Builder',
@@ -85,7 +85,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'location-page-gen': {
         id: 'location-page-gen',
-        name: 'Location Page Generator (#5)',
+        name: 'Location Page Generator',
         description: 'City/area-specific location pages with NAP.',
         icon: 'MapPin',
         category: 'Website Builder',
@@ -95,7 +95,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'near-me-page-gen': {
         id: 'near-me-page-gen',
-        name: 'Near-Me Page Generator (#6)',
+        name: 'Near-Me Page Generator',
         description: 'Near-me intent search targeted pages.',
         icon: 'Search',
         category: 'Website Builder',
@@ -105,7 +105,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'elementor-section-builder': {
         id: 'elementor-section-builder',
-        name: 'Elementor Section Auto-Builder (#7)',
+        name: 'Elementor Section Auto-Builder',
         description: 'AI generates Elementor widgets automatically.',
         icon: 'Code',
         category: 'Website Builder',
@@ -115,7 +115,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'static-site-gen': {
         id: 'static-site-gen',
-        name: 'Static Website Generator HTML (#101)',
+        name: 'Static Website Generator HTML',
         description: 'Generates 20+ page static niche site in minutes.',
         icon: 'Globe',
         category: 'Website Builder',
@@ -125,7 +125,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'auto-hosting': {
         id: 'auto-hosting',
-        name: 'Netlify / Vercel Auto Hosting (#102)',
+        name: 'Netlify / Vercel Auto Hosting',
         description: 'One-click deploy to free cloud hosting.',
         icon: 'Cloud',
         category: 'Website Builder',
@@ -135,7 +135,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'hosting-presets': {
         id: 'hosting-presets',
-        name: 'Ultra-Fast Hosting Presets (#103)',
+        name: 'Ultra-Fast Hosting Presets',
         description: 'Pre-configured cloud hosting settings.',
         icon: 'Server',
         category: 'Website Builder',
@@ -145,7 +145,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
     },
     'wp-migration': {
         id: 'wp-migration',
-        name: 'Static → WordPress Migration Tool (#104)',
+        name: 'Static → WordPress Migration Tool',
         description: 'Converts static site to WP when it ranks.',
         icon: 'Rocket',
         category: 'Website Builder',
