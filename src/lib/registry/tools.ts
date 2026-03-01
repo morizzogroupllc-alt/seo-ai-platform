@@ -22,16 +22,6 @@ export interface ToolConfig {
 }
 
 export const toolRegistry: Record<string, ToolConfig> = {
-    'meta-description-gen': {
-        id: 'meta-description-gen',
-        name: 'Meta Description Generator',
-        description: 'Create high-converting meta descriptions using your NAP data.',
-        icon: 'FileText',
-        category: 'Local SEO',
-        promptTemplate: `Generate meta description...`,
-        inputs: [{ id: 'service_focus', label: 'Primary Service', type: 'text', required: true }],
-        outputFormat: 'markdown'
-    },
     // --- CATEGORY 1: WEBSITE BUILDER ---
     'ai-elementor-gen': {
         id: 'ai-elementor-gen',
