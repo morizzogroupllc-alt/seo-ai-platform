@@ -18,7 +18,8 @@ import {
     Menu,
     X,
     ChevronDown,
-    ChevronRight
+    ChevronRight,
+    LayoutDashboard
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -48,7 +49,7 @@ export default function Sidebar() {
         if (currentPhase) setExpandedPhase(currentPhase.id)
     }, [pathname])
 
-    const currentPhaseIndex = phasesNav.findIndex(p => pathname === p.href) + 1
+    const currentPhaseIndex = phasesNav.findIndex(p => pathname.startsWith(p.href)) + 1
 
     const togglePhase = (id: string, e: React.MouseEvent) => {
         e.preventDefault()
@@ -69,33 +70,36 @@ export default function Sidebar() {
 
             {/* Sidebar Content */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-40 w-56 bg-[#0F0C29] border-r border-white/5 flex flex-col transition-transform duration-300",
+                "fixed inset-y-0 left-0 z-40 w-64 bg-[#0F0C29] border-r border-white/5 flex flex-col transition-transform duration-300",
                 isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
             )}>
-                {/* Header Section */}
-                <div className="p-6 space-y-4 border-b border-white/5">
+                {/* Header Section (h-16) */}
+                <div className="h-16 flex items-center px-6 border-b border-white/5">
                     <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center font-black text-white italic shadow-lg shadow-purple-500/20">
+                        <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center font-black text-white italic shadow-lg">
                             S
                         </div>
                         <h1 className="text-sm font-bold text-white uppercase tracking-widest leading-none">
                             SEO AI Platform
                         </h1>
                     </div>
+                </div>
 
+                {/* Status Section */}
+                <div className="p-6 space-y-4">
                     {userType && (
-                        <div className="pt-2">
-                            <div className="px-3 py-2 bg-white/5 rounded-lg border border-white/10 group hover:border-purple-500/50 transition-colors">
-                                <span className="block text-[9px] font-black text-purple-400 uppercase tracking-tighter mb-0.5 opacity-70">User Type</span>
+                        <div className="space-y-4">
+                            <div className="px-3 py-2 bg-white/5 rounded-lg border border-white/5">
+                                <span className="block text-[9px] font-black text-slate-500 uppercase tracking-tighter mb-0.5">User Type</span>
                                 <span className="text-xs font-bold text-slate-200 block truncate">{userType}</span>
                             </div>
 
-                            {/* Progress Bar Component */}
+                            {/* Progress Component */}
                             {currentPhaseIndex > 0 && (
-                                <div className="mt-4 px-1 space-y-2">
+                                <div className="space-y-2">
                                     <div className="flex justify-between items-center text-[10px] font-bold">
-                                        <span className="text-slate-500 uppercase">Current Progress</span>
-                                        <span className="text-purple-400">Phase {currentPhaseIndex} of 8</span>
+                                        <span className="text-slate-500 uppercase">Progress</span>
+                                        <span className="text-purple-400">Phase {currentPhaseIndex}/8</span>
                                     </div>
                                     <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                                         <div
@@ -109,29 +113,35 @@ export default function Sidebar() {
                     )}
                 </div>
 
+                <div className="border-b border-white/5 mx-4 mb-4" />
+
                 {/* Navigation Section */}
-                <nav className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
-                    {/* Main Nav */}
+                <nav className="flex-1 overflow-y-auto px-4 pb-4 space-y-6 scrollbar-thin scrollbar-track-[#0F0C29] scrollbar-thumb-[#4C1D95] hover:scrollbar-thumb-[#7C3AED]">
                     <Link
                         href="/dashboard"
                         className={cn(
-                            "flex items-center px-4 py-3 text-sm font-bold rounded-xl transition-all group",
+                            "flex items-center px-4 py-2.5 text-sm font-bold rounded-xl transition-all group",
                             pathname === '/dashboard'
-                                ? "bg-purple-700 text-white shadow-lg shadow-purple-900/40"
+                                ? "bg-purple-700 text-white"
                                 : "text-slate-400 hover:text-white hover:bg-white/5"
                         )}
                         onClick={() => setIsOpen(false)}
                     >
-                        <Home className={cn("mr-3 h-5 w-5", pathname === '/dashboard' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
+                        <LayoutDashboard className={cn("mr-3 h-5 w-5", pathname === '/dashboard' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
                         Dashboard
                     </Link>
 
                     {/* Growth Phases Section */}
-                    <div className="space-y-2">
-                        <h3 className="px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Growth Phases</h3>
+                    <div className="space-y-4">
+                        <div className="flex items-center px-4">
+                            <div className="h-[1px] flex-1 bg-white/5" />
+                            <span className="px-3 text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">Growth Phases</span>
+                            <div className="h-[1px] flex-1 bg-white/5" />
+                        </div>
+
                         <div className="space-y-1">
                             {phasesNav.map((phase) => {
-                                const isActive = pathname === phase.href
+                                const isActive = pathname.startsWith(phase.href)
                                 const isExpanded = expandedPhase === phase.id
 
                                 return (
@@ -141,13 +151,13 @@ export default function Sidebar() {
                                             className={cn(
                                                 "flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-lg transition-all group",
                                                 isActive
-                                                    ? "bg-purple-700 text-white"
+                                                    ? "bg-purple-700/20 text-white border border-purple-500/20"
                                                     : "text-slate-400 hover:text-white hover:bg-white/5"
                                             )}
                                             onClick={() => setIsOpen(false)}
                                         >
                                             <div className="flex items-center">
-                                                <phase.icon className={cn("mr-3 h-4 w-4", isActive ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
+                                                <phase.icon className={cn("mr-3 h-4 w-4", isActive ? "text-purple-400" : "text-slate-500 group-hover:text-purple-400")} />
                                                 {phase.name}
                                             </div>
                                             <div
@@ -168,23 +178,22 @@ export default function Sidebar() {
                                                             { name: 'Competitor', href: '/research/competitor', soon: true },
                                                             { name: 'Keywords', href: '/research/keywords', soon: true },
                                                         ].map((sub) => (
-                                                            <div key={sub.name} className="flex items-center">
-                                                                <Link
-                                                                    href={sub.soon ? '#' : sub.href}
-                                                                    className={cn(
-                                                                        "flex-1 flex items-center justify-between pl-8 pr-4 py-1.5 text-xs font-medium transition-colors",
-                                                                        sub.active ? "text-purple-400" : "text-gray-400 hover:text-white"
-                                                                    )}
-                                                                >
-                                                                    <span>{sub.name}</span>
-                                                                    {sub.soon && <span className="text-[8px] bg-white/5 px-1 rounded text-gray-600">Soon</span>}
-                                                                </Link>
-                                                            </div>
+                                                            <Link
+                                                                key={sub.name}
+                                                                href={sub.soon ? '#' : sub.href}
+                                                                className={cn(
+                                                                    "flex items-center justify-between pl-8 pr-4 py-1.5 text-xs font-medium transition-all group/sub",
+                                                                    sub.active ? "text-purple-400" : "text-gray-400 hover:text-white"
+                                                                )}
+                                                            >
+                                                                <span>{sub.name}</span>
+                                                                {sub.soon && <span className="text-[8px] bg-white/5 px-1.5 py-0.5 rounded text-gray-600 font-bold uppercase">Soon</span>}
+                                                            </Link>
                                                         ))}
                                                     </div>
                                                 ) : (
                                                     <div className="px-4 py-2 text-[11px] font-medium text-slate-500 italic">
-                                                        Tools coming soon...
+                                                        Coming Soon...
                                                     </div>
                                                 )}
                                             </div>
@@ -196,8 +205,10 @@ export default function Sidebar() {
                     </div>
 
                     {/* Platform Section */}
-                    <div className="space-y-2">
-                        <h3 className="px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Platform</h3>
+                    <div className="space-y-4 pt-4 border-t border-white/5">
+                        <div className="flex items-center px-4">
+                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">Platform</span>
+                        </div>
                         <Link
                             href="/automation"
                             className={cn(
@@ -215,7 +226,7 @@ export default function Sidebar() {
                 </nav>
 
                 {/* Footer/System Section */}
-                <div className="p-4 mt-auto border-t border-white/5 bg-black/20">
+                <div className="p-4 border-t border-white/5 bg-black/40">
                     <Link
                         href="/system"
                         className={cn(
@@ -235,7 +246,7 @@ export default function Sidebar() {
             {/* Overlay for mobile */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-30 bg-[#0F0C29]/80 backdrop-blur-sm md:hidden"
+                    className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden"
                     onClick={() => setIsOpen(false)}
                 />
             )}

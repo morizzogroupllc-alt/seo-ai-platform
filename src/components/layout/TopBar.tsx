@@ -41,7 +41,7 @@ export default function TopBar() {
     return (
         <header className="fixed top-0 right-0 left-0 h-14 bg-[#0F0C29] border-b border-white/5 z-30 flex items-center justify-between px-6">
             {/* Left: Page Title (Offset for sidebar on desktop) */}
-            <div className="flex items-center md:ml-56">
+            <div className="flex items-center md:ml-64">
                 <h2 className="text-sm font-bold text-white uppercase tracking-widest">
                     {getPageTitle(pathname)}
                 </h2>

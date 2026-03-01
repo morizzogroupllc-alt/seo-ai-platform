@@ -31,7 +31,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             <TopBar />
             <div className="flex pt-14">
                 <Sidebar />
-                <main className="flex-1 md:pl-56 min-h-[calc(100vh-3.5rem)]">
+                <main className="flex-1 md:pl-64 min-h-[calc(100vh-3.5rem)]">
                     {children}
                 </main>
             </div>
