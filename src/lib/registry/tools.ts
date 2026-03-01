@@ -1096,6 +1096,64 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Integrate GA/GSC data for {{account_id}}...`,
         inputs: [{ id: 'account_id', label: 'Account/Property ID', type: 'text', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 15: AGENCY TOOLS (PHASE 2 & 3) ---
+    'mobile-pro-fixer': {
+        id: 'mobile-pro-fixer',
+        name: 'Mobile PRO Fixer Auto-Fix',
+        description: 'Automatically detects and generates code fixes for mobile usability issues.',
+        icon: 'Smartphone',
+        category: 'Agency Tools',
+        promptTemplate: `Identify and fix mobile issues for {{url}}...`,
+        inputs: [{ id: 'url', label: 'Website URL', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'branding-name-gen': {
+        id: 'branding-name-gen',
+        name: 'AI Business Name / Branding Gen',
+        description: 'Generates SEO-friendly business names, slogans, and branding concepts.',
+        icon: 'Tags',
+        category: 'Agency Tools',
+        promptTemplate: `Generate branding for {{niche}} in {{city}}, keyword {{keyword}}...`,
+        inputs: [
+            { id: 'niche', label: 'Niche/Service', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true },
+            { id: 'keyword', label: 'Primary Keyword', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'crm-integrator': {
+        id: 'crm-integrator',
+        name: 'CRM Integrator for Leads',
+        description: 'Connects your SEO platform leads directly to popular CRMs like HubSpot and Salesforce.',
+        icon: 'Users',
+        category: 'Agency Tools',
+        promptTemplate: `Setup CRM integration for {{crm_type}} via {{api_key}}...`,
+        inputs: [
+            { id: 'crm_type', label: 'CRM Type', type: 'text', required: true },
+            { id: 'api_key', label: 'API Key (Hidden)', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'spam-signal-detector': {
+        id: 'spam-signal-detector',
+        name: 'Spam Signal Detector General',
+        description: 'Detects potential spam signals that could trigger GMB/Search penalties.',
+        icon: 'ShieldAlert',
+        category: 'Agency Tools',
+        promptTemplate: `Check for spam signals on {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'citation-manual-mgr': {
+        id: 'citation-manual-mgr',
+        name: 'Local Citation Manual Manager',
+        description: 'A structured workflow and tracker for manual citation building and management.',
+        icon: 'ClipboardList',
+        category: 'Agency Tools',
+        promptTemplate: `Create manual citation plan for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
     }
 }
 

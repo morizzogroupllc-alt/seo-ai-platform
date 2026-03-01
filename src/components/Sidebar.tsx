@@ -272,6 +272,17 @@ const navigation: NavItem[] = [
             { name: 'Analytics Integrator', href: '/dashboard/tools/analytics-integrator', icon: BarChart3 },
         ]
     },
+    {
+        name: 'Agency Tools',
+        icon: Users,
+        children: [
+            { name: 'Mobile PRO Fixer', href: '/dashboard/tools/mobile-pro-fixer', icon: Smartphone },
+            { name: 'Branding & Name Gen', href: '/dashboard/tools/branding-name-gen', icon: Tags },
+            { name: 'CRM Integrator', href: '/dashboard/tools/crm-integrator', icon: Users },
+            { name: 'Spam Signal Detector', href: '/dashboard/tools/spam-signal-detector', icon: ShieldAlert },
+            { name: 'Citation Manual Mgr', href: '/dashboard/tools/citation-manual-mgr', icon: ClipboardList },
+        ]
+    },
 ]
 
 export default function Sidebar() {
