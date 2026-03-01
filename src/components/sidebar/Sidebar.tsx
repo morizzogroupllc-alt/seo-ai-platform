@@ -17,84 +17,89 @@ import {
     Settings,
     Menu,
     X,
+    ChevronDown,
     ChevronRight
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const mainNav = [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
-]
-
 const phasesNav = [
-    { name: 'Research', href: '/research', icon: Search },
-    { name: 'Build', href: '/build', icon: Wrench },
-    { name: 'Deploy', href: '/deploy', icon: Rocket },
-    { name: 'Optimize', href: '/optimize', icon: PenTool },
-    { name: 'Local Authority', href: '/authority', icon: MapPin },
-    { name: 'Convert', href: '/convert', icon: Phone },
-    { name: 'Track', href: '/track', icon: TrendingUp },
-    { name: 'Reports', href: '/reports', icon: ClipboardList },
-]
-
-const extraNav = [
-    { name: 'Automation', href: '/automation', icon: Zap },
-]
-
-const systemNav = [
-    { name: 'System', href: '/system', icon: Settings },
+    { id: 'research', name: 'Research', href: '/research', icon: Search },
+    { id: 'build', name: 'Build', href: '/build', icon: Wrench },
+    { id: 'deploy', name: 'Deploy', href: '/deploy', icon: Rocket },
+    { id: 'optimize', name: 'Optimize', href: '/optimize', icon: PenTool },
+    { id: 'authority', name: 'Local Authority', href: '/authority', icon: MapPin },
+    { id: 'convert', name: 'Convert', href: '/convert', icon: Phone },
+    { id: 'track', name: 'Track', href: '/track', icon: TrendingUp },
+    { id: 'reports', name: 'Reports', href: '/reports', icon: ClipboardList },
 ]
 
 export default function Sidebar() {
     const pathname = usePathname()
     const [isOpen, setIsOpen] = useState(false)
     const [userType, setUserType] = useState<string | null>(null)
+    const [expandedPhase, setExpandedPhase] = useState<string | null>(null)
 
     useEffect(() => {
         const type = localStorage.getItem('user_type')
         if (type) setUserType(type)
-    }, [])
 
-    const currentPhaseIndex = phasesNav.findIndex(p => p.href === pathname) + 1
+        // Auto-expand current phase section
+        const currentPhase = phasesNav.find(p => pathname.startsWith(p.href))
+        if (currentPhase) setExpandedPhase(currentPhase.id)
+    }, [pathname])
+
+    const currentPhaseIndex = phasesNav.findIndex(p => pathname === p.href) + 1
+
+    const togglePhase = (id: string, e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setExpandedPhase(expandedPhase === id ? null : id)
+    }
 
     return (
         <>
-            {/* Mobile Toggle */}
+            {/* Mobile Hamburger Button */}
             <button
                 type="button"
-                className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white border rounded-md shadow-sm"
+                className="md:hidden fixed top-4 left-4 z-50 p-2 text-white bg-purple-700/50 rounded-md backdrop-blur-sm border border-white/10"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
 
-            {/* Sidebar Container */}
-            <div className={cn(
-                "fixed inset-y-0 left-0 z-40 w-64 bg-white border-r transform transition-transform duration-200 ease-in-out lg:translate-x-0 flex flex-col",
-                isOpen ? "translate-x-0" : "-translate-x-full"
+            {/* Sidebar Content */}
+            <aside className={cn(
+                "fixed inset-y-0 left-0 z-40 w-64 bg-[#0F0C29] border-r border-white/5 flex flex-col transition-transform duration-300",
+                isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
             )}>
-                {/* Logo & Header */}
-                <div className="p-6">
-                    <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center">
-                        <div className="w-8 h-8 bg-primary rounded-lg mr-2 flex items-center justify-center text-white text-xs font-black italic">SAI</div>
-                        SEO AI
-                    </h1>
+                {/* Header Section */}
+                <div className="p-6 space-y-4 border-b border-white/5">
+                    <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center font-black text-white italic shadow-lg shadow-purple-500/20">
+                            S
+                        </div>
+                        <h1 className="text-sm font-bold text-white uppercase tracking-widest leading-none">
+                            SEO AI Platform
+                        </h1>
+                    </div>
 
                     {userType && (
-                        <div className="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <div className="flex flex-col">
-                                <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">User Type</span>
-                                <span className="text-sm font-semibold text-slate-700">{userType}</span>
+                        <div className="pt-2">
+                            <div className="px-3 py-2 bg-white/5 rounded-lg border border-white/10 group hover:border-purple-500/50 transition-colors">
+                                <span className="block text-[9px] font-black text-purple-400 uppercase tracking-tighter mb-0.5 opacity-70">User Type</span>
+                                <span className="text-xs font-bold text-slate-200 block truncate">{userType}</span>
                             </div>
 
+                            {/* Progress Bar Component */}
                             {currentPhaseIndex > 0 && (
-                                <div className="mt-3 space-y-1.5">
-                                    <div className="flex justify-between text-[10px] font-bold">
-                                        <span className="text-slate-500 uppercase">Phase Progress</span>
-                                        <span className="text-primary">{currentPhaseIndex} of 8</span>
+                                <div className="mt-4 px-1 space-y-2">
+                                    <div className="flex justify-between items-center text-[10px] font-bold">
+                                        <span className="text-slate-500 uppercase">Current Progress</span>
+                                        <span className="text-purple-400">Phase {currentPhaseIndex} of 8</span>
                                     </div>
-                                    <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+                                    <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                                         <div
-                                            className="h-full bg-primary transition-all duration-500 ease-out"
+                                            className="h-full bg-purple-500 shadow-[0_0_10px_#A855F7] transition-all duration-700 ease-out"
                                             style={{ width: `${(currentPhaseIndex / 8) * 100}%` }}
                                         />
                                     </div>
@@ -104,118 +109,109 @@ export default function Sidebar() {
                     )}
                 </div>
 
-                {/* Navigation Links */}
-                <nav className="flex-1 px-4 py-2 space-y-8 overflow-y-auto custom-scrollbar">
-                    {/* Main Section */}
-                    <div>
-                        <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Main Menu</div>
+                {/* Navigation Section */}
+                <nav className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
+                    {/* Main Nav */}
+                    <Link
+                        href="/dashboard"
+                        className={cn(
+                            "flex items-center px-4 py-3 text-sm font-bold rounded-xl transition-all group",
+                            pathname === '/dashboard'
+                                ? "bg-purple-700 text-white shadow-lg shadow-purple-900/40"
+                                : "text-slate-400 hover:text-white hover:bg-white/5"
+                        )}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <Home className={cn("mr-3 h-5 w-5", pathname === '/dashboard' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
+                        Dashboard
+                    </Link>
+
+                    {/* Growth Phases Section */}
+                    <div className="space-y-2">
+                        <h3 className="px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Growth Phases</h3>
                         <div className="space-y-1">
-                            {mainNav.map((item) => {
-                                const isActive = pathname === item.href
+                            {phasesNav.map((phase) => {
+                                const isActive = pathname === phase.href
+                                const isExpanded = expandedPhase === phase.id
+
                                 return (
-                                    <Link
-                                        key={item.name}
-                                        href={item.href}
-                                        className={cn(
-                                            "flex items-center px-3 py-2.5 text-sm font-semibold rounded-xl transition-all",
-                                            isActive
-                                                ? "bg-primary text-white shadow-md shadow-primary/20 hover:scale-[1.02]"
-                                                : "text-slate-600 hover:bg-slate-50 hover:text-primary"
+                                    <div key={phase.id} className="space-y-1">
+                                        <Link
+                                            href={phase.href}
+                                            className={cn(
+                                                "flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-lg transition-all group",
+                                                isActive
+                                                    ? "bg-purple-700 text-white"
+                                                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                                            )}
+                                            onClick={() => setIsOpen(false)}
+                                        >
+                                            <div className="flex items-center">
+                                                <phase.icon className={cn("mr-3 h-4 w-4", isActive ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
+                                                {phase.name}
+                                            </div>
+                                            <div
+                                                onClick={(e) => togglePhase(phase.id, e)}
+                                                className="p-1 rounded-md hover:bg-white/10 transition-colors"
+                                            >
+                                                {isExpanded ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+                                            </div>
+                                        </Link>
+
+                                        {isExpanded && (
+                                            <div className="ml-10 py-1 space-y-1 border-l border-white/10">
+                                                <div className="px-4 py-2 text-[11px] font-medium text-slate-500 italic">
+                                                    Tools coming soon...
+                                                </div>
+                                            </div>
                                         )}
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        <item.icon className={cn("mr-3 h-5 w-5", isActive ? "text-white" : "text-slate-400 group-hover:text-primary")} />
-                                        {item.name}
-                                    </Link>
+                                    </div>
                                 )
                             })}
                         </div>
                     </div>
 
-                    {/* Phases Section */}
-                    <div>
-                        <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Growth Phases</div>
-                        <div className="space-y-1">
-                            {phasesNav.map((item) => {
-                                const isActive = pathname === item.href
-                                return (
-                                    <Link
-                                        key={item.name}
-                                        href={item.href}
-                                        className={cn(
-                                            "flex items-center justify-between px-3 py-2.5 text-sm font-semibold rounded-xl transition-all group",
-                                            isActive
-                                                ? "bg-primary text-white shadow-md shadow-primary/20 hover:scale-[1.02]"
-                                                : "text-slate-600 hover:bg-slate-50 hover:text-primary"
-                                        )}
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        <div className="flex items-center">
-                                            <item.icon className={cn("mr-3 h-5 w-5", isActive ? "text-white" : "text-slate-400 group-hover:text-primary")} />
-                                            {item.name}
-                                        </div>
-                                        <ChevronRight className={cn("h-4 w-4 transition-transform group-hover:translate-x-0.5", isActive ? "text-white/70" : "text-slate-300")} />
-                                    </Link>
-                                )
-                            })}
-                        </div>
-                    </div>
-
-                    {/* Extra Section */}
-                    <div>
-                        <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Platform</div>
-                        <div className="space-y-1">
-                            {extraNav.map((item) => {
-                                const isActive = pathname === item.href
-                                return (
-                                    <Link
-                                        key={item.name}
-                                        href={item.href}
-                                        className={cn(
-                                            "flex items-center px-3 py-2.5 text-sm font-semibold rounded-xl transition-all",
-                                            isActive
-                                                ? "bg-primary text-white shadow-md shadow-primary/20 hover:scale-[1.02]"
-                                                : "text-slate-600 hover:bg-slate-50 hover:text-primary"
-                                        )}
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        <item.icon className={cn("mr-3 h-5 w-5", isActive ? "text-white" : "text-slate-400 group-hover:text-primary")} />
-                                        {item.name}
-                                    </Link>
-                                )
-                            })}
-                        </div>
+                    {/* Platform Section */}
+                    <div className="space-y-2">
+                        <h3 className="px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Platform</h3>
+                        <Link
+                            href="/automation"
+                            className={cn(
+                                "flex items-center px-4 py-2.5 text-sm font-bold rounded-lg transition-all group",
+                                pathname === '/automation'
+                                    ? "bg-purple-700 text-white"
+                                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                            )}
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <Zap className={cn("mr-3 h-4 w-4", pathname === '/automation' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
+                            Automation
+                        </Link>
                     </div>
                 </nav>
 
-                {/* System Section at Bottom */}
-                <div className="p-4 bg-slate-50 border-t">
-                    {systemNav.map((item) => {
-                        const isActive = pathname === item.href
-                        return (
-                            <Link
-                                key={item.name}
-                                href={item.href}
-                                className={cn(
-                                    "flex items-center px-3 py-2.5 text-sm font-semibold rounded-xl transition-all",
-                                    isActive
-                                        ? "bg-primary text-white shadow-sm shadow-primary/10"
-                                        : "text-slate-600 hover:bg-white hover:text-primary"
-                                )}
-                                onClick={() => setIsOpen(false)}
-                            >
-                                <item.icon className={cn("mr-3 h-5 w-5", isActive ? "text-white" : "text-slate-400 group-hover:text-primary")} />
-                                {item.name}
-                            </Link>
-                        )
-                    })}
+                {/* Footer/System Section */}
+                <div className="p-4 mt-auto border-t border-white/5 bg-black/20">
+                    <Link
+                        href="/system"
+                        className={cn(
+                            "flex items-center px-4 py-2.5 text-sm font-bold rounded-lg transition-all group",
+                            pathname === '/system'
+                                ? "bg-purple-700 text-white"
+                                : "text-slate-400 hover:text-white hover:bg-white/5"
+                        )}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <Settings className={cn("mr-3 h-4 w-4", pathname === '/system' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
+                        System
+                    </Link>
                 </div>
-            </div>
+            </aside>
 
-            {/* Mobile Overlay */}
+            {/* Overlay for mobile */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-30 bg-black/50 lg:hidden"
+                    className="fixed inset-0 z-30 bg-[#0F0C29]/80 backdrop-blur-sm md:hidden"
                     onClick={() => setIsOpen(false)}
                 />
             )}
