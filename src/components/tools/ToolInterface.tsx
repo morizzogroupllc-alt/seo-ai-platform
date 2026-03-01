@@ -13,7 +13,11 @@ import {
     Search,
     Zap,
     LucideIcon,
-    Palette
+    Palette,
+    MessageSquare,
+    ShieldCheck,
+    RefreshCw,
+    PenTool
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -25,7 +29,11 @@ const IconMap: Record<string, LucideIcon> = {
     MapPin,
     Search,
     Zap,
-    Palette
+    Palette,
+    MessageSquare,
+    ShieldCheck,
+    RefreshCw,
+    PenTool
 }
 
 interface ToolInterfaceProps {

@@ -193,6 +193,73 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Generate conversion layout...`,
         inputs: [{ id: 'target_goal', label: 'Target Goal', type: 'text', placeholder: 'e.g. Lead Form Submission', required: true }],
         outputFormat: 'text'
+    },
+    // --- CATEGORY 3: CONTENT TOOLS ---
+    'ai-local-content-writer': {
+        id: 'ai-local-content-writer',
+        name: 'AI Local Content Writer',
+        description: 'Writes all page content using Gemini free API.',
+        icon: 'PenTool',
+        category: 'Content Tools',
+        promptTemplate: `Write local content for {{business_name}}...`,
+        inputs: [{ id: 'topic', label: 'Topic/Keywords', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'city-content-gen': {
+        id: 'city-content-gen',
+        name: 'City Content Generator',
+        description: 'City-level content variations auto-generated.',
+        icon: 'Globe',
+        category: 'Content Tools',
+        promptTemplate: `Generate content for city: {{city}}...`,
+        inputs: [{ id: 'city', label: 'Target City', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'service-city-combiner': {
+        id: 'service-city-combiner',
+        name: 'Service + City Content Combiner',
+        description: 'Combines service and city for unique pages.',
+        icon: 'Zap',
+        category: 'Content Tools',
+        promptTemplate: `Combine service {{service}} with city {{city}}...`,
+        inputs: [
+            { id: 'service', label: 'Service', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'faq-schema-gen': {
+        id: 'faq-schema-gen',
+        name: 'FAQ Schema Generator',
+        description: 'Conversational FAQ targeting local queries.',
+        icon: 'MessageSquare',
+        category: 'Content Tools',
+        promptTemplate: `Generate FAQ schema for {{topic}}...`,
+        inputs: [{ id: 'topic', label: 'FAQ Topic', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'eeat-booster': {
+        id: 'eeat-booster',
+        name: 'E-E-A-T Content Booster',
+        description: 'Adds expertise, authority, trust signals to content.',
+        icon: 'ShieldCheck',
+        category: 'Content Tools',
+        promptTemplate: `Boost EEAT for this content: {{content}}...`,
+        inputs: [{ id: 'content', label: 'Existing Content', type: 'textarea', required: true }],
+        outputFormat: 'markdown'
+    },
+    'content-rewriter': {
+        id: 'content-rewriter',
+        name: 'AI Content Rewriter',
+        description: 'Rewrites content for different cities/areas.',
+        icon: 'RefreshCw',
+        category: 'Content Tools',
+        promptTemplate: `Rewrite content for {{area}}: {{content}}...`,
+        inputs: [
+            { id: 'content', label: 'Content to Rewrite', type: 'textarea', required: true },
+            { id: 'area', label: 'Target Area/City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
     }
 }
 

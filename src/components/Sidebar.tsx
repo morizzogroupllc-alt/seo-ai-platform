@@ -30,7 +30,10 @@ import {
     Rocket,
     Server,
     Hammer,
-    Palette
+    Palette,
+    MessageSquare,
+    ShieldCheck,
+    RefreshCw
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -73,6 +76,18 @@ const navigation: NavItem[] = [
             { name: 'Local SEO Theme Selector', href: '/dashboard/tools/local-seo-theme-selector', icon: Palette },
             { name: 'CTA Placement Optimizer', href: '/dashboard/tools/cta-optimizer', icon: MousePointer2 },
             { name: 'Conversion Layout Engine', href: '/dashboard/tools/conversion-layout-engine', icon: LayoutDashboard },
+        ]
+    },
+    {
+        name: 'Content Tools',
+        icon: FileText,
+        children: [
+            { name: 'AI Local Content Writer', href: '/dashboard/tools/ai-local-content-writer', icon: PenTool },
+            { name: 'City Content Generator', href: '/dashboard/tools/city-content-gen', icon: Globe },
+            { name: 'Service + City Combiner', href: '/dashboard/tools/service-city-combiner', icon: Zap },
+            { name: 'FAQ Schema Generator', href: '/dashboard/tools/faq-schema-gen', icon: MessageSquare },
+            { name: 'E-E-A-T Content Booster', href: '/dashboard/tools/eeat-booster', icon: ShieldCheck },
+            { name: 'AI Content Rewriter', href: '/dashboard/tools/content-rewriter', icon: RefreshCw },
         ]
     },
     {
