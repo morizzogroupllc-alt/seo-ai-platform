@@ -157,7 +157,7 @@ const navigation: NavItem[] = [
     },
     {
         name: 'Reviews & Reputation',
-        icon: Share2,
+        icon: Star,
         children: [
             { name: 'Review Campaign Builder', href: '/dashboard/tools/review-campaign-builder', icon: Mail },
             { name: 'Review Response Gen', href: '/dashboard/tools/review-response-gen', icon: MessageCircle },
