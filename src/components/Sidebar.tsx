@@ -51,7 +51,12 @@ import {
     Tags,
     Eye,
     Copy,
-    ClipboardList
+    ClipboardList,
+    Mail,
+    MessageCircle,
+    TrendingUp,
+    Star,
+    Shield
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -148,6 +153,17 @@ const navigation: NavItem[] = [
             { name: 'GBP Website Builder', href: '/dashboard/tools/gbp-website-builder', icon: Globe },
             { name: 'GMB Full Audit', href: '/dashboard/tools/gmb-full-audit', icon: ClipboardList },
             { name: 'Review Aggregator', href: '/dashboard/tools/review-aggregator', icon: MessageSquare },
+        ]
+    },
+    {
+        name: 'Reviews & Reputation',
+        icon: Share2,
+        children: [
+            { name: 'Review Campaign Builder', href: '/dashboard/tools/review-campaign-builder', icon: Mail },
+            { name: 'Review Response Gen', href: '/dashboard/tools/review-response-gen', icon: MessageCircle },
+            { name: 'Sentiment & Gap Analysis', href: '/dashboard/tools/review-sentiment-gap', icon: TrendingUp },
+            { name: 'Reputation Score Calc', href: '/dashboard/tools/reputation-score-calc', icon: Star },
+            { name: 'Reputation Manager', href: '/dashboard/tools/reputation-manager', icon: Shield },
         ]
     },
 ]

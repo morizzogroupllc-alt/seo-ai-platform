@@ -37,7 +37,12 @@ import {
     Eye,
     Copy,
     ClipboardList,
-    BarChart3
+    BarChart3,
+    Mail,
+    MessageCircle,
+    TrendingUp,
+    Star,
+    Shield
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -73,7 +78,12 @@ const IconMap: Record<string, LucideIcon> = {
     Eye,
     Copy,
     ClipboardList,
-    BarChart3
+    BarChart3,
+    Mail,
+    MessageCircle,
+    TrendingUp,
+    Star,
+    Shield
 }
 
 interface ToolInterfaceProps {

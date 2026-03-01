@@ -498,6 +498,63 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Aggregate reviews for {{business_name}}...`,
         inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 7: REVIEWS & REPUTATION (PHASE 2) ---
+    'review-campaign-builder': {
+        id: 'review-campaign-builder',
+        name: 'Review Request Campaign Builder',
+        description: 'Design & schedule multi-channel review request campaigns.',
+        icon: 'Mail',
+        category: 'Reviews & Reputation',
+        promptTemplate: `Build review campaign for {{business_name}} targeting {{channel}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'channel', label: 'Channel (SMS/Email/WhatsApp)', type: 'select', options: [{ label: 'Email', value: 'email' }, { label: 'SMS', value: 'sms' }, { label: 'WhatsApp', value: 'whatsapp' }], required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'review-response-gen': {
+        id: 'review-response-gen',
+        name: 'Review Response Generator',
+        description: 'AI-generated personalized responses to customer reviews.',
+        icon: 'MessageCircle',
+        category: 'Reviews & Reputation',
+        promptTemplate: `Respond to this review: {{review_text}}...`,
+        inputs: [{ id: 'review_text', label: 'Review Content', type: 'textarea', required: true }],
+        outputFormat: 'text'
+    },
+    'review-sentiment-gap': {
+        id: 'review-sentiment-gap',
+        name: 'Review Sentiment & Competitor Gap',
+        description: 'Analyze sentiment patterns and gaps vs competitors.',
+        icon: 'TrendingUp',
+        category: 'Reviews & Reputation',
+        promptTemplate: `Analyze sentiment gap for {{business_name}} vs {{competitor}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'competitor', label: 'Competitor Name', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'reputation-score-calc': {
+        id: 'reputation-score-calc',
+        name: 'Reputation Score Calculator',
+        description: 'Calculates proprietary local reputation score.',
+        icon: 'Star',
+        category: 'Reviews & Reputation',
+        promptTemplate: `Calculate reputation score for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'reputation-manager': {
+        id: 'reputation-manager',
+        name: 'Reputation Builder / Manager',
+        description: 'Centralized reputation management and building dashboard.',
+        icon: 'Shield',
+        category: 'Reviews & Reputation',
+        promptTemplate: `Reputation management tasks for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
     }
 }
 
