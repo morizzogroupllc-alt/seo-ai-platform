@@ -259,6 +259,19 @@ const navigation: NavItem[] = [
             { name: 'Fast Indexing Pusher', href: '/dashboard/tools/indexing-pusher', icon: Send },
         ]
     },
+    {
+        name: 'Reports & Analytics',
+        icon: PieChart,
+        children: [
+            { name: 'SEO Checklist Gen', href: '/dashboard/tools/seo-checklist-gen', icon: ClipboardCheck },
+            { name: 'PDF Report Gen', href: '/dashboard/tools/pdf-report-gen', icon: FileText },
+            { name: 'Client Snapshot', href: '/dashboard/tools/client-snapshot', icon: Eye },
+            { name: 'Multi-Location Dash', href: '/dashboard/tools/multi-location-dash', icon: LayoutDashboard },
+            { name: 'White-Label Reports', href: '/dashboard/tools/white-label-reports', icon: Palette },
+            { name: 'Performance Alerts', href: '/dashboard/tools/performance-alerts', icon: ShieldAlert },
+            { name: 'Analytics Integrator', href: '/dashboard/tools/analytics-integrator', icon: BarChart3 },
+        ]
+    },
 ]
 
 export default function Sidebar() {

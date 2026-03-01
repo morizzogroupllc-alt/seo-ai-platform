@@ -1013,6 +1013,89 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Submit for indexing: {{urls}}...`,
         inputs: [{ id: 'urls', label: 'URLs to Index (one per line)', type: 'textarea', required: true }],
         outputFormat: 'text'
+    },
+    // --- CATEGORY 14: REPORTS & ANALYTICS (PHASE 2 & 3) ---
+    'seo-checklist-gen': {
+        id: 'seo-checklist-gen',
+        name: 'Local SEO Checklist Generator',
+        description: 'Generates a custom, prioritized SEO action plan for any local business.',
+        icon: 'ClipboardCheck',
+        category: 'Reports & Analytics',
+        promptTemplate: `Generate SEO checklist for {{business_name}} in {{city}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'pdf-report-gen': {
+        id: 'pdf-report-gen',
+        name: 'PDF / Dashboard Report Generator',
+        description: 'Auto-generates professional PDF reports with all key local SEO metrics.',
+        icon: 'FileText',
+        category: 'Reports & Analytics',
+        promptTemplate: `Generate PDF report for {{business_name}} covering {{metrics}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'metrics', label: 'Metrics to Include', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'client-snapshot': {
+        id: 'client-snapshot',
+        name: 'Client Snapshot View',
+        description: 'One-page visual summary of client performance across all local channels.',
+        icon: 'Eye',
+        category: 'Reports & Analytics',
+        promptTemplate: `Generate performance snapshot for {{client_name}}...`,
+        inputs: [{ id: 'client_name', label: 'Client Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'multi-location-dash': {
+        id: 'multi-location-dash',
+        name: 'Multi-Location Dashboard',
+        description: 'Aggregated view for brands managing scores of local business listings.',
+        icon: 'LayoutDashboard',
+        category: 'Reports & Analytics',
+        promptTemplate: `Generate multi-location summary for {{brand_name}}...`,
+        inputs: [{ id: 'brand_name', label: 'Brand Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'white-label-reports': {
+        id: 'white-label-reports',
+        name: 'White-Label Reporting Customizer',
+        description: 'Customizes branding, logos, and colors for agency-level professional reporting.',
+        icon: 'Palette',
+        category: 'Reports & Analytics',
+        promptTemplate: `Setup white-label report for {{agency_name}} using {{logo_url}}...`,
+        inputs: [
+            { id: 'agency_name', label: 'Agency Name', type: 'text', required: true },
+            { id: 'logo_url', label: 'Logo URL', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'performance-alerts': {
+        id: 'performance-alerts',
+        name: 'Performance Alert System',
+        description: 'Automated triggers and notifications for rank drops or bad reviews.',
+        icon: 'ShieldAlert',
+        category: 'Reports & Analytics',
+        promptTemplate: `Configure alerts for {{business_name}} threshold {{threshold}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'threshold', label: 'Alert Threshold (%)', type: 'text', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'analytics-integrator': {
+        id: 'analytics-integrator',
+        name: 'Analytics Integrator GA + GSC',
+        description: 'Connects Google Analytics and Search Console data for a unified local view.',
+        icon: 'BarChart3',
+        category: 'Reports & Analytics',
+        promptTemplate: `Integrate GA/GSC data for {{account_id}}...`,
+        inputs: [{ id: 'account_id', label: 'Account/Property ID', type: 'text', required: true }],
+        outputFormat: 'markdown'
     }
 }
 
