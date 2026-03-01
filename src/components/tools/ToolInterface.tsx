@@ -60,11 +60,7 @@ import {
     ExternalLink,
     Rocket,
     Layers,
-    FileStack,
-    Link,
-    Network,
-    Layout,
-    ShieldCheck
+    FileStack
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -124,10 +120,7 @@ const IconMap: Record<string, LucideIcon> = {
     Rocket,
     Layers,
     FileStack,
-    Link,
-    Network,
-    Layout,
-    ShieldCheck
+    Link: LinkIcon
 }
 
 interface ToolInterfaceProps {

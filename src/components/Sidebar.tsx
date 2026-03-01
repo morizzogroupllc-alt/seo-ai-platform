@@ -72,13 +72,7 @@ import {
     Locate,
     Upload,
     ExternalLink,
-    Rocket,
-    Layers,
-    FileStack,
-    Link,
-    Network,
-    Layout,
-    ShieldCheck
+    FileStack
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
