@@ -628,6 +628,53 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Analyze share of voice for {{business_name}}...`,
         inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 9: NICHE & KEYWORD RESEARCH (PHASE 2) ---
+    'ai-niche-finder': {
+        id: 'ai-niche-finder',
+        name: 'AI Niche Finder Tool',
+        description: 'Analyzes markets to find low-competition, high-profit local niches.',
+        icon: 'Telescope',
+        category: 'Niche & Keywords',
+        promptTemplate: `Find profitable niches in {{city}}...`,
+        inputs: [{ id: 'city', label: 'Target City/Area', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'local-keyword-gen': {
+        id: 'local-keyword-gen',
+        name: 'AI Local Keyword Generator',
+        description: 'Generates high-intent local keywords for any niche.',
+        icon: 'Key',
+        category: 'Niche & Keywords',
+        promptTemplate: `Generate local keywords for {{niche}} in {{city}}...`,
+        inputs: [
+            { id: 'niche', label: 'Niche/Service', type: 'text', required: true },
+            { id: 'city', label: 'City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'service-city-kw-combiner': {
+        id: 'service-city-kw-combiner',
+        name: 'Service + City Keyword Combiner',
+        description: 'Mass combines services and cities for bulk keyword lists.',
+        icon: 'Combine',
+        category: 'Niche & Keywords',
+        promptTemplate: `Combine services: {{services}} with cities: {{cities}}...`,
+        inputs: [
+            { id: 'services', label: 'Services (one per line)', type: 'textarea', required: true },
+            { id: 'cities', label: 'Cities (one per line)', type: 'textarea', required: true }
+        ],
+        outputFormat: 'text'
+    },
+    'keyword-difficulty-estimator': {
+        id: 'keyword-difficulty-estimator',
+        name: 'Keyword Difficulty Estimator',
+        description: 'Estimates how hard it is to rank for local keywords.',
+        icon: 'BarChart',
+        category: 'Niche & Keywords',
+        promptTemplate: `Estimate difficulty for keywords: {{keywords}}...`,
+        inputs: [{ id: 'keywords', label: 'Keywords', type: 'textarea', required: true }],
+        outputFormat: 'markdown'
     }
 }
 

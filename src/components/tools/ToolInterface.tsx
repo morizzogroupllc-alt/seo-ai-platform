@@ -48,7 +48,11 @@ import {
     List,
     Users,
     PieChart,
-    Map
+    Map,
+    Telescope,
+    Key,
+    Combine,
+    BarChart
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -95,7 +99,11 @@ const IconMap: Record<string, LucideIcon> = {
     List,
     Users,
     PieChart,
-    Map
+    Map,
+    Telescope,
+    Key,
+    Combine,
+    BarChart
 }
 
 interface ToolInterfaceProps {

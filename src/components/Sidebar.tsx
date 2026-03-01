@@ -62,7 +62,11 @@ import {
     List,
     Users,
     PieChart,
-    Map
+    Map,
+    Telescope,
+    Key,
+    Combine,
+    BarChart
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -182,6 +186,16 @@ const navigation: NavItem[] = [
             { name: 'Visibility Score Calc', href: '/dashboard/tools/visibility-score-calc', icon: Eye },
             { name: 'Service Area Mapper', href: '/dashboard/tools/service-area-mapper', icon: Map },
             { name: 'AI Share of Voice', href: '/dashboard/tools/ai-share-of-voice', icon: PieChart },
+        ]
+    },
+    {
+        name: 'Niche & Keywords',
+        icon: Telescope,
+        children: [
+            { name: 'AI Niche Finder', href: '/dashboard/tools/ai-niche-finder', icon: Telescope },
+            { name: 'Local Keyword Gen', href: '/dashboard/tools/local-keyword-gen', icon: Key },
+            { name: 'Service+City Combiner', href: '/dashboard/tools/service-city-kw-combiner', icon: Combine },
+            { name: 'Difficulty Estimator', href: '/dashboard/tools/keyword-difficulty-estimator', icon: BarChart },
         ]
     },
 ]
