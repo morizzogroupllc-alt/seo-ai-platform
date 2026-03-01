@@ -1,15 +1,3 @@
-import {
-    FileText,
-    Globe,
-    MapPin,
-    Search,
-    Zap,
-    LucideIcon,
-    Type,
-    AlignLeft,
-    Link as LinkIcon
-} from 'lucide-react'
-
 export type InputType = 'text' | 'textarea' | 'select' | 'number'
 
 export interface ToolInput {
@@ -26,7 +14,7 @@ export interface ToolConfig {
     id: string
     name: string
     description: string
-    icon: LucideIcon
+    icon: string // Changed from LucideIcon to string for serialization
     category: 'Local SEO' | 'AI Builder' | 'Content' | 'Tech'
     promptTemplate: string
     inputs: ToolInput[]
@@ -38,7 +26,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
         id: 'meta-description-gen',
         name: 'Meta Description Generator',
         description: 'Create high-converting meta descriptions using your NAP data.',
-        icon: FileText,
+        icon: 'FileText',
         category: 'Local SEO',
         promptTemplate: `You are an SEO expert. Generate a 150-160 character meta description for a business. 
     Business Name: {{business_name}}
@@ -72,7 +60,7 @@ export const toolRegistry: Record<string, ToolConfig> = {
         id: 'ai-page-gen',
         name: 'AI Page Generator',
         description: 'Generate full service-area pages optimized for local search.',
-        icon: Globe,
+        icon: 'Globe',
         category: 'AI Builder',
         promptTemplate: `Generate a full SEO-optimized landing page for:
     Business: {{business_name}}
