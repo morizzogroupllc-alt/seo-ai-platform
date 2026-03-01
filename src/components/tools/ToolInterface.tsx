@@ -12,7 +12,8 @@ import {
     MapPin,
     Search,
     Zap,
-    LucideIcon
+    LucideIcon,
+    Palette
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -23,7 +24,8 @@ const IconMap: Record<string, LucideIcon> = {
     Globe,
     MapPin,
     Search,
-    Zap
+    Zap,
+    Palette
 }
 
 interface ToolInterfaceProps {

@@ -152,6 +152,47 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Migrate to WP...`,
         inputs: [{ id: 'static_url', label: 'Static URL', type: 'text', required: true }],
         outputFormat: 'text'
+    },
+    // --- CATEGORY 2: DESIGN & UX ---
+    'ai-design-gen': {
+        id: 'ai-design-gen',
+        name: 'AI Design Generator',
+        description: 'AI generates design tokens: colors, fonts, spacing.',
+        icon: 'ImageIcon',
+        category: 'Design & UX',
+        promptTemplate: `Generate design tokens...`,
+        inputs: [{ id: 'brand_feel', label: 'Brand Feel', type: 'text', placeholder: 'e.g. Modern, Minimalist', required: true }],
+        outputFormat: 'text'
+    },
+    'local-seo-theme-selector': {
+        id: 'local-seo-theme-selector',
+        name: 'Local SEO Theme Selector',
+        description: 'Local Basic / Local Premium / Rank & Rent presets.',
+        icon: 'Palette',
+        category: 'Design & UX',
+        promptTemplate: `Select theme preset...`,
+        inputs: [{ id: 'preset', label: 'Theme Preset', type: 'select', options: [{ label: 'Local Basic', value: 'basic' }, { label: 'Local Premium', value: 'premium' }, { label: 'Rank & Rent', value: 'rank_rent' }], required: true }],
+        outputFormat: 'text'
+    },
+    'cta-optimizer': {
+        id: 'cta-optimizer',
+        name: 'CTA Placement Optimizer',
+        description: 'AI places CTAs in conversion-optimal positions.',
+        icon: 'MousePointer2',
+        category: 'Design & UX',
+        promptTemplate: `Optimize CTA placement...`,
+        inputs: [{ id: 'page_type', label: 'Page Type', type: 'text', required: true }],
+        outputFormat: 'text'
+    },
+    'conversion-layout-engine': {
+        id: 'conversion-layout-engine',
+        name: 'Conversion-Focused Layout Engine',
+        description: 'CRO-optimized layouts for local lead gen.',
+        icon: 'LayoutDashboard',
+        category: 'Design & UX',
+        promptTemplate: `Generate conversion layout...`,
+        inputs: [{ id: 'target_goal', label: 'Target Goal', type: 'text', placeholder: 'e.g. Lead Form Submission', required: true }],
+        outputFormat: 'text'
     }
 }
 

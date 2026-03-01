@@ -29,7 +29,8 @@ import {
     Cloud,
     Rocket,
     Server,
-    Hammer
+    Hammer,
+    Palette
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -62,6 +63,16 @@ const navigation: NavItem[] = [
             { name: 'Netlify/Vercel Hosting', href: '/dashboard/tools/auto-hosting', icon: Cloud },
             { name: 'Hosting Presets', href: '/dashboard/tools/hosting-presets', icon: Server },
             { name: 'WP Migration Tool', href: '/dashboard/tools/wp-migration', icon: Rocket },
+        ]
+    },
+    {
+        name: 'Design & UX',
+        icon: PenTool,
+        children: [
+            { name: 'AI Design Generator', href: '/dashboard/tools/ai-design-gen', icon: ImageIcon },
+            { name: 'Local SEO Theme Selector', href: '/dashboard/tools/local-seo-theme-selector', icon: Palette },
+            { name: 'CTA Placement Optimizer', href: '/dashboard/tools/cta-optimizer', icon: MousePointer2 },
+            { name: 'Conversion Layout Engine', href: '/dashboard/tools/conversion-layout-engine', icon: LayoutDashboard },
         ]
     },
     {
