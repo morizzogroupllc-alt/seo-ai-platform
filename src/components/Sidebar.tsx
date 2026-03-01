@@ -56,7 +56,13 @@ import {
     MessageCircle,
     TrendingUp,
     Star,
-    Shield
+    Shield,
+    Navigation,
+    Grid3X3,
+    List,
+    Users,
+    PieChart,
+    Map
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -164,6 +170,18 @@ const navigation: NavItem[] = [
             { name: 'Sentiment & Gap Analysis', href: '/dashboard/tools/review-sentiment-gap', icon: TrendingUp },
             { name: 'Reputation Score Calc', href: '/dashboard/tools/reputation-score-calc', icon: Star },
             { name: 'Reputation Manager', href: '/dashboard/tools/reputation-manager', icon: Shield },
+        ]
+    },
+    {
+        name: 'Rank Tracking',
+        icon: Navigation,
+        children: [
+            { name: 'Geo-Grid Rank Tracker', href: '/dashboard/tools/geo-grid-rank-tracker', icon: Grid3X3 },
+            { name: 'Local SERP Tracker', href: '/dashboard/tools/local-serp-tracker', icon: List },
+            { name: 'Competitor Rank Comparator', href: '/dashboard/tools/competitor-rank-comparator', icon: Users },
+            { name: 'Visibility Score Calc', href: '/dashboard/tools/visibility-score-calc', icon: Eye },
+            { name: 'Service Area Mapper', href: '/dashboard/tools/service-area-mapper', icon: Map },
+            { name: 'AI Share of Voice', href: '/dashboard/tools/ai-share-of-voice', icon: PieChart },
         ]
     },
 ]

@@ -555,6 +555,79 @@ export const toolRegistry: Record<string, ToolConfig> = {
         promptTemplate: `Reputation management tasks for {{business_name}}...`,
         inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
         outputFormat: 'markdown'
+    },
+    // --- CATEGORY 8: RANK TRACKING (PHASE 2) ---
+    'geo-grid-rank-tracker': {
+        id: 'geo-grid-rank-tracker',
+        name: 'Geo-Grid Rank Tracker',
+        description: 'Visual map of rankings across multiple coordinate points.',
+        icon: 'Grid3X3',
+        category: 'Rank Tracking',
+        promptTemplate: `Generate Geo-Grid rank report for {{business_name}} at {{location}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'location', label: 'Central Point/Location', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'local-serp-tracker': {
+        id: 'local-serp-tracker',
+        name: 'Local SERP Tracker',
+        description: 'Track keyword rankings in specific local search results.',
+        icon: 'List',
+        category: 'Rank Tracking',
+        promptTemplate: `Track local SERP for {{keywords}} in {{city}}...`,
+        inputs: [
+            { id: 'keywords', label: 'Keywords (comma separated)', type: 'textarea', required: true },
+            { id: 'city', label: 'Target City', type: 'text', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'competitor-rank-comparator': {
+        id: 'competitor-rank-comparator',
+        name: 'Competitor Rank Comparator',
+        description: 'Compare your rankings side-by-side with top competitors.',
+        icon: 'Users',
+        category: 'Rank Tracking',
+        promptTemplate: `Compare rankings for {{your_business}} vs {{competitors}}...`,
+        inputs: [
+            { id: 'your_business', label: 'Your Business', type: 'text', required: true },
+            { id: 'competitors', label: 'Competitor Names', type: 'textarea', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'visibility-score-calc': {
+        id: 'visibility-score-calc',
+        name: 'Visibility Score Calculator',
+        description: 'Aggregated visibility percentage across all tracked keywords.',
+        icon: 'Eye',
+        category: 'Rank Tracking',
+        promptTemplate: `Calculate visibility score for {{business_name}} across {{keywords}}...`,
+        inputs: [
+            { id: 'business_name', label: 'Business Name', type: 'text', required: true },
+            { id: 'keywords', label: 'Keywords List', type: 'textarea', required: true }
+        ],
+        outputFormat: 'markdown'
+    },
+    'service-area-mapper': {
+        id: 'service-area-mapper',
+        name: 'Service Area Coverage Mapper',
+        description: 'Maps your actual ranking coverage vs your defined service area.',
+        icon: 'Map',
+        category: 'Rank Tracking',
+        promptTemplate: `Map service area coverage for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
+    },
+    'ai-share-of-voice': {
+        id: 'ai-share-of-voice',
+        name: 'AI Share of Voice Tracker',
+        description: 'Calculates your dominance in local search volume.',
+        icon: 'PieChart',
+        category: 'Rank Tracking',
+        promptTemplate: `Analyze share of voice for {{business_name}}...`,
+        inputs: [{ id: 'business_name', label: 'Business Name', type: 'text', required: true }],
+        outputFormat: 'markdown'
     }
 }
 

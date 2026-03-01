@@ -42,7 +42,13 @@ import {
     MessageCircle,
     TrendingUp,
     Star,
-    Shield
+    Shield,
+    Navigation,
+    Grid3X3,
+    List,
+    Users,
+    PieChart,
+    Map
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateAIPrompt } from '@/lib/ai/engine'
@@ -83,7 +89,13 @@ const IconMap: Record<string, LucideIcon> = {
     MessageCircle,
     TrendingUp,
     Star,
-    Shield
+    Shield,
+    Navigation,
+    Grid3X3,
+    List,
+    Users,
+    PieChart,
+    Map
 }
 
 interface ToolInterfaceProps {
