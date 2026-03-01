@@ -15,12 +15,23 @@ import {
     Settings,
     DollarSign,
     BarChart3,
-    FileText,
-    Tool
+    FileText
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LucideIcon } from 'lucide-react'
 
-const navigation = [
+interface NavItem {
+    name: string
+    icon: LucideIcon
+    href?: string
+    children?: {
+        name: string
+        href: string
+        icon?: LucideIcon
+    }[]
+}
+
+const navigation: NavItem[] = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
     { name: 'Marketplace', icon: ShoppingBag, href: '#' },
     { name: 'Bulk Analysis', icon: BarChart3, href: '#' },
@@ -37,8 +48,8 @@ const navigation = [
         name: 'Content Creation',
         icon: FileText,
         children: [
-            { name: 'Blog Generator', href: '#' },
-            { name: 'Schema Markup', href: '#' },
+            { name: 'Blog Generator', href: '#', icon: FileText },
+            { name: 'Schema Markup', href: '#', icon: Layers },
         ]
     },
     { name: 'SEO Tools', icon: Layers, href: '#' },

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Rocket, Shield, Globe, Zap } from 'lucide-react'
+import { Rocket, Shield, Globe, Zap, Heart } from 'lucide-react'
 
 export default function Home() {
   return (
