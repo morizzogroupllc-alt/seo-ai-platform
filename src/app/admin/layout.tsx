@@ -81,9 +81,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         router.push('/dashboard')
     }
 
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode)
-    }
 
     if (loading) {
         return (
@@ -105,6 +102,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { icon: BarChart3, label: 'Analytics', path: '/admin/analytics' },
         { icon: Settings, label: 'Settings', path: '/admin/settings' },
     ]
+
+    const formatTime = () => currentTime
+    const toggleTheme = () => setIsDarkMode(!isDarkMode)
+    const shortEmail = user?.email?.split('@')[0] || 'Admin'
+    const firstLetter = user?.email?.[0]?.toUpperCase() || 'A'
 
     return (
         <div className={cn("flex flex-col min-h-screen admin-layout", isDarkMode ? "dark-mode" : "light-mode")}>
@@ -157,35 +159,35 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 )}
                             </Link>
                         ))}
-
-                        {/* Compact User Profile */}
-                        <div className="mt-auto px-3 pb-3">
-                            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl p-3 flex items-center gap-3">
-                                {/* Avatar */}
-                                <div className="w-9 h-9 rounded-full bg-purple-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                                    {user?.email?.[0]?.toUpperCase() || 'A'}
-                                </div>
-
-                                {/* Info */}
-                                <div className="min-w-0">
-                                    <div className="text-white text-xs font-semibold truncate">
-                                        {user?.email?.split('@')[0] || 'Admin'}
-                                    </div>
-                                    <div className="text-red-400 text-[10px] font-bold tracking-wider">
-                                        ⚡ SUPER ADMIN
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </nav>
 
                     {/* Sidebar Footer */}
-                    <div className="p-6 flex-shrink-0">
-                        <div className="security-badge p-4 bg-red-950/20 border border-red-900/30 rounded-2xl flex flex-col items-center gap-2 group hover:border-red-500/50 transition-all">
-                            <span className="text-2xl lock-icon group-hover:scale-110 transition-transform">🔒</span>
-                            <div className="text-center">
-                                <div className="text-red-500 security-title text-[10px] font-black tracking-widest uppercase mb-0.5">High Security</div>
-                                <div className="text-red-900 security-sub text-[8px] font-bold uppercase">Admin Access Only</div>
+                    <div className="flex flex-col gap-0">
+                        {/* Super Admin box (compact) */}
+                        <div className="px-3 pb-2">
+                            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl px-3 py-2 flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-full bg-purple-700 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
+                                    {firstLetter}
+                                </div>
+                                <div className="min-w-0">
+                                    <div className="text-white text-xs font-medium truncate">
+                                        {shortEmail}
+                                    </div>
+                                    <div className="text-red-400 text-[10px] font-bold">⚡ SUPER ADMIN</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* HIGH SECURITY box (horizontal) */}
+                        <div className="px-3 pb-3">
+                            <div className="security-badge bg-[#1A0000] border border-red-900 rounded-xl py-2 px-3 flex items-center justify-center gap-2">
+                                <span className="lock-icon text-base">🔒</span>
+                                <div>
+                                    <div className="security-title text-red-400 text-[10px] font-bold tracking-wider leading-tight">
+                                        HIGH SECURITY
+                                    </div>
+                                    <div className="security-sub text-red-800 text-[9px] leading-tight">Admin Access Only</div>
+                                </div>
                             </div>
                         </div>
                     </div>

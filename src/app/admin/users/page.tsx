@@ -479,16 +479,18 @@ export default function UsersManagementPage() {
                                                     >
                                                         {user.email[0].toUpperCase()}
                                                     </div>
-                                                    <div className="relative inline-block">
-                                                        <span className="text-white text-sm font-medium pr-14">
-                                                            {user.email}
-                                                        </span>
-                                                        <span className={`absolute -top-2.5 right-0 text-[10px] px-2 py-0.5 rounded-full font-bold whitespace-nowrap ${user.role === 'admin'
-                                                            ? 'bg-red-900 text-red-300 border border-red-700'
-                                                            : 'bg-[#1A1740] text-gray-300 border border-gray-600'
-                                                            }`}>
-                                                            {user.role === 'admin' ? <>⚡ admin</> : <>👤 user</>}
-                                                        </span>
+                                                    <div className="flex flex-col">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-white text-sm font-medium">
+                                                                {user.email}
+                                                            </span>
+                                                            <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold flex-shrink-0 ${user.role === 'admin'
+                                                                ? 'bg-red-900/70 text-red-300 border border-red-700'
+                                                                : 'bg-gray-800 text-gray-300 border border-gray-600'
+                                                                }`}>
+                                                                {user.role === 'admin' ? <>⚡ admin</> : <>👤 user</>}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -503,17 +505,10 @@ export default function UsersManagementPage() {
                                                 </span>
                                             </td>
                                             <td className="px-4 py-4 text-center">
-                                                {isVerified ? (
-                                                    <div className="flex flex-col items-center gap-1 group">
-                                                        <span className="text-xl verified-glow">✅</span>
-                                                        <span className="text-green-400 text-[10px] font-medium uppercase tracking-tighter">Verified</span>
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex flex-col items-center gap-1 opacity-70">
-                                                        <span className="text-xl">⏳</span>
-                                                        <span className="text-yellow-500 text-[10px] font-medium uppercase tracking-tighter">Pending</span>
-                                                    </div>
-                                                )}
+                                                <div className="flex flex-col items-center">
+                                                    <div className="text-green-400 text-lg verified-glow">✓</div>
+                                                    <span className="text-green-400 text-[10px] mt-0.5 font-medium">Verified</span>
+                                                </div>
                                             </td>
                                             <td className="px-4 py-4 text-center text-gray-400 text-sm">
                                                 {new Date(user.created_at).toLocaleDateString()}
