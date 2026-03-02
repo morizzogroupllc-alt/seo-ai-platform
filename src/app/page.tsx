@@ -139,85 +139,121 @@ export default function LandingPage() {
         </div>
 
         {/* FAKE DASHBOARD MOCKUP */}
-        <div className="relative group animate-float" style={{ animationDelay: '300ms' }}>
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl blur opacity-20 group-hover:opacity-30 transition duration-1000 group-hover:duration-200" />
-          <div className="relative bg-[#1A1740] rounded-2xl border border-[#4C1D95] overflow-hidden shadow-[0_0_60px_rgba(139,92,246,0.2)] aspect-video md:aspect-[21/9]">
-            <div className="flex flex-col h-full">
-              {/* Mock Topbar */}
-              <div className="h-10 bg-[#0F0C29] border-b border-white/5 flex items-center justify-between px-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-purple-600 rounded flex items-center justify-center text-[8px] font-black italic text-white">S</div>
-                  <span className="text-[10px] font-black uppercase tracking-tighter text-slate-300">SEO AI DASHBOARD</span>
-                </div>
+        <div className="relative group animate-float max-w-5xl mx-auto w-full" style={{ animationDelay: '300ms' }}>
+          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
+          <div className="relative bg-[#1A1740] rounded-2xl border border-[#4C1D95] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.25)]">
+            <div className="flex flex-col h-full uppercase italic">
+              {/* ━━━ TOPBAR (h-12) ━━━ */}
+              <div className="h-12 bg-[#0D0B1F] border-b border-[#2D2B55] flex items-center px-4 justify-between">
                 <div className="flex items-center space-x-3">
-                  <Bell className="w-3 h-3 text-slate-500" />
-                  <div className="w-5 h-5 bg-purple-500/20 border border-purple-500/30 rounded-full flex items-center justify-center">
-                    <User className="w-2.5 h-2.5 text-purple-400" />
-                  </div>
+                  <div className="w-7 h-7 bg-purple-600 rounded flex items-center justify-center text-[10px] font-black italic text-white shadow-lg">S</div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-white">SEO AI Platform</span>
+                </div>
+                <div className="text-[10px] font-black tracking-[0.3em] text-purple-400">DASHBOARD</div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-gray-500 text-sm">🔔</span>
+                  <div className="w-7 h-7 bg-purple-700 rounded-full flex items-center justify-center text-[10px] font-black text-white border border-purple-500/30">L</div>
                 </div>
               </div>
+
+              {/* ━━━ MAIN AREA (flex) ━━━ */}
               <div className="flex flex-1 overflow-hidden">
-                {/* Mock Sidebar */}
-                <div className="w-24 bg-[#0F0C29]/50 border-r border-white/5 p-2 space-y-2 hidden sm:block">
-                  {[1, 1, 1, 1, 1].map((_, i) => (
-                    <div key={i} className="h-2 w-full bg-white/5 rounded" />
-                  ))}
+                {/* LEFT SIDEBAR (w-36) */}
+                <div className="w-36 bg-[#080617] border-r border-[#1A1740] p-3 h-[320px] hidden sm:flex flex-col">
+                  <div className="space-y-1.5 flex-1">
+                    {[
+                      { icon: '🏠', n: 'Dashboard', active: true },
+                      { icon: '🔍', n: 'Research' },
+                      { icon: '🏗️', n: 'Build' },
+                      { icon: '🚀', n: 'Deploy' },
+                      { icon: '📝', n: 'Optimize' },
+                      { icon: '📍', n: 'Authority' },
+                      { icon: '📞', n: 'Convert' },
+                      { icon: '📈', n: 'Track' },
+                      { icon: '📋', n: 'Reports' },
+                      { icon: '⚡', n: 'Automation' }
+                    ].map((item, i) => (
+                      <div key={i} className={cn(
+                        "flex items-center space-x-2 py-1.5 px-2 rounded text-[9px] font-black transition-colors",
+                        item.active ? "bg-purple-700/40 text-white" : "text-gray-400 hover:bg-white/5 hover:text-white"
+                      )}>
+                        <span>{item.icon}</span>
+                        <span className="tracking-tighter">{item.n}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="pt-2 border-t border-white/5">
+                    <div className="flex items-center space-x-2 py-1.5 px-2 rounded text-[9px] font-black text-gray-400">
+                      <span>⚙️</span>
+                      <span className="tracking-tighter">System</span>
+                    </div>
+                  </div>
                 </div>
-                {/* Mock Main Content */}
-                <div className="flex-1 p-4 md:p-6 space-y-6 overflow-hidden">
-                  <div className="flex justify-between items-center">
-                    <h4 className="text-xs font-black text-white italic uppercase tracking-widest">Welcome back 👋</h4>
-                    <div className="text-[8px] font-bold text-slate-500 bg-white/5 px-2 py-0.5 rounded">MARCH 2025</div>
+
+                {/* RIGHT CONTENT (flex-1) */}
+                <div className="flex-1 bg-[#0F0C1F] p-4 overflow-hidden flex flex-col">
+                  {/* Row 1 — Welcome bar */}
+                  <div className="flex items-center">
+                    <h4 className="text-xs font-black text-white italic tracking-widest uppercase">Welcome back 👋</h4>
+                    <span className="ml-2 px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded-full text-[8px] font-black text-purple-400 uppercase tracking-widest">Local SEO Newbie</span>
                   </div>
 
-                  {/* Phase Cards */}
-                  <div className="grid grid-cols-4 gap-3">
+                  {/* Row 2 — 8 Phase cards (grid 4×2) */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3">
                     {[
-                      { l: 'R', v: '17', c: 'purple' },
-                      { l: 'B', v: '26', c: 'blue' },
-                      { l: 'D', v: '8', c: 'emerald' },
-                      { l: 'O', v: '19', c: 'amber' }
+                      { i: '🔍', n: 'Research', t: '17 tools' },
+                      { i: '🏗️', n: 'Build', t: '26 tools' },
+                      { i: '🚀', n: 'Deploy', t: '8 tools' },
+                      { i: '📝', n: 'Optimize', t: '19 tools' },
+                      { i: '📍', n: 'Authority', t: '34 tools' },
+                      { i: '📞', n: 'Convert', t: '5 tools' },
+                      { i: '📈', n: 'Track', t: '9 tools' },
+                      { i: '📋', n: 'Reports', t: '11 tools' }
                     ].map((p, i) => (
-                      <div key={i} className="bg-black/20 border border-white/5 rounded-lg p-3 space-y-2 relative overflow-hidden group/card">
-                        <div className={`absolute top-0 right-0 w-12 h-12 bg-${p.c}-500/5 blur-xl`} />
-                        <div className="flex justify-between items-start">
-                          <span className={`text-[10px] font-black text-${p.c}-400`}>{p.l}</span>
-                          <TrendingUp className="w-2 h-2 text-slate-600" />
+                      <div key={i} className="bg-[#1A1740] border border-[#2D2B55] rounded-lg p-2 flex flex-col space-y-1 relative overflow-hidden group/mcard transition-colors hover:border-purple-500/50">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs">{p.i}</span>
+                          <span className="text-white text-[9px] font-black tracking-tighter">{p.n}</span>
                         </div>
-                        <div className="text-sm font-black text-white">{p.v}</div>
+                        <div className="flex justify-between items-end mt-auto">
+                          <span className="text-purple-400 text-[8px] font-black tracking-widest">{p.t}</span>
+                          <span className="text-purple-300 text-[8px] font-black uppercase tracking-tighter">Start →</span>
+                        </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Stats Row */}
-                  <div className="grid grid-cols-4 gap-3 pt-2">
+                  {/* Row 3 — Stats (grid 4 cols) */}
+                  <div className="grid grid-cols-4 gap-2 mt-3">
                     {[
-                      { v: '136', l: 'Tools' },
-                      { v: '78', l: 'Sites' },
-                      { v: '58', l: 'Ranks' },
-                      { v: '0%', l: 'Churn' }
+                      { v: '136', l: 'Total Tools' },
+                      { v: '78', l: 'Free Tools' },
+                      { v: '58', l: 'Paid Tools' },
+                      { v: '0%', l: 'Progress' }
                     ].map((s, i) => (
-                      <div key={i} className="text-center space-y-1">
-                        <div className="text-[10px] font-black text-white">{s.v}</div>
-                        <div className="text-[7px] font-black text-slate-600 uppercase tracking-tighter">{s.l}</div>
+                      <div key={i} className="bg-[#1A1740] rounded-lg p-2 text-center border border-white/5">
+                        <div className="text-purple-400 text-xs font-black tracking-tighter mb-0.5">{s.v}</div>
+                        <div className="text-gray-500 text-[8px] font-black uppercase tracking-widest leading-none">{s.l}</div>
                       </div>
                     ))}
                   </div>
 
-                  {/* CTA Card */}
-                  <div className="bg-gradient-to-br from-purple-600/10 to-blue-600/10 border border-purple-500/20 rounded-xl p-4 flex flex-col items-center text-center space-y-2 mt-4">
-                    <p className="text-[10px] font-black text-white italic tracking-tighter uppercase">Ready to find your niche?</p>
-                    <button className="px-4 py-1.5 bg-purple-600 rounded-md text-[8px] font-black uppercase tracking-widest text-white shadow-lg shadow-purple-900/40">
+                  {/* Row 4 — CTA Banner */}
+                  <div className="mt-auto bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 rounded-lg p-3 flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-white text-[10px] font-black italic tracking-tighter uppercase">Ready to find your niche? 🎯</span>
+                    </div>
+                    <button className="bg-white text-purple-700 text-[8px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg active:scale-[0.98] transition-transform">
                       Start Research →
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-            {/* Glow Points */}
-            <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-purple-500/10 blur-3xl pointer-events-none" />
-            <div className="absolute bottom-1/4 left-1/4 w-32 h-32 bg-blue-500/10 blur-3xl pointer-events-none" />
           </div>
+          {/* Glow Points */}
+          <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-purple-500/15 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-1/4 left-1/4 w-32 h-32 bg-blue-500/15 blur-3xl pointer-events-none" />
         </div>
       </section>
 
