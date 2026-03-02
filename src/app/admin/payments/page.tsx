@@ -45,10 +45,10 @@ export default function AdminPaymentsPage() {
 
     // Data Derivation
     const freeCount = users.filter(u => u.plan === 'free').length
-    const starterCount = users.filter(u => u.plan === 'starter').length
-    const proCount = users.filter(u => u.plan === 'pro').length
-    const agencyCount = users.filter(u => u.plan === 'agency').length
-    const enterpriseCount = users.filter(u => u.plan === 'enterprise').length
+    const starterCount = users.filter(u => u.plan === 'starter' && u.role !== 'admin').length
+    const proCount = users.filter(u => u.plan === 'pro' && u.role !== 'admin').length
+    const agencyCount = users.filter(u => u.plan === 'agency' && u.role !== 'admin').length
+    const enterpriseCount = users.filter(u => u.plan === 'enterprise' && u.role !== 'admin').length
 
     const paidUsers = users.filter(u => u.plan !== 'free' && u.role !== 'admin')
     const paidUsersCount = paidUsers.length
@@ -259,10 +259,10 @@ export default function AdminPaymentsPage() {
                             Revenue will appear here once users upgrade their plans
                         </p>
                         <button
-                            onClick={() => router.push('/admin/settings')}
+                            onClick={() => router.push('/admin/users')}
                             className="flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-black rounded-xl transition-all shadow-lg shadow-purple-600/20 active:scale-95 uppercase tracking-widest"
                         >
-                            View Plans →
+                            Manage Users →
                         </button>
                     </div>
                 )}
@@ -287,9 +287,14 @@ export default function AdminPaymentsPage() {
                             className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-white text-indigo-950 text-[11px] font-black rounded-xl hover:bg-gray-100 transition-all active:scale-95 uppercase tracking-widest">
                             Setup Stripe →
                         </a>
-                        <button className="w-full sm:w-auto px-8 py-3 border border-white/10 text-white text-[11px] font-black rounded-xl hover:bg-white/5 transition-all uppercase tracking-widest">
-                            View Docs
-                        </button>
+                        <a
+                            href="https://stripe.com/docs/billing/subscriptions/overview"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border border-[#2D2B55] hover:border-purple-500 text-gray-300 hover:text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all"
+                        >
+                            View Docs ↗
+                        </a>
                     </div>
                 </div>
                 {/* Decorative background elements */}
