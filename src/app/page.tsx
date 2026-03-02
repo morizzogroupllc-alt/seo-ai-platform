@@ -179,7 +179,7 @@ export default function LandingPage() {
                         item.active ? "bg-purple-700/40 text-white" : "text-gray-400 hover:bg-white/5 hover:text-white"
                       )}>
                         <span>{item.icon}</span>
-                        <span className="tracking-tighter">{item.n}</span>
+                        <span className="tracking-tighter capitalize">{item.n.toLowerCase()}</span>
                       </div>
                     ))}
                   </div>
@@ -195,7 +195,7 @@ export default function LandingPage() {
                 <div className="flex-1 bg-[#0F0C1F] p-4 overflow-hidden flex flex-col">
                   {/* Row 1 — Welcome bar */}
                   <div className="flex items-center">
-                    <h4 className="text-xs font-black text-white italic tracking-widest uppercase">Welcome back 👋</h4>
+                    <h4 className="text-sm font-semibold text-white italic tracking-widest">Welcome back 👋</h4>
                     <span className="ml-2 px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded-full text-[8px] font-black text-purple-400 uppercase tracking-widest">Local SEO Newbie</span>
                   </div>
 
@@ -211,14 +211,14 @@ export default function LandingPage() {
                       { i: '📈', n: 'Track', t: '9 tools' },
                       { i: '📋', n: 'Reports', t: '11 tools' }
                     ].map((p, i) => (
-                      <div key={i} className="bg-[#1A1740] border border-[#2D2B55] rounded-lg p-2 flex flex-col space-y-1 relative overflow-hidden group/mcard transition-colors hover:border-purple-500/50">
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs">{p.i}</span>
-                          <span className="text-white text-[9px] font-black tracking-tighter">{p.n}</span>
-                        </div>
-                        <div className="flex justify-between items-end mt-auto">
-                          <span className="text-purple-400 text-[8px] font-black tracking-widest">{p.t}</span>
-                          <span className="text-purple-300 text-[8px] font-black uppercase tracking-tighter">Start →</span>
+                      <div key={i} className="bg-[#1A1740] border border-[#2D2B55] rounded-lg p-2 flex items-center gap-2 relative overflow-hidden group/mcard transition-colors hover:border-purple-500/50">
+                        <span className="text-lg">{p.i}</span>
+                        <div className="flex flex-col">
+                          <span className="text-white text-[11px] font-semibold">{p.n}</span>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-purple-400 text-[9px]">{p.t}</span>
+                            <span className="text-purple-300 text-[9px]">Start →</span>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -227,14 +227,14 @@ export default function LandingPage() {
                   {/* Row 3 — Stats (grid 4 cols) */}
                   <div className="grid grid-cols-4 gap-2 mt-3">
                     {[
-                      { v: '136', l: 'Total Tools' },
-                      { v: '78', l: 'Free Tools' },
-                      { v: '58', l: 'Paid Tools' },
-                      { v: '0%', l: 'Progress' }
+                      { v: '136', l: '📦 Total Tools' },
+                      { v: '78', l: '✅ Free Tools' },
+                      { v: '58', l: '💰 Paid Tools' },
+                      { v: '0%', l: '📈 Progress' }
                     ].map((s, i) => (
                       <div key={i} className="bg-[#1A1740] rounded-lg p-2 text-center border border-white/5">
                         <div className="text-purple-400 text-xs font-black tracking-tighter mb-0.5">{s.v}</div>
-                        <div className="text-gray-500 text-[8px] font-black uppercase tracking-widest leading-none">{s.l}</div>
+                        <div className="text-gray-400 text-[8px] font-semibold leading-none">{s.l}</div>
                       </div>
                     ))}
                   </div>
@@ -244,7 +244,7 @@ export default function LandingPage() {
                     <div className="flex items-center space-x-2">
                       <span className="text-white text-[10px] font-black italic tracking-tighter uppercase">Ready to find your niche? 🎯</span>
                     </div>
-                    <button className="bg-white text-purple-700 text-[8px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg active:scale-[0.98] transition-transform">
+                    <button className="border border-white text-white bg-transparent hover:bg-white/10 text-[10px] px-3 py-1 rounded-full transition-all">
                       Start Research →
                     </button>
                   </div>
