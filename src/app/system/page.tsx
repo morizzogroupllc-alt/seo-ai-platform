@@ -16,7 +16,7 @@ export default function SystemPage() {
 
     const handleResetUserType = () => {
         localStorage.removeItem('user_type')
-        router.push('/onboarding')
+        window.location.href = '/onboarding'
     }
 
     return (
