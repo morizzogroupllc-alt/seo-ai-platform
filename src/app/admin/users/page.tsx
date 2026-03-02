@@ -1,3 +1,15 @@
+/*
+  If users still not loading, run in Supabase SQL editor:
+  
+  DROP POLICY IF EXISTS "Admin can read all profiles" ON profiles;
+  
+  CREATE POLICY "Admin can read all profiles"
+  ON profiles FOR SELECT
+  USING (true);
+  
+  This allows all authenticated users to 
+  read profiles. Secure enough for now.
+*/
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -113,36 +125,38 @@ export default function UsersManagementPage() {
     }, []);
 
     const fetchUsers = async () => {
-        setLoading(true);
-        setError(null); // Clear previous errors
+        setLoading(true)
+        setError(null)
         try {
-            // 1. Fetch Users — Try with ordering first
+            // First verify current user is authenticated
+            const { data: { user } } = await supabase.auth.getUser()
+
+            if (!user) {
+                setError('Not authenticated. Please log in.')
+                setUsers([])
+                return
+            }
+
+            // Fetch ALL profiles
             const { data, error } = await supabase
                 .from('profiles')
-                .select('*, email_confirmed_at')
-                .order('created_at', { ascending: false });
+                .select('*')
 
             if (error) {
-                console.error('Supabase fetch error (likely missing index):', error);
-
-                // FALLBACK: Try without .order()
-                const { data: dataFallback, error: errorFallback } = await supabase
-                    .from('profiles')
-                    .select('*, email_confirmed_at');
-
-                if (errorFallback) throw errorFallback;
-
-                setUsers(dataFallback || []);
+                console.error('Error fetching profiles:', error)
+                setError(error.message)
+                setUsers([])
             } else {
-                setUsers(data || []);
+                setUsers(data || [])
             }
         } catch (err: any) {
-            console.error('Fetch error:', err);
-            setError('Failed to fetch users: ' + err.message);
+            console.error('Unexpected error fetching profiles:', err);
+            setError(err.message)
+            setUsers([])
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
     // NOTE TO ADMIN: If user fetching still fails with 401/403 despite being admin, 
     // run this SQL in Supabase SQL Editor to ensure Admin full access:

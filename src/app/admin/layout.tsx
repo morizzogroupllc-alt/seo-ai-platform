@@ -124,17 +124,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
                     isDarkMode ? "bg-[#0F0C29] border-r border-[#2D2B55]" : "bg-white border-r border-gray-200"
                 )}>
-                    {/* Sidebar Header */}
-                    <div className="h-20 flex-shrink-0 flex items-center px-6 border-b border-white/5">
-                        <div className="flex items-center gap-3 group">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform cursor-pointer">
-                                <span className="text-xl font-black">S</span>
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="text-white font-black text-sm tracking-widest">SEO AI</span>
-                                <span className="text-purple-400 text-[10px] font-bold tracking-[0.2em]">PLATFORM</span>
-                            </div>
+                    {/* Sidebar Header - One Line Logo */}
+                    <div className="h-16 flex items-center px-4 border-b border-[#2D2B55]">
+                        <div className="w-9 h-9 bg-purple-700 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3 flex-shrink-0">
+                            S
                         </div>
+                        <span className="text-white font-bold text-sm tracking-wider whitespace-nowrap uppercase">
+                            SEO AI PLATFORM
+                        </span>
                     </div>
 
                     {/* Navigation */}
@@ -161,24 +158,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             </Link>
                         ))}
 
-                        {/* USER TYPE SECTION */}
-                        <div className="mt-8 pt-6 border-t border-white/5">
-                            <div className="px-4 mb-4">
-                                <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">User Profile</span>
-                            </div>
-                            <div className="bg-white/5 rounded-xl p-4 mx-2 border border-white/5 group hover:border-purple-500/30 transition-all">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className="user-avatar w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold border border-indigo-500/20">
-                                        R
+                        {/* Compact User Profile */}
+                        <div className="mt-auto px-3 pb-3">
+                            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl p-3 flex items-center gap-3">
+                                {/* Avatar */}
+                                <div className="w-9 h-9 rounded-full bg-purple-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                                    {user?.email?.[0]?.toUpperCase() || 'A'}
+                                </div>
+
+                                {/* Info */}
+                                <div className="min-w-0">
+                                    <div className="text-white text-xs font-semibold truncate">
+                                        {user?.email?.split('@')[0] || 'Admin'}
                                     </div>
-                                    <div className="flex flex-col overflow-hidden">
-                                        <span className="text-white text-xs font-bold truncate">Rehan Khan</span>
-                                        <span className="text-[9px] text-gray-500 uppercase tracking-tighter">Super Admin</span>
+                                    <div className="text-red-400 text-[10px] font-bold tracking-wider">
+                                        ⚡ SUPER ADMIN
                                     </div>
                                 </div>
-                                <button className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black rounded-lg transition-all active:scale-95 shadow-lg shadow-indigo-600/20">
-                                    CHANGE ROLE
-                                </button>
                             </div>
                         </div>
                     </nav>
