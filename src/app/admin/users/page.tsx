@@ -81,6 +81,18 @@ export default function AdminUsers() {
         }
     }
 
+    const updateRole = async (userId: string, newRole: string) => {
+        const { error } = await supabase
+            .from('profiles')
+            .update({ role: newRole })
+            .eq('id', userId)
+
+        if (!error) {
+            fetchUsers()
+            setIsEditModalOpen(false)
+        }
+    }
+
     return (
         <div className="space-y-8">
             {/* PAGE HEADER */}
@@ -181,8 +193,8 @@ export default function AdminUsers() {
                                     <td className="px-6 py-5">
                                         <div className="flex flex-col space-y-1">
                                             <div className="flex items-center space-x-1.5">
-                                                <Shield className={cn("w-3 h-3", user.role === 'admin' ? "text-red-500" : "text-blue-500")} />
-                                                <span className={cn("text-[10px] font-black uppercase tracking-widest", user.role === 'admin' ? "text-red-500" : "text-blue-500")}>
+                                                <Shield className={cn("w-3 h-3", user.role?.toLowerCase() === 'admin' ? "text-red-500" : "text-blue-500")} />
+                                                <span className={cn("text-[10px] font-black uppercase tracking-widest", user.role?.toLowerCase() === 'admin' ? "text-red-500" : "text-blue-500")}>
                                                     {user.role}
                                                 </span>
                                             </div>
@@ -259,6 +271,30 @@ export default function AdminUsers() {
                                             {p}
                                         </button>
                                     ))}
+                                </div>
+                            </div>
+
+                            <div className="space-y-2 pt-4 border-t border-white/5">
+                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Change Role</label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <button
+                                        onClick={() => updateRole(selectedUser.id, 'user')}
+                                        className={cn(
+                                            "py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all",
+                                            selectedUser.role?.toLowerCase() === 'user' ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-900/20" : "bg-white/5 border-white/5 text-slate-400 hover:bg-white/10"
+                                        )}
+                                    >
+                                        User
+                                    </button>
+                                    <button
+                                        onClick={() => updateRole(selectedUser.id, 'admin')}
+                                        className={cn(
+                                            "py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all",
+                                            selectedUser.role?.toLowerCase() === 'admin' ? "bg-red-600 border-red-500 text-white shadow-lg shadow-red-900/20" : "bg-white/5 border-white/5 text-slate-400 hover:bg-white/10"
+                                        )}
+                                    >
+                                        Admin
+                                    </button>
                                 </div>
                             </div>
 
