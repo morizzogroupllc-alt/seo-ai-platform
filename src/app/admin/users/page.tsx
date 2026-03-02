@@ -31,6 +31,7 @@ interface Profile {
     usage_keywords: number;
     usage_serp: number;
     usage_content: number;
+    email_confirmed_at?: string | null;
     usage_reset_date: string;
     is_active: boolean;
     created_at: string;
@@ -44,11 +45,27 @@ interface Toast {
 
 // --- Components ---
 
-const Badge = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${className}`}>
-        {children}
-    </span>
-);
+// --- CSS Helpers ---
+const avatarGradientColors = [
+    'linear-gradient(135deg, #6366f1, #a855f7)',
+    'linear-gradient(135deg, #3b82f6, #06b6d4)',
+    'linear-gradient(135deg, #ec4899, #f43f5e)',
+    'linear-gradient(135deg, #f59e0b, #ef4444)',
+    'linear-gradient(135deg, #10b981, #3b82f6)',
+];
+
+const getAvatarColor = (email: string) => {
+    const charCode = email.charCodeAt(0) + email.charCodeAt(email.length - 1);
+    return avatarGradientColors[charCode % avatarGradientColors.length];
+};
+
+function Badge({ children, className }: { children: React.ReactNode, className?: string }) {
+    return (
+        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${className}`}>
+            {children}
+        </span>
+    );
+}
 
 const Modal = ({ isOpen, onClose, title, children }: { isOpen: boolean, onClose: () => void, title: string, children: React.ReactNode }) => {
     if (!isOpen) return null;
@@ -97,9 +114,10 @@ export default function UsersManagementPage() {
     const fetchUsers = async () => {
         setLoading(true);
         try {
+            // 1. Fetch Users
             const { data, error } = await supabase
                 .from('profiles')
-                .select('*')
+                .select('*, email_confirmed_at')
                 .order('created_at', { ascending: false });
 
             if (error) throw error;
@@ -403,9 +421,8 @@ export default function UsersManagementPage() {
                                 </tr>
                             ) : (
                                 filteredUsers.map((user, idx) => {
-                                    // Verified Heuristic
-                                    const isVerified = (user as any).email_confirmed_at ||
-                                        (new Date().getTime() - new Date(user.created_at).getTime() > 24 * 60 * 60 * 1000);
+                                    // Verified logic: Use email_confirmed_at if profile has it
+                                    const isVerified = user.email_confirmed_at !== null && user.email_confirmed_at !== undefined;
 
                                     return (
                                         <tr
@@ -417,22 +434,23 @@ export default function UsersManagementPage() {
                                             style={{ animationDelay: `${300 + (idx * 50)}ms`, animationFillMode: 'forwards' }}
                                         >
                                             <td className="px-4 py-4 text-left">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-9 h-9 flex-shrink-0 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold text-sm border border-purple-500/30 user-avatar">
+                                                <div className="flex items-center gap-3 text-[#EEF2FF]">
+                                                    <div
+                                                        className="w-9 h-9 flex-shrink-0 rounded-full flex items-center justify-center font-bold text-sm border border-white/10 user-avatar"
+                                                        style={{ background: getAvatarColor(user.email) }}
+                                                    >
                                                         {user.email[0].toUpperCase()}
                                                     </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-white text-sm font-medium">
+                                                    <div className="relative inline-block">
+                                                        <span className="text-white text-sm font-medium pr-14">
                                                             {user.email}
                                                         </span>
-                                                        <div className="mt-1">
-                                                            <span className={`text-[11px] px-2.5 py-1 rounded-full font-bold inline-flex items-center gap-1 ${user.role === 'admin'
-                                                                    ? 'bg-red-900/80 text-red-300 border border-red-700'
-                                                                    : 'bg-gray-800 text-gray-300 border border-gray-600'
-                                                                }`}>
-                                                                {user.role === 'admin' ? <>⚡ admin</> : <>👤 user</>}
-                                                            </span>
-                                                        </div>
+                                                        <span className={`absolute -top-2.5 right-0 text-[10px] px-2 py-0.5 rounded-full font-bold whitespace-nowrap ${user.role === 'admin'
+                                                            ? 'bg-red-900 text-red-300 border border-red-700'
+                                                            : 'bg-[#1A1740] text-gray-300 border border-gray-600'
+                                                            }`}>
+                                                            {user.role === 'admin' ? <>⚡ admin</> : <>👤 user</>}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -448,17 +466,14 @@ export default function UsersManagementPage() {
                                             </td>
                                             <td className="px-4 py-4 text-center">
                                                 {isVerified ? (
-                                                    <div className="flex flex-col items-center group">
-                                                        <div className="relative">
-                                                            <span className="text-2xl verified-glow">✅</span>
-                                                            <div className="absolute inset-0 rounded-full animate-pulse shadow-[0_0_8px_2px_rgba(34,197,94,0.6)]"></div>
-                                                        </div>
-                                                        <span className="text-green-400 text-[10px] mt-1 font-bold uppercase tracking-tighter">Verified</span>
+                                                    <div className="flex flex-col items-center gap-1 group">
+                                                        <span className="text-xl verified-glow">✅</span>
+                                                        <span className="text-green-400 text-[10px] font-medium uppercase tracking-tighter">Verified</span>
                                                     </div>
                                                 ) : (
-                                                    <div className="flex flex-col items-center opacity-60">
-                                                        <span className="text-2xl">❌</span>
-                                                        <span className="text-red-400 text-[10px] mt-1 font-bold uppercase tracking-tighter">Pending</span>
+                                                    <div className="flex flex-col items-center gap-1 opacity-70">
+                                                        <span className="text-xl">⏳</span>
+                                                        <span className="text-yellow-500 text-[10px] font-medium uppercase tracking-tighter">Pending</span>
                                                     </div>
                                                 )}
                                             </td>
