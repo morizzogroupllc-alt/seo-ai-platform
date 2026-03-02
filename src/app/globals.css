@@ -392,6 +392,7 @@
   color: #92400E !important;
 }
 
+/* === TOPBAR buttons in light === */
 .light-mode .topbar-btn-outline {
   border-color: #D1D5DB !important;
   color: #374151 !important;
@@ -399,4 +400,35 @@
 
 .light-mode .topbar-btn-outline:hover {
   background: #F3F4F6 !important;
+}
+
+/* ══════════════════════════════
+   HIGH SECURITY ALWAYS DARK
+══════════════════════════════ */
+.security-badge {
+  background: #1A0000 !important;
+  border: 1px solid #7F1D1D !important;
+  border-radius: 12px !important;
+}
+
+.security-badge .lock-icon {
+  color: #FCA5A5 !important;
+}
+
+.security-badge .security-title {
+  color: #FCA5A5 !important;
+}
+
+.security-badge .security-sub {
+  color: #991B1B !important;
+}
+
+/* Force dark on security badge even in light mode */
+.light-mode .security-badge {
+  background: #1A0000 !important;
+  border-color: #7F1D1D !important;
+}
+
+.light-mode .security-badge * {
+  color: inherit !important;
 }

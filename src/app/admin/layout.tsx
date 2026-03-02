@@ -16,7 +16,11 @@ import {
     Eye,
     ShieldAlert,
     Loader2,
-    Clock
+    Clock,
+    Menu,
+    Shield,
+    Sun,
+    Moon
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -26,7 +30,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState<any>(null)
     const [currentTime, setCurrentTime] = useState('')
-    const [isDark, setIsDark] = useState(true)
+    const [isDarkMode, setIsDarkMode] = useState(true)
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
     useEffect(() => {
         // Auth check
@@ -49,22 +54,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         checkAdmin()
 
-        // Clock
-        const formatTime = () => {
+        // Clock Update Logic
+        const updateTime = () => {
             const now = new Date()
             let hours = now.getHours()
             const minutes = now.getMinutes().toString().padStart(2, '0')
-            const seconds = now.getSeconds().toString().padStart(2, '0')
             const ampm = hours >= 12 ? 'PM' : 'AM'
             hours = hours % 12 || 12
             const h = hours.toString().padStart(2, '0')
-            return `${h}:${minutes}:${seconds} ${ampm}`
+            setCurrentTime(`${h}:${minutes} ${ampm}`)
         }
 
-        const timer = setInterval(() => {
-            setCurrentTime(formatTime())
-        }, 1000)
-        setCurrentTime(formatTime())
+        updateTime()
+        const timer = setInterval(updateTime, 1000)
 
         return () => clearInterval(timer)
     }, [router])
@@ -80,8 +82,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
 
     const toggleTheme = () => {
-        setIsDark(!isDark)
-        document.documentElement.classList.toggle('light-mode')
+        setIsDarkMode(!isDarkMode)
     }
 
     if (loading) {
@@ -95,124 +96,159 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         )
     }
 
-    const navItems = [
-        { icon: '📊', label: 'Overview', href: '/admin' },
-        { icon: '👥', label: 'Users', href: '/admin/users' },
-        { icon: '💰', label: 'Payments', href: '/admin/payments' },
-        { icon: '🔌', label: 'API Health', href: '/admin/api-health' },
-        { icon: '🛠️', label: 'Tools', href: '/admin/tools' },
-        { icon: '📈', label: 'Analytics', href: '/admin/analytics' },
-        { icon: '⚙️', label: 'Settings', href: '/admin/settings' },
+    const menuItems = [
+        { icon: LayoutDashboard, label: 'Overview', path: '/admin' },
+        { icon: Users, label: 'Users', path: '/admin/users' },
+        { icon: CreditCard, label: 'Payments', path: '/admin/payments' },
+        { icon: Activity, label: 'API Health', path: '/admin/api-health' },
+        { icon: Wrench, label: 'Tools', path: '/admin/tools' },
+        { icon: BarChart3, label: 'Analytics', path: '/admin/analytics' },
+        { icon: Settings, label: 'Settings', path: '/admin/settings' },
     ]
 
     return (
-        <div className="flex h-screen overflow-hidden bg-[#0F0C29] text-white font-sans selection:bg-purple-500/30 admin-layout">
+        <div className={cn("flex flex-col min-h-screen admin-layout", isDarkMode ? "dark-mode" : "light-mode")}>
+            {/* Sidebar Overlay for Mobile */}
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden animate-fadeIn"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
 
-            {/* SIDEBAR — fixed, never moves */}
-            <aside className="w-64 h-screen flex-shrink-0 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col overflow-hidden admin-sidebar animate-slideInLeft">
-                {/* Logo */}
-                <div className="h-16 flex-shrink-0 flex items-center px-5 border-b border-[#2D2B55]">
-                    <div className="w-9 h-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3 shadow-[0_0_15px_rgba(124,58,237,0.4)]">
-                        S
+            {/* Layout Wrapper */}
+            <div className="flex flex-1 relative z-10 overflow-hidden">
+                {/* Sidebar */}
+                <aside className={cn(
+                    "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar animate-slideInLeft flex flex-col",
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+                    isDarkMode ? "bg-[#0F0C29] border-r border-[#2D2B55]" : "bg-white border-r border-gray-200"
+                )}>
+                    {/* Sidebar Header */}
+                    <div className="h-20 flex-shrink-0 flex items-center px-6 border-b border-white/5">
+                        <div className="flex items-center gap-3 group">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform cursor-pointer">
+                                <span className="text-xl font-black">S</span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-white font-black text-sm tracking-widest">SEO AI</span>
+                                <span className="text-purple-400 text-[10px] font-bold tracking-[0.2em]">PLATFORM</span>
+                            </div>
+                        </div>
                     </div>
-                    <span className="text-white font-bold text-sm tracking-wider uppercase">
-                        SEO AI PLATFORM
-                    </span>
-                </div>
 
-                {/* Nav items — scrollable if needed */}
-                <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1 custom-scrollbar">
-                    {navItems.map((item) => {
-                        const isActive = pathname === item.href
-                        return (
+                    {/* Navigation */}
+                    <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1.5 custom-scrollbar">
+                        {menuItems.map((item) => (
                             <Link
-                                key={item.href}
-                                href={item.href}
+                                key={item.path}
+                                href={item.path}
                                 className={cn(
-                                    "sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all group active:scale-95",
-                                    isActive
-                                        ? "bg-purple-700 text-white border border-purple-500 shadow-[0_0_15px_rgba(124,58,237,0.2)] active sidebar-active-glow"
-                                        : "text-gray-300 hover:bg-purple-900/30 hover:text-white"
+                                    "sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative",
+                                    pathname === item.path
+                                        ? "sidebar-active-glow bg-purple-600 text-white shadow-lg shadow-purple-500/20"
+                                        : "text-gray-400 hover:bg-white/5 hover:text-white"
                                 )}
                             >
-                                <span className="text-base">{item.icon}</span>
-                                <span className="font-semibold tracking-tight">{item.label}</span>
+                                <item.icon className={cn(
+                                    "w-5 h-5",
+                                    pathname === item.path ? "text-white" : "text-gray-500 group-hover:text-purple-400 transition-colors"
+                                )} />
+                                <span className="font-bold text-sm tracking-wide">{item.label}</span>
+                                {pathname === item.path && (
+                                    <div className="absolute left-0 w-1 h-6 bg-white rounded-full translate-x-1" />
+                                )}
                             </Link>
-                        )
-                    })}
-                </nav>
+                        ))}
 
-                {/* Bottom security badge */}
-                <div className="p-3 border-t border-[#2D2B55]">
-                    <div className="security-badge bg-red-950 border border-red-800 rounded-xl p-3 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
-                        <div className="flex flex-col items-center justify-center gap-1">
-                            <span className="text-xl">🔒</span>
-                            <span className="text-red-400 text-xs font-bold tracking-wider">
-                                HIGH SECURITY
-                            </span>
-                            <span className="text-red-700 text-[10px] text-center font-medium">
-                                Admin Access Only
-                            </span>
+                        {/* USER TYPE SECTION */}
+                        <div className="mt-8 pt-6 border-t border-white/5">
+                            <div className="px-4 mb-4">
+                                <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">User Profile</span>
+                            </div>
+                            <div className="bg-white/5 rounded-xl p-4 mx-2 border border-white/5 group hover:border-purple-500/30 transition-all">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className="user-avatar w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold border border-indigo-500/20">
+                                        R
+                                    </div>
+                                    <div className="flex flex-col overflow-hidden">
+                                        <span className="text-white text-xs font-bold truncate">Rehan Khan</span>
+                                        <span className="text-[9px] text-gray-500 uppercase tracking-tighter">Super Admin</span>
+                                    </div>
+                                </div>
+                                <button className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black rounded-lg transition-all active:scale-95 shadow-lg shadow-indigo-600/20">
+                                    CHANGE ROLE
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Sidebar Footer */}
+                    <div className="p-6 flex-shrink-0">
+                        <div className="security-badge p-4 bg-red-950/20 border border-red-900/30 rounded-2xl flex flex-col items-center gap-2 group hover:border-red-500/50 transition-all">
+                            <span className="text-2xl lock-icon group-hover:scale-110 transition-transform">🔒</span>
+                            <div className="text-center">
+                                <div className="text-red-500 security-title text-[10px] font-black tracking-widest uppercase mb-0.5">High Security</div>
+                                <div className="text-red-900 security-sub text-[8px] font-bold uppercase">Admin Access Only</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </aside>
+                </aside>
 
-            {/* RIGHT SIDE — topbar + content */}
-            <div className="flex-1 flex flex-col min-w-0 overflow-hidden admin-layout animate-fadeIn">
+                {/* Main Content Area */}
+                <div className="flex-1 flex flex-col min-w-0 max-h-screen overflow-hidden">
+                    {/* Topbar */}
+                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#0F0C29]/80 backdrop-blur-md border-b border-[#2D2B55] z-30">
+                        {/* LEFT SECTION */}
+                        <div className="flex items-center gap-4">
+                            <button
+                                className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-gray-400 active:scale-90 transition-transform"
+                                onClick={() => setIsSidebarOpen(true)}
+                            >
+                                <Menu className="w-6 h-6" />
+                            </button>
 
-                {/* TOPBAR */}
-                <header className="h-14 flex-shrink-0 bg-[#0F0C29] border-b border-[#2D2B55] flex items-center justify-between px-6 z-40 admin-topbar">
-                    <div className="flex items-center gap-3">
-                        <span className="bg-[#C53030] text-white text-[10px] font-black px-2 py-1 rounded tracking-widest shadow-lg shadow-red-900/20">
-                            ⚡ ADMIN PANEL
-                        </span>
-                    </div>
+                            <div className="flex items-center gap-2 px-3 py-1.5 bg-red-600 text-white rounded-lg shadow-lg shadow-red-600/20">
+                                <Shield className="w-3.5 h-3.5" />
+                                <span className="text-[10px] font-black tracking-widest uppercase">Admin Panel</span>
+                            </div>
+                        </div>
 
-                    {/* Live clock - Center */}
-                    <div className="absolute left-1/2 -translate-x-1/2 text-purple-400 text-sm font-mono font-bold tracking-[0.2em]">
-                        {currentTime}
-                    </div>
+                        {/* CENTER SECTION - Absolute Center Clock */}
+                        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-purple-400" />
+                            <span className="text-purple-400 text-sm font-mono font-black tracking-widest bg-purple-400/10 px-3 py-1 rounded-full border border-purple-400/20 shadow-[0_0_15px_rgba(168,85,247,0.1)]">
+                                {currentTime}
+                            </span>
+                        </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-3">
-                            {/* Theme Toggle */}
+                        {/* RIGHT SECTION */}
+                        <div className="ml-auto flex items-center gap-3">
                             <button
                                 onClick={toggleTheme}
-                                className="relative w-10 h-5 rounded-full transition-colors duration-200 focus:outline-none"
-                                style={{ backgroundColor: isDark ? '#6B21A8' : '#D1D5DB' }}
+                                className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-all topbar-btn-outline"
+                                title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                             >
-                                <div
-                                    className={cn(
-                                        "absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 flex items-center justify-center text-[8px]",
-                                        isDark ? "translate-x-5.5" : "translate-x-0.5"
-                                    )}
-                                >
-                                    {isDark ? '🌙' : '☀️'}
-                                </div>
+                                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                             </button>
 
-                            <button
-                                onClick={handleViewAsUser}
-                                className="border border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition-all tracking-widest"
-                            >
-                                <Eye className="w-3 h-3 inline mr-1.5" />
-                                View as User
-                            </button>
-                            <button
-                                onClick={handleSignOut}
-                                className="bg-[#C53030] hover:bg-[#9B2C2C] text-white text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition-all tracking-widest shadow-lg shadow-purple-900/20"
-                            >
-                                Sign Out
+                            <Link href="/dashboard" className="hidden md:flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-indigo-600/20 active:scale-95 group topbar-btn">
+                                <LayoutDashboard className="w-3.5 h-3.5 group-hover:rotate-12 transition-transform" />
+                                VIEW AS USER
+                            </Link>
+
+                            <button onClick={handleSignOut} className="flex items-center gap-2 px-4 py-2 bg-red-600/10 hover:bg-red-600 text-red-500 hover:text-white text-[10px] font-black rounded-xl transition-all border border-red-600/20 active:scale-95 group topbar-btn">
+                                <LogOut className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                                SIGN OUT
                             </button>
                         </div>
-                    </div>
-                </header>
+                    </header>
 
-                {/* MAIN CONTENT — scrollable */}
-                <main className="flex-1 overflow-y-auto p-8 custom-scrollbar relative">
-                    {children}
-                </main>
+                    {/* MAIN CONTENT — scrollable */}
+                    <main className="flex-1 overflow-y-auto p-8 custom-scrollbar relative">
+                        {children}
+                    </main>
+                </div>
             </div>
 
             <style dangerouslySetInnerHTML={{

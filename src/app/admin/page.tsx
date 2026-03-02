@@ -123,97 +123,85 @@ export default function AdminOverview() {
                 </p>
             </div>
 
-            {/* ROW 1: Plan Cards (5) */}
+            {/* ROW 1: Plan Cards (5 in grid) */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                {[
-                    { plan: 'Free', icon: '🆓', count: (stats as any).breakdown?.free, color: '#6B7280' },
-                    { plan: 'Starter', icon: '⚡', count: (stats as any).breakdown?.starter, color: '#8B5CF6' },
-                    { plan: 'Pro', icon: '🚀', count: (stats as any).breakdown?.pro, color: '#3B82F6' },
-                    { plan: 'Agency', icon: '🏢', count: (stats as any).breakdown?.agency, color: '#F59E0B' },
-                    { plan: 'Enterprise', icon: '👑', count: (stats as any).breakdown?.enterprise, color: '#EF4444' }
-                ].map((item, i) => (
-                    <div
-                        key={item.plan}
-                        className="stat-card-glow admin-card p-4 rounded-xl animate-slideInUp"
-                        style={{ borderBottom: `4px solid ${item.color}`, animationDelay: `${i * 50}ms` }}
-                    >
-                        <div className="flex justify-between items-start mb-3">
-                            <span className="text-xl">{item.icon}</span>
-                            <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">
-                                {item.plan}
-                            </span>
-                        </div>
-                        <div className="text-3xl font-black text-white">{loading ? '...' : item.count}</div>
-                        <div className="text-[10px] text-gray-500 font-bold uppercase mt-1 tracking-tighter">Active Users</div>
-                    </div>
-                ))}
+                <StatCard icon="🆓" label="Free" value={(stats as any).breakdown?.free} borderColor="#6B7280" className="animate-slideInUp" />
+                <StatCard icon="⚡" label="Starter" value={(stats as any).breakdown?.starter} borderColor="#8B5CF6" className="animate-slideInUp delay-75" />
+                <StatCard icon="🚀" label="Pro" value={(stats as any).breakdown?.pro} borderColor="#3B82F6" className="animate-slideInUp delay-100" />
+                <StatCard icon="🏢" label="Agency" value={(stats as any).breakdown?.agency} borderColor="#F59E0B" className="animate-slideInUp delay-150" />
+                <StatCard icon="👑" label="Enterprise" value={(stats as any).breakdown?.enterprise} borderColor="#EF4444" className="animate-slideInUp delay-200" />
             </div>
 
-            {/* ROW 2: Metric Cards (5) */}
+            {/* ROW 2: Metric Cards (5 in grid) */}
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <StatCard
+                    icon="👥"
                     label="Total Platform Users"
                     value={(stats as any).totalUsers?.toLocaleString()}
-                    icon={<Users className="w-5 h-5 text-blue-400" />}
-                    color="blue"
+                    borderColor="#6D28D9"
                     className="animate-slideInUp delay-100"
                 />
                 <StatCard
+                    icon="💎"
                     label="Paid Users"
                     value={(stats as any).paidUsers?.toLocaleString()}
-                    trend="Excl. Admins"
-                    icon={<Zap className="w-5 h-5 text-purple-500" />}
-                    color="purple"
+                    badge="Excl. Admins"
+                    borderColor="#7C3AED"
                     className="animate-slideInUp delay-150"
                 />
                 <StatCard
+                    icon="📈"
                     label="New This Week"
                     value={(stats as any).newThisWeek?.toLocaleString()}
-                    trend="+18%"
-                    icon={<TrendingUp className="w-5 h-5 text-green-400" />}
-                    color="green"
+                    badge="+18%"
+                    borderColor="#059669"
                     className="animate-slideInUp delay-200"
                 />
                 <StatCard
+                    icon="💰"
                     label="Monthly Revenue"
+                    borderColor="#D97706"
                     className="animate-slideInUp delay-300"
-                    icon={<DollarSign className="w-5 h-5 text-yellow-400" />}
-                    color="yellow"
                 >
-                    <div className="flex flex-col mt-1">
-                        <div className="text-3xl font-black text-white tracking-tighter">
-                            ${(stats as any).revenue?.toLocaleString()}
-                        </div>
-                        <div className="text-[10px] text-gray-500 font-bold mt-0.5">
-                            Rs. {((stats as any).revenue * 278).toLocaleString()}
-                        </div>
+                    <div className="text-4xl font-black text-white mt-2 tracking-tighter">
+                        ${(stats as any).revenue?.toLocaleString()}
+                    </div>
+                    <div className="text-[10px] text-gray-400 font-bold mt-1 uppercase tracking-tighter">
+                        Rs. {((stats as any).revenue * 278).toLocaleString()}
                     </div>
                 </StatCard>
-                <StatCard
-                    label="Plans Breakdown"
-                    className="animate-slideInUp delay-400"
+
+                {/* Card 10: Plans Breakdown Refined */}
+                <div
+                    className="stat-card-glow admin-card p-5 rounded-2xl min-h-[140px] animate-slideInUp delay-400"
+                    style={{ borderBottom: '3px solid #4F46E5' }}
                 >
-                    <div className="space-y-2 mt-2">
-                        {Object.entries((stats as any).breakdown || {}).filter(([k]) => k !== 'free').map(([plan, count]) => {
-                            const total = (stats as any).totalUsers || 1;
-                            const percentage = Math.max(((count as number) / total) * 100, 5);
-                            return (
-                                <div key={plan} className="space-y-1">
-                                    <div className="flex justify-between text-[8px] font-black uppercase tracking-widest text-gray-500">
-                                        <span>{plan}</span>
-                                        <span>{count as any}</span>
-                                    </div>
-                                    <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                                        <div
-                                            className="h-full bg-purple-500 rounded-full"
-                                            style={{ width: `${percentage}%` }}
-                                        ></div>
-                                    </div>
+                    <div className="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-3 opacity-60">
+                        Plans Breakdown
+                    </div>
+                    <div className="space-y-2">
+                        {[
+                            { name: 'Starter', count: (stats as any).breakdown?.starter, color: '#8B5CF6' },
+                            { name: 'Pro', count: (stats as any).breakdown?.pro, color: '#3B82F6' },
+                            { name: 'Agency', count: (stats as any).breakdown?.agency, color: '#F59E0B' },
+                            { name: 'Enterprise', count: (stats as any).breakdown?.enterprise, color: '#EF4444' },
+                        ].map(p => (
+                            <div key={p.name} className="flex items-center gap-2">
+                                <span className="text-gray-400 text-[10px] font-bold w-14 uppercase tracking-tighter">{p.name}</span>
+                                <div className="flex-1 bg-white/5 rounded-full h-1.5 overflow-hidden">
+                                    <div
+                                        className="h-full rounded-full transition-all duration-1000"
+                                        style={{
+                                            width: (stats as any).totalUsers > 0 ? `${(p.count / (stats as any).totalUsers) * 100}%` : '0%',
+                                            background: p.color
+                                        }}
+                                    />
                                 </div>
-                            )
-                        })}
+                                <span className="text-white text-[10px] font-black w-4 text-right">{p.count}</span>
+                            </div>
+                        ))}
                     </div>
-                </StatCard>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">

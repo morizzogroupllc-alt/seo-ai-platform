@@ -91,6 +91,7 @@ const Modal = ({ isOpen, onClose, title, children }: { isOpen: boolean, onClose:
 export default function UsersManagementPage() {
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState<Profile[]>([]);
+    const [error, setError] = useState<string | null>(null);
     const [toasts, setToasts] = useState<Toast[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [planFilter, setPlanFilter] = useState('All Plans');
@@ -113,22 +114,45 @@ export default function UsersManagementPage() {
 
     const fetchUsers = async () => {
         setLoading(true);
+        setError(null); // Clear previous errors
         try {
-            // 1. Fetch Users
+            // 1. Fetch Users — Try with ordering first
             const { data, error } = await supabase
                 .from('profiles')
                 .select('*, email_confirmed_at')
                 .order('created_at', { ascending: false });
 
-            if (error) throw error;
-            setUsers(data || []);
-        } catch (err) {
-            showToast('Failed to fetch users', 'error');
-            console.error(err);
+            if (error) {
+                console.error('Supabase fetch error (likely missing index):', error);
+
+                // FALLBACK: Try without .order()
+                const { data: dataFallback, error: errorFallback } = await supabase
+                    .from('profiles')
+                    .select('*, email_confirmed_at');
+
+                if (errorFallback) throw errorFallback;
+
+                setUsers(dataFallback || []);
+            } else {
+                setUsers(data || []);
+            }
+        } catch (err: any) {
+            console.error('Fetch error:', err);
+            setError('Failed to fetch users: ' + err.message);
         } finally {
             setLoading(false);
         }
     };
+
+    // NOTE TO ADMIN: If user fetching still fails with 401/403 despite being admin, 
+    // run this SQL in Supabase SQL Editor to ensure Admin full access:
+    /*
+    CREATE POLICY "Admin full access" ON profiles
+    FOR ALL USING (
+      EXISTS (SELECT 1 FROM profiles 
+      WHERE id = auth.uid() AND role = 'admin')
+    );
+    */
 
     const showToast = (message: string, type: 'success' | 'error') => {
         const id = Date.now();

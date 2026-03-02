@@ -312,3 +312,25 @@ Admin features:
   - Manage tools (enable/disable)
   - Platform settings
   - "View as User" toggle
+
+17. FUTURE UPGRADE ROADMAP & INFRASTRUCTURE
+AI Content Generation:
+  - Phase 1: Gemini (Direct)
+  - Phase 2: Switch to OpenRouter (Better fallback for GPT-4/Claude/Gemini)
+
+Deployment & Hosting:
+  - Vercel ✅: Perfect for Next.js (Already in use)
+  - Netlify ❌: Redundant (Skip)
+
+Website Assets:
+  - Pexels API ✅: Phase 2 (Automated image fetching for Website Builder)
+
+Backend Scaling:
+  - Digital Ocean ⏳: Phase 3 (Required for Bulk Generation, Cron Jobs, Redis Queue)
+  - Starting cost: ~$6/month
+
+Summary:
+  - NOW: Vercel ✅ + Gemini/OpenRouter ✅
+  - Phase 2: Pexels API ✅
+  - Phase 3: Digital Ocean ✅
+  - Skip: Netlify ❌

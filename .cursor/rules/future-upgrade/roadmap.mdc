@@ -1,0 +1,36 @@
+---
+description: Future Upgrade Roadmap & Strategic Infrastructure Decisions
+globs: 
+---
+
+# Future Upgrade Roadmap
+
+## 1. AI Content Generation
+- **Current Strategy**: Direct integration with **Gemini API**.
+- **Consolidation**: GPT-4, Claude, and Gemini capabilities should be accessible from a unified interface/logic.
+- **Phase 2 Switch**: Move to **OpenRouter** as the primary provider.
+  - **Reason**: Better fallback options and unified access to multiple models.
+  - **Status**: ✅ Planned for Phase 2.
+
+## 2. Deployment & Hosting
+- **Vercel ✅**: Primary hosting provider. Perfect integration with Next.js and automatic deployments from GitHub.
+- **Netlify ❌**: Redundant for this project. Avoid using Netlify to prevent infra fragmentation.
+
+## 3. Asset & Image Integration (Pexels)
+- **Phase 2 ✅**: Integrate **Pexels API** into the Website Builder tool.
+- **Goal**: Automatically fetch and suggest relevant high-quality images based on AI-generated content.
+- **Status**: Free API available, scheduled for Phase 2.
+
+## 4. Heavy Backend Infrastructure (Digital Ocean)
+- **Phase 3 ⏳**: Transition/Expand to **Digital Ocean** for heavy background processing.
+- **Triggers**:
+  - Bulk page generation servers.
+  - Complex Cron jobs.
+  - Redis queues for task management.
+- **Status**: Not needed yet. Vercel is sufficient for current traffic and logic.
+
+## Summary Roadmap
+- **Phase 1 (Current)**: Vercel ✅ + Gemini/OpenRouter (Direct) ✅
+- **Phase 2**: OpenRouter Switch + Pexels API ✅
+- **Phase 3**: Digital Ocean Integration (Heavy Backend) ✅
+- **Skip**: Netlify ❌
