@@ -41,11 +41,23 @@
   @apply bg-white/5 backdrop-blur-xl border border-white/10;
 }
 
-/* Animations */
-@keyframes fadeInUp {
+/* Entry animations */
+@keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
 
   to {
@@ -54,56 +66,75 @@
   }
 }
 
-@keyframes fadeInLeft {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateX(-30px);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
   }
 }
 
-@keyframes fadeInRight {
+@keyframes scaleIn {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: scale(0.95);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
   }
 }
 
-@keyframes float {
+@keyframes pulse-glow {
 
   0%,
   100% {
-    transform: translateY(0);
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
   }
 
   50% {
-    transform: translateY(-10px);
+    box-shadow: 0 0 20px 4px rgba(124, 58, 237, 0.3);
   }
 }
 
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s ease forwards;
+.animate-slideInLeft {
+  animation: slideInLeft 0.4s ease forwards;
 }
 
-.animate-fadeInLeft {
-  animation: fadeInLeft 0.6s ease forwards;
+.animate-slideInUp {
+  animation: slideInUp 0.4s ease forwards;
 }
 
-.animate-fadeInRight {
-  animation: fadeInRight 0.6s ease forwards;
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease forwards;
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Stagger delays */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
 }
 
 /* Fix for Autofill Background and Text Color */
@@ -116,62 +147,85 @@ input:-webkit-autofill:active {
   caret-color: white !important;
 }
 
+/* Light Mode Theme */
 .light-mode {
-  --background: #F8F9FA;
-  --foreground: #1A1A2E;
-  --bg-primary: #F8F9FA;
-  --bg-card: #FFFFFF;
-  --border: #E2E8F0;
-  --text: #1A1A2E;
+  color-scheme: light;
 }
 
-.light-mode body {
-  background: #F8F9FA;
-  color: #1A1A2E;
-}
-
+/* Backgrounds */
 .light-mode .admin-layout {
-  background-color: #F0F2F5 !important;
+  background-color: #f1f5f9 !important;
 }
 
 .light-mode .admin-sidebar {
-  background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
-}
-
-.light-mode .admin-card {
-  background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
+  background-color: #ffffff !important;
+  border-right-color: #e2e8f0 !important;
 }
 
 .light-mode .admin-topbar {
-  background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
+  background-color: #ffffff !important;
+  border-bottom-color: #e2e8f0 !important;
 }
 
-.light-mode p,
-.light-mode h1,
-.light-mode h2,
-.light-mode h3,
-.light-mode h4,
-.light-mode span,
-.light-mode label,
-.light-mode td,
+.light-mode .admin-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+}
+
+/* Text colors */
+.light-mode .admin-text-primary {
+  color: #1e293b !important;
+}
+
+.light-mode .admin-text-secondary {
+  color: #64748b !important;
+}
+
+/* Table */
+.light-mode table {
+  background: #ffffff;
+}
+
+.light-mode tr {
+  border-color: #f1f5f9 !important;
+}
+
+.light-mode tr:hover {
+  background-color: #f8fafc !important;
+}
+
 .light-mode th {
-  color: #1A1A2E !important;
+  color: #94a3b8 !important;
+  background: #f8fafc !important;
 }
 
-.light-mode .text-gray-400,
-.light-mode .text-gray-500 {
-  color: #64748B !important;
+/* Sidebar nav items */
+.light-mode .sidebar-item {
+  color: #475569 !important;
 }
 
-.light-mode .border-\[\#2D2B55\],
-.light-mode .border-white\/10 {
-  border-color: #E2E8F0 !important;
+.light-mode .sidebar-item:hover {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
 }
 
-.light-mode .bg-\[\#1A1740\],
-.light-mode .bg-white\/5 {
-  background-color: #FFFFFF !important;
+.light-mode .sidebar-item.active {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+/* Inputs in light mode */
+.light-mode input,
+.light-mode select {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+/* HIGH SECURITY badge stays dark always */
+.light-mode .security-badge {
+  background-color: #450a0a !important;
+  border-color: #7f1d1d !important;
 }

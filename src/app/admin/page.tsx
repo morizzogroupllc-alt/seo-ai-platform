@@ -140,6 +140,7 @@ export default function AdminOverview() {
                     trend="+12%"
                     icon={<Users className="w-6 h-6 text-blue-400" />}
                     color="blue"
+                    className="animate-slideInUp delay-100"
                 />
                 <StatCard
                     label="Active Premium Plans"
@@ -147,6 +148,7 @@ export default function AdminOverview() {
                     trend="+5%"
                     icon={<TrendingUp className="w-6 h-6 text-purple-400" />}
                     color="purple"
+                    className="animate-slideInUp delay-200"
                 />
                 <StatCard
                     label="Last 7 Days Signups"
@@ -154,6 +156,7 @@ export default function AdminOverview() {
                     trend="+18%"
                     icon={<Zap className="w-6 h-6 text-yellow-400" />}
                     color="yellow"
+                    className="animate-slideInUp delay-300"
                 />
                 <StatCard
                     label="Monthly Revenue"
@@ -161,12 +164,13 @@ export default function AdminOverview() {
                     trend="+8%"
                     icon={<DollarSign className="w-6 h-6 text-green-400" />}
                     color="green"
+                    className="animate-slideInUp delay-400"
                 />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
                 {/* Left Column: Recent Signups (55%) */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden flex flex-col admin-card">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden flex flex-col admin-card animate-slideInUp delay-200 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                     <div className="p-6 border-b border-[#2D2B55] flex items-center justify-between bg-[#2D2B55]/20">
                         <div>
                             <h2 className="text-lg font-bold">Recent Signups</h2>
@@ -230,7 +234,7 @@ export default function AdminOverview() {
                 {/* Right Column (45%) */}
                 <div className="space-y-6 flex flex-col">
                     {/* Quick Actions */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card animate-slideInUp delay-300 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                             <Wrench className="w-3 h-3" /> Quick Actions
                         </h3>
@@ -243,7 +247,7 @@ export default function AdminOverview() {
                     </div>
 
                     {/* System Lifecycle Card */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden admin-card">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden admin-card animate-fadeIn delay-400 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                         <div className="p-4 border-b border-[#2D2B55] bg-[#2D2B55]/20">
                             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <Activity className="w-3 h-3" /> System Lifecycle
@@ -259,7 +263,7 @@ export default function AdminOverview() {
                     </div>
 
                     {/* Compact Chart */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-4 admin-card">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-4 admin-card animate-fadeIn delay-400 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <TrendingUp className="w-3 h-3" /> User Growth
@@ -320,7 +324,7 @@ export default function AdminOverview() {
     )
 }
 
-function StatCard({ label, value, trend, icon, color }: any) {
+function StatCard({ label, value, trend, icon, color, className }: any) {
     const colorClasses: any = {
         blue: "text-blue-500 bg-blue-500/10 border-blue-500/20",
         purple: "text-purple-500 bg-purple-500/10 border-purple-500/20",
@@ -329,7 +333,10 @@ function StatCard({ label, value, trend, icon, color }: any) {
     }
 
     return (
-        <div className="bg-[#1A1740] border border-[#2D2B55] p-6 rounded-2xl hover:border-purple-500/50 transition-all group cursor-default shadow-xl admin-card">
+        <div className={cn(
+            "bg-[#1A1740] border border-[#2D2B55] p-6 rounded-2xl hover:border-purple-500/50 transition-all group cursor-default shadow-xl admin-card transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20",
+            className
+        )}>
             <div className="flex items-center justify-between mb-4">
                 <div className={cn("p-2 rounded-xl border transition-colors", colorClasses[color])}>
                     {icon}
@@ -358,7 +365,7 @@ function QuickActionBtn({ icon, label, href, color }: any) {
     }
     return (
         <Link href={href} className={cn(
-            "flex flex-col items-center justify-center p-4 rounded-xl border border-[#2D2B55] bg-[#1A1740] transition-all gap-2 group shadow-lg",
+            "flex flex-col items-center justify-center p-4 rounded-xl border border-[#2D2B55] bg-[#1A1740] transition-all gap-2 group shadow-lg active:scale-95",
             colors[color]
         )}>
             <div className="w-4 h-4 text-white/40 group-hover:text-current group-hover:scale-110 transition-all">

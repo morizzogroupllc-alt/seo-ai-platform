@@ -109,7 +109,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex h-screen overflow-hidden bg-[#0F0C29] text-white font-sans selection:bg-purple-500/30 admin-layout">
 
             {/* SIDEBAR — fixed, never moves */}
-            <aside className="w-64 h-screen flex-shrink-0 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col overflow-hidden admin-sidebar">
+            <aside className="w-64 h-screen flex-shrink-0 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col overflow-hidden admin-sidebar animate-slideInLeft">
                 {/* Logo */}
                 <div className="h-16 flex-shrink-0 flex items-center px-5 border-b border-[#2D2B55]">
                     <div className="w-9 h-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3 shadow-[0_0_15px_rgba(124,58,237,0.4)]">
@@ -129,9 +129,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 key={item.href}
                                 href={item.href}
                                 className={cn(
-                                    "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all group",
+                                    "sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all group active:scale-95",
                                     isActive
-                                        ? "bg-purple-700 text-white border border-purple-500 shadow-[0_0_15px_rgba(124,58,237,0.2)]"
+                                        ? "bg-purple-700 text-white border border-purple-500 shadow-[0_0_15px_rgba(124,58,237,0.2)] active"
                                         : "text-gray-300 hover:bg-purple-900/30 hover:text-white"
                                 )}
                             >
@@ -144,7 +144,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
                 {/* Bottom security badge */}
                 <div className="p-3 border-t border-[#2D2B55]">
-                    <div className="bg-red-950 border border-red-800 rounded-xl p-3">
+                    <div className="security-badge bg-red-950 border border-red-800 rounded-xl p-3 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                         <div className="flex flex-col items-center justify-center gap-1">
                             <span className="text-xl">🔒</span>
                             <span className="text-red-400 text-xs font-bold tracking-wider">
@@ -159,7 +159,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </aside>
 
             {/* RIGHT SIDE — topbar + content */}
-            <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <div className="flex-1 flex flex-col min-w-0 overflow-hidden admin-layout animate-fadeIn">
 
                 {/* TOPBAR */}
                 <header className="h-14 flex-shrink-0 bg-[#0F0C29] border-b border-[#2D2B55] flex items-center justify-between px-6 z-40 admin-topbar">
