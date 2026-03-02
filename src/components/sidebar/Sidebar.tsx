@@ -14,14 +14,14 @@ import {
     TrendingUp,
     ClipboardList,
     Zap,
-    Settings,
+    Settings as SettingsIcon,
     Menu,
     X,
-    ChevronDown,
     ChevronRight,
     LayoutDashboard,
     LogOut,
-    ShieldAlert
+    ShieldAlert,
+    CreditCard
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -48,11 +48,15 @@ export default function Sidebar() {
         if (type) setUserType(type)
 
         const checkRole = async () => {
-            const { getCurrentUser, getUserRole } = await import('@/lib/auth')
-            const user = await getCurrentUser()
-            if (user) {
-                const role = await getUserRole(user.id)
-                setIsAdmin(role?.toLowerCase() === 'admin')
+            try {
+                const { getCurrentUser, getUserRole } = await import('@/lib/auth')
+                const user = await getCurrentUser()
+                if (user) {
+                    const role = await getUserRole(user.id)
+                    setIsAdmin(role?.toLowerCase() === 'admin')
+                }
+            } catch (error) {
+                console.error('Error checking role:', error)
             }
         }
         checkRole()
@@ -64,105 +68,128 @@ export default function Sidebar() {
 
     const currentPhaseIndex = phasesNav.findIndex(p => pathname.startsWith(p.href)) + 1
 
-    const togglePhase = (id: string, e: React.MouseEvent) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setExpandedPhase(expandedPhase === id ? null : id)
+    const handleSignOut = async () => {
+        try {
+            const { signOut } = await import('@/lib/auth')
+            await signOut()
+            window.location.href = '/login'
+        } catch (error) {
+            console.error('Logout failed:', error)
+        }
     }
+
+    const handleChangeRole = () => {
+        localStorage.removeItem('user_type')
+        window.location.href = '/onboarding'
+    }
+
+    const NavItem = ({ href, icon: Icon, children, active, hasArrow }: {
+        href: string,
+        icon: any,
+        children: React.ReactNode,
+        active?: boolean,
+        hasArrow?: boolean
+    }) => (
+        <Link
+            href={href}
+            onClick={() => setIsOpen(false)}
+            className={cn(
+                "h-11 px-3 rounded-xl flex items-center gap-3 transition-all duration-200 group relative",
+                active
+                    ? "bg-purple-700 text-white shadow-lg shadow-purple-900/20"
+                    : "text-gray-300 hover:bg-[#1A1740] hover:text-white"
+            )}
+        >
+            <Icon className={cn("w-5 h-5", active ? "text-white" : "text-gray-400 group-hover:text-purple-400")} />
+            <span className="text-sm font-medium">{children}</span>
+            {hasArrow && !active && (
+                <span className="ml-auto text-gray-600 text-lg leading-none">›</span>
+            )}
+        </Link>
+    )
 
     return (
         <>
             {/* Mobile Hamburger Button */}
             <button
                 type="button"
-                className="md:hidden fixed top-4 left-4 z-50 p-2 text-white bg-purple-700/50 rounded-md backdrop-blur-sm border border-white/10"
+                className="md:hidden fixed top-4 left-4 z-50 p-2 text-white bg-purple-700 rounded-lg shadow-xl"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
 
-            {/* Sidebar Content */}
+            {/* Sidebar Container */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-40 w-64 bg-[#0F0C29] border-r border-white/5 flex flex-col transition-transform duration-300",
+                "fixed inset-y-0 left-0 z-40 w-64 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col transition-transform duration-300 shadow-2xl",
                 isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
             )}>
-                {/* Header Section (h-16) */}
-                <div className="h-16 flex items-center px-6 border-b border-white/5">
+                {/* --- TOP LOGO AREA (h-16) --- */}
+                <div className="h-16 px-5 flex items-center shrink-0">
                     <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center font-black text-white italic shadow-lg">
+                        <div className="w-9 h-9 bg-purple-600 rounded-full flex items-center justify-center font-black text-white italic text-xl shadow-lg shadow-purple-900/40">
                             S
                         </div>
-                        <h1 className="text-sm font-bold text-white uppercase tracking-widest leading-none">
+                        <span className="text-white font-bold text-sm tracking-wider uppercase leading-none">
                             SEO AI Platform
-                        </h1>
+                        </span>
                     </div>
                 </div>
 
-                {/* Status Section */}
-                <div className="p-6 space-y-4">
-                    {userType && (
-                        <div className="space-y-4">
-                            <div className="px-3 py-2 bg-white/5 rounded-lg border border-white/5">
-                                <span className="block text-[9px] font-black text-slate-500 uppercase tracking-tighter mb-0.5">User Type</span>
-                                <span className="text-xs font-bold text-slate-200 block truncate">{userType}</span>
-                            </div>
-
-                            {/* Progress Component */}
-                            {currentPhaseIndex > 0 && (
-                                <div className="space-y-2">
-                                    <div className="flex justify-between items-center text-[10px] font-bold">
-                                        <span className="text-slate-500 uppercase">Progress</span>
-                                        <span className="text-purple-400">Phase {currentPhaseIndex}/8</span>
-                                    </div>
-                                    <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
-                                        <div
-                                            className="h-full bg-purple-500 shadow-[0_0_10px_#A855F7] transition-all duration-700 ease-out"
-                                            style={{ width: `${(currentPhaseIndex / 8) * 100}%` }}
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                {/* --- USER TYPE SECTION --- */}
+                <div className="mx-3 mt-3 mb-2 bg-[#1A1740] rounded-xl p-3 border border-[#2D2B55]">
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wider font-bold">User Type</div>
+                    <div className="text-white text-sm font-semibold mt-0.5 truncate">{userType || 'Not Selected'}</div>
+                    <button
+                        onClick={handleChangeRole}
+                        className="text-purple-400 text-[11px] hover:text-purple-300 font-bold mt-1 inline-flex items-center"
+                    >
+                        ↩ Change Role
+                    </button>
                 </div>
 
-                <div className="border-b border-white/5 mx-4 mb-4" />
+                {/* --- PROGRESS BAR --- */}
+                <div className="mx-3 mt-2 mb-4">
+                    <div className="flex justify-between items-center text-[10px] font-bold mb-1.5">
+                        <span className="text-gray-500 uppercase tracking-wider">Current Progress</span>
+                        <span className="text-purple-400">Phase {currentPhaseIndex || 0} of 8</span>
+                    </div>
+                    <div className="h-1 w-full bg-[#2D2B55] rounded-full overflow-hidden">
+                        <div
+                            className="h-full bg-purple-600 rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(147,51,234,0.5)]"
+                            style={{ width: `${((currentPhaseIndex || 0) / 8) * 100}%` }}
+                        />
+                    </div>
+                </div>
 
-                {/* Navigation Section */}
-                <nav className="flex-1 overflow-y-auto px-4 pb-4 space-y-6 scrollbar-thin scrollbar-track-[#0F0C29] scrollbar-thumb-[#4C1D95] hover:scrollbar-thumb-[#7C3AED]">
-                    {isAdmin && (
-                        <Link
-                            href="/admin"
-                            className="flex items-center px-4 py-2.5 text-sm font-black rounded-xl transition-all group bg-red-600/10 text-red-500 border border-red-500/20 mb-2"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <ShieldAlert className="mr-3 h-5 w-5 text-red-500" />
-                            Admin Panel
-                        </Link>
-                    )}
+                <div className="border-t border-[#2D2B55] mx-3" />
 
-                    <Link
-                        href="/dashboard"
-                        className={cn(
-                            "flex items-center px-4 py-2.5 text-sm font-bold rounded-xl transition-all group",
-                            pathname === '/dashboard'
-                                ? "bg-purple-700 text-white"
-                                : "text-slate-400 hover:text-white hover:bg-white/5"
+                {/* --- NAVIGATION CONTENT --- */}
+                <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6 scrollbar-hide">
+                    {/* OVERVIEW */}
+                    <div className="space-y-1">
+                        <div className="text-[10px] text-gray-500 uppercase tracking-wider px-3 mb-2 font-black">Overview</div>
+                        {isAdmin && (
+                            <NavItem
+                                href="/admin"
+                                icon={ShieldAlert}
+                                active={pathname.startsWith('/admin')}
+                            >
+                                <span className="text-red-400">Admin Panel</span>
+                            </NavItem>
                         )}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <LayoutDashboard className={cn("mr-3 h-5 w-5", pathname === '/dashboard' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
-                        Dashboard
-                    </Link>
+                        <NavItem
+                            href="/dashboard"
+                            icon={LayoutDashboard}
+                            active={pathname === '/dashboard'}
+                        >
+                            Dashboard
+                        </NavItem>
+                    </div>
 
-                    {/* Growth Phases Section */}
-                    <div className="space-y-4">
-                        <div className="flex items-center px-4">
-                            <div className="h-[1px] flex-1 bg-white/5" />
-                            <span className="px-3 text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">Growth Phases</span>
-                            <div className="h-[1px] flex-1 bg-white/5" />
-                        </div>
-
+                    {/* GROWTH PHASES */}
+                    <div className="space-y-1">
+                        <div className="text-[10px] text-gray-500 uppercase tracking-wider px-3 mb-2 font-black">Growth Phases</div>
                         <div className="space-y-1">
                             {phasesNav.map((phase) => {
                                 const isActive = pathname.startsWith(phase.href)
@@ -172,54 +199,49 @@ export default function Sidebar() {
                                     <div key={phase.id} className="space-y-1">
                                         <Link
                                             href={phase.href}
+                                            onClick={() => {
+                                                setIsOpen(false)
+                                                setExpandedPhase(isExpanded ? null : phase.id)
+                                            }}
                                             className={cn(
-                                                "flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-lg transition-all group",
+                                                "h-11 px-3 rounded-xl flex items-center gap-3 transition-all duration-200 group",
                                                 isActive
-                                                    ? "bg-purple-700/20 text-white border border-purple-500/20"
-                                                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                                                    ? "bg-purple-700 text-white shadow-lg shadow-purple-900/20"
+                                                    : "text-gray-300 hover:bg-[#1A1740] hover:text-white"
                                             )}
-                                            onClick={() => setIsOpen(false)}
                                         >
-                                            <div className="flex items-center">
-                                                <phase.icon className={cn("mr-3 h-4 w-4", isActive ? "text-purple-400" : "text-slate-500 group-hover:text-purple-400")} />
-                                                {phase.name}
-                                            </div>
-                                            <div
-                                                onClick={(e) => togglePhase(phase.id, e)}
-                                                className="p-1 rounded-md hover:bg-white/10 transition-colors"
-                                            >
-                                                {isExpanded ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
-                                            </div>
+                                            <phase.icon className={cn("w-5 h-5", isActive ? "text-white" : "text-gray-400 group-hover:text-purple-400")} />
+                                            <span className="text-sm font-medium">{phase.name}</span>
+                                            {!isActive && (
+                                                <span className="ml-auto text-gray-600 text-lg leading-none">›</span>
+                                            )}
                                         </Link>
 
-                                        {isExpanded && (
-                                            <div className="ml-4 py-1 space-y-1 border-l border-white/10">
-                                                {phase.id === 'research' ? (
-                                                    <div className="space-y-1">
-                                                        {[
-                                                            { name: 'Niche Finder', href: '/research', active: pathname === '/research' },
-                                                            { name: 'SERP Analyzer', href: '/research/serp', soon: true },
-                                                            { name: 'Competitor', href: '/research/competitor', soon: true },
-                                                            { name: 'Keywords', href: '/research/keywords', soon: true },
-                                                        ].map((sub) => (
-                                                            <Link
-                                                                key={sub.name}
-                                                                href={sub.soon ? '#' : sub.href}
-                                                                className={cn(
-                                                                    "flex items-center justify-between pl-8 pr-4 py-1.5 text-xs font-medium transition-all group/sub",
-                                                                    sub.active ? "text-purple-400" : "text-gray-400 hover:text-white"
-                                                                )}
-                                                            >
-                                                                <span>{sub.name}</span>
-                                                                {sub.soon && <span className="text-[8px] bg-white/5 px-1.5 py-0.5 rounded text-gray-600 font-bold uppercase">Soon</span>}
-                                                            </Link>
-                                                        ))}
-                                                    </div>
-                                                ) : (
-                                                    <div className="px-4 py-2 text-[11px] font-medium text-slate-500 italic">
-                                                        Coming Soon...
-                                                    </div>
-                                                )}
+                                        {/* Sub-items (Accordion) */}
+                                        {isExpanded && phase.id === 'research' && (
+                                            <div className="ml-3 mt-1 space-y-1 border-l border-[#2D2B55]">
+                                                {[
+                                                    { name: 'Niche Finder', href: '/research', active: pathname === '/research' },
+                                                    { name: 'SERP Analyzer', href: '/research/serp', soon: true },
+                                                    { name: 'Competitor Research', href: '/research/competitor', soon: true },
+                                                    { name: 'Keyword Discovery', href: '/research/keywords', soon: true },
+                                                ].map((sub) => (
+                                                    <Link
+                                                        key={sub.name}
+                                                        href={sub.soon ? '#' : sub.href}
+                                                        className={cn(
+                                                            "h-9 pl-8 pr-3 flex items-center justify-between text-xs font-semibold rounded-r-xl transition-all",
+                                                            sub.active
+                                                                ? "text-purple-400 border-l-2 border-purple-500 bg-purple-500/5"
+                                                                : "text-gray-500 hover:text-white hover:bg-white/5"
+                                                        )}
+                                                    >
+                                                        <span>{sub.name}</span>
+                                                        {sub.soon && (
+                                                            <span className="text-[8px] bg-[#1A1740] px-1.5 py-0.5 rounded text-gray-500 border border-[#2D2B55]">Soon</span>
+                                                        )}
+                                                    </Link>
+                                                ))}
                                             </div>
                                         )}
                                     </div>
@@ -228,58 +250,61 @@ export default function Sidebar() {
                         </div>
                     </div>
 
-                    {/* Platform Section */}
-                    <div className="space-y-4 pt-4 border-t border-white/5">
-                        <div className="flex items-center px-4">
-                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">Platform</span>
-                        </div>
-                        <Link
+                    {/* PLATFORM */}
+                    <div className="space-y-1">
+                        <div className="text-[10px] text-gray-500 uppercase tracking-wider px-3 mb-2 font-black">Platform</div>
+                        <NavItem
                             href="/automation"
-                            className={cn(
-                                "flex items-center px-4 py-2.5 text-sm font-bold rounded-lg transition-all group",
-                                pathname === '/automation'
-                                    ? "bg-purple-700 text-white"
-                                    : "text-slate-400 hover:text-white hover:bg-white/5"
-                            )}
-                            onClick={() => setIsOpen(false)}
+                            icon={Zap}
+                            active={pathname === '/automation'}
                         >
-                            <Zap className={cn("mr-3 h-4 w-4", pathname === '/automation' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
                             Automation
-                        </Link>
+                        </NavItem>
                     </div>
-                </nav>
 
-                {/* Footer/System Section */}
-                <div className="p-4 border-t border-white/5 bg-black/40">
-                    <Link
-                        href="/system"
-                        className={cn(
-                            "flex items-center px-4 py-2.5 text-sm font-bold rounded-lg transition-all group",
-                            pathname === '/system'
-                                ? "bg-purple-700 text-white"
-                                : "text-slate-400 hover:text-white hover:bg-white/5"
-                        )}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <Settings className={cn("mr-3 h-4 w-4", pathname === '/system' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
-                        System
-                    </Link>
+                    {/* PREFERENCES */}
+                    <div className="space-y-1">
+                        <div className="text-[10px] text-gray-500 uppercase tracking-wider px-3 mb-2 font-black">Preferences</div>
+                        <NavItem
+                            href="/system"
+                            icon={SettingsIcon}
+                            active={pathname === '/system'}
+                        >
+                            System
+                        </NavItem>
+                    </div>
+                </div>
 
-                    <button
-                        onClick={async () => {
-                            const { signOut } = await import('@/lib/auth')
-                            await signOut()
-                            window.location.href = '/login'
-                        }}
-                        className="w-full flex items-center px-4 py-2.5 text-sm font-bold rounded-lg transition-all group text-red-400 hover:text-red-300 hover:bg-red-500/10 mt-2"
-                    >
-                        <LogOut className="mr-3 h-4 w-4" />
-                        Sign Out
-                    </button>
+                {/* --- BOTTOM AREA --- */}
+                <div className="mt-auto shrink-0">
+                    <div className="border-t border-[#2D2B55] mx-3" />
+                    <div className="px-3 py-4 space-y-3">
+                        {/* CREDITS BOX */}
+                        <div className="bg-[#1A1740] rounded-xl p-3 border border-[#2D2B55]">
+                            <div className="flex items-center gap-2 mb-1.5">
+                                <CreditCard size={12} className="text-gray-500" />
+                                <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Plan</span>
+                            </div>
+                            <div className="text-white text-sm font-semibold">Free Plan</div>
+                            <div className="text-purple-400 text-[11px] font-bold mt-1">5 searches remaining</div>
+                            <button className="text-purple-400 text-[11px] font-black uppercase tracking-tighter hover:text-white mt-1.5 inline-flex items-center gap-1 transition-colors">
+                                Upgrade Plan <ChevronRight size={10} />
+                            </button>
+                        </div>
+
+                        {/* SIGN OUT */}
+                        <button
+                            onClick={handleSignOut}
+                            className="w-full flex items-center gap-2 px-3 py-2 text-red-400 hover:text-red-300 transition-colors font-bold text-sm"
+                        >
+                            <span className="text-lg leading-none">→</span>
+                            Sign Out
+                        </button>
+                    </div>
                 </div>
             </aside>
 
-            {/* Overlay for mobile */}
+            {/* Mobile Overlay */}
             {isOpen && (
                 <div
                     className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden"
