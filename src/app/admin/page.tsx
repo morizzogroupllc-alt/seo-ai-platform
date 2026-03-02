@@ -181,6 +181,55 @@ export default function AdminPage() {
                     </div>
                 </StatCard>
             </div>
+
+            {/* ROW 3: Detailed Insights */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Recent Activity */}
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+                    <div className="flex items-center justify-between mb-6">
+                        <h3 className="text-white font-black text-sm uppercase tracking-widest flex items-center gap-2">
+                            <Activity className="w-4 h-4 text-purple-400" />
+                            Recent System Activity
+                        </h3>
+                        <span className="text-[9px] px-2 py-1 rounded bg-purple-900/30 text-purple-400 font-bold border border-purple-500/20">LIVE LOGS</span>
+                    </div>
+                    <div className="space-y-4">
+                        {[
+                            { event: 'New User Registered', detail: 'starter_plan_active', time: '2 mins ago', type: 'user' },
+                            { event: 'Payment Successful', detail: '$49.00 - Pro Plan', time: '15 mins ago', type: 'payment' },
+                            { event: 'System Backup', detail: 'auto_sync_complete', time: '1 hour ago', type: 'system' },
+                            { event: 'New API Key Created', detail: 'enterprise_access', time: '2 hours ago', type: 'key' },
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors rounded-lg px-2">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-lg">
+                                        {item.type === 'user' ? '👤' : item.type === 'payment' ? '💰' : item.type === 'system' ? '⚙️' : '🔑'}
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-white uppercase tracking-tighter">{item.event}</p>
+                                        <p className="text-[9px] text-gray-500 font-bold uppercase">{item.detail}</p>
+                                    </div>
+                                </div>
+                                <span className="text-[9px] text-gray-500 font-bold uppercase">{item.time}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Growth Analytics Placeholder */}
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col items-center justify-center text-center min-h-[300px]">
+                    <div className="w-16 h-16 bg-purple-900/20 rounded-full flex items-center justify-center mb-4">
+                        <BarChart3 className="w-8 h-8 text-purple-600" />
+                    </div>
+                    <h3 className="text-white font-black text-sm uppercase tracking-widest mb-1">Growth Analytics</h3>
+                    <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider max-w-[200px]">Interactive charts are being synchronized with your dataset.</p>
+                    <div className="mt-6 flex gap-2">
+                        <div className="w-2 h-8 bg-purple-600/30 rounded-full animate-bounce delay-75"></div>
+                        <div className="w-2 h-12 bg-purple-600/50 rounded-full animate-bounce delay-150"></div>
+                        <div className="w-2 h-6 bg-purple-600/20 rounded-full animate-bounce delay-200"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
