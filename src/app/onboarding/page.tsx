@@ -76,7 +76,7 @@ export default function OnboardingPage() {
     const handleContinue = () => {
         if (!selectedType) return
         localStorage.setItem('user_type', selectedType)
-        window.location.href = '/dashboard'
+        window.location.href = '/login'
     }
 
     return (
@@ -92,7 +92,10 @@ export default function OnboardingPage() {
                     </div>
                     <span className="text-white font-black uppercase tracking-widest text-sm">SEO AI Platform</span>
                 </div>
-                <button className="text-slate-400 hover:text-white transition-colors text-sm font-bold flex items-center space-x-2">
+                <button
+                    onClick={() => window.location.href = '/login'}
+                    className="text-slate-400 hover:text-white transition-colors text-sm font-bold flex items-center space-x-2"
+                >
                     <span>Already have account? Sign in</span>
                     <ChevronRight className="w-4 h-4" />
                 </button>

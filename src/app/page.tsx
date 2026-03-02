@@ -37,11 +37,7 @@ export default function LandingPage() {
   }, [])
 
   const handleGetStarted = () => {
-    if (userType) {
-      router.push('/dashboard')
-    } else {
-      router.push('/onboarding')
-    }
+    router.push('/login')
   }
 
   const scrollToSection = (id: string) => {
@@ -75,7 +71,12 @@ export default function LandingPage() {
         </div>
 
         <div className="flex items-center space-x-6">
-          <button className="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign In</button>
+          <button
+            onClick={() => router.push('/login')}
+            className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+          >
+            Sign In
+          </button>
           <button
             onClick={handleGetStarted}
             className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-900/20"
