@@ -26,6 +26,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState<any>(null)
     const [currentTime, setCurrentTime] = useState('')
+    const [isDark, setIsDark] = useState(true)
 
     useEffect(() => {
         // Auth check
@@ -49,10 +50,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         checkAdmin()
 
         // Clock
+        const formatTime = () => {
+            const now = new Date()
+            let hours = now.getHours()
+            const minutes = now.getMinutes().toString().padStart(2, '0')
+            const seconds = now.getSeconds().toString().padStart(2, '0')
+            const ampm = hours >= 12 ? 'PM' : 'AM'
+            hours = hours % 12 || 12
+            const h = hours.toString().padStart(2, '0')
+            return `${h}:${minutes}:${seconds} ${ampm}`
+        }
+
         const timer = setInterval(() => {
-            setCurrentTime(new Date().toLocaleTimeString([], { hour12: false }))
+            setCurrentTime(formatTime())
         }, 1000)
-        setCurrentTime(new Date().toLocaleTimeString([], { hour12: false }))
+        setCurrentTime(formatTime())
 
         return () => clearInterval(timer)
     }, [router])
@@ -65,6 +77,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const handleViewAsUser = () => {
         sessionStorage.setItem('admin_viewing', 'true')
         router.push('/dashboard')
+    }
+
+    const toggleTheme = () => {
+        setIsDark(!isDark)
+        document.documentElement.classList.toggle('light-mode')
     }
 
     if (loading) {
@@ -89,19 +106,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     ]
 
     return (
-        <div className="flex h-screen overflow-hidden bg-[#0F0C29] text-white font-sans selection:bg-purple-500/30">
+        <div className="flex h-screen overflow-hidden bg-[#0F0C29] text-white font-sans selection:bg-purple-500/30 admin-layout">
 
             {/* SIDEBAR — fixed, never moves */}
-            <aside className="w-56 h-screen flex-shrink-0 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col overflow-hidden">
+            <aside className="w-64 h-screen flex-shrink-0 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col overflow-hidden admin-sidebar">
                 {/* Logo */}
-                <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-[#2D2B55]">
-                    <div className="w-8 h-8 bg-purple-700 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3">
+                <div className="h-16 flex-shrink-0 flex items-center px-5 border-b border-[#2D2B55]">
+                    <div className="w-9 h-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3 shadow-[0_0_15px_rgba(124,58,237,0.4)]">
                         S
                     </div>
-                    <div className="flex flex-col">
-                        <div className="text-[#C53030] text-[10px] font-black tracking-[0.2em]">⚡ ADMIN</div>
-                        <div className="text-white text-xs font-semibold leading-none">SEO AI Platform</div>
-                    </div>
+                    <span className="text-white font-bold text-sm tracking-wider uppercase">
+                        SEO AI PLATFORM
+                    </span>
                 </div>
 
                 {/* Nav items — scrollable if needed */}
@@ -115,7 +131,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 className={cn(
                                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all group",
                                     isActive
-                                        ? "bg-purple-700 text-white border border-purple-500"
+                                        ? "bg-purple-700 text-white border border-purple-500 shadow-[0_0_15px_rgba(124,58,237,0.2)]"
                                         : "text-gray-300 hover:bg-purple-900/30 hover:text-white"
                                 )}
                             >
@@ -128,13 +144,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
                 {/* Bottom security badge */}
                 <div className="p-3 border-t border-[#2D2B55]">
-                    <div className="bg-[#1A0A0A]/80 border border-[#3D1515] rounded-lg p-3 text-center">
-                        <div className="flex items-center justify-center text-red-400 text-[10px] font-black uppercase tracking-widest gap-2">
-                            <ShieldAlert className="w-3 h-3" />
-                            🔒 HIGH SECURITY
-                        </div>
-                        <div className="text-red-600 text-[9px] font-bold uppercase tracking-tighter mt-1">
-                            Admin Access Only
+                    <div className="bg-red-950 border border-red-800 rounded-xl p-3">
+                        <div className="flex flex-col items-center justify-center gap-1">
+                            <span className="text-xl">🔒</span>
+                            <span className="text-red-400 text-xs font-bold tracking-wider">
+                                HIGH SECURITY
+                            </span>
+                            <span className="text-red-700 text-[10px] text-center font-medium">
+                                Admin Access Only
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -144,26 +162,36 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
                 {/* TOPBAR */}
-                <header className="h-14 flex-shrink-0 bg-[#0F0C29] border-b border-[#2D2B55] flex items-center justify-between px-6 z-40">
+                <header className="h-14 flex-shrink-0 bg-[#0F0C29] border-b border-[#2D2B55] flex items-center justify-between px-6 z-40 admin-topbar">
                     <div className="flex items-center gap-3">
-                        <span className="bg-[#C53030] text-white text-[10px] font-black px-2 py-1 rounded tracking-widest">
+                        <span className="bg-[#C53030] text-white text-[10px] font-black px-2 py-1 rounded tracking-widest shadow-lg shadow-red-900/20">
                             ⚡ ADMIN PANEL
-                        </span>
-                        <span className="text-white/90 font-bold text-xs tracking-tight hidden sm:inline">
-                            SEO AI Platform
                         </span>
                     </div>
 
-                    {/* Live clock */}
-                    <div className="text-purple-400 text-sm font-mono font-bold tracking-[0.2em]">
+                    {/* Live clock - Center */}
+                    <div className="absolute left-1/2 -translate-x-1/2 text-purple-400 text-sm font-mono font-bold tracking-[0.2em]">
                         {currentTime}
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <span className="text-gray-300 text-[10px] font-bold uppercase tracking-widest hidden lg:inline">
-                            {user?.email}
-                        </span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
+                            {/* Theme Toggle */}
+                            <button
+                                onClick={toggleTheme}
+                                className="relative w-10 h-5 rounded-full transition-colors duration-200 focus:outline-none"
+                                style={{ backgroundColor: isDark ? '#6B21A8' : '#D1D5DB' }}
+                            >
+                                <div
+                                    className={cn(
+                                        "absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 flex items-center justify-center text-[8px]",
+                                        isDark ? "translate-x-5.5" : "translate-x-0.5"
+                                    )}
+                                >
+                                    {isDark ? '🌙' : '☀️'}
+                                </div>
+                            </button>
+
                             <button
                                 onClick={handleViewAsUser}
                                 className="border border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition-all tracking-widest"

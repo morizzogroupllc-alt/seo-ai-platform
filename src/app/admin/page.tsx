@@ -53,17 +53,33 @@ export default function AdminOverview() {
                 .gt('created_at', sevenDaysAgo)
 
             // 3. Recent 5 Signups for table
-            const { data: recent } = await supabase
+            const { data: recent, error: recentError } = await supabase
                 .from('profiles')
                 .select('*')
                 .order('created_at', { ascending: false })
                 .limit(5)
 
-            // 4. Fetch active plans
-            const { count: activeCount } = await supabase
+            if (recentError) console.error('Error fetching recent users:', recentError)
+
+            // 4. Fetch ALL users for revenue calculation
+            const { data: allUsers, error: allUsersError } = await supabase
                 .from('profiles')
-                .select('*', { count: 'exact', head: true })
-                .neq('plan', 'free')
+                .select('plan')
+
+            if (allUsersError) console.error('Error fetching all users for revenue:', allUsersError)
+
+            const prices: Record<string, number> = {
+                starter: 19,
+                pro: 49,
+                agency: 99,
+                enterprise: 199
+            }
+
+            const calculatedRevenue = allUsers?.reduce((sum, u) => {
+                return sum + (prices[u.plan] || 0)
+            }, 0) || 0
+
+            const activeCount = allUsers?.filter(u => u.plan !== 'free').length || 0
 
             // 5. Chart Data (Last 7 days)
             const last7Days = Array.from({ length: 7 }, (_, i) => {
@@ -85,8 +101,8 @@ export default function AdminOverview() {
             setStats({
                 totalUsers: totalCount || 0,
                 recentSignups: recentCount || 0,
-                activePlans: activeCount || 0,
-                revenue: (activeCount || 0) * 29,
+                activePlans: activeCount,
+                revenue: calculatedRevenue,
                 growth: 15.8
             })
             setRecentUsers(recent || [])
@@ -109,7 +125,7 @@ export default function AdminOverview() {
             {/* Header */}
             <div className="flex flex-col gap-1">
                 <h1 className="text-3xl font-bold tracking-tight">
-                    Overview <span className="text-purple-500">Dashboard</span>
+                    Admin Dashboard <span className="text-purple-500">Overview</span>
                 </h1>
                 <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-[0.2em]">
                     Real-time platform metrics and user activity
@@ -150,7 +166,7 @@ export default function AdminOverview() {
 
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
                 {/* Left Column: Recent Signups (55%) */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden flex flex-col">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden flex flex-col admin-card">
                     <div className="p-6 border-b border-[#2D2B55] flex items-center justify-between bg-[#2D2B55]/20">
                         <div>
                             <h2 className="text-lg font-bold">Recent Signups</h2>
@@ -214,7 +230,7 @@ export default function AdminOverview() {
                 {/* Right Column (45%) */}
                 <div className="space-y-6 flex flex-col">
                     {/* Quick Actions */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                             <Wrench className="w-3 h-3" /> Quick Actions
                         </h3>
@@ -227,7 +243,7 @@ export default function AdminOverview() {
                     </div>
 
                     {/* System Lifecycle Card */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden admin-card">
                         <div className="p-4 border-b border-[#2D2B55] bg-[#2D2B55]/20">
                             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <Activity className="w-3 h-3" /> System Lifecycle
@@ -243,7 +259,7 @@ export default function AdminOverview() {
                     </div>
 
                     {/* Compact Chart */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-4">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-4 admin-card">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <TrendingUp className="w-3 h-3" /> User Growth
@@ -313,7 +329,7 @@ function StatCard({ label, value, trend, icon, color }: any) {
     }
 
     return (
-        <div className="bg-[#1A1740] border border-[#2D2B55] p-6 rounded-2xl hover:border-purple-500/50 transition-all group cursor-default shadow-xl">
+        <div className="bg-[#1A1740] border border-[#2D2B55] p-6 rounded-2xl hover:border-purple-500/50 transition-all group cursor-default shadow-xl admin-card">
             <div className="flex items-center justify-between mb-4">
                 <div className={cn("p-2 rounded-xl border transition-colors", colorClasses[color])}>
                     {icon}
@@ -383,7 +399,7 @@ function StatusRow({ label, status, sub, isWarning }: any) {
 
 function HealthCard({ title, icon, metrics }: any) {
     return (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all group shadow-xl">
+        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all group shadow-xl admin-card">
             <div className="px-6 py-4 border-b border-[#2D2B55] flex items-center justify-between bg-[#2D2B55]/20">
                 <div className="flex items-center gap-2">
                     <div className="text-purple-400 group-hover:scale-110 transition-transform">{icon}</div>

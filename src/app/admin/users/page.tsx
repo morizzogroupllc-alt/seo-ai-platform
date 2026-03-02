@@ -271,7 +271,7 @@ export default function UsersManagementPage() {
                         { label: 'Paid Plan', value: stats.paid, icon: Shield, color: 'text-emerald-400' },
                         { label: 'Banned', value: stats.banned, icon: Ban, color: 'text-red-400' }
                     ].map((stat, i) => (
-                        <div key={i} className="bg-[#1A1740] border border-[#2D2B55] p-6 rounded-xl space-y-2">
+                        <div key={i} className="bg-[#1A1740] border border-[#2D2B55] p-6 rounded-xl space-y-2 admin-card shadow-xl">
                             <div className="flex items-center justify-between">
                                 <p className="text-sm font-medium text-gray-400">{stat.label}</p>
                                 <stat.icon size={18} className={stat.color} />
@@ -283,7 +283,7 @@ export default function UsersManagementPage() {
             </div>
 
             {/* SECTION 2: Filters Bar */}
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-[#1A1740] border border-[#2D2B55] p-4 rounded-xl">
+            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-[#1A1740] border border-[#2D2B55] p-4 rounded-xl admin-card shadow-lg">
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto flex-1">
                     <div className="relative flex-1 max-w-sm">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
@@ -355,18 +355,18 @@ export default function UsersManagementPage() {
             </div>
 
             {/* SECTION 3: Users Table */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl overflow-hidden shadow-xl">
+            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl overflow-hidden shadow-xl admin-card">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full text-left border-collapse table-fixed">
                         <thead>
                             <tr className="bg-white/5 text-gray-400 text-[10px] uppercase tracking-widest font-bold">
-                                <th className="px-6 py-4">User</th>
-                                <th className="px-6 py-4">Plan</th>
-                                <th className="px-6 py-4">User Type</th>
-                                <th className="px-6 py-4">Joined</th>
-                                <th className="px-6 py-4">Usage</th>
-                                <th className="px-6 py-4">Status</th>
-                                <th className="px-6 py-4 text-right">Actions</th>
+                                <th className="px-3 py-4 w-[280px] overflow-hidden">User</th>
+                                <th className="px-3 py-4 w-[100px] overflow-hidden">Plan</th>
+                                <th className="px-3 py-4 w-[130px] overflow-hidden">User Type</th>
+                                <th className="px-3 py-4 w-[100px] overflow-hidden">Joined</th>
+                                <th className="px-3 py-4 w-[100px] overflow-hidden">Usage</th>
+                                <th className="px-3 py-4 w-[100px] overflow-hidden text-center">Status</th>
+                                <th className="px-3 py-4 w-[280px] overflow-hidden text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[#2D2B55]">
@@ -385,78 +385,84 @@ export default function UsersManagementPage() {
                             ) : (
                                 filteredUsers.map((user) => (
                                     <tr key={user.id} className={`hover:bg-white/5 transition-colors ${!user.is_active ? 'bg-red-950/20' : ''}`}>
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold text-sm border border-purple-500/30">
+                                        <td className="px-3 py-4 overflow-hidden">
+                                            <div className="flex items-center gap-3 min-w-0">
+                                                <div className="w-9 h-9 flex-shrink-0 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold text-sm border border-purple-500/30">
                                                     {user.email[0].toUpperCase()}
                                                 </div>
-                                                <div className="flex flex-col">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-white text-sm font-semibold">{user.email}</span>
-                                                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${user.role === 'admin'
-                                                            ? 'bg-red-900/60 text-red-200 border border-red-500/50'
+                                                <div className="min-w-0">
+                                                    <div className="flex items-center gap-2 flex-wrap">
+                                                        <span className="text-white text-sm font-medium truncate max-w-[160px]">{user.email}</span>
+                                                        <span className={`text-[8px] flex-shrink-0 px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider ${user.role === 'admin'
+                                                            ? 'bg-red-900/60 text-red-100 border border-red-500/30'
                                                             : 'bg-gray-800 text-gray-400 border border-transparent'}`}>
                                                             {user.role === 'admin' ? '⚡ ADMIN' : 'USER'}
                                                         </span>
                                                     </div>
-                                                    <span className="text-gray-500 text-[10px] font-mono">
+                                                    <span className="text-gray-500 text-[10px] truncate block opacity-70">
                                                         {user.id}
                                                     </span>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <Badge className={getPlanColor(user.plan)}>
+                                        <td className="px-3 py-4 overflow-hidden">
+                                            <Badge className={`${getPlanColor(user.plan)} text-[9px] px-1.5`}>
                                                 {user.plan.toUpperCase()}
                                             </Badge>
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <span className={`text-[10px] font-bold tracking-widest px-2 py-1 rounded border uppercase ${getUserTypeColor(user.user_type)}`}>
+                                        <td className="px-3 py-4 overflow-hidden">
+                                            <span className={`text-[9px] font-bold tracking-widest px-1.5 py-0.5 rounded border uppercase truncate block ${getUserTypeColor(user.user_type)}`}>
                                                 {user.user_type || 'Not Set'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <p className="text-xs text-gray-400">{new Date(user.created_at).toLocaleDateString()}</p>
+                                        <td className="px-3 py-4 overflow-hidden">
+                                            <p className="text-[10px] text-gray-400 font-medium">{new Date(user.created_at).toLocaleDateString()}</p>
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2">
-                                                <Activity size={14} className="text-purple-400" />
-                                                <span className="text-xs font-semibold">{user.usage_niche_finder + user.usage_keywords + user.usage_serp + user.usage_content}</span>
+                                        <td className="px-3 py-4 overflow-hidden">
+                                            <div className="flex flex-col items-center">
+                                                <span className="text-gray-400 text-xs font-semibold">
+                                                    {(user.usage_niche_finder ?? 0) + (user.usage_keywords ?? 0) + (user.usage_serp ?? 0) + (user.usage_content ?? 0)} searches
+                                                </span>
+                                                <span className="text-gray-500 text-[9px] font-medium tracking-tighter">this month</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2">
+                                        <td className="px-3 py-4 overflow-hidden">
+                                            <div className="flex items-center justify-center gap-1.5">
                                                 <div className={`w-2 h-2 rounded-full ${user.is_active
-                                                    ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]'
-                                                    : 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]'}`}></div>
-                                                <span className={`text-xs font-bold ${user.is_active ? 'text-emerald-400' : 'text-red-400'}`}>
-                                                    {user.is_active ? 'ACTIVE' : 'BANNED'}
+                                                    ? 'bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.5)]'
+                                                    : 'bg-red-400 shadow-[0_0_8px_rgba(248,113,113,0.5)]'}`}></div>
+                                                <span className={`text-xs font-bold ${user.is_active ? 'text-green-400' : 'text-red-400'}`}>
+                                                    {user.is_active ? 'Active' : 'Banned'}
                                                 </span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-2">
+                                        <td className="px-3 py-4 overflow-hidden text-right">
+                                            <div className="flex items-center justify-end gap-1.5 flex-nowrap">
                                                 <button onClick={() => { setSelectedUser(user); setViewModalOpen(true); }}
-                                                    className="flex items-center gap-1 bg-[#1A1740] hover:bg-purple-900/40 border border-[#2D2B55] hover:border-purple-500 text-gray-300 hover:text-white text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition shrink-0">
-                                                    👁️ View
+                                                    className="bg-[#1A1740] hover:bg-purple-900/40 border border-[#2D2B55] hover:border-purple-500 text-gray-300 hover:text-white px-2 py-1 rounded text-[11px] font-bold uppercase transition shrink-0 shadow-sm"
+                                                    title="View Profile">
+                                                    👁️
                                                 </button>
 
                                                 <button onClick={() => { setSelectedUser(user); setPlanModalOpen(true); }}
-                                                    className="flex items-center gap-1 bg-[#1A1740] hover:bg-blue-900/40 border border-[#2D2B55] hover:border-blue-500 text-gray-300 hover:text-white text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition shrink-0">
-                                                    ✏️ Plan
+                                                    className="bg-[#1A1740] hover:bg-blue-900/40 border border-[#2D2B55] hover:border-blue-500 text-gray-300 hover:text-white px-2 py-1 rounded text-[11px] font-bold uppercase transition shrink-0 shadow-sm"
+                                                    title="Change Plan">
+                                                    ✏️
                                                 </button>
 
                                                 <button onClick={() => { setSelectedUser(user); setRoleModalOpen(true); }}
-                                                    className="flex items-center gap-1 bg-[#1A1740] hover:bg-yellow-900/40 border border-[#2D2B55] hover:border-yellow-500 text-gray-300 hover:text-white text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition shrink-0">
-                                                    👑 Role
+                                                    className="bg-[#1A1740] hover:bg-yellow-900/40 border border-[#2D2B55] hover:border-yellow-500 text-gray-300 hover:text-white px-2 py-1 rounded text-[11px] font-bold uppercase transition shrink-0 shadow-sm"
+                                                    title="Change Role">
+                                                    👑
                                                 </button>
 
                                                 <button onClick={() => { setSelectedUser(user); setBanModalOpen(true); }}
-                                                    className={`flex items-center gap-1 text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition border shrink-0 ${user.is_active
-                                                        ? 'bg-red-950/40 border-red-800 text-red-400 hover:bg-red-900/60'
-                                                        : 'bg-green-950/40 border-green-800 text-green-400 hover:bg-green-900/60'
-                                                        }`}>
-                                                    {user.is_active ? '🚫 Ban' : '✅ Unban'}
+                                                    className={`px-2 py-1 rounded text-[11px] font-bold uppercase transition border shrink-0 shadow-sm ${user.is_active
+                                                        ? 'bg-red-950/40 border-red-800 text-red-300 hover:bg-red-950/60'
+                                                        : 'bg-green-950/40 border-green-800 text-green-300 hover:bg-green-950/60'
+                                                        }`}
+                                                    title={user.is_active ? 'Ban User' : 'Unban User'}>
+                                                    {user.is_active ? '🚫' : '✅'}
                                                 </button>
                                             </div>
                                         </td>

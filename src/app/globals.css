@@ -115,3 +115,63 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: white !important;
   caret-color: white !important;
 }
+
+.light-mode {
+  --background: #F8F9FA;
+  --foreground: #1A1A2E;
+  --bg-primary: #F8F9FA;
+  --bg-card: #FFFFFF;
+  --border: #E2E8F0;
+  --text: #1A1A2E;
+}
+
+.light-mode body {
+  background: #F8F9FA;
+  color: #1A1A2E;
+}
+
+.light-mode .admin-layout {
+  background-color: #F0F2F5 !important;
+}
+
+.light-mode .admin-sidebar {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+.light-mode .admin-card {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+.light-mode .admin-topbar {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+.light-mode p,
+.light-mode h1,
+.light-mode h2,
+.light-mode h3,
+.light-mode h4,
+.light-mode span,
+.light-mode label,
+.light-mode td,
+.light-mode th {
+  color: #1A1A2E !important;
+}
+
+.light-mode .text-gray-400,
+.light-mode .text-gray-500 {
+  color: #64748B !important;
+}
+
+.light-mode .border-\[\#2D2B55\],
+.light-mode .border-white\/10 {
+  border-color: #E2E8F0 !important;
+}
+
+.light-mode .bg-\[\#1A1740\],
+.light-mode .bg-white\/5 {
+  background-color: #FFFFFF !important;
+}
