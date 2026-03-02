@@ -18,7 +18,8 @@ import {
   Target,
   Key,
   ShieldCheck,
-  Star
+  Star,
+  Home
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
