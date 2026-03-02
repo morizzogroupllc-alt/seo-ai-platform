@@ -45,23 +45,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
     return (
         <div className="min-h-screen bg-[#0F0C29] text-white antialiased">
-            {/* Admin Mode Banner */}
-            {isAdminViewing && (
-                <div className="bg-red-900/90 text-white text-[10px] font-black uppercase tracking-[0.2em] py-2 text-center relative z-[100] border-b border-red-500/30 flex items-center justify-center space-x-4">
-                    <span>⚡ Admin Mode — Viewing as User</span>
-                    <button
-                        onClick={() => {
-                            sessionStorage.removeItem('admin_viewing')
-                            window.location.href = '/admin'
-                        }}
-                        className="bg-white text-red-900 px-3 py-0.5 rounded-full hover:bg-slate-200 transition-colors"
-                    >
-                        ← Back to Admin
-                    </button>
-                </div>
-            )}
             <TopBar />
-            <div className={cn("flex", isAdminViewing ? "pt-0" : "pt-14")}>
+            <div className="flex pt-14">
                 <Sidebar />
                 <main className="flex-1 md:pl-64 min-h-[calc(100vh-3.5rem)]">
                     {children}

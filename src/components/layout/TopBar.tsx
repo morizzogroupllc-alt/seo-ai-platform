@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { Bell, Search, User } from 'lucide-react'
+import { Bell, Search, User, ShieldAlert } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function TopBar() {
@@ -73,6 +73,20 @@ export default function TopBar() {
                     <Bell className="h-5 w-5" />
                     <span className="absolute top-2 right-2 w-2 h-2 bg-purple-500 rounded-full border-2 border-[#0F0C29]"></span>
                 </button>
+
+                {/* Back to Admin Button */}
+                {typeof window !== 'undefined' && sessionStorage.getItem('admin_viewing') === 'true' && (
+                    <button
+                        onClick={() => {
+                            sessionStorage.removeItem('admin_viewing')
+                            window.location.href = '/admin'
+                        }}
+                        className="flex items-center space-x-2 bg-red-600/10 hover:bg-red-600/20 text-red-500 px-4 py-2 rounded-xl border border-red-500/20 transition-all text-[10px] font-black uppercase tracking-widest animate-pulse"
+                    >
+                        <ShieldAlert className="w-3.5 h-3.5" />
+                        <span>Back to Admin</span>
+                    </button>
+                )}
 
                 {/* User Avatar */}
                 <div className="flex items-center space-x-3 ml-2 border-l border-white/10 pl-4">
