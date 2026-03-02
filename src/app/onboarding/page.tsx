@@ -98,74 +98,59 @@ export default function OnboardingPage() {
                 </button>
             </nav>
 
-            <main className="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-24 flex flex-col items-center">
+            <main className="relative z-10 max-w-7xl mx-auto px-4 pt-4 pb-12 flex flex-col items-center min-h-[calc(100vh-80px)] justify-center">
                 {/* HERO TEXT */}
-                <div className="text-center space-y-6 mb-16 animate-fadeInUp">
-                    <div className="inline-flex items-center space-x-2 px-4 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full mb-2">
+                <div className="text-center space-y-4 mb-10 animate-fadeInUp">
+                    <div className="inline-flex items-center space-x-2 px-4 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full mb-1">
                         <span className="text-[10px] font-black text-purple-400 uppercase tracking-widest flex items-center">
                             <Zap className="w-3 h-3 mr-1.5 fill-purple-400" />
                             Setup takes 10 seconds
                         </span>
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-tight">
-                        <span className="bg-gradient-to-r from-white via-purple-100 to-purple-400 bg-clip-text text-transparent">
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+                        <span className="bg-gradient-to-r from-white via-purple-100 to-purple-400 bg-clip-text text-transparent italic uppercase">
                             Choose Your Path
                         </span>
                     </h1>
-                    <p className="max-w-xl mx-auto text-slate-400 text-lg font-medium leading-relaxed">
-                        We'll customize your entire experience, tools and journey based on who you are.
+                    <p className="max-w-xl mx-auto text-slate-400 text-base font-medium leading-relaxed">
+                        We'll customize your entire experience based on who you are.
                     </p>
                 </div>
 
-                {/* CARDS GRID */}
-                <div className="w-full space-y-6">
-                    {/* Row 1: 3 cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {userTypes.slice(0, 3).map((type) => (
-                            <OnboardingCard
-                                key={type.id}
-                                {...type}
-                                isSelected={selectedType === type.title}
-                                onSelect={() => setSelectedType(type.title)}
-                            />
-                        ))}
-                    </div>
-                    {/* Row 2: 2 cards centered */}
-                    <div className="flex flex-col md:flex-row justify-center gap-6">
-                        {userTypes.slice(3).map((type) => (
-                            <div key={type.id} className="w-full md:w-[calc(33.333%-1rem)]">
-                                <OnboardingCard
-                                    {...type}
-                                    isSelected={selectedType === type.title}
-                                    onSelect={() => setSelectedType(type.title)}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                {/* CARDS GRID - FIX: 5 cards in ONE single row */}
+                <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
+                    {userTypes.map((type) => (
+                        <OnboardingCard
+                            key={type.id}
+                            {...type}
+                            isSelected={selectedType === type.title}
+                            onSelect={() => setSelectedType(type.title)}
+                        />
+                    ))}
                 </div>
 
                 {/* ACTION AREA */}
-                <div className="mt-16 flex flex-col items-center space-y-6 animate-fadeInUp delay-500">
+                <div className="mt-12 flex flex-col items-center space-y-4 animate-fadeInUp delay-500">
                     <button
                         onClick={handleContinue}
                         disabled={!selectedType}
                         className={cn(
-                            "group relative w-64 h-14 rounded-2xl font-black uppercase tracking-[0.2em] text-sm transition-all duration-300 flex items-center justify-center space-x-3",
+                            "group relative w-64 h-12 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all duration-300 flex items-center justify-center space-x-3",
                             selectedType
                                 ? "bg-purple-600 hover:bg-purple-500 text-white shadow-2xl shadow-purple-900/40 active:scale-[0.98]"
                                 : "bg-white/5 text-slate-600 border border-white/5 cursor-not-allowed"
                         )}
                     >
                         <span>Continue</span>
-                        <ChevronRight className={cn("w-5 h-5 transition-transform", selectedType && "group-hover:translate-x-1")} />
+                        <ChevronRight className={cn("w-4 h-4 transition-transform", selectedType && "group-hover:translate-x-1")} />
                     </button>
-                    <p className="text-[#4B4863] text-xs font-bold uppercase tracking-widest">
+                    <p className="text-[#4B4863] text-[10px] font-black uppercase tracking-widest">
                         You can change this anytime in Settings
                     </p>
                 </div>
 
                 {/* TRUST BADGES */}
-                <div className="mt-20 flex flex-wrap justify-center gap-8 md:gap-12 animate-fadeInUp delay-700">
+                <div className="mt-12 flex flex-wrap justify-center gap-8 md:gap-12 animate-fadeInUp delay-700">
                     <TrustBadge label="No Credit Card" icon={<Check className="w-3 h-3" />} />
                     <TrustBadge label="136 Tools Ready" icon={<Zap className="w-3 h-3 fill-slate-500" />} />
                     <TrustBadge label="Personalized Journey" icon={<Home className="w-3 h-3" />} />
@@ -180,40 +165,40 @@ function OnboardingCard({ title, description, icon: Icon, color, bgColor, tag, t
         <button
             onClick={onSelect}
             className={cn(
-                "group relative w-full h-full p-8 rounded-[24px] border transition-all duration-500 text-left flex flex-col opacity-0 animate-fadeInUp",
+                "group relative w-full h-full p-6 rounded-[20px] border transition-all duration-500 text-left flex flex-col opacity-0 animate-fadeInUp min-w-0",
                 delay,
                 isSelected
-                    ? "bg-[#1E1A5E] border-purple-500 shadow-[0_0_40px_rgba(139,92,246,0.1)] scale-[1.02]"
+                    ? "bg-[#1E1A5E] border-purple-500 shadow-[0_0_40px_rgba(139,92,246,0.1)] scale-[1.02] z-10"
                     : "bg-[#120F2D] border-[#2D2B55] hover:border-purple-500/50 hover:bg-[#1A1650] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
             )}
             style={{ animationFillMode: 'forwards' }}
         >
             {/* Selected Indicator */}
             <div className={cn(
-                "absolute top-6 right-6 w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center transition-all duration-300 transform",
+                "absolute top-4 right-4 w-5 h-5 rounded-full bg-purple-500 flex items-center justify-center transition-all duration-300 transform",
                 isSelected ? "scale-100 opacity-100" : "scale-50 opacity-0"
             )}>
-                <Check className="w-3.5 h-3.5 text-white stroke-[4]" />
+                <Check className="w-3 h-3 text-white stroke-[3]" />
             </div>
 
             <div className={cn(
-                "w-14 h-14 rounded-2xl flex items-center justify-center mb-8 transition-all duration-500 shadow-inner",
+                "w-10 h-10 rounded-xl flex items-center justify-center mb-6 transition-all duration-500 shadow-inner",
                 bgColor,
                 color,
                 "group-hover:scale-110 shadow-lg"
             )}>
-                <Icon className="w-7 h-7" />
+                <Icon className="w-5 h-5" />
             </div>
 
-            <h3 className="text-white font-black text-xl mb-3 tracking-tight italic">
+            <h3 className="text-white font-black text-base mb-2 tracking-tight italic uppercase leading-tight">
                 {title}
             </h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-8 font-medium">
+            <p className="text-slate-400 text-xs leading-relaxed mb-6 font-medium">
                 {description}
             </p>
 
             <div className={cn(
-                "mt-auto inline-flex items-center text-[10px] font-black uppercase tracking-widest",
+                "mt-auto inline-flex items-center text-[9px] font-black uppercase tracking-widest",
                 tagColor
             )}>
                 {tag}
@@ -225,10 +210,10 @@ function OnboardingCard({ title, description, icon: Icon, color, bgColor, tag, t
 function TrustBadge({ label, icon }: { label: string, icon: React.ReactNode }) {
     return (
         <div className="flex items-center space-x-2 text-slate-500">
-            <div className="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center">
+            <div className="w-4 h-4 rounded-full border border-slate-700 flex items-center justify-center">
                 {icon}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">{label}</span>
+            <span className="text-[9px] font-black uppercase tracking-widest">{label}</span>
         </div>
     )
 }
