@@ -131,7 +131,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 className={cn(
                                     "sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all group active:scale-95",
                                     isActive
-                                        ? "bg-purple-700 text-white border border-purple-500 shadow-[0_0_15px_rgba(124,58,237,0.2)] active"
+                                        ? "bg-purple-700 text-white border border-purple-500 shadow-[0_0_15px_rgba(124,58,237,0.2)] active sidebar-active-glow"
                                         : "text-gray-300 hover:bg-purple-900/30 hover:text-white"
                                 )}
                             >

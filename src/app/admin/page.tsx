@@ -40,71 +40,63 @@ export default function AdminOverview() {
         const fetchDashboardData = async () => {
             setLoading(true)
 
-            // 1. Fetch total users
-            const { count: totalCount } = await supabase
+            // 1. Fetch ALL profiles for comprehensive logic
+            const { data: allUsers, error: usersError } = await supabase
                 .from('profiles')
-                .select('*', { count: 'exact', head: true })
+                .select('plan, role, created_at')
 
-            // 2. Recent Signups (Last 7 days proxy)
+            if (usersError) console.error('Error fetching users:', usersError)
+
+            // 2. Compute Metrics
+            const totalCount = allUsers?.length || 0
+            const freeCount = allUsers?.filter(u => u.plan === 'free').length || 0
+            const paidCount = allUsers?.filter(u => u.plan !== 'free' && u.role !== 'admin').length || 0
+
+            const breakdown = {
+                starter: allUsers?.filter(u => u.plan === 'starter' && u.role !== 'admin').length || 0,
+                pro: allUsers?.filter(u => u.plan === 'pro' && u.role !== 'admin').length || 0,
+                agency: allUsers?.filter(u => u.plan === 'agency' && u.role !== 'admin').length || 0,
+                enterprise: allUsers?.filter(u => u.plan === 'enterprise' && u.role !== 'admin').length || 0
+            }
+
+            const prices: Record<string, number> = {
+                starter: 19, pro: 49, agency: 99, enterprise: 199
+            }
+
+            const revenue = allUsers?.filter(u => u.role !== 'admin').reduce((sum, u) => {
+                return sum + (prices[u.plan] || 0)
+            }, 0) || 0
+
             const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-            const { count: recentCount } = await supabase
-                .from('profiles')
-                .select('*', { count: 'exact', head: true })
-                .gt('created_at', sevenDaysAgo)
+            const newThisWeek = allUsers?.filter(u => u.created_at >= sevenDaysAgo).length || 0
 
             // 3. Recent 5 Signups for table
-            const { data: recent, error: recentError } = await supabase
+            const { data: recent } = await supabase
                 .from('profiles')
                 .select('*')
                 .order('created_at', { ascending: false })
                 .limit(5)
 
-            if (recentError) console.error('Error fetching recent users:', recentError)
-
-            // 4. Fetch ALL users for revenue calculation
-            const { data: allUsers, error: allUsersError } = await supabase
-                .from('profiles')
-                .select('plan')
-
-            if (allUsersError) console.error('Error fetching all users for revenue:', allUsersError)
-
-            const prices: Record<string, number> = {
-                starter: 19,
-                pro: 49,
-                agency: 99,
-                enterprise: 199
-            }
-
-            const calculatedRevenue = allUsers?.reduce((sum, u) => {
-                return sum + (prices[u.plan] || 0)
-            }, 0) || 0
-
-            const activeCount = allUsers?.filter(u => u.plan !== 'free').length || 0
-
-            // 5. Chart Data (Last 7 days)
+            // 4. Chart Data (Last 7 days)
             const last7Days = Array.from({ length: 7 }, (_, i) => {
                 const d = new Date()
                 d.setDate(d.getDate() - i)
                 return d.toISOString().split('T')[0]
             }).reverse()
 
-            const { data: weeklyUsers } = await supabase
-                .from('profiles')
-                .select('created_at')
-                .gt('created_at', sevenDaysAgo)
-
             const groupedData = last7Days.map(date => {
-                const count = weeklyUsers?.filter(u => u.created_at.startsWith(date)).length || 0
+                const count = allUsers?.filter(u => u.created_at.startsWith(date)).length || 0
                 return { day: new Date(date).toLocaleDateString(undefined, { weekday: 'short' }), count }
             })
 
             setStats({
-                totalUsers: totalCount || 0,
-                recentSignups: recentCount || 0,
-                activePlans: activeCount,
-                revenue: calculatedRevenue,
-                growth: 15.8
-            })
+                totalUsers: totalCount,
+                freeUsers: freeCount,
+                paidUsers: paidCount,
+                breakdown,
+                revenue,
+                newThisWeek
+            } as any)
             setRecentUsers(recent || [])
             setChartData(groupedData)
             setLoading(false)
@@ -132,45 +124,75 @@ export default function AdminOverview() {
                 </p>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Stats Grid - Row 1 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <StatCard
                     label="Total Platform Users"
-                    value={stats.totalUsers.toLocaleString()}
-                    trend="+12%"
+                    value={(stats as any).totalUsers?.toLocaleString()}
                     icon={<Users className="w-6 h-6 text-blue-400" />}
                     color="blue"
+                    className="animate-slideInUp delay-75"
+                />
+                <StatCard
+                    label="Free Plan Users"
+                    value={(stats as any).freeUsers?.toLocaleString()}
+                    icon={<Activity className="w-6 h-6 text-gray-400" />}
+                    color="gray"
                     className="animate-slideInUp delay-100"
                 />
                 <StatCard
-                    label="Active Premium Plans"
-                    value={stats.activePlans.toLocaleString()}
-                    trend="+5%"
-                    icon={<TrendingUp className="w-6 h-6 text-purple-400" />}
-                    color="purple"
-                    className="animate-slideInUp delay-200"
-                />
-                <StatCard
-                    label="Last 7 Days Signups"
-                    value={stats.recentSignups.toLocaleString()}
-                    trend="+18%"
-                    icon={<Zap className="w-6 h-6 text-yellow-400" />}
+                    label="Paid Users"
+                    value={(stats as any).paidUsers?.toLocaleString()}
+                    trend="Excl. Admins"
+                    icon={<Zap className="w-6 h-6 text-yellow-500" />}
                     color="yellow"
-                    className="animate-slideInUp delay-300"
+                    className="animate-slideInUp delay-150"
                 />
+            </div>
+
+            {/* Stats Grid - Row 2 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <StatCard
+                    label="Plans Breakdown"
+                    className="animate-slideInUp delay-200"
+                >
+                    <div className="space-y-1.5 mt-2">
+                        {Object.entries((stats as any).breakdown || {}).map(([plan, count]) => (
+                            <div key={plan} className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-gray-400 border-b border-white/5 pb-1">
+                                <span>{plan}</span>
+                                <span className="text-white">{count as any}</span>
+                            </div>
+                        ))}
+                    </div>
+                </StatCard>
                 <StatCard
                     label="Monthly Revenue"
-                    value={`$${stats.revenue.toLocaleString()}`}
-                    trend="+8%"
                     icon={<DollarSign className="w-6 h-6 text-green-400" />}
                     color="green"
+                    className="animate-slideInUp delay-300"
+                >
+                    <div className="flex flex-col mt-2">
+                        <div className="text-4xl font-bold text-white tracking-tighter group-hover:text-purple-400 transition-colors">
+                            ${(stats as any).revenue?.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-gray-500 font-bold mt-1">
+                            Rs. {((stats as any).revenue * 278).toLocaleString()}
+                        </div>
+                    </div>
+                </StatCard>
+                <StatCard
+                    label="New This Week"
+                    value={(stats as any).newThisWeek?.toLocaleString()}
+                    trend="+18%"
+                    icon={<TrendingUp className="w-6 h-6 text-purple-400" />}
+                    color="purple"
                     className="animate-slideInUp delay-400"
                 />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
                 {/* Left Column: Recent Signups (55%) */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden flex flex-col admin-card animate-slideInUp delay-200 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden flex flex-col admin-card dark-glow animate-slideInUp delay-200 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                     <div className="p-6 border-b border-[#2D2B55] flex items-center justify-between bg-[#2D2B55]/20">
                         <div>
                             <h2 className="text-lg font-bold">Recent Signups</h2>
@@ -195,7 +217,7 @@ export default function AdminOverview() {
                                     <tr key={user.id} className="group hover:bg-purple-900/10 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-lg bg-[#2D2B55]/50 border border-[#2D2B55] flex items-center justify-center text-purple-400 font-bold text-xs uppercase group-hover:border-purple-500/50">
+                                                <div className="w-8 h-8 rounded-lg bg-[#2D2B55]/50 border border-[#2D2B55] flex items-center justify-center text-purple-400 font-bold text-xs uppercase group-hover:border-purple-500/50 user-avatar">
                                                     {user.email?.[0].toUpperCase()}
                                                 </div>
                                                 <div className="flex flex-col">
@@ -234,20 +256,20 @@ export default function AdminOverview() {
                 {/* Right Column (45%) */}
                 <div className="space-y-6 flex flex-col">
                     {/* Quick Actions */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card animate-slideInUp delay-300 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card dark-glow animate-slideInUp delay-300 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                             <Wrench className="w-3 h-3" /> Quick Actions
                         </h3>
                         <div className="grid grid-cols-2 gap-3">
-                            <QuickActionBtn icon={<Users />} label="Manage Users" href="/admin/users" color="blue" />
-                            <QuickActionBtn icon={<Activity />} label="API Health" href="/admin/api-health" color="red" />
-                            <QuickActionBtn icon={<ShieldCheck />} label="Settings" href="/admin/settings" color="purple" />
-                            <QuickActionBtn icon={<Globe />} label="Tools" href="/admin/tools" color="yellow" />
+                            <QuickActionBtn icon={<Users />} label="Manage Users" href="/admin/users" color="blue" className="quick-action-btn" />
+                            <QuickActionBtn icon={<Activity />} label="API Health" href="/admin/api-health" color="red" className="quick-action-btn" />
+                            <QuickActionBtn icon={<ShieldCheck />} label="Settings" href="/admin/settings" color="purple" className="quick-action-btn" />
+                            <QuickActionBtn icon={<Globe />} label="Tools" href="/admin/tools" color="yellow" className="quick-action-btn" />
                         </div>
                     </div>
 
                     {/* System Lifecycle Card */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden admin-card animate-fadeIn delay-400 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden admin-card system-card animate-fadeIn delay-400 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                         <div className="p-4 border-b border-[#2D2B55] bg-[#2D2B55]/20">
                             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <Activity className="w-3 h-3" /> System Lifecycle
@@ -263,7 +285,7 @@ export default function AdminOverview() {
                     </div>
 
                     {/* Compact Chart */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-4 admin-card animate-fadeIn delay-400 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-4 admin-card chart-container animate-fadeIn delay-400 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <TrendingUp className="w-3 h-3" /> User Growth
@@ -277,7 +299,7 @@ export default function AdminOverview() {
                                         +{d.count}
                                     </div>
                                     <div
-                                        className="w-full bg-purple-600/40 border-t-2 border-purple-500 rounded-t-sm transition-all group-hover:bg-purple-500 group-hover:scale-y-105"
+                                        className="w-full bg-purple-600/40 border-t-2 border-purple-500 rounded-t-sm transition-all group-hover:bg-purple-500 group-hover:scale-y-105 chart-bar"
                                         style={{ height: `${Math.max((d.count / (Math.max(...chartData.map(cd => cd.count)) || 1)) * 100, 5)}%` }}
                                     ></div>
                                     <span className="text-[10px] text-gray-500 font-bold uppercase tracking-tighter truncate w-full text-center">
@@ -324,7 +346,7 @@ export default function AdminOverview() {
     )
 }
 
-function StatCard({ label, value, trend, icon, color, className }: any) {
+function StatCard({ label, value, trend, icon, color, className, children }: any) {
     const colorClasses: any = {
         blue: "text-blue-500 bg-blue-500/10 border-blue-500/20",
         purple: "text-purple-500 bg-purple-500/10 border-purple-500/20",
@@ -334,21 +356,26 @@ function StatCard({ label, value, trend, icon, color, className }: any) {
 
     return (
         <div className={cn(
-            "bg-[#1A1740] border border-[#2D2B55] p-6 rounded-2xl hover:border-purple-500/50 transition-all group cursor-default shadow-xl admin-card transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20",
+            "bg-[#1A1740] border border-[#2D2B55] p-6 rounded-2xl group cursor-default shadow-xl admin-card stat-card-glow transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-900/20",
             className
         )}>
             <div className="flex items-center justify-between mb-4">
-                <div className={cn("p-2 rounded-xl border transition-colors", colorClasses[color])}>
+                <div className={cn("p-2 rounded-xl border transition-colors", colorClasses[color] || "text-gray-400 bg-gray-500/10 border-gray-500/20")}>
                     {icon}
                 </div>
-                <div className="flex items-center gap-1 text-green-400 text-[10px] font-bold italic">
-                    <TrendingUp className="w-3 h-3" />
-                    {trend}
+                {trend && (
+                    <div className="flex items-center gap-1 text-green-400 text-[10px] font-bold italic">
+                        <TrendingUp className="w-3 h-3" />
+                        {trend}
+                    </div>
+                )}
+            </div>
+            {value && (
+                <div className="text-5xl font-bold text-white tracking-tighter group-hover:text-purple-400 transition-colors mb-2">
+                    {value}
                 </div>
-            </div>
-            <div className="text-5xl font-bold text-white tracking-tighter group-hover:text-purple-400 transition-colors mb-2">
-                {value}
-            </div>
+            )}
+            {children}
             <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest opacity-70">
                 {label}
             </div>
@@ -356,7 +383,7 @@ function StatCard({ label, value, trend, icon, color, className }: any) {
     )
 }
 
-function QuickActionBtn({ icon, label, href, color }: any) {
+function QuickActionBtn({ icon, label, href, color, className }: any) {
     const colors: any = {
         blue: "hover:bg-blue-500/10 hover:text-blue-400 hover:border-blue-500/30",
         red: "hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/30",
@@ -366,7 +393,8 @@ function QuickActionBtn({ icon, label, href, color }: any) {
     return (
         <Link href={href} className={cn(
             "flex flex-col items-center justify-center p-4 rounded-xl border border-[#2D2B55] bg-[#1A1740] transition-all gap-2 group shadow-lg active:scale-95",
-            colors[color]
+            colors[color],
+            className
         )}>
             <div className="w-4 h-4 text-white/40 group-hover:text-current group-hover:scale-110 transition-all">
                 {icon}
