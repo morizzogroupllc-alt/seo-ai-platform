@@ -27,7 +27,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         }
     }, [pathname, router])
 
-    const noLayoutRoutes = ['/', '/onboarding', '/login']
+    const noLayoutRoutes = ['/', '/onboarding', '/login', '/signup']
     const isAdminRoute = pathname.startsWith('/admin')
     const [isAdminViewing, setIsAdminViewing] = useState(false)
 

@@ -76,7 +76,7 @@ export default function OnboardingPage() {
     const handleContinue = () => {
         if (!selectedType) return
         localStorage.setItem('user_type', selectedType)
-        window.location.href = '/login'
+        window.location.href = '/signup'
     }
 
     return (

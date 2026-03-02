@@ -37,7 +37,7 @@ export default function LandingPage() {
   }, [])
 
   const handleGetStarted = () => {
-    router.push('/login')
+    router.push('/signup')
   }
 
   const scrollToSection = (id: string) => {
