@@ -12,7 +12,8 @@ import {
     Shield,
     Zap,
     Activity,
-    UserMinus
+    UserMinus,
+    Ban
 } from 'lucide-react';
 
 // --- Types ---
