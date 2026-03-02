@@ -333,7 +333,7 @@ function StatCard({ label, value, trend, icon, color }: any) {
     )
 }
 
-function QuickActionBtn({ icon: Icon, label, href, color }: any) {
+function QuickActionBtn({ icon, label, href, color }: any) {
     const colors: any = {
         blue: "hover:bg-blue-500/10 hover:text-blue-400 hover:border-blue-500/30",
         red: "hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/30",
@@ -346,7 +346,7 @@ function QuickActionBtn({ icon: Icon, label, href, color }: any) {
             colors[color]
         )}>
             <div className="w-4 h-4 text-white/40 group-hover:text-current group-hover:scale-110 transition-all">
-                <Icon className="w-full h-full" />
+                {icon}
             </div>
             <span className="text-[10px] font-black uppercase tracking-widest">{label}</span>
         </Link>

@@ -187,7 +187,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </main>
             </div>
 
-            <style jsx global>{`
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 4px;
                 }
@@ -201,7 +202,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
                     background: #6B21A8;
                 }
-            `}</style>
+            ` }} />
         </div>
     )
 }
