@@ -81,7 +81,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         router.push('/dashboard')
     }
 
-
     if (loading) {
         return (
             <div className="min-h-screen bg-[#0F0C29] flex items-center justify-center">
@@ -103,7 +102,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { icon: Settings, label: 'Settings', path: '/admin/settings' },
     ]
 
-    const formatTime = () => currentTime
     const toggleTheme = () => setIsDarkMode(!isDarkMode)
     const shortEmail = user?.email?.split('@')[0] || 'Admin'
     const firstLetter = user?.email?.[0]?.toUpperCase() || 'A'
@@ -162,31 +160,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </nav>
 
                     {/* Sidebar Footer */}
-                    <div className="flex flex-col gap-0">
+                    <div className="flex flex-col gap-0 border-t border-[#2D2B55]/50 pt-4">
                         {/* Super Admin Box */}
                         <div className="px-3 pb-2">
-                            <div className="bg-[#1A1740] border 
-                            border-[#2D2B55] rounded-xl p-3">
+                            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl p-3">
                                 <div className="flex items-center gap-3">
 
                                     {/* Avatar */}
-                                    <div className="w-9 h-9 rounded-full 
-                                bg-purple-700 flex-shrink-0
-                                flex items-center justify-center 
-                                text-white font-bold text-sm">
+                                    <div className="w-9 h-9 rounded-full bg-purple-700 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
                                         {firstLetter}
                                     </div>
 
                                     {/* Text — perfectly centered vertically */}
-                                    <div className="flex flex-col 
-                                justify-center">
-                                        <span className="text-white text-xs 
-                                  font-semibold leading-tight">
+                                    <div className="flex flex-col justify-center">
+                                        <span className="text-white text-xs font-semibold leading-tight">
                                             {shortEmail}
                                         </span>
-                                        <span className="text-red-400 
-                                  text-[10px] font-bold 
-                                  leading-tight mt-0.5">
+                                        <span className="text-red-400 text-[10px] font-bold leading-tight mt-0.5">
                                             ⚡ SUPER ADMIN
                                         </span>
                                     </div>
@@ -197,24 +187,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
                         {/* HIGH SECURITY Box */}
                         <div className="px-3 pb-4">
-                            <div className="security-badge bg-[#1A0000] 
-                            border border-red-900 rounded-xl p-3">
-                                <div className="flex items-center 
-                              justify-center gap-2">
+                            <div className="security-badge bg-[#1A0000] border border-red-900 rounded-xl p-3">
+                                <div className="flex items-center justify-center gap-2">
 
-                                    <span className="lock-icon text-base 
-                                leading-none">🔒</span>
+                                    <span className="lock-icon text-base leading-none">🔒</span>
 
-                                    <div className="flex flex-col 
-                                justify-center">
-                                        <span className="security-title 
-                                  text-red-400 text-[10px] font-bold 
-                                  tracking-wider leading-tight">
+                                    <div className="flex flex-col justify-center">
+                                        <span className="security-title text-red-400 text-[10px] font-bold tracking-wider leading-tight">
                                             HIGH SECURITY
                                         </span>
-                                        <span className="security-sub 
-                                  text-red-800 text-[9px] 
-                                  leading-tight mt-0.5">
+                                        <span className="security-sub text-red-800 text-[9px] leading-tight mt-0.5">
                                             Admin Access Only
                                         </span>
                                     </div>
