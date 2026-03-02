@@ -19,7 +19,8 @@ import {
     X,
     ChevronDown,
     ChevronRight,
-    LayoutDashboard
+    LayoutDashboard,
+    LogOut
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -240,6 +241,18 @@ export default function Sidebar() {
                         <Settings className={cn("mr-3 h-4 w-4", pathname === '/system' ? "text-white" : "text-slate-500 group-hover:text-purple-400")} />
                         System
                     </Link>
+
+                    <button
+                        onClick={async () => {
+                            const { signOut } = await import('@/lib/auth')
+                            await signOut()
+                            window.location.href = '/login'
+                        }}
+                        className="w-full flex items-center px-4 py-2.5 text-sm font-bold rounded-lg transition-all group text-red-400 hover:text-red-300 hover:bg-red-500/10 mt-2"
+                    >
+                        <LogOut className="mr-3 h-4 w-4" />
+                        Sign Out
+                    </button>
                 </div>
             </aside>
 
