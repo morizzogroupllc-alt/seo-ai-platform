@@ -11,6 +11,8 @@ import {
     Check
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
 
 const userTypes = [
     {
@@ -72,11 +74,22 @@ const userTypes = [
 
 export default function OnboardingPage() {
     const [selectedType, setSelectedType] = useState<string | null>(null)
+    const router = useRouter()
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
         if (!selectedType) return
+
+        const { data: { user } } = await supabase.auth.getUser()
+
+        if (user) {
+            await supabase
+                .from('profiles')
+                .update({ user_type: selectedType })
+                .eq('id', user.id)
+        }
+
         localStorage.setItem('user_type', selectedType)
-        window.location.href = '/signup'
+        router.push('/dashboard')
     }
 
     return (

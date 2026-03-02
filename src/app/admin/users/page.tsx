@@ -90,6 +90,7 @@ export default function UsersManagementPage() {
     const [selectedUser, setSelectedUser] = useState<Profile | null>(null);
     const [viewModalOpen, setViewModalOpen] = useState(false);
     const [planModalOpen, setPlanModalOpen] = useState(false);
+    const [roleModalOpen, setRoleModalOpen] = useState(false);
     const [banModalOpen, setBanModalOpen] = useState(false);
 
     // Tab state in detail modal
@@ -192,6 +193,24 @@ export default function UsersManagementPage() {
         }
     };
 
+    const updateUserRole = async (newRole: string) => {
+        if (!selectedUser) return;
+        try {
+            const { error } = await supabase
+                .from('profiles')
+                .update({ role: newRole })
+                .eq('id', selectedUser.id);
+
+            if (error) throw error;
+
+            showToast(`Role updated to ${newRole}`, 'success');
+            setRoleModalOpen(false);
+            fetchUsers();
+        } catch (err) {
+            showToast('Failed to update role', 'error');
+        }
+    };
+
     const toggleUserBan = async () => {
         if (!selectedUser) return;
         try {
@@ -256,10 +275,18 @@ export default function UsersManagementPage() {
                         <input
                             type="text"
                             placeholder="Search by email..."
-                            className="w-full bg-[#1A1740] border border-[#2D2B55] rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                            className="w-full bg-[#1A1740] border border-[#2D2B55] rounded-lg pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all text-white"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
+                            >
+                                <X size={16} />
+                            </button>
+                        )}
                     </div>
 
                     <select
@@ -358,8 +385,11 @@ export default function UsersManagementPage() {
                                             </Badge>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className="text-sm text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/10 uppercase text-[10px] font-semibold tracking-wide">
-                                                {user.user_type || 'N/A'}
+                                            <span className={`text-[10px] font-semibold tracking-wide px-2 py-1 rounded border uppercase ${user.user_type
+                                                ? 'text-gray-400 bg-white/5 border-white/10'
+                                                : 'text-gray-500 bg-white/5 border-transparent'
+                                                }`}>
+                                                {user.user_type || 'Not Selected'}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
@@ -381,26 +411,27 @@ export default function UsersManagementPage() {
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
-                                                <button
-                                                    onClick={() => { setSelectedUser(user); setViewModalOpen(true); }}
-                                                    className="p-1.5 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-all group relative"
-                                                    title="View Details"
-                                                >
-                                                    <Eye size={18} />
+                                                <button onClick={() => { setSelectedUser(user); setViewModalOpen(true); }}
+                                                    className="flex items-center gap-1 bg-[#1A1740] hover:bg-purple-900/40 border border-[#2D2B55] hover:border-purple-500 text-gray-300 hover:text-white text-xs px-3 py-1.5 rounded-lg transition shrink-0">
+                                                    👁️ View
                                                 </button>
-                                                <button
-                                                    onClick={() => { setSelectedUser(user); setPlanModalOpen(true); }}
-                                                    className="p-1.5 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-all group relative"
-                                                    title="Change Plan"
-                                                >
-                                                    <Settings size={18} />
+
+                                                <button onClick={() => { setSelectedUser(user); setPlanModalOpen(true); }}
+                                                    className="flex items-center gap-1 bg-[#1A1740] hover:bg-blue-900/40 border border-[#2D2B55] hover:border-blue-500 text-gray-300 hover:text-white text-xs px-3 py-1.5 rounded-lg transition shrink-0">
+                                                    ✏️ Plan
                                                 </button>
-                                                <button
-                                                    onClick={() => { setSelectedUser(user); setBanModalOpen(true); }}
-                                                    className={`p-1.5 rounded-lg transition-all ${user.is_active ? 'text-gray-400 hover:text-red-400 hover:bg-red-400/10' : 'text-red-400 hover:bg-emerald-400/10 hover:text-emerald-400'}`}
-                                                    title={user.is_active ? "Ban User" : "Unban User"}
-                                                >
-                                                    <Ban size={18} />
+
+                                                <button onClick={() => { setSelectedUser(user); setRoleModalOpen(true); }}
+                                                    className="flex items-center gap-1 bg-[#1A1740] hover:bg-yellow-900/40 border border-[#2D2B55] hover:border-yellow-500 text-gray-300 hover:text-white text-xs px-3 py-1.5 rounded-lg transition shrink-0">
+                                                    👑 Role
+                                                </button>
+
+                                                <button onClick={() => { setSelectedUser(user); setBanModalOpen(true); }}
+                                                    className={`flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg transition border shrink-0 ${user.is_active
+                                                        ? 'bg-red-950/40 border-red-800 text-red-400 hover:bg-red-900/60'
+                                                        : 'bg-green-950/40 border-green-800 text-green-400 hover:bg-green-900/60'
+                                                        }`}>
+                                                    {user.is_active ? '🚫 Ban' : '✅ Unban'}
                                                 </button>
                                             </div>
                                         </td>
@@ -444,8 +475,8 @@ export default function UsersManagementPage() {
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
                                     className={`px-4 py-2 text-sm font-medium capitalize transition-all border-b-2 ${activeTab === tab
-                                            ? 'border-purple-500 text-purple-400'
-                                            : 'border-transparent text-gray-400 hover:text-white'
+                                        ? 'border-purple-500 text-purple-400'
+                                        : 'border-transparent text-gray-400 hover:text-white'
                                         }`}
                                 >
                                     {tab}
@@ -458,15 +489,15 @@ export default function UsersManagementPage() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {[
                                         { label: 'Role', value: selectedUser.role },
-                                        { label: 'User Type', value: selectedUser.user_type },
+                                        { label: 'User Type', value: selectedUser.user_type || 'Not Selected' },
                                         { label: 'Joined', value: new Date(selectedUser.created_at).toLocaleDateString() },
                                         { label: 'Last Active', value: 'Today' }, // Placeholder
                                         { label: 'DataForSEO API Key', value: selectedUser.api_key_dataforseo ? '••••••••••••••••' : 'Not set' },
                                         { label: 'Gemini API Key', value: selectedUser.api_key_gemini ? '••••••••••••••••' : 'Not set' }
                                     ].map((field, i) => (
                                         <div key={i} className="bg-white/5 border border-white/10 p-4 rounded-xl space-y-1">
-                                            <p className="text-xs text-gray-500 uppercase font-semibold">{field.label}</p>
-                                            <p className="text-sm font-medium">{field.value || 'N/A'}</p>
+                                            <p className="text-xs text-gray-500 uppercase font-semibold text-[10px] tracking-widest">{field.label}</p>
+                                            <p className="text-sm font-medium text-gray-200">{field.value}</p>
                                         </div>
                                     ))}
                                     <div className="bg-white/5 border border-white/10 p-4 rounded-xl space-y-1 flex items-center justify-between col-span-full">
@@ -609,11 +640,59 @@ export default function UsersManagementPage() {
                             <button
                                 onClick={toggleUserBan}
                                 className={`flex-1 px-4 py-3 rounded-xl font-bold transition-all ${selectedUser.is_active
-                                        ? 'bg-red-600 hover:bg-red-700 shadow-[0_0_20px_rgba(220,38,38,0.3)]'
-                                        : 'bg-emerald-600 hover:bg-emerald-700 shadow-[0_0_20px_rgba(16,185,129,0.3)]'
+                                    ? 'bg-red-600 hover:bg-red-700 shadow-[0_0_20px_rgba(220,38,38,0.3)]'
+                                    : 'bg-emerald-600 hover:bg-emerald-700 shadow-[0_0_20px_rgba(16,185,129,0.3)]'
                                     }`}
                             >
                                 {selectedUser.is_active ? 'Confirm Ban' : 'Confirm Unban'}
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </Modal>
+
+            {/* Role Modal */}
+            <Modal
+                isOpen={roleModalOpen}
+                onClose={() => setRoleModalOpen(false)}
+                title="Change User Role"
+            >
+                {selectedUser && (
+                    <div className="space-y-6 text-center">
+                        <div className="p-4 bg-yellow-600/10 border border-yellow-500/20 rounded-xl">
+                            <p className="text-sm text-gray-300">
+                                Update role for <span className="text-white font-bold">{selectedUser.email}</span>
+                            </p>
+                            <p className="text-xs text-gray-500 mt-1">Current: <span className="capitalize">{selectedUser.role}</span></p>
+                        </div>
+
+                        <div className="space-y-2 text-left">
+                            <label className="text-sm font-medium text-gray-400 px-1 text-[10px] tracking-widest uppercase">Select New Role</label>
+                            <select
+                                className="w-full bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all text-white appearance-none"
+                                defaultValue={selectedUser.role}
+                                id="role-select"
+                            >
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+
+                        <div className="flex gap-3 pt-2">
+                            <button
+                                onClick={() => setRoleModalOpen(false)}
+                                className="flex-1 px-4 py-3 rounded-xl border border-[#2D2B55] hover:bg-white/5 transition-colors font-medium text-sm"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={() => {
+                                    const select = document.getElementById('role-select') as HTMLSelectElement;
+                                    updateUserRole(select.value);
+                                }}
+                                className="flex-1 px-4 py-3 rounded-xl bg-yellow-600 hover:bg-yellow-700 transition-colors font-bold shadow-[0_0_20px_rgba(202,138,4,0.3)] text-sm"
+                            >
+                                Save Role
                             </button>
                         </div>
                     </div>
@@ -626,8 +705,8 @@ export default function UsersManagementPage() {
                     <div
                         key={toast.id}
                         className={`flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl border pointer-events-auto animate-in slide-in-from-right duration-300 ${toast.type === 'success'
-                                ? 'bg-[#1A1740] border-emerald-500/50 text-emerald-400'
-                                : 'bg-[#1A1740] border-red-500/50 text-red-400'
+                            ? 'bg-[#1A1740] border-emerald-500/50 text-emerald-400'
+                            : 'bg-[#1A1740] border-red-500/50 text-red-400'
                             }`}
                     >
                         {toast.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
