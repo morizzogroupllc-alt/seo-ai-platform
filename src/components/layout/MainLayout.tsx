@@ -13,21 +13,30 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     useEffect(() => {
         const userType = localStorage.getItem('user_type')
 
-        if (!userType && pathname !== '/onboarding') {
+        // Redirect to onboarding if no user type and trying to access internal pages
+        const internalRoutes = [
+            '/dashboard', '/research', '/build', '/deploy', '/optimize',
+            '/authority', '/convert', '/track', '/reports', '/automation', '/system'
+        ]
+
+        if (internalRoutes.some(route => pathname.startsWith(route)) && !userType) {
             router.push('/onboarding')
         } else {
             setIsLoaded(true)
         }
     }, [pathname, router])
 
-    if (pathname === '/onboarding') {
+    const noLayoutRoutes = ['/', '/onboarding']
+
+    // If route is public or onboarding, return children without Sidebar/TopBar
+    if (noLayoutRoutes.includes(pathname)) {
         return <>{children}</>
     }
 
     if (!isLoaded) return null
 
     return (
-        <div className="min-h-screen bg-[#020617]">
+        <div className="min-h-screen bg-[#0F0C29] text-white antialiased">
             <TopBar />
             <div className="flex pt-14">
                 <Sidebar />
