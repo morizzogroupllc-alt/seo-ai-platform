@@ -33,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             }
 
             const role = await getUserRole(currentUser.id)
-            if (role !== 'admin') {
+            if (role?.toLowerCase() !== 'admin') {
                 router.push('/dashboard')
                 return
             }

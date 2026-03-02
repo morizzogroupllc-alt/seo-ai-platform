@@ -32,7 +32,9 @@ export default function LoginPage() {
 
             if (data.user) {
                 const role = await getUserRole(data.user.id)
-                if (role === 'admin') {
+                console.log('User Role:', role) // Debug log
+
+                if (role?.toLowerCase() === 'admin') {
                     router.push('/admin')
                 } else {
                     router.push('/dashboard')

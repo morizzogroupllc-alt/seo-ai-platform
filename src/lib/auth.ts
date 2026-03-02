@@ -26,10 +26,22 @@ export async function getCurrentUser() {
 }
 
 export async function getUserRole(userId: string) {
-    const { data } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', userId)
-        .single()
-    return data?.role
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', userId)
+            .single()
+
+        if (error) {
+            console.error('Error fetching role:', error)
+            return null
+        }
+
+        console.log('Role found for user:', data?.role)
+        return data?.role
+    } catch (err) {
+        console.error('Catch error fetching role:', err)
+        return null
+    }
 }

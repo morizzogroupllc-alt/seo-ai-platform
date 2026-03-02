@@ -20,7 +20,8 @@ import {
     ChevronDown,
     ChevronRight,
     LayoutDashboard,
-    LogOut
+    LogOut,
+    ShieldAlert
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -40,10 +41,21 @@ export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(false)
     const [userType, setUserType] = useState<string | null>(null)
     const [expandedPhase, setExpandedPhase] = useState<string | null>(null)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
         const type = localStorage.getItem('user_type')
         if (type) setUserType(type)
+
+        const checkRole = async () => {
+            const { getCurrentUser, getUserRole } = await import('@/lib/auth')
+            const user = await getCurrentUser()
+            if (user) {
+                const role = await getUserRole(user.id)
+                setIsAdmin(role?.toLowerCase() === 'admin')
+            }
+        }
+        checkRole()
 
         // Auto-expand current phase section
         const currentPhase = phasesNav.find(p => pathname.startsWith(p.href))
@@ -118,6 +130,17 @@ export default function Sidebar() {
 
                 {/* Navigation Section */}
                 <nav className="flex-1 overflow-y-auto px-4 pb-4 space-y-6 scrollbar-thin scrollbar-track-[#0F0C29] scrollbar-thumb-[#4C1D95] hover:scrollbar-thumb-[#7C3AED]">
+                    {isAdmin && (
+                        <Link
+                            href="/admin"
+                            className="flex items-center px-4 py-2.5 text-sm font-black rounded-xl transition-all group bg-red-600/10 text-red-500 border border-red-500/20 mb-2"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <ShieldAlert className="mr-3 h-5 w-5 text-red-500" />
+                            Admin Panel
+                        </Link>
+                    )}
+
                     <Link
                         href="/dashboard"
                         className={cn(
