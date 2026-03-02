@@ -100,18 +100,18 @@ export default function AdminOverview() {
     if (loading) return (
         <div className="flex flex-col items-center justify-center h-[60vh] space-y-4">
             <div className="w-12 h-12 border-4 border-purple-600/20 border-t-purple-600 rounded-full animate-spin" />
-            <span className="text-[10px] font-black text-purple-500 uppercase tracking-[0.3em] animate-pulse">Fetching Secure Data...</span>
+            <span className="text-[10px] font-bold text-purple-500 uppercase tracking-[0.3em] animate-pulse">Fetching Secure Data...</span>
         </div>
     )
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 text-white selection:bg-purple-500/30">
             {/* Header */}
             <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-black text-white tracking-tight uppercase italic">
+                <h1 className="text-3xl font-bold tracking-tight">
                     Overview <span className="text-purple-500">Dashboard</span>
                 </h1>
-                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-[0.2em]">
                     Real-time platform metrics and user activity
                 </p>
             </div>
@@ -150,36 +150,36 @@ export default function AdminOverview() {
 
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
                 {/* Left Column: Recent Signups (55%) */}
-                <div className="bg-[#13151C] border border-[#1E2030] rounded-2xl overflow-hidden flex flex-col">
-                    <div className="p-6 border-b border-[#1E2030] flex items-center justify-between bg-[#1A1B25]/30">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden flex flex-col">
+                    <div className="p-6 border-b border-[#2D2B55] flex items-center justify-between bg-[#2D2B55]/20">
                         <div>
-                            <h2 className="text-lg font-black text-white uppercase italic tracking-tighter">Recent Signups</h2>
-                            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Latest accounts joined the platform</p>
+                            <h2 className="text-lg font-bold">Recent Signups</h2>
+                            <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-widest">Latest accounts joined the platform</p>
                         </div>
-                        <Link href="/admin/users" className="text-purple-400 hover:text-purple-300 text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
+                        <Link href="/admin/users" className="text-purple-400 hover:text-purple-300 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
                             View All <ArrowUpRight className="w-3 h-3" />
                         </Link>
                     </div>
                     <div className="overflow-x-auto flex-1">
                         <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="text-[10px] font-black uppercase tracking-widest text-gray-400 border-b border-[#1E2030] bg-[#0D0E14]/50">
+                                <tr className="text-[10px] font-bold uppercase tracking-widest text-gray-400 border-b border-[#2D2B55] bg-[#0F0C29]/50">
                                     <th className="px-6 py-4">User Details</th>
                                     <th className="px-6 py-4">Plan</th>
                                     <th className="px-6 py-4">Joined Date</th>
                                     <th className="px-6 py-4 text-right">Status</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-[#1E2030]">
+                            <tbody className="divide-y divide-[#2D2B55]">
                                 {recentUsers.map((user) => (
                                     <tr key={user.id} className="group hover:bg-purple-900/10 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-lg bg-[#1D1E2C] border border-[#2D2F3F] flex items-center justify-center text-purple-400 font-bold text-xs uppercase group-hover:border-purple-500/50">
+                                                <div className="w-8 h-8 rounded-lg bg-[#2D2B55]/50 border border-[#2D2B55] flex items-center justify-center text-purple-400 font-bold text-xs uppercase group-hover:border-purple-500/50">
                                                     {user.email?.[0].toUpperCase()}
                                                 </div>
                                                 <div className="flex flex-col">
-                                                    <span className="text-xs font-bold text-white group-hover:text-purple-300 transition-colors truncate max-w-[140px]">
+                                                    <span className="text-xs font-semibold text-white group-hover:text-purple-300 transition-colors truncate max-w-[140px]">
                                                         {user.email}
                                                     </span>
                                                     <span className="text-[9px] text-gray-500 font-mono italic">
@@ -190,7 +190,7 @@ export default function AdminOverview() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={cn(
-                                                "px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border",
+                                                "px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border",
                                                 user.plan === 'enterprise' ? "bg-purple-900/30 text-purple-400 border-purple-800/50" :
                                                     user.plan === 'pro' ? "bg-blue-900/30 text-blue-400 border-blue-800/50" :
                                                         "bg-gray-800/30 text-gray-400 border-gray-700/50"
@@ -198,7 +198,7 @@ export default function AdminOverview() {
                                                 {user.plan || 'Free'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 text-[10px] text-gray-400 font-bold">
+                                        <td className="px-6 py-4 text-[10px] text-gray-400 font-semibold">
                                             {new Date(user.created_at).toLocaleDateString()}
                                         </td>
                                         <td className="px-6 py-4 text-right">
@@ -214,8 +214,8 @@ export default function AdminOverview() {
                 {/* Right Column (45%) */}
                 <div className="space-y-6 flex flex-col">
                     {/* Quick Actions */}
-                    <div className="bg-[#13151C] border border-[#1E2030] rounded-2xl p-6">
-                        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6">
+                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                             <Wrench className="w-3 h-3" /> Quick Actions
                         </h3>
                         <div className="grid grid-cols-2 gap-3">
@@ -227,13 +227,13 @@ export default function AdminOverview() {
                     </div>
 
                     {/* System Lifecycle Card */}
-                    <div className="bg-[#13151C] border border-[#1E2030] rounded-2xl overflow-hidden">
-                        <div className="p-4 border-b border-[#1E2030] bg-[#1A1B25]/30">
-                            <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden">
+                        <div className="p-4 border-b border-[#2D2B55] bg-[#2D2B55]/20">
+                            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <Activity className="w-3 h-3" /> System Lifecycle
                             </h3>
                         </div>
-                        <div className="divide-y divide-[#1E2030]">
+                        <div className="divide-y divide-[#2D2B55]">
                             <StatusRow label="Platform Core" status="OPERATIONAL" sub="v2.4.1" />
                             <StatusRow label="Supabase DB" status="OPERATIONAL" sub="Region: AWS" />
                             <StatusRow label="Stripe API" status="STABLE" sub="Webhooks 🆗" />
@@ -243,9 +243,9 @@ export default function AdminOverview() {
                     </div>
 
                     {/* Compact Chart */}
-                    <div className="bg-[#13151C] border border-[#1E2030] rounded-2xl p-4">
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-4">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <TrendingUp className="w-3 h-3" /> User Growth
                             </h3>
                             <span className="text-[10px] text-gray-500 font-mono">Last 7 Days</span>
@@ -313,20 +313,20 @@ function StatCard({ label, value, trend, icon, color }: any) {
     }
 
     return (
-        <div className="bg-[#13151C] border border-[#1E2030] p-6 rounded-2xl hover:border-purple-500/50 transition-all group cursor-default shadow-xl">
+        <div className="bg-[#1A1740] border border-[#2D2B55] p-6 rounded-2xl hover:border-purple-500/50 transition-all group cursor-default shadow-xl">
             <div className="flex items-center justify-between mb-4">
                 <div className={cn("p-2 rounded-xl border transition-colors", colorClasses[color])}>
                     {icon}
                 </div>
-                <div className="flex items-center gap-1 text-green-400 text-[10px] font-black italic">
+                <div className="flex items-center gap-1 text-green-400 text-[10px] font-bold italic">
                     <TrendingUp className="w-3 h-3" />
                     {trend}
                 </div>
             </div>
-            <div className="text-5xl font-black text-white tracking-tighter group-hover:text-purple-400 transition-colors mb-2">
+            <div className="text-5xl font-bold text-white tracking-tighter group-hover:text-purple-400 transition-colors mb-2">
                 {value}
             </div>
-            <div className="text-gray-500 text-[10px] font-black uppercase tracking-widest opacity-70">
+            <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest opacity-70">
                 {label}
             </div>
         </div>
@@ -342,13 +342,13 @@ function QuickActionBtn({ icon, label, href, color }: any) {
     }
     return (
         <Link href={href} className={cn(
-            "flex flex-col items-center justify-center p-4 rounded-xl border border-[#1E2030] bg-[#0D0E14] transition-all gap-2 group",
+            "flex flex-col items-center justify-center p-4 rounded-xl border border-[#2D2B55] bg-[#1A1740] transition-all gap-2 group shadow-lg",
             colors[color]
         )}>
             <div className="w-4 h-4 text-white/40 group-hover:text-current group-hover:scale-110 transition-all">
                 {icon}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">{label}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest">{label}</span>
         </Link>
     )
 }
@@ -361,18 +361,18 @@ function StatusRow({ label, status, sub, isWarning }: any) {
                     isWarning ? "bg-yellow-500 shadow-yellow-500/50" : "bg-green-500 shadow-green-500/50"
                 )}></div>
                 <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-white uppercase tracking-tighter leading-none group-hover:text-purple-400 transition-colors">{label}</span>
+                    <span className="text-[10px] font-bold text-white uppercase tracking-tighter leading-none group-hover:text-purple-400 transition-colors">{label}</span>
                     <span className="text-[9px] text-gray-500 font-mono italic">{sub}</span>
                 </div>
             </div>
             <div className="flex items-center gap-3">
-                <span className={cn("text-[9px] font-black uppercase tracking-widest",
+                <span className={cn("text-[9px] font-bold uppercase tracking-widest",
                     isWarning ? "text-yellow-500" : "text-green-500"
                 )}>
                     {status}
                 </span>
                 {isWarning && (
-                    <button className="px-2 py-1 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-all text-[8px] font-black uppercase">
+                    <button className="px-2 py-1 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-all text-[8px] font-bold uppercase">
                         Configure →
                     </button>
                 )}
@@ -383,15 +383,15 @@ function StatusRow({ label, status, sub, isWarning }: any) {
 
 function HealthCard({ title, icon, metrics }: any) {
     return (
-        <div className="bg-[#13151C] border border-[#1E2030] rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all group shadow-xl">
-            <div className="px-6 py-4 border-b border-[#1E2030] flex items-center justify-between bg-[#1A1B25]/30">
+        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all group shadow-xl">
+            <div className="px-6 py-4 border-b border-[#2D2B55] flex items-center justify-between bg-[#2D2B55]/20">
                 <div className="flex items-center gap-2">
                     <div className="text-purple-400 group-hover:scale-110 transition-transform">{icon}</div>
-                    <h3 className="text-[10px] font-black text-white uppercase tracking-widest">{title}</h3>
+                    <h3 className="text-[10px] font-bold text-white uppercase tracking-widest">{title}</h3>
                 </div>
                 <div className="flex items-center gap-1.5 flex-wrap justify-end">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                    <span className="text-[9px] font-black text-green-500 uppercase tracking-widest">HEALTHY</span>
+                    <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest">HEALTHY</span>
                 </div>
             </div>
             <div className="p-4 space-y-3">

@@ -69,10 +69,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#0A0B0F] flex items-center justify-center">
+            <div className="min-h-screen bg-[#0F0C29] flex items-center justify-center">
                 <div className="flex flex-col items-center space-y-4">
                     <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
-                    <p className="text-purple-500/50 text-[10px] font-black uppercase tracking-widest italic animate-pulse">Verifying Admin Access</p>
+                    <p className="text-purple-500/50 text-[10px] font-bold uppercase tracking-widest animate-pulse">Verifying Admin Access</p>
                 </div>
             </div>
         )
@@ -89,12 +89,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     ]
 
     return (
-        <div className="flex h-screen overflow-hidden bg-[#0A0B0F] text-white font-sans selection:bg-purple-500/30">
+        <div className="flex h-screen overflow-hidden bg-[#0F0C29] text-white font-sans selection:bg-purple-500/30">
 
             {/* SIDEBAR — fixed, never moves */}
-            <aside className="w-56 h-screen flex-shrink-0 bg-[#0D0E14] border-r border-[#1E2030] flex flex-col overflow-hidden">
+            <aside className="w-56 h-screen flex-shrink-0 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col overflow-hidden">
                 {/* Logo */}
-                <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-[#1E2030]">
+                <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-[#2D2B55]">
                     <div className="w-8 h-8 bg-purple-700 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3">
                         S
                     </div>
@@ -115,19 +115,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 className={cn(
                                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all group",
                                     isActive
-                                        ? "bg-[#1E1520] text-white border border-[#6B21A8]"
-                                        : "text-gray-300 hover:bg-[#1A1B25] hover:text-white"
+                                        ? "bg-purple-700 text-white border border-purple-500"
+                                        : "text-gray-300 hover:bg-purple-900/30 hover:text-white"
                                 )}
                             >
                                 <span className="text-base">{item.icon}</span>
-                                <span className="font-bold tracking-tight">{item.label}</span>
+                                <span className="font-semibold tracking-tight">{item.label}</span>
                             </Link>
                         )
                     })}
                 </nav>
 
                 {/* Bottom security badge */}
-                <div className="p-3 border-t border-[#1E2030]">
+                <div className="p-3 border-t border-[#2D2B55]">
                     <div className="bg-[#1A0A0A]/80 border border-[#3D1515] rounded-lg p-3 text-center">
                         <div className="flex items-center justify-center text-red-400 text-[10px] font-black uppercase tracking-widest gap-2">
                             <ShieldAlert className="w-3 h-3" />
@@ -144,12 +144,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
                 {/* TOPBAR */}
-                <header className="h-14 flex-shrink-0 bg-[#0D0E14] border-b border-[#1E2030] flex items-center justify-between px-6 z-40">
+                <header className="h-14 flex-shrink-0 bg-[#0F0C29] border-b border-[#2D2B55] flex items-center justify-between px-6 z-40">
                     <div className="flex items-center gap-3">
                         <span className="bg-[#C53030] text-white text-[10px] font-black px-2 py-1 rounded tracking-widest">
                             ⚡ ADMIN PANEL
                         </span>
-                        <span className="text-white/90 font-black text-xs uppercase tracking-widest hidden sm:inline">
+                        <span className="text-white/90 font-bold text-xs tracking-tight hidden sm:inline">
                             SEO AI Platform
                         </span>
                     </div>
@@ -166,14 +166,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={handleViewAsUser}
-                                className="border border-purple-800/50 text-purple-400 hover:bg-purple-900/20 text-[10px] font-black uppercase px-3 py-1.5 rounded-lg transition-all tracking-widest"
+                                className="border border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition-all tracking-widest"
                             >
                                 <Eye className="w-3 h-3 inline mr-1.5" />
-                                👁️ View as User
+                                View as User
                             </button>
                             <button
                                 onClick={handleSignOut}
-                                className="bg-[#C53030] hover:bg-[#9B2C2C] text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-lg transition-all tracking-widest shadow-lg shadow-purple-900/20"
+                                className="bg-[#C53030] hover:bg-[#9B2C2C] text-white text-[10px] font-bold uppercase px-3 py-1.5 rounded-lg transition-all tracking-widest shadow-lg shadow-purple-900/20"
                             >
                                 Sign Out
                             </button>
@@ -196,7 +196,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     background: transparent;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: #1E2030;
+                    background: #2D2B55;
                     border-radius: 10px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
