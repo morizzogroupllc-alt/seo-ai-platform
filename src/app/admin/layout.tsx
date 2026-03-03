@@ -210,7 +210,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {/* Main Content Area */}
                 <div className="flex-1 flex flex-col min-w-0 max-h-screen overflow-hidden">
                     {/* Topbar */}
-                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#111827]/80 backdrop-blur-md border-b border-[rgba(255,255,255,0.06)] z-30">
+                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#111827] backdrop-blur-md border-b border-[rgba(255,255,255,0.06)] z-30">
                         {/* LEFT SECTION */}
                         <div className="flex items-center gap-4">
                             <button
