@@ -96,7 +96,7 @@ export default function Sidebar() {
             className={cn(
                 "h-11 px-3 rounded-xl flex items-center gap-3 transition-all duration-200 group relative",
                 active
-                    ? "bg-[var(--accent-blue)] text-white shadow-lg shadow-[var(--accent-blue)]/20"
+                    ? "sidebar-active-glow"
                     : "text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-white"
             )}
         >
@@ -130,7 +130,7 @@ export default function Sidebar() {
                         <div className="w-9 h-9 bg-[var(--accent-blue)] rounded-full flex items-center justify-center font-black text-white italic text-xl shadow-lg shadow-[var(--accent-blue)]/40">
                             S
                         </div>
-                        <span className="text-white font-bold text-sm tracking-wider uppercase leading-none">
+                        <span className="text-white font-bold text-sm tracking-wider uppercase leading-none gradient-text">
                             SEO AI Platform
                         </span>
                     </div>
@@ -206,7 +206,7 @@ export default function Sidebar() {
                                             className={cn(
                                                 "h-11 px-3 rounded-xl flex items-center gap-3 transition-all duration-200 group",
                                                 isActive
-                                                    ? "bg-[var(--accent-blue)] text-white shadow-lg shadow-[var(--accent-blue)]/20"
+                                                    ? "sidebar-active-glow"
                                                     : "text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-white"
                                             )}
                                         >

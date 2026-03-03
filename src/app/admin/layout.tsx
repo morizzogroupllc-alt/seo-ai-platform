@@ -129,7 +129,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <div className="w-9 h-9 bg-purple-700 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3 flex-shrink-0">
                             S
                         </div>
-                        <span className="text-white font-bold text-sm tracking-wider whitespace-nowrap uppercase">
+                        <span className="text-white font-bold text-sm tracking-wider whitespace-nowrap uppercase gradient-text">
                             SEO AI PLATFORM
                         </span>
                     </div>

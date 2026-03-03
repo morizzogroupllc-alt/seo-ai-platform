@@ -22,7 +22,8 @@ import {
     BarChart3,
     MousePointer2,
     Package,
-    Grip
+    Grip,
+    MapPin
 } from 'lucide-react';
 
 // --- Shared Components ---
@@ -72,14 +73,14 @@ const ViewNewbie = () => {
         { id: 1, title: 'Find Your Niche', desc: 'Start here — find a low-competition local niche', status: 'current', icon: Search },
         { id: 2, title: 'Build Your Website', desc: 'Complete Step 1 first', status: 'locked', icon: Layout },
         { id: 3, title: 'Deploy & Go Live', desc: 'Complete Step 2 first', status: 'locked', icon: Rocket },
-        { id: 4, title: 'Get on Google Maps', desc: 'Complete Step 3 first', status: 'locked', icon: Globe },
+        { id: 4, title: 'Get on Google Maps', desc: 'Complete Step 3 first', status: 'locked', icon: MapPin },
     ];
 
     return (
         <div className="space-y-8">
             <div className="space-y-1">
-                <h2 className="text-2xl font-bold">Let's find your first niche! 🎯</h2>
-                <p className="text-gray-400">Follow these steps in order</p>
+                <h2 className="text-2xl font-bold gradient-text">Let's find your first niche! 🎯</h2>
+                <p className="text-[var(--text-secondary)]">Follow these steps in order</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -120,7 +121,7 @@ const ViewNewbie = () => {
             </div>
 
             <div className="space-y-4 pt-4">
-                <h3 className="text-lg font-bold">Your Tools</h3>
+                <h3 className="text-lg font-bold gradient-text">Your Tools</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <ToolCard icon={Search} name="Niche Finder" highlighted={true} />
                     <ToolCard icon={BarChart3} name="SERP Analyzer" />
@@ -139,17 +140,17 @@ const ViewPro = () => {
     return (
         <div className="space-y-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <h2 className="text-2xl font-bold">Manage your clients 💼</h2>
+                <h2 className="text-2xl font-bold gradient-text">Manage your clients 💼</h2>
                 <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                     <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                         <Plus size={16} />
                         Add New Client
                     </button>
-                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
                         <FileText size={16} />
                         Generate Report
                     </button>
-                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
                         <Search size={16} />
                         Run Audit
                     </button>
@@ -158,7 +159,7 @@ const ViewPro = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                    <h3 className="text-lg font-bold">Client Overview</h3>
+                    <h3 className="text-lg font-bold gradient-text">Client Overview</h3>
                     <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
                         <div className="p-4 bg-white/5 rounded-full text-gray-500">
                             <Users size={48} />
@@ -173,7 +174,7 @@ const ViewPro = () => {
                 </div>
 
                 <div className="space-y-4">
-                    <h3 className="text-lg font-bold">Quick Tools</h3>
+                    <h3 className="text-lg font-bold gradient-text">Quick Tools</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {[
                             { name: 'Site Audit', icon: Search },
@@ -203,7 +204,7 @@ const ViewPro = () => {
 const ViewRankRent = () => {
     return (
         <div className="space-y-8">
-            <h2 className="text-2xl font-bold">Build your empire 🏠</h2>
+            <h2 className="text-2xl font-bold gradient-text">Build your empire 🏠</h2>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <StatCard label="Sites" value="0" icon={Globe} color="text-blue-400" />
@@ -214,7 +215,7 @@ const ViewRankRent = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-4">
-                    <h3 className="text-lg font-bold">Your Sites Portfolio</h3>
+                    <h3 className="text-lg font-bold gradient-text">Your Sites Portfolio</h3>
                     <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-16 text-center space-y-6 flex flex-col items-center justify-center h-full admin-card">
                         <div className="p-4 bg-white/5 rounded-full text-gray-500">
                             <Package size={48} />
@@ -229,7 +230,7 @@ const ViewRankRent = () => {
                 </div>
 
                 <div className="space-y-4">
-                    <h3 className="text-lg font-bold">Rank & Rent Toolkit</h3>
+                    <h3 className="text-lg font-bold gradient-text">Rank & Rent Toolkit</h3>
                     <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] p-2 rounded-2xl divide-y divide-[var(--border-default)] admin-card">
                         {[
                             { name: 'Niche Finder (CORE)', icon: Search },
@@ -259,7 +260,7 @@ const ViewRankRent = () => {
 const ViewAgency = () => {
     return (
         <div className="space-y-8">
-            <h2 className="text-2xl font-bold">Your Agency Hub 🏢</h2>
+            <h2 className="text-2xl font-bold gradient-text">Your Agency Hub 🏢</h2>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <StatCard label="Clients" value="0" icon={Users} color="text-blue-400" />
@@ -270,7 +271,7 @@ const ViewAgency = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                    <h3 className="text-lg font-bold">Client Accounts</h3>
+                    <h3 className="text-lg font-bold gradient-text">Client Accounts</h3>
                     <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
                         <div className="p-4 bg-white/5 rounded-full text-gray-500">
                             <Mail size={48} />
@@ -294,7 +295,7 @@ const ViewAgency = () => {
             </div>
 
             <div className="space-y-4">
-                <h3 className="text-lg font-bold">Team Section</h3>
+                <h3 className="text-lg font-bold gradient-text">Team Section</h3>
                 <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] p-6 rounded-2xl flex items-center justify-between admin-card">
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold">U</div>
@@ -316,10 +317,10 @@ const ViewAgency = () => {
 const ViewAutomation = () => {
     return (
         <div className="space-y-8">
-            <h2 className="text-2xl font-bold">Automate everything ⚡</h2>
+            <h2 className="text-2xl font-bold gradient-text">Automate everything ⚡</h2>
 
             <div className="space-y-4">
-                <h3 className="text-lg font-bold">Active Pipelines</h3>
+                <h3 className="text-lg font-bold gradient-text">Active Pipelines</h3>
                 <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center border-dashed admin-card">
                     <div className="p-4 bg-white/5 rounded-full text-gray-500">
                         <Cpu size={48} />
@@ -345,7 +346,7 @@ const ViewAutomation = () => {
                 </div>
 
                 <div className="space-y-4">
-                    <h3 className="text-lg font-bold">Quick Stats</h3>
+                    <h3 className="text-lg font-bold gradient-text">Quick Stats</h3>
                     <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl overflow-hidden divide-y divide-[var(--border-default)] admin-card">
                         {[
                             { label: 'Pages Generated', value: 0, color: 'text-blue-400' },
@@ -409,7 +410,7 @@ export default function DashboardPage() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[100px] -mr-32 -mt-32 pointer-events-none"></div>
                 <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                     <div className="space-y-2">
-                        <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">
+                        <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] gradient-text">
                             Welcome back! 👋
                         </h1>
                         <div className="flex items-center gap-2">

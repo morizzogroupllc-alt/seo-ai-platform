@@ -19,9 +19,9 @@ export default function OutputDisplay({ content, format }: OutputDisplayProps) {
     }
 
     return (
-        <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="mt-8">
             <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-indigo-400">AI Generated Result</h3>
+                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-purple-400">AI Generated Result</h3>
                 <div className="flex items-center space-x-2">
                     <button
                         onClick={handleCopy}
@@ -30,16 +30,16 @@ export default function OutputDisplay({ content, format }: OutputDisplayProps) {
                         {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
                         <span>{copied ? 'Copied' : 'Copy'}</span>
                     </button>
-                    <button className="p-2 bg-indigo-600 border border-indigo-500 rounded-lg text-white hover:bg-indigo-500 transition-all flex items-center space-x-2 text-xs font-bold">
+                    <button className="p-2 bg-gradient-to-r from-[#A855F7] to-[#3B82F6] border border-purple-500/20 rounded-lg text-white hover:opacity-90 transition-all flex items-center space-x-2 text-xs font-bold">
                         <Save size={14} />
                         <span>Save</span>
                     </button>
                 </div>
             </div>
 
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 md:p-8 min-h-[200px] relative overflow-hidden group">
+            <div className="bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-2xl p-6 md:p-8 min-h-[200px] relative overflow-hidden group admin-card">
                 {/* Glass Glow */}
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-indigo-500/20 transition-all"></div>
+                <div className="absolute -top-24 -right-24 w-48 h-48 bg-purple-600/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-purple-600/20 transition-all"></div>
 
                 <div className="relative z-10 font-mono text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">
                     {content || 'Your AI generated content will appear here...'}

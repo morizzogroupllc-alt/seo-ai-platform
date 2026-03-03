@@ -167,9 +167,9 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
 
     return (
         <div className="space-y-8 pb-32">
-            <div className="relative p-12 rounded-[2.5rem] bg-gradient-to-br from-indigo-900 via-[#0f172a] to-[#020617] overflow-hidden border border-white/5 shadow-2xl">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full"></div>
-                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-500/10 blur-[100px] rounded-full"></div>
+            <div className="relative p-12 rounded-[2.5rem] bg-[var(--bg-secondary)] overflow-hidden border border-[var(--border-default)] shadow-2xl admin-card">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 blur-[120px] rounded-full"></div>
+                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/10 blur-[100px] rounded-full"></div>
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="space-y-4">
@@ -185,21 +185,21 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                                 <ToolIcon size={32} />
                             </div>
                             <div>
-                                <h1 className="text-4xl font-black italic tracking-tighter text-white uppercase italic">{tool.name}</h1>
+                                <h1 className="text-4xl font-black italic tracking-tighter text-white uppercase italic gradient-text">{tool.name}</h1>
                                 <p className="text-slate-400 text-lg font-medium">{tool.description}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full h-fit self-start md:self-center">
-                        <Sparkles size={14} className="text-indigo-400 fill-indigo-400" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-300">Powered by AI Engine v1</span>
+                    <div className="flex items-center space-x-2 bg-purple-500/10 border border-purple-500/20 px-4 py-2 rounded-full h-fit self-start md:self-center">
+                        <Sparkles size={14} className="text-purple-400 fill-purple-400" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-300">Powered by AI Engine v1</span>
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
-                <div className="bg-white/5 border border-white/5 rounded-[2rem] p-8 md:p-12 backdrop-blur-sm">
+                <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-[2rem] p-8 md:p-12 backdrop-blur-sm admin-card">
                     <ToolForm tool={tool} isLoading={loading} onSubmit={handleGenerate} />
                     {output && <OutputDisplay content={output} format={tool.outputFormat} />}
                 </div>
