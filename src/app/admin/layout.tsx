@@ -1,4 +1,5 @@
 'use client'
+// Deployment trigger: Refined WCAG Dark Mode 1.1
 
 import React, { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
