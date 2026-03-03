@@ -116,7 +116,7 @@ export default function OnboardingPage() {
 
             <main className="relative z-10 max-w-7xl mx-auto px-4 pt-4 pb-12 flex flex-col items-center min-h-[calc(100vh-80px)] justify-center">
                 {/* HERO TEXT */}
-                <div className="text-center space-y-4 mb-10 animate-fadeInUp">
+                <div className="text-center space-y-4 mb-10 animate-slideInUp">
                     <div className="inline-flex items-center space-x-2 px-4 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full mb-1">
                         <span className="text-[10px] font-black text-purple-400 uppercase tracking-widest flex items-center">
                             <Zap className="w-3 h-3 mr-1.5 fill-purple-400" />
@@ -124,7 +124,7 @@ export default function OnboardingPage() {
                         </span>
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-                        <span className="bg-gradient-to-r from-white via-purple-100 to-purple-400 bg-clip-text text-transparent italic uppercase">
+                        <span className="bg-gradient-to-r from-white via-purple-100 to-purple-400 bg-clip-text text-transparent italic uppercase py-2">
                             Choose Your Path
                         </span>
                     </h1>
@@ -146,7 +146,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* ACTION AREA */}
-                <div className="mt-12 flex flex-col items-center space-y-4 animate-fadeInUp delay-500">
+                <div className="mt-12 flex flex-col items-center space-y-4 animate-slideInUp delay-500">
                     <button
                         onClick={handleContinue}
                         disabled={!selectedType}
@@ -166,7 +166,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* TRUST BADGES */}
-                <div className="mt-12 flex flex-wrap justify-center gap-8 md:gap-12 animate-fadeInUp delay-700">
+                <div className="mt-12 flex flex-wrap justify-center gap-8 md:gap-12 animate-slideInUp delay-700">
                     <TrustBadge label="No Credit Card" icon={<Check className="w-3 h-3" />} />
                     <TrustBadge label="136 Tools Ready" icon={<Zap className="w-3 h-3 fill-slate-500" />} />
                     <TrustBadge label="Personalized Journey" icon={<Home className="w-3 h-3" />} />
@@ -181,7 +181,7 @@ function OnboardingCard({ title, description, icon: Icon, color, bgColor, tag, t
         <button
             onClick={onSelect}
             className={cn(
-                "group relative w-full h-full p-6 rounded-[20px] border transition-all duration-500 text-left flex flex-col opacity-0 animate-fadeInUp min-w-0",
+                "group relative w-full h-full p-6 rounded-[20px] border transition-all duration-500 text-left flex flex-col animate-slideInUp min-w-0",
                 delay,
                 isSelected
                     ? "bg-[#1E1A5E] border-purple-500 shadow-[0_0_40px_rgba(139,92,246,0.1)] scale-[1.02] z-10"
