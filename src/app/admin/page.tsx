@@ -232,7 +232,7 @@ export default function AdminPage() {
 
             {/* ROW 4: System Services + User Growth chart */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col h-[480px]">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
                     <div className="mb-6">
                         <h3 className="text-white font-black text-sm uppercase tracking-widest flex items-center gap-2">
                             <Zap className="w-4 h-4 text-purple-400 fill-purple-400/20" />
@@ -241,7 +241,7 @@ export default function AdminPage() {
                         <p className="text-gray-500 text-[10px] uppercase tracking-wider">12 integrated services</p>
                     </div>
 
-                    <div className="flex-1 space-y-1 pr-2">
+                    <div className="space-y-1">
                         {[
                             { name: 'Platform Core', subtitle: 'Next.js App', status: 'operational' },
                             { name: 'Supabase DB', subtitle: 'Database & Auth', status: 'operational' },
@@ -261,23 +261,23 @@ export default function AdminPage() {
                             const statusLabel = item.status === 'operational' ? 'OPERATIONAL' : item.status === 'not_configured' ? 'NOT CONFIGURED' : 'COMING SOON'
 
                             return (
-                                <div key={i} className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-[#0F0C29] border border-[#2D2B55] hover:border-purple-500/30 transition-all">
-                                    <div className="flex items-center gap-3">
+                                <div key={i} className="flex items-center justify-between px-2 py-1 rounded-md bg-[#0F0C29] border border-[#1A1740] hover:border-purple-500/30 transition-all">
+                                    <div className="flex items-center gap-2">
                                         <div className={cn("w-1.5 h-1.5 rounded-full flex-shrink-0", dotColor)} />
                                         <div>
-                                            <div className="text-white text-[11px] font-semibold">{item.name}</div>
-                                            <div className="text-gray-600 text-[9px]">{item.subtitle}</div>
+                                            <div className="text-white text-[11px] font-medium leading-tight">{item.name}</div>
+                                            <div className="text-gray-600 text-[9px] leading-tight">{item.subtitle}</div>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-2">
-                                        <span className={cn("text-[10px] font-bold", statusColor)}>
+                                    <div className="flex items-center gap-1.5">
+                                        <span className={cn("text-[9px] font-bold", statusColor)}>
                                             {statusLabel}
                                         </span>
                                         {item.status === 'not_configured' && (
                                             <button
                                                 onClick={() => router.push('/admin/api-health')}
-                                                className="text-[9px] px-2 py-0.5 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 text-gray-400 hover:text-white rounded-md transition-all">
+                                                className="text-[9px] px-1.5 py-0.5 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 text-gray-400 hover:text-white rounded transition-all">
                                                 Configure →
                                             </button>
                                         )}
@@ -288,7 +288,7 @@ export default function AdminPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col h-[480px]">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col h-full">
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h3 className="text-white font-black text-sm uppercase tracking-widest">User Growth</h3>
