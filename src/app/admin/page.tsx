@@ -241,7 +241,7 @@ export default function AdminPage() {
                         <p className="text-gray-500 text-[10px] uppercase tracking-wider">12 integrated services</p>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto space-y-1.5 pr-2 scrollbar-thin scrollbar-thumb-purple-800 scrollbar-track-transparent">
+                    <div className="flex-1 space-y-1 pr-2">
                         {[
                             { name: 'Platform Core', subtitle: 'Next.js App', status: 'operational' },
                             { name: 'Supabase DB', subtitle: 'Database & Auth', status: 'operational' },
@@ -261,12 +261,12 @@ export default function AdminPage() {
                             const statusLabel = item.status === 'operational' ? 'OPERATIONAL' : item.status === 'not_configured' ? 'NOT CONFIGURED' : 'COMING SOON'
 
                             return (
-                                <div key={i} className="flex items-center justify-between px-3 py-2 rounded-lg bg-[#0F0C29] border border-[#2D2B55] hover:border-purple-500/30 transition-all">
+                                <div key={i} className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-[#0F0C29] border border-[#2D2B55] hover:border-purple-500/30 transition-all">
                                     <div className="flex items-center gap-3">
-                                        <div className={cn("w-2 h-2 rounded-full flex-shrink-0", dotColor)} />
+                                        <div className={cn("w-1.5 h-1.5 rounded-full flex-shrink-0", dotColor)} />
                                         <div>
-                                            <div className="text-white text-xs font-semibold">{item.name}</div>
-                                            <div className="text-gray-600 text-[10px]">{item.subtitle}</div>
+                                            <div className="text-white text-[11px] font-semibold">{item.name}</div>
+                                            <div className="text-gray-600 text-[9px]">{item.subtitle}</div>
                                         </div>
                                     </div>
 
@@ -277,7 +277,7 @@ export default function AdminPage() {
                                         {item.status === 'not_configured' && (
                                             <button
                                                 onClick={() => router.push('/admin/api-health')}
-                                                className="text-[10px] px-2 py-0.5 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 text-gray-400 hover:text-white rounded-md transition-all">
+                                                className="text-[9px] px-2 py-0.5 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 text-gray-400 hover:text-white rounded-md transition-all">
                                                 Configure →
                                             </button>
                                         )}
@@ -314,8 +314,8 @@ export default function AdminPage() {
             {/* ROW 5: Database + Auth + Environment */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
-                    { t: 'Database', i: Database, s: 'HEALTHY', stats: [['CONNECTIONS', 'Active ✓'], ['LATENCY', '< 100ms ✓'], ['STORAGE', 'Free Tier']] },
-                    { t: 'Authentication', i: Lock, s: 'HEALTHY', stats: [['AUTH SERVER', 'UP ✓'], ['SESSION TTL', '72h ✓'], ['RATE LIMIT', '0% ✓']] },
+                    { t: 'Database', i: Database, s: 'HEALTHY', stats: [['CONNECTIONS', 'Active ✓'], ['LATENCY', 'Supabase ✓'], ['STORAGE', 'Supabase Free']] },
+                    { t: 'Authentication', i: Lock, s: 'HEALTHY', stats: [['AUTH SERVER', 'UP ✓'], ['SESSION TTL', '72h ✓'], ['RATE LIMIT', 'Not Tracked']] },
                     { t: 'Environment', i: Server, s: 'HEALTHY', stats: [['NODE VERSION', 'v20 ✓'], ['HOSTING', 'Vercel ✓'], ['UPTIME', '99.9% ✓']] },
                 ].map((item, i) => (
                     <div key={i} className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
