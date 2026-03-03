@@ -1,3 +1,203 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ================================
+   CORE CLASSES - DO NOT REMOVE
+================================ */
+
+.admin-card {
+    background: #1E1E1E;
+    border: 1px solid #333333;
+    border-radius: 16px;
+    transition: transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border-color: #444444;
+}
+
+.stat-card-glow {
+    background: #1E1E1E;
+    border: 1px solid #333333;
+    border-radius: 16px;
+    transition: transform 0.2s ease,
+        box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border-color: #444444;
+}
+
+.sidebar-item {
+    color: #A1A1A1;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-item:hover {
+    background: #2A2A2A;
+    color: #FFFFFF;
+}
+
+.sidebar-active-glow {
+    background: #2A2A2A !important;
+    color: #FFFFFF !important;
+    border-left: 3px solid #3B82F6;
+}
+
+.sidebar-active-glow * {
+    color: #FFFFFF !important;
+}
+
+.security-badge {
+    background: #1A0000 !important;
+    border: 1px solid rgba(239, 68, 68, 0.25) !important;
+    border-radius: 12px !important;
+}
+
+.security-title {
+    color: #FCA5A5 !important;
+}
+
+.security-sub {
+    color: rgba(239, 68, 68, 0.5) !important;
+}
+
+.quick-action-btn {
+    background: #1E1E1E;
+    border: 1px solid #333333;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.quick-action-btn:hover {
+    background: #2A2A2A;
+    border-color: #3B82F6;
+    transform: translateY(-1px);
+}
+
+.inner-box {
+    background: #2A2A2A;
+    border: 1px solid #333333;
+    border-radius: 8px;
+}
+
+.system-row {
+    background: #2A2A2A;
+    border: 1px solid #333333;
+    border-radius: 8px;
+}
+
+.verified-glow {
+    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.5));
+}
+
+.animate-slideInLeft {
+    animation: slideInLeft 0.3s ease forwards;
+}
+
+.animate-slideInUp {
+    animation: slideInUp 0.4s ease forwards;
+    opacity: 0;
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.25s ease forwards;
+}
+
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+.delay-400 {
+    animation-delay: 0.4s;
+}
+
+.delay-500 {
+    animation-delay: 0.5s;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #444444;
+}
