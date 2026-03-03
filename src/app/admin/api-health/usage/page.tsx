@@ -71,7 +71,7 @@ export default function ApiUsageTrackerPage() {
     // Modal
     const [selectedUser, setSelectedUser] = useState<UserUsage | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [activeTab, setActiveTab] = useState<'summary' | 'history' | 'keys'>('summary')
+    const [activeTab, setActiveTab] = useState<number>(0)
 
     useEffect(() => {
         fetchData()
@@ -435,7 +435,7 @@ export default function ApiUsageTrackerPage() {
                                     </td>
                                     <td className="py-5 text-right">
                                         <button
-                                            onClick={() => { setSelectedUser(user); setIsModalOpen(true); setActiveTab('summary'); }}
+                                            onClick={() => { setSelectedUser(user); setIsModalOpen(true); setActiveTab(0); }}
                                             className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-xl border border-white/5 transition-all uppercase tracking-widest active:scale-95 translate-x-1"
                                         >
                                             Details
@@ -461,176 +461,204 @@ export default function ApiUsageTrackerPage() {
             </div>
 
             {isModalOpen && selectedUser && (
-                <div className="fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center p-4 backdrop-blur-md animate-fadeIn" onClick={() => setIsModalOpen(false)}>
-                    <div className="relative bg-[#1A1740] border border-[#2D2B55] rounded-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col scale-in custom-scrollbar" onClick={e => e.stopPropagation()}>
-                        {/* Modal Header */}
-                        <div className="relative p-8 border-b border-white/5 bg-gradient-to-r from-purple-900/20 to-transparent">
-                            <div className="flex items-center justify-between relative z-10">
-                                <div className="flex items-center gap-5">
-                                    <div className="w-20 h-20 rounded-full bg-purple-600/20 flex items-center justify-center text-4xl border border-purple-500/20">
-                                        {selectedUser.email[0].toUpperCase()}
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="flex items-center gap-3">
-                                            <h2 className="text-3xl font-black text-white">{selectedUser.email}</h2>
-                                            <span className="bg-purple-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-purple-400/20">{selectedUser.plan}</span>
-                                        </div>
-                                        <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">User ID: <span className="font-mono text-[10px]">{selectedUser.id}</span></p>
-                                    </div>
-                                </div>
+                <div className="fixed inset-0 
+                  bg-black/70 z-50 
+                  flex items-center justify-center
+                  p-4">
+
+                    <div className="bg-[#1A1740] border
+                    border-[#2D2B55] rounded-2xl
+                    w-full max-w-lg
+                    max-h-[85vh]
+                    flex flex-col
+                    overflow-hidden">
+
+                        {/* Header — fixed */}
+                        <div className="p-6 border-b 
+                      border-[#2D2B55] flex-shrink-0">
+
+                            {/* Close button top-right */}
+                            <div className="flex justify-between
+                        items-start mb-4">
+                                <div />
                                 <button
-                                    onClick={() => setIsModalOpen(false)}
-                                    className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white flex items-center justify-center transition-all border border-white/5 active:scale-95"
-                                >
-                                    <X className="w-5 h-5" />
+                                    onClick={() => setSelectedUser(null)}
+                                    className="w-8 h-8 rounded-lg
+                            bg-[#0F0C29] border border-[#2D2B55]
+                            text-gray-400 hover:text-white
+                            flex items-center justify-center
+                            text-lg transition-all">
+                                    ✕
                                 </button>
                             </div>
-                            <div className="absolute top-0 right-0 w-64 h-full bg-purple-500/10 blur-[100px] pointer-events-none" />
-                        </div>
 
-                        {/* Modal Tabs */}
-                        <div className="flex px-8 gap-8 border-b border-white/5 overflow-x-auto no-scrollbar">
-                            {[
-                                { id: 'summary', label: 'Usage Summary', icon: BarChart3 },
-                                { id: 'history', label: 'Call History', icon: Clock },
-                                { id: 'keys', label: 'API Keys Status', icon: LayoutGrid }
-                            ].map((tab) => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => setActiveTab(tab.id as any)}
-                                    className={cn(
-                                        "flex items-center gap-2 py-5 text-[11px] font-black uppercase tracking-widest relative transition-colors whitespace-nowrap",
-                                        activeTab === tab.id ? "text-purple-400" : "text-gray-500 hover:text-white"
-                                    )}
-                                >
-                                    <tab.icon className="w-4 h-4" />
-                                    {tab.label}
-                                    {activeTab === tab.id && <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-500 rounded-full" />}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Modal Body */}
-                        <div className="p-8 overflow-y-auto flex-1 custom-scrollbar">
-                            {activeTab === 'summary' && (
-                                <div className="space-y-8 animate-slideUp">
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <div className="bg-[#0F0C29] p-6 rounded-2xl border border-white/5">
-                                            <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest mb-1">Lifetime Calls</p>
-                                            <p className="text-3xl font-black text-white">{selectedUser.totalCalls}</p>
-                                        </div>
-                                        <div className="bg-[#0F0C29] p-6 rounded-2xl border border-white/5">
-                                            <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest mb-1">Platform Impact</p>
-                                            <p className="text-3xl font-black text-blue-400">{selectedUser.platformCalls}</p>
-                                        </div>
-                                        <div className="bg-[#0F0C29] p-6 rounded-2xl border border-white/5">
-                                            <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest mb-1">Est. Direct Cost</p>
-                                            <p className="text-3xl font-black text-orange-400">${(selectedUser.platformCalls * 0.002).toFixed(2)}</p>
-                                        </div>
+                            {/* Avatar + email */}
+                            <div className="flex items-center gap-4">
+                                <div className="w-14 h-14 rounded-full
+                          bg-purple-700 flex items-center
+                          justify-center text-white 
+                          font-bold text-xl flex-shrink-0">
+                                    {selectedUser?.email?.[0]
+                                        ?.toUpperCase()}
+                                </div>
+                                <div className="min-w-0">
+                                    <div className="text-white font-bold
+                            text-base truncate max-w-[280px]">
+                                        {selectedUser?.email}
                                     </div>
+                                    <div className="text-gray-500 
+                            text-xs mt-1 truncate">
+                                        ID: {selectedUser?.id}
+                                    </div>
+                                </div>
+                            </div>
 
-                                    <div className="space-y-4">
-                                        <h4 className="text-white font-black text-xs uppercase tracking-widest">Plan Usage Limits</h4>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div className="bg-[#0F0C29] p-6 rounded-2xl border border-white/5">
-                                                <div className="flex justify-between mb-3 text-[10px] font-black uppercase tracking-widest">
-                                                    <span className="text-gray-500">Searches / Mo</span>
-                                                    <span className="text-white">{selectedUser.totalCalls}/50</span>
-                                                </div>
-                                                <div className="h-2 bg-[#1A1740] rounded-full overflow-hidden border border-white/5">
-                                                    <div className="h-full bg-purple-500" style={{ width: '40%' }} />
-                                                </div>
-                                            </div>
-                                            <div className="bg-[#0F0C29] p-6 rounded-2xl border border-white/5 opacity-50">
-                                                <div className="flex justify-between mb-3 text-[10px] font-black uppercase tracking-widest text-gray-700">
-                                                    <span className="grayscale">Content Credits</span>
-                                                    <span>0/20</span>
-                                                </div>
-                                                <div className="h-2 bg-gray-900 rounded-full" />
-                                            </div>
+                            {/* Tabs */}
+                            <div className="flex gap-1 mt-4">
+                                {['Usage Summary',
+                                    'Call History',
+                                    'API Keys Status'].map((tab, i) => (
+                                        <button key={i}
+                                            onClick={() => setActiveTab(i)}
+                                            className={`px-3 py-1.5 rounded-lg
+                              text-xs font-medium transition-all
+                              ${activeTab === i
+                                                    ? 'bg-purple-700 text-white'
+                                                    : 'text-gray-400 hover:text-white'
+                                                }`}>
+                                            {tab}
+                                        </button>
+                                    ))}
+                            </div>
+                        </div>
+
+                        {/* Content — scrollable */}
+                        <div className="flex-1 overflow-y-auto p-6">
+
+                            {/* Tab 0: Usage Summary */}
+                            {activeTab === 0 && (
+                                <div className="space-y-3">
+                                    {[
+                                        ['This Month', '0 calls'],
+                                        ['Platform API', '0 calls'],
+                                        ['Own API', '0 calls'],
+                                        ['Est. Cost', '$0.00'],
+                                        ['Limit',
+                                            selectedUser?.plan === 'free'
+                                                ? '5/month'
+                                                : 'Based on plan'],
+                                    ].map(([label, value]) => (
+                                        <div key={label}
+                                            className="flex justify-between
+                                bg-[#0F0C29] rounded-lg 
+                                px-4 py-3">
+                                            <span className="text-gray-400 
+                                text-sm">{label}</span>
+                                            <span className="text-white 
+                                text-sm font-medium">
+                                                {value}
+                                            </span>
                                         </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Tab 1: Call History */}
+                            {activeTab === 1 && (
+                                <div className="text-center py-8">
+                                    <div className="text-4xl mb-3">
+                                        📋
+                                    </div>
+                                    <div className="text-gray-400 
+                            text-sm">
+                                        No API calls recorded yet
                                     </div>
                                 </div>
                             )}
 
-                            {activeTab === 'history' && (
-                                <div className="animate-slideUp">
-                                    <table className="w-full text-left">
-                                        <thead>
-                                            <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest border-b border-white/5">
-                                                <th className="pb-4">Tool</th>
-                                                <th className="pb-4">API Origin</th>
-                                                <th className="pb-4">Timestamp</th>
-                                                <th className="pb-4 text-right">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-white/5">
-                                            {usageData.filter(u => u.user_id === selectedUser.id).slice(0, 20).map((log, i) => (
-                                                <tr key={log.id} className="text-xs">
-                                                    <td className="py-4 font-bold text-white">{log.tool_name}</td>
-                                                    <td className="py-4">
-                                                        <span className={cn(
-                                                            "px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest border",
-                                                            log.api_used === 'platform' ? "bg-blue-900/20 text-blue-400 border-blue-500/10" : "bg-green-900/20 text-green-400 border-green-500/10"
-                                                        )}>{log.api_used}</span>
-                                                    </td>
-                                                    <td className="py-4 text-gray-500 font-mono text-[10px]">{new Date(log.created_at).toLocaleString()}</td>
-                                                    <td className="py-4 text-right">
-                                                        <span className="text-green-500 font-black tracking-tighter uppercase">{log.status}</span>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                            {usageData.filter(u => u.user_id === selectedUser.id).length === 0 && (
-                                                <tr><td colSpan={4} className="py-20 text-center text-gray-500 text-xs font-bold uppercase tracking-widest">No logs found for this user</td></tr>
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
-
-                            {activeTab === 'keys' && (
-                                <div className="space-y-6 animate-slideUp">
-                                    <div className="bg-[#0F0C29] p-8 rounded-3xl border border-white/5 space-y-8">
-                                        {[
-                                            { name: 'DataForSEO Login', configured: !!selectedUser.api_key_dataforseo, provider: 'PROVIDER' },
-                                            { name: 'Gemini AI Key', configured: !!selectedUser.api_key_gemini, provider: 'GEMINI' },
-                                            { name: 'OpenRouter Integration', configured: false, provider: 'MULTI-AI' }
-                                        ].map((key, i) => (
-                                            <div key={i} className="flex items-center justify-between border-b border-white/5 last:border-0 py-2 last:pb-0">
-                                                <div className="flex items-center gap-3">
-                                                    <div className={cn(
-                                                        "w-8 h-8 rounded-lg flex items-center justify-center",
-                                                        key.configured ? "bg-green-900/20 text-green-400 border border-green-500/10" : "bg-gray-800 text-gray-600 border border-white/5"
-                                                    )}>
-                                                        <Key size={14} />
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-white font-black text-xs">{key.name}</p>
-                                                        <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest">{key.provider}</p>
-                                                    </div>
+                            {/* Tab 2: API Keys Status */}
+                            {activeTab === 2 && (
+                                <div className="space-y-3">
+                                    {[
+                                        {
+                                            name: 'DataForSEO Login',
+                                            sub: 'PROVIDER',
+                                            key: 'api_key_dataforseo' as keyof UserUsage
+                                        },
+                                        {
+                                            name: 'Gemini AI Key',
+                                            sub: 'GEMINI',
+                                            key: 'api_key_gemini' as keyof UserUsage
+                                        },
+                                        {
+                                            name: 'OpenRouter',
+                                            sub: 'MULTI-AI',
+                                            key: 'api_key_openrouter' as keyof UserUsage
+                                        },
+                                    ].map(item => (
+                                        <div key={item.key}
+                                            className="flex items-center
+                                justify-between
+                                bg-[#0F0C29] rounded-xl
+                                px-4 py-3">
+                                            <div className="flex 
+                                items-center gap-3">
+                                                <div className="w-8 h-8
+                                  rounded-lg bg-[#1A1740]
+                                  border border-[#2D2B55]
+                                  flex items-center 
+                                  justify-center text-gray-500
+                                  text-sm">
+                                                    🔑
                                                 </div>
-                                                <div className="flex items-center gap-3">
-                                                    {key.configured ? (
-                                                        <div className="flex items-center gap-1.5 text-green-400 font-black text-[9px] uppercase">
-                                                            <CheckCircle2 size={10} /> Configured
-                                                        </div>
-                                                    ) : (
-                                                        <span className="text-gray-700 font-bold text-[9px] uppercase">Not set</span>
-                                                    )}
+                                                <div>
+                                                    <div className="text-white
+                                    text-sm font-medium">
+                                                        {item.name}
+                                                    </div>
+                                                    <div className="text-gray-600
+                                    text-[10px]">
+                                                        {item.sub}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
-                                    <div className="flex items-center gap-3 p-6 bg-purple-600/5 border border-purple-500/10 rounded-2xl">
-                                        <Info className="w-5 h-5 text-purple-400 flex-shrink-0" />
-                                        <p className="text-gray-400 text-xs font-medium uppercase tracking-widest leading-relaxed">
-                                            {selectedUser.api_key_dataforseo || selectedUser.api_key_gemini
-                                                ? "This user is using their own API keys for some services, reducing cost to the platform."
-                                                : "This user is currently using the platform's root API keys for all tool executions."}
+                                            <span className={`text-xs 
+                                font-bold
+                                ${selectedUser?.[item.key]
+                                                    ? 'text-green-400'
+                                                    : 'text-gray-600'}`}>
+                                                {selectedUser?.[item.key]
+                                                    ? '✓ SET'
+                                                    : 'NOT SET'}
+                                            </span>
+                                        </div>
+                                    ))}
+
+                                    <div className="mt-4 p-3 
+                            bg-blue-900/20 border 
+                            border-blue-800/40 rounded-xl">
+                                        <p className="text-blue-300 
+                              text-xs text-center">
+                                            ℹ️ This user is currently using
+                                            the platform API keys for
+                                            all tool executions.
                                         </p>
                                     </div>
                                 </div>
                             )}
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-4 border-t 
+                      border-[#2D2B55] flex-shrink-0">
+                            <button
+                                onClick={() => setSelectedUser(null)}
+                                className="w-full bg-purple-700
+                          hover:bg-purple-600 text-white
+                          rounded-xl py-2.5 text-sm 
+                          font-bold transition-all">
+                                Close
+                            </button>
                         </div>
                     </div>
                 </div>
