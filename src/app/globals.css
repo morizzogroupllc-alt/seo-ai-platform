@@ -7,36 +7,37 @@
 
 
 :root {
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --bg-elevated: #252525;
-  /* slightly higher for cards */
-  --bg-input: #2a2a2a;
-  --border-default: #333333;
-  --border-hover: #444444;
+  --bg-primary: #101116;
+  /* Deep black-navy from Maxton */
+  --bg-secondary: #1b1b24;
+  /* Subtle navy-charcoal for cards/sidebar */
+  --bg-elevated: #23232d;
+  /* Slightly higher for hover/inputs */
+  --bg-input: #1b1b24;
+  /* Match secondary/card bg for inputs */
+  --border-default: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(255, 255, 255, 0.1);
 
-  --text-primary: #e0e0e0;
-  --text-secondary: #a1a1a1;
-  --text-tertiary: #888888;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
   --text-white: #ffffff;
 
   --accent-blue: #3b82f6;
+  /* Vibrant blue from image */
   --accent-green: #10b981;
-  --accent-yellow: #ca8a04;
-  /* better contrast & less eye-strain than #eab308 */
+  --accent-yellow: #f59e0b;
   --accent-red: #ef4444;
-  /* keep vivid for errors, but muted container if needed */
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 
-  --glow-blue: 0 0 12px rgba(59, 130, 246, 0.35);
-  --glow-green: 0 0 8px rgba(16, 185, 129, 0.25);
-  --glow-red: 0 0 8px rgba(239, 68, 68, 0.25);
+  --glow-blue: 0 0 12px rgba(59, 130, 246, 0.25);
+  --glow-green: 0 0 8px rgba(16, 185, 129, 0.15);
+  --glow-red: 0 0 8px rgba(239, 68, 68, 0.15);
 
   color-scheme: dark;
-  /* tells browser we prefer dark */
 }
 
 @media (prefers-color-scheme: light) {
