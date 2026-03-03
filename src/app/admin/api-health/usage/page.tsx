@@ -98,9 +98,34 @@ export default function ApiUsageTrackerPage() {
         }
     }
 
+    const filterByDate = (data: ApiUsage[], range: string) => {
+        const now = new Date()
+        return data.filter(item => {
+            const d = new Date(item.created_at)
+            const rangeLower = range.toLowerCase()
+            if (rangeLower.includes('today')) {
+                return d.toDateString() === now.toDateString()
+            }
+            if (rangeLower.includes('week')) {
+                const weekAgo = new Date()
+                weekAgo.setDate(now.getDate() - 7)
+                return d >= weekAgo
+            }
+            if (rangeLower.includes('month')) {
+                return d.getMonth() === now.getMonth()
+                    && d.getFullYear() === now.getFullYear()
+            }
+            return true // all time
+        })
+    }
+
+    const filteredLogs = useMemo(() => {
+        return filterByDate(usageData, timeFilter)
+    }, [usageData, timeFilter])
+
     const combinedData = useMemo(() => {
         return profiles.map(p => {
-            const userLogs = usageData.filter(u => u.user_id === p.id)
+            const userLogs = filteredLogs.filter(u => u.user_id === p.id)
             return {
                 ...p,
                 totalCalls: userLogs.length,
@@ -109,7 +134,7 @@ export default function ApiUsageTrackerPage() {
                 lastUsed: userLogs[0]?.created_at || null
             }
         }).sort((a, b) => b.totalCalls - a.totalCalls)
-    }, [profiles, usageData])
+    }, [profiles, filteredLogs])
 
     const filteredUsers = useMemo(() => {
         return combinedData.filter(user => {
@@ -124,17 +149,17 @@ export default function ApiUsageTrackerPage() {
     }, [combinedData, searchQuery, apiTypeFilter])
 
     const summary = useMemo(() => {
-        const platformCallsTotal = usageData.filter(u => u.api_used === 'platform').length
+        const platformCallsTotal = filteredLogs.filter(u => u.api_used === 'platform').length
         return {
-            total: usageData.length,
+            total: filteredLogs.length,
             platform: platformCallsTotal,
-            own: usageData.filter(u => u.api_used === 'own').length,
+            own: filteredLogs.filter(u => u.api_used === 'own').length,
             cost: platformCallsTotal * 0.002
         }
-    }, [usageData])
+    }, [filteredLogs])
 
     const getToolStats = (name: string) => {
-        const toolLogs = usageData.filter(u => u.tool_name === name)
+        const toolLogs = filteredLogs.filter(u => u.tool_name === name)
         const platform = toolLogs.filter(u => u.api_used === 'platform').length
         const own = toolLogs.length - platform
 
@@ -253,12 +278,13 @@ export default function ApiUsageTrackerPage() {
                         <select
                             value={timeFilter}
                             onChange={(e) => setTimeFilter(e.target.value)}
-                            className="appearance-none bg-[#1A1740] border border-[#2D2B55] rounded-xl pl-4 pr-10 py-3 text-[11px] font-black text-white hover:border-purple-500/50 transition-all focus:outline-none uppercase tracking-widest"
+                            style={{ colorScheme: 'dark' }}
+                            className="appearance-none bg-[#1A1740] border border-[#2D2B55] rounded-xl pl-4 pr-10 py-3 text-[11px] font-black text-white hover:border-purple-500/50 transition-all focus:outline-none uppercase tracking-widest cursor-pointer"
                         >
-                            <option>Today</option>
-                            <option>This Week</option>
-                            <option>This Month</option>
-                            <option>All Time</option>
+                            <option style={{ background: '#1A1740', color: 'white' }}>Today</option>
+                            <option style={{ background: '#1A1740', color: 'white' }}>This Week</option>
+                            <option style={{ background: '#1A1740', color: 'white' }}>This Month</option>
+                            <option style={{ background: '#1A1740', color: 'white' }}>All Time</option>
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
                     </div>
@@ -276,7 +302,7 @@ export default function ApiUsageTrackerPage() {
             {/* SECTION 2: 4 summary cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard icon="⚡" name="TOTAL CALLS" value={summary.total.toLocaleString()} sub="System wide consumption" color="#8B5CF6" />
-                <StatCard icon="🏢" name="PLATFORM API" value={summary.platform.toLocaleString()} sub="MORIZZO FUNDED" color="#3B82F6" />
+                <StatCard icon="🏢" name="PLATFORM API" value={summary.platform.toLocaleString()} sub="PLATFORM FUNDED" color="#3B82F6" />
                 <StatCard icon="🔑" name="OWN API KEYS" value={summary.own.toLocaleString()} sub="USER FUNDED" color="#059669" />
                 <StatCard icon="💰" name="EST. COST" value={"$" + summary.cost.toFixed(2)} sub="DATAFORSEO ESTIMATE" color="#F59E0B" />
             </div>
@@ -290,39 +316,50 @@ export default function ApiUsageTrackerPage() {
                         placeholder="Search by email..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-black/20 border border-white/5 rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-purple-500/30 transition-all"
+                        className="w-full bg-[#1A1740] border border-[#2D2B55] text-white pl-11 pr-10 py-2.5 rounded-xl placeholder-gray-600 focus:border-purple-500 focus:outline-none transition-all"
                     />
+                    {searchQuery && (
+                        <button
+                            onClick={() => setSearchQuery('')}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white text-lg leading-none transition-colors"
+                        >
+                            ✕
+                        </button>
+                    )}
                 </div>
                 <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                     <select
                         value={toolFilter}
                         onChange={(e) => setToolFilter(e.target.value)}
-                        className="bg-black/20 border border-white/5 rounded-xl px-4 py-3 text-[10px] font-black text-gray-500 uppercase focus:outline-none focus:text-white transition-all"
+                        style={{ colorScheme: 'dark' }}
+                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
                     >
-                        <option>All Tools</option>
-                        <option>Niche Finder</option>
-                        <option>Keywords</option>
-                        <option>SERP</option>
-                        <option>Content AI</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>All Tools</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>Niche Finder</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>Keywords</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>SERP</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>Content AI</option>
                     </select>
                     <select
                         value={apiTypeFilter}
                         onChange={(e) => setApiTypeFilter(e.target.value)}
-                        className="bg-black/20 border border-white/5 rounded-xl px-4 py-3 text-[10px] font-black text-gray-500 uppercase focus:outline-none focus:text-white transition-all"
+                        style={{ colorScheme: 'dark' }}
+                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
                     >
-                        <option>All APIs</option>
-                        <option>Platform</option>
-                        <option>Own Key</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>All APIs</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>Platform</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>Own Key</option>
                     </select>
                     <select
                         value={providerFilter}
                         onChange={(e) => setProviderFilter(e.target.value)}
-                        className="bg-black/20 border border-white/5 rounded-xl px-4 py-3 text-[10px] font-black text-gray-500 uppercase focus:outline-none focus:text-white transition-all"
+                        style={{ colorScheme: 'dark' }}
+                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
                     >
-                        <option>All Providers</option>
-                        <option>Gemini</option>
-                        <option>DataForSEO</option>
-                        <option>OpenRouter</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>All Providers</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>Gemini</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>DataForSEO</option>
+                        <option style={{ background: '#1A1740', color: 'white' }}>OpenRouter</option>
                     </select>
                 </div>
             </div>
@@ -421,8 +458,8 @@ export default function ApiUsageTrackerPage() {
 
             {/* SECTION 6: User Detail Modal */}
             {isModalOpen && selectedUser && (
-                <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col scale-in">
+                <div className="fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center p-4 backdrop-blur-md animate-fadeIn" onClick={() => setIsModalOpen(false)}>
+                    <div className="relative bg-[#1A1740] border border-[#2D2B55] rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col scale-in custom-scrollbar" onClick={e => e.stopPropagation()}>
                         {/* Modal Header */}
                         <div className="relative p-8 border-b border-white/5 bg-gradient-to-r from-purple-900/20 to-transparent">
                             <div className="flex items-center justify-between relative z-10">
