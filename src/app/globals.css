@@ -172,7 +172,8 @@ th {
 }
 
 tbody tr {
-  @apply border-b border-[rgba(255, 255, 255, 0.04)] transition-colors;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  @apply transition-colors;
 }
 
 tbody tr:nth-child(odd) {
@@ -184,7 +185,8 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:hover {
-  @apply bg-[var(--bg-input)] !important;
+  background-color: var(--bg-input) !important;
+  @apply transition-colors;
 }
 
 td {
