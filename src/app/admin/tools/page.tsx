@@ -206,6 +206,8 @@ export default function ToolsManagerPage() {
     const [searchQuery, setSearchQuery] = useState('')
     const [phaseFilter, setPhaseFilter] = useState('All Phases')
     const [statusFilter, setStatusFilter] = useState('All Status')
+    const [configModal, setConfigModal] = useState<any>(null)
+    const [previewModal, setPreviewModal] = useState<any>(null)
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1)
@@ -497,12 +499,17 @@ export default function ToolsManagerPage() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-5 text-right">
-                                        <div className="flex items-center justify-end gap-2">
-                                            <button className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white rounded-xl transition-all border border-white/5">
-                                                <Settings size={14} />
+                                        <div className="flex items-center justify-end gap-2 text-sm">
+                                            <button
+                                                onClick={() => setConfigModal(tool)}
+                                                className="w-8 h-8 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                                                ⚙️
                                             </button>
-                                            <button className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white rounded-xl transition-all border border-white/5">
-                                                <Eye size={14} />
+
+                                            <button
+                                                onClick={() => setPreviewModal(tool)}
+                                                className="w-8 h-8 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                                                👁️
                                             </button>
                                         </div>
                                     </td>
@@ -608,6 +615,134 @@ export default function ToolsManagerPage() {
                                 Clear Selection
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* MODALS */}
+            {configModal && (
+                <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+                    onClick={() => setConfigModal(null)}>
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 w-full max-w-sm shadow-2xl"
+                        onClick={e => e.stopPropagation()}>
+
+                        <h3 className="text-white font-black text-lg mb-6 uppercase tracking-tight flex items-center gap-2">
+                            <span>⚙️</span> {configModal?.name}
+                        </h3>
+
+                        <div className="mb-6">
+                            <label className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2 block">
+                                DEVELOPMENT PHASE
+                            </label>
+                            <div className="text-white text-xs font-bold bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-4 py-3">
+                                Phase {configModal?.phase}
+                            </div>
+                        </div>
+
+                        <div className="mb-8">
+                            <label className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2 block">
+                                OPERATIONAL STATUS
+                            </label>
+                            <select
+                                value={configModal?.status}
+                                onChange={e => setConfigModal((prev: any) => ({ ...prev, status: e.target.value }))}
+                                className="w-full bg-[#0F0C29] border border-[#2D2B55] text-white text-xs font-bold rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 transition-all cursor-pointer"
+                                style={{ colorScheme: 'dark' }}>
+                                <option value="active" style={{ background: '#1A1740' }}>🟢 Active</option>
+                                <option value="soon" style={{ background: '#1A1740' }}>🟡 Coming Soon</option>
+                                <option value="disabled" style={{ background: '#1A1740' }}>🔴 Disabled</option>
+                            </select>
+                        </div>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => {
+                                    const key = 'tool_status_' + configModal.id
+                                    localStorage.setItem(key, configModal.status)
+                                    setToolsList(prev => prev.map(t =>
+                                        t.id === configModal.id ? { ...t, status: configModal.status } : t
+                                    ))
+                                    setConfigModal(null)
+                                }}
+                                className="flex-1 bg-purple-600 hover:bg-purple-500 text-white rounded-xl py-3 text-xs font-black uppercase tracking-widest transition-all shadow-lg active:scale-95">
+                                Save Changes
+                            </button>
+                            <button
+                                onClick={() => setConfigModal(null)}
+                                className="px-6 bg-[#0F0C29] border border-[#2D2B55] text-gray-500 rounded-xl py-3 text-xs font-black uppercase tracking-widest transition-all hover:text-white hover:border-purple-500 active:scale-95">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {previewModal && (
+                <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+                    onClick={() => setPreviewModal(null)}>
+                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
+                        onClick={e => e.stopPropagation()}>
+
+                        {/* Decorative background glass */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/10 blur-[60px] -mr-16 -mt-16" />
+
+                        <div className="flex justify-between items-start mb-8 relative z-10">
+                            <div>
+                                <h3 className="text-white font-black text-xl uppercase tracking-tight mb-1">
+                                    {previewModal?.name}
+                                </h3>
+                                <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest opacity-70">
+                                    ID #{previewModal?.id} • Phase {previewModal?.phase}
+                                </p>
+                            </div>
+                            <button
+                                onClick={() => setPreviewModal(null)}
+                                className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white rounded-full transition-all active:scale-90">
+                                <X size={16} />
+                            </button>
+                        </div>
+
+                        <div className="space-y-4 relative z-10">
+                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Status</span>
+                                <span className={cn(
+                                    "text-[10px] font-black uppercase tracking-widest flex items-center gap-2",
+                                    previewModal?.status === 'active' ? 'text-green-400' :
+                                        previewModal?.status === 'soon' ? 'text-orange-400' : 'text-red-400'
+                                )}>
+                                    {previewModal?.status === 'active' ? '🟢 Active' :
+                                        previewModal?.status === 'soon' ? '🟡 Coming Soon' : '🔴 Disabled'}
+                                </span>
+                            </div>
+
+                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Phase</span>
+                                <span className="text-white text-xs font-black uppercase tracking-widest">
+                                    {previewModal?.phase}
+                                </span>
+                            </div>
+
+                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Usage</span>
+                                <div className="flex flex-col items-end">
+                                    <span className="text-white text-xs font-black">{previewModal?.usage || 0}</span>
+                                    <span className="text-[8px] text-gray-600 font-bold uppercase tracking-tighter">CALLS RECORDED</span>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Available For</span>
+                                <span className="text-purple-400 text-[10px] font-black uppercase tracking-widest">
+                                    All Plans
+                                </span>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={() => setPreviewModal(null)}
+                            className="w-full mt-8 bg-purple-600 hover:bg-purple-500 text-white rounded-2xl py-4 text-xs font-black uppercase tracking-widest transition-all shadow-lg active:scale-95 relative z-10">
+                            Close Preview
+                        </button>
                     </div>
                 </div>
             )}
