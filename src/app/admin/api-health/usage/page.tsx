@@ -35,6 +35,7 @@ interface Profile {
     created_at: string
     api_key_dataforseo?: string | null
     api_key_gemini?: string | null
+    api_key_openrouter?: string | null
 }
 
 interface ApiUsage {
@@ -482,7 +483,7 @@ export default function ApiUsageTrackerPage() {
                         items-start mb-4">
                                 <div />
                                 <button
-                                    onClick={() => setSelectedUser(null)}
+                                    onClick={() => { setSelectedUser(null); setIsModalOpen(false); }}
                                     className="w-8 h-8 rounded-lg
                             bg-[#0F0C29] border border-[#2D2B55]
                             text-gray-400 hover:text-white
@@ -648,11 +649,10 @@ export default function ApiUsageTrackerPage() {
                             )}
                         </div>
 
-                        {/* Footer */}
                         <div className="p-4 border-t 
                       border-[#2D2B55] flex-shrink-0">
                             <button
-                                onClick={() => setSelectedUser(null)}
+                                onClick={() => { setSelectedUser(null); setIsModalOpen(false); }}
                                 className="w-full bg-purple-700
                           hover:bg-purple-600 text-white
                           rounded-xl py-2.5 text-sm 
