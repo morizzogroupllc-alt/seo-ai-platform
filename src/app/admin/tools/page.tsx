@@ -406,20 +406,24 @@ export default function ToolsManagerPage() {
                     <select
                         value={phaseFilter}
                         onChange={(e) => { setPhaseFilter(e.target.value); setCurrentPage(1); }}
-                        className="bg-black/20 border border-white/5 rounded-xl px-4 py-3 text-[10px] font-black text-gray-500 uppercase focus:outline-none focus:text-white transition-all appearance-none cursor-pointer hover:border-white/10"
+                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-4 py-2 rounded-xl hover:border-purple-500 focus:border-purple-400 focus:outline-none cursor-pointer"
+                        style={{ colorScheme: 'dark', backgroundColor: '#1A1740', color: 'white' }}
                     >
-                        <option>All Phases</option>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(p => <option key={p}>Phase {p}</option>)}
+                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>All Phases</option>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(p => (
+                            <option key={p} style={{ backgroundColor: '#1A1740', color: 'white' }}>Phase {p}</option>
+                        ))}
                     </select>
                     <select
                         value={statusFilter}
                         onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
-                        className="bg-black/20 border border-white/5 rounded-xl px-4 py-3 text-[10px] font-black text-gray-500 uppercase focus:outline-none focus:text-white transition-all appearance-none cursor-pointer hover:border-white/10"
+                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-4 py-2 rounded-xl hover:border-purple-500 focus:border-purple-400 focus:outline-none cursor-pointer"
+                        style={{ colorScheme: 'dark', backgroundColor: '#1A1740', color: 'white' }}
                     >
-                        <option>All Status</option>
-                        <option>Active</option>
-                        <option>Coming Soon</option>
-                        <option>Disabled</option>
+                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>All Status</option>
+                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>Active</option>
+                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>Coming Soon</option>
+                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>Disabled</option>
                     </select>
                 </div>
             </div>
