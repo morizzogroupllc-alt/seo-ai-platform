@@ -493,7 +493,16 @@ export default function ApiHealthPage() {
 
             {/* SECTION 4: Platform Usage Today */}
             <div className="space-y-4">
-                <h3 className="text-white font-black text-xs uppercase tracking-widest pl-1">Daily Platform Usage</h3>
+                <div className="flex items-center justify-between px-1">
+                    <h3 className="text-white font-black text-xs uppercase tracking-widest pl-1">Daily Platform Usage</h3>
+                    <button
+                        onClick={() => router.push('/admin/api-health/usage')}
+                        className="flex items-center gap-2 px-4 py-2 bg-purple-600/10 hover:bg-purple-600 text-purple-400 hover:text-white text-[10px] font-black rounded-xl border border-purple-500/20 transition-all uppercase tracking-widest group shadow-lg shadow-purple-900/10"
+                    >
+                        <Activity className="w-3.5 h-3.5 group-hover:animate-pulse" />
+                        View Per-User Usage →
+                    </button>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <UsageBar icon="🎯" name="Niche Finder" calls={0} limit={1000} />
                     <UsageBar icon="🔑" name="Keywords" calls={0} limit={5000} />
