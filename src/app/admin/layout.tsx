@@ -84,7 +84,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
+            <div className="min-h-screen bg-[#121212] flex items-center justify-center">
                 <div className="flex flex-col items-center space-y-4">
                     <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
                     <p className="text-purple-500/50 text-[10px] font-bold uppercase tracking-widest animate-pulse">Verifying Admin Access</p>
@@ -122,10 +122,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <aside className={cn(
                     "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar animate-slideInLeft flex flex-col",
                     isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
-                    isDarkMode ? "bg-[var(--bg-secondary)] border-r border-[var(--border-default)] shadow-sm" : "bg-white border-r border-gray-200"
+                    isDarkMode ? "bg-[#1E1E1E] border-r border-[#333333] shadow-sm" : "bg-white border-r border-gray-200"
                 )}>
                     {/* Sidebar Header - One Line Logo */}
-                    <div className="h-16 flex items-center px-4 border-b border-[var(--border-default)]">
+                    <div className="h-16 flex items-center px-4 border-b border-[#333333]">
                         <div className="w-9 h-9 bg-purple-700 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3 flex-shrink-0">
                             S
                         </div>
@@ -160,10 +160,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </nav>
 
                     {/* Sidebar Footer */}
-                    <div className="flex flex-col gap-0 border-t border-[var(--border-default)] pt-4">
+                    <div className="flex flex-col gap-0 border-t border-[#333333] pt-4">
                         {/* Super Admin Box */}
                         <div className="px-3 pb-2">
-                            <div className="bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-xl p-3">
+                            <div className="bg-[#121212] border border-[#333333] rounded-xl p-3">
                                 <div className="flex items-center gap-3">
 
                                     {/* Avatar */}
@@ -210,7 +210,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {/* Main Content Area */}
                 <div className="flex-1 flex flex-col min-w-0 max-h-screen overflow-hidden">
                     {/* Topbar */}
-                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[var(--bg-secondary)] backdrop-blur-md shadow-[var(--shadow-sm)] border-b border-[var(--border-default)] z-30">
+                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#1E1E1E] backdrop-blur-md shadow-[var(--shadow-sm)] border-b border-[#333333] z-30">
                         {/* LEFT SECTION */}
                         <div className="flex items-center gap-4">
                             <button
@@ -257,7 +257,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </header>
 
                     {/* MAIN CONTENT — scrollable */}
-                    <main className="flex-1 overflow-y-auto p-6 md:p-8 bg-[var(--bg-primary)] custom-scrollbar relative">
+                    <main className="flex-1 overflow-y-auto p-6 md:p-8 bg-[#121212] custom-scrollbar relative">
                         {children}
                     </main>
                 </div>

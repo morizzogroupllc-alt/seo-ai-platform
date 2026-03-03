@@ -145,7 +145,7 @@ export default function AdminPaymentsPage() {
     )
 
     const StatCard = ({ icon, name, value, sub, color, growth }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-5 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-5 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
@@ -175,7 +175,7 @@ export default function AdminPaymentsPage() {
     )
 
     const PlanRevenueCard = ({ plan, icon, count, price, color, growth }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card transition-all hover:border-purple-500/50"
+        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card transition-all hover:border-purple-500/50"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center text-lg bg-white/5">
@@ -274,7 +274,7 @@ export default function AdminPaymentsPage() {
             </div>
 
             {/* SECTION 4: Subscriptions Table */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card">
                 <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6">Active Subscriptions</h3>
 
                 {paidUsersCount > 0 ? (
@@ -379,7 +379,7 @@ export default function AdminPaymentsPage() {
                             href="https://stripe.com/docs/billing/subscriptions/overview"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="border border-[#2D2B55] hover:border-purple-500 text-gray-300 hover:text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all"
+                            className="border border-[#333333] hover:border-purple-500 text-gray-300 hover:text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all"
                         >
                             View Docs ↗
                         </a>

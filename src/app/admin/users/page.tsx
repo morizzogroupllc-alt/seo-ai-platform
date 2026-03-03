@@ -83,8 +83,8 @@ const Modal = ({ isOpen, onClose, title, children }: { isOpen: boolean, onClose:
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
-                <div className="flex items-center justify-between p-6 border-b border-[#2D2B55]">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
+                <div className="flex items-center justify-between p-6 border-b border-[#333333]">
                     <h3 className="text-xl font-semibold text-white">{title}</h3>
                     <button onClick={onClose} className="p-2 transition-colors rounded-lg text-gray-400 hover:text-white hover:bg-white/10">
                         <X size={20} />
@@ -313,7 +313,7 @@ export default function UsersManagementPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0F0C29] text-white p-4 lg:p-8 space-y-8">
+        <div className="min-h-screen bg-[#121212] text-white p-4 lg:p-8 space-y-8">
             {/* SECTION 1: Page Header */}
             <div className="space-y-6">
                 <div>
@@ -328,7 +328,7 @@ export default function UsersManagementPage() {
                         { label: 'Paid Plan', value: stats.paid, icon: Shield, color: 'text-emerald-400' },
                         { label: 'Banned', value: stats.banned, icon: Ban, color: 'text-red-400' }
                     ].map((stat, i) => (
-                        <div key={i} className={`bg-[#1A1740] border border-[#2D2B55] p-6 rounded-xl space-y-2 admin-card shadow-xl animate-slideInUp transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/20 ${i === 0 ? 'delay-75' : i === 1 ? 'delay-100' : i === 2 ? 'delay-150' : 'delay-200'
+                        <div key={i} className={`bg-[#1E1E1E] border border-[#333333] p-6 rounded-xl space-y-2 admin-card shadow-xl animate-slideInUp transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/20 ${i === 0 ? 'delay-75' : i === 1 ? 'delay-100' : i === 2 ? 'delay-150' : 'delay-200'
                             }`}>
                             <div className="flex items-center justify-between">
                                 <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">{stat.label}</p>
@@ -341,17 +341,17 @@ export default function UsersManagementPage() {
             </div>
 
             {/* SECTION 2: Filters Bar */}
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-[#1A1740] border border-[#2D2B55] p-4 rounded-xl admin-card shadow-lg animate-fadeIn delay-200">
+            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-[#1E1E1E] border border-[#333333] p-4 rounded-xl admin-card shadow-lg animate-fadeIn delay-200">
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto flex-1">
                     <div className="relative flex-1 max-w-sm">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                         <input
                             type="text"
                             placeholder="Search by email..."
-                            className="w-full bg-[#1A1740] border border-[#2D2B55] rounded-lg pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all text-white"
+                            className="w-full bg-[#1E1E1E] border border-[#333333] rounded-lg pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all text-white"
                             style={{
                                 colorScheme: 'dark',
-                                backgroundColor: '#1A1740',
+                                backgroundColor: '#1E1E1E',
                             }}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -367,7 +367,7 @@ export default function UsersManagementPage() {
                     </div>
 
                     <select
-                        className="bg-[#1A1740] border border-[#2D2B55] rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                        className="bg-[#1E1E1E] border border-[#333333] rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                         value={planFilter}
                         onChange={(e) => setPlanFilter(e.target.value)}
                     >
@@ -380,7 +380,7 @@ export default function UsersManagementPage() {
                     </select>
 
                     <select
-                        className="bg-[#1A1740] border border-[#2D2B55] rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                        className="bg-[#1E1E1E] border border-[#333333] rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                         value={typeFilter}
                         onChange={(e) => setTypeFilter(e.target.value)}
                     >
@@ -393,7 +393,7 @@ export default function UsersManagementPage() {
                     </select>
 
                     <select
-                        className="bg-[#1A1740] border border-[#2D2B55] rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                        className="bg-[#1E1E1E] border border-[#333333] rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
                     >
@@ -413,11 +413,11 @@ export default function UsersManagementPage() {
             </div>
 
             {/* SECTION 3: Users Table */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl overflow-hidden shadow-xl admin-card dark-glow animate-slideInUp delay-300 transition-all duration-300">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-xl overflow-hidden shadow-xl admin-card dark-glow animate-slideInUp delay-300 transition-all duration-300">
                 <div className="overflow-x-auto">
                     <table className="w-full">
                         <thead>
-                            <tr className="border-b border-[#2D2B55] bg-white/5">
+                            <tr className="border-b border-[#333333] bg-white/5">
                                 <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-wider w-[260px]">
                                     User
                                 </th>
@@ -466,7 +466,7 @@ export default function UsersManagementPage() {
                                         <tr
                                             key={user.id}
                                             className={cn(
-                                                "border-b border-[#1A1740] hover:bg-purple-900/5 transition-all opacity-0 animate-fadeIn",
+                                                "border-b border-[#1E1E1E] hover:bg-purple-900/5 transition-all opacity-0 animate-fadeIn",
                                                 !user.is_active && "bg-red-950/20"
                                             )}
                                             style={{ animationDelay: `${300 + (idx * 50)}ms`, animationFillMode: 'forwards' }}
@@ -535,19 +535,19 @@ export default function UsersManagementPage() {
                                                 <div className="flex items-center justify-center gap-2">
                                                     <button onClick={() => { setSelectedUser(user); setViewModalOpen(true); }}
                                                         title="View Details"
-                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 hover:bg-purple-900/30 text-gray-400 hover:text-white transition-all text-sm active:scale-95 action-btn">
+                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1E1E1E] border border-[#333333] hover:border-purple-500 hover:bg-purple-900/30 text-gray-400 hover:text-white transition-all text-sm active:scale-95 action-btn">
                                                         👁️
                                                     </button>
 
                                                     <button onClick={() => { setSelectedUser(user); setPlanModalOpen(true); }}
                                                         title="Change Plan"
-                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1A1740] border border-[#2D2B55] hover:border-blue-500 hover:bg-blue-900/30 text-gray-400 hover:text-white transition-all text-sm active:scale-95 action-btn">
+                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1E1E1E] border border-[#333333] hover:border-blue-500 hover:bg-blue-900/30 text-gray-400 hover:text-white transition-all text-sm active:scale-95 action-btn">
                                                         ✏️
                                                     </button>
 
                                                     <button onClick={() => { setSelectedUser(user); setRoleModalOpen(true); }}
                                                         title="Change Role"
-                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1A1740] border border-[#2D2B55] hover:border-yellow-500 hover:bg-yellow-900/30 text-gray-400 hover:text-white transition-all text-sm active:scale-95 action-btn">
+                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1E1E1E] border border-[#333333] hover:border-yellow-500 hover:bg-yellow-900/30 text-gray-400 hover:text-white transition-all text-sm active:scale-95 action-btn">
                                                         👑
                                                     </button>
 
@@ -596,7 +596,7 @@ export default function UsersManagementPage() {
                             </div>
                         </div>
 
-                        <div className="flex border-b border-[#2D2B55]">
+                        <div className="flex border-b border-[#333333]">
                             {(['profile', 'usage', 'activity'] as const).map((tab) => (
                                 <button
                                     key={tab}
@@ -714,7 +714,7 @@ export default function UsersManagementPage() {
                             <label className="text-[10px] font-bold text-gray-500 px-1 uppercase tracking-widest">Select New Plan</label>
                             <div className="relative">
                                 <select
-                                    className="w-full appearance-none bg-[#1A1740] border border-[#2D2B55] text-white px-4 py-3 pr-10 rounded-xl focus:outline-none focus:border-purple-500 transition-all font-medium"
+                                    className="w-full appearance-none bg-[#1E1E1E] border border-[#333333] text-white px-4 py-3 pr-10 rounded-xl focus:outline-none focus:border-purple-500 transition-all font-medium"
                                     defaultValue={selectedUser.plan}
                                     id="plan-select"
                                 >
@@ -733,7 +733,7 @@ export default function UsersManagementPage() {
                         <div className="flex gap-3 pt-2">
                             <button
                                 onClick={() => setPlanModalOpen(false)}
-                                className="flex-1 px-4 py-3 rounded-xl border border-[#2D2B55] hover:bg-white/5 transition-colors font-bold text-[10px] uppercase tracking-widest"
+                                className="flex-1 px-4 py-3 rounded-xl border border-[#333333] hover:bg-white/5 transition-colors font-bold text-[10px] uppercase tracking-widest"
                             >
                                 Cancel
                             </button>
@@ -770,7 +770,7 @@ export default function UsersManagementPage() {
                             <label className="text-[10px] font-bold text-gray-500 px-1 uppercase tracking-widest">Select New Role</label>
                             <div className="relative">
                                 <select
-                                    className="w-full appearance-none bg-[#1A1740] border border-[#2D2B55] text-white px-4 py-3 pr-10 rounded-xl focus:outline-none focus:border-yellow-500 transition-all font-medium"
+                                    className="w-full appearance-none bg-[#1E1E1E] border border-[#333333] text-white px-4 py-3 pr-10 rounded-xl focus:outline-none focus:border-yellow-500 transition-all font-medium"
                                     defaultValue={selectedUser.role}
                                     id="role-select"
                                 >
@@ -786,7 +786,7 @@ export default function UsersManagementPage() {
                         <div className="flex gap-3 pt-2">
                             <button
                                 onClick={() => setRoleModalOpen(false)}
-                                className="flex-1 px-4 py-3 rounded-xl border border-[#2D2B55] hover:bg-white/5 transition-colors font-bold text-[10px] uppercase tracking-widest"
+                                className="flex-1 px-4 py-3 rounded-xl border border-[#333333] hover:bg-white/5 transition-colors font-bold text-[10px] uppercase tracking-widest"
                             >
                                 Cancel
                             </button>
@@ -830,7 +830,7 @@ export default function UsersManagementPage() {
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setBanModalOpen(false)}
-                                className="flex-1 px-4 py-3 rounded-xl border border-[#2D2B55] hover:bg-white/5 transition-colors font-bold text-[10px] uppercase tracking-widest"
+                                className="flex-1 px-4 py-3 rounded-xl border border-[#333333] hover:bg-white/5 transition-colors font-bold text-[10px] uppercase tracking-widest"
                             >
                                 Cancel
                             </button>
@@ -854,8 +854,8 @@ export default function UsersManagementPage() {
                     <div
                         key={toast.id}
                         className={`flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl border pointer-events-auto animate-in slide-in-from-right duration-300 ${toast.type === 'success'
-                            ? 'bg-[#1A1740] border-emerald-500/50 text-emerald-400'
-                            : 'bg-[#1A1740] border-red-500/50 text-red-400'
+                            ? 'bg-[#1E1E1E] border-emerald-500/50 text-emerald-400'
+                            : 'bg-[#1E1E1E] border-red-500/50 text-red-400'
                             }`}
                     >
                         {toast.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}

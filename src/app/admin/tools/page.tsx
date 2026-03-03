@@ -308,7 +308,7 @@ export default function ToolsManagerPage() {
 
     // Components
     const StatCard = ({ icon, name, value, color }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 admin-card stat-card-glow"
+        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 admin-card stat-card-glow"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-lg"
@@ -393,7 +393,7 @@ export default function ToolsManagerPage() {
             </div>
 
             {/* SECTION 3: Filters */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] p-5 rounded-2xl flex flex-col lg:flex-row items-center gap-4 admin-card">
+            <div className="bg-[#1E1E1E] border border-[#333333] p-5 rounded-2xl flex flex-col lg:flex-row items-center gap-4 admin-card">
                 <div className="relative flex-1 w-full lg:w-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                     <input
@@ -408,30 +408,30 @@ export default function ToolsManagerPage() {
                     <select
                         value={phaseFilter}
                         onChange={(e) => { setPhaseFilter(e.target.value); setCurrentPage(1); }}
-                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-4 py-2 rounded-xl hover:border-purple-500 focus:border-purple-400 focus:outline-none cursor-pointer"
-                        style={{ colorScheme: 'dark', backgroundColor: '#1A1740', color: 'white' }}
+                        className="bg-[#1E1E1E] border border-[#333333] text-white text-sm px-4 py-2 rounded-xl hover:border-purple-500 focus:border-purple-400 focus:outline-none cursor-pointer"
+                        style={{ colorScheme: 'dark', backgroundColor: '#1E1E1E', color: 'white' }}
                     >
-                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>All Phases</option>
+                        <option style={{ backgroundColor: '#1E1E1E', color: 'white' }}>All Phases</option>
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(p => (
-                            <option key={p} style={{ backgroundColor: '#1A1740', color: 'white' }}>Phase {p}</option>
+                            <option key={p} style={{ backgroundColor: '#1E1E1E', color: 'white' }}>Phase {p}</option>
                         ))}
                     </select>
                     <select
                         value={statusFilter}
                         onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
-                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-4 py-2 rounded-xl hover:border-purple-500 focus:border-purple-400 focus:outline-none cursor-pointer"
-                        style={{ colorScheme: 'dark', backgroundColor: '#1A1740', color: 'white' }}
+                        className="bg-[#1E1E1E] border border-[#333333] text-white text-sm px-4 py-2 rounded-xl hover:border-purple-500 focus:border-purple-400 focus:outline-none cursor-pointer"
+                        style={{ colorScheme: 'dark', backgroundColor: '#1E1E1E', color: 'white' }}
                     >
-                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>All Status</option>
-                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>Active</option>
-                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>Coming Soon</option>
-                        <option style={{ backgroundColor: '#1A1740', color: 'white' }}>Disabled</option>
+                        <option style={{ backgroundColor: '#1E1E1E', color: 'white' }}>All Status</option>
+                        <option style={{ backgroundColor: '#1E1E1E', color: 'white' }}>Active</option>
+                        <option style={{ backgroundColor: '#1E1E1E', color: 'white' }}>Coming Soon</option>
+                        <option style={{ backgroundColor: '#1E1E1E', color: 'white' }}>Disabled</option>
                     </select>
                 </div>
             </div>
 
             {/* SECTION 4: Tools Table */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl overflow-hidden admin-card">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl overflow-hidden admin-card">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead className="bg-black/20 border-b border-white/5">
@@ -502,13 +502,13 @@ export default function ToolsManagerPage() {
                                         <div className="flex items-center justify-end gap-2 text-sm">
                                             <button
                                                 onClick={() => setConfigModal(tool)}
-                                                className="w-8 h-8 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                                                className="w-8 h-8 bg-[#1E1E1E] border border-[#333333] hover:border-purple-500 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all">
                                                 ⚙️
                                             </button>
 
                                             <button
                                                 onClick={() => setPreviewModal(tool)}
-                                                className="w-8 h-8 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                                                className="w-8 h-8 bg-[#1E1E1E] border border-[#333333] hover:border-purple-500 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all">
                                                 👁️
                                             </button>
                                         </div>
@@ -580,7 +580,7 @@ export default function ToolsManagerPage() {
             {/* SECTION 5: Bulk Actions bar */}
             {selectedTools.length > 0 && (
                 <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] animate-slideUp">
-                    <div className="bg-[#1A1740] border border-purple-500/30 px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-8 backdrop-blur-xl ring-1 ring-purple-500/10">
+                    <div className="bg-[#1E1E1E] border border-purple-500/30 px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-8 backdrop-blur-xl ring-1 ring-purple-500/10">
                         <div className="flex items-center gap-3 border-r border-white/10 pr-8">
                             <div className="w-9 h-9 rounded-xl bg-purple-600 flex items-center justify-center text-white font-black text-sm">
                                 {selectedTools.length}
@@ -623,7 +623,7 @@ export default function ToolsManagerPage() {
             {configModal && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
                     onClick={() => setConfigModal(null)}>
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 w-full max-w-sm shadow-2xl"
+                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 w-full max-w-sm shadow-2xl"
                         onClick={e => e.stopPropagation()}>
 
                         <h3 className="text-white font-black text-lg mb-6 uppercase tracking-tight flex items-center gap-2">
@@ -634,7 +634,7 @@ export default function ToolsManagerPage() {
                             <label className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2 block">
                                 DEVELOPMENT PHASE
                             </label>
-                            <div className="text-white text-xs font-bold bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-4 py-3">
+                            <div className="text-white text-xs font-bold bg-[#121212] border border-[#333333] rounded-xl px-4 py-3">
                                 Phase {configModal?.phase}
                             </div>
                         </div>
@@ -646,11 +646,11 @@ export default function ToolsManagerPage() {
                             <select
                                 value={configModal?.status}
                                 onChange={e => setConfigModal((prev: any) => ({ ...prev, status: e.target.value }))}
-                                className="w-full bg-[#0F0C29] border border-[#2D2B55] text-white text-xs font-bold rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 transition-all cursor-pointer"
+                                className="w-full bg-[#121212] border border-[#333333] text-white text-xs font-bold rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 transition-all cursor-pointer"
                                 style={{ colorScheme: 'dark' }}>
-                                <option value="active" style={{ background: '#1A1740' }}>🟢 Active</option>
-                                <option value="soon" style={{ background: '#1A1740' }}>🟡 Coming Soon</option>
-                                <option value="disabled" style={{ background: '#1A1740' }}>🔴 Disabled</option>
+                                <option value="active" style={{ background: '#1E1E1E' }}>🟢 Active</option>
+                                <option value="soon" style={{ background: '#1E1E1E' }}>🟡 Coming Soon</option>
+                                <option value="disabled" style={{ background: '#1E1E1E' }}>🔴 Disabled</option>
                             </select>
                         </div>
 
@@ -669,7 +669,7 @@ export default function ToolsManagerPage() {
                             </button>
                             <button
                                 onClick={() => setConfigModal(null)}
-                                className="px-6 bg-[#0F0C29] border border-[#2D2B55] text-gray-500 rounded-xl py-3 text-xs font-black uppercase tracking-widest transition-all hover:text-white hover:border-purple-500 active:scale-95">
+                                className="px-6 bg-[#121212] border border-[#333333] text-gray-500 rounded-xl py-3 text-xs font-black uppercase tracking-widest transition-all hover:text-white hover:border-purple-500 active:scale-95">
                                 Cancel
                             </button>
                         </div>
@@ -680,7 +680,7 @@ export default function ToolsManagerPage() {
             {previewModal && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
                     onClick={() => setPreviewModal(null)}>
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
+                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
                         onClick={e => e.stopPropagation()}>
 
                         {/* Decorative background glass */}
@@ -703,7 +703,7 @@ export default function ToolsManagerPage() {
                         </div>
 
                         <div className="space-y-4 relative z-10">
-                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Status</span>
                                 <span className={cn(
                                     "text-[10px] font-black uppercase tracking-widest flex items-center gap-2",
@@ -715,14 +715,14 @@ export default function ToolsManagerPage() {
                                 </span>
                             </div>
 
-                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Phase</span>
                                 <span className="text-white text-xs font-black uppercase tracking-widest">
                                     {previewModal?.phase}
                                 </span>
                             </div>
 
-                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Usage</span>
                                 <div className="flex flex-col items-end">
                                     <span className="text-white text-xs font-black">{previewModal?.usage || 0}</span>
@@ -730,7 +730,7 @@ export default function ToolsManagerPage() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-between items-center bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Available For</span>
                                 <span className="text-purple-400 text-[10px] font-black uppercase tracking-widest">
                                     All Plans

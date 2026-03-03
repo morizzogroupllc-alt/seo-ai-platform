@@ -172,7 +172,7 @@ export default function ApiHealthPage() {
     ].filter(Boolean).length
 
     const StatCard = ({ icon, name, value, sub, color }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
@@ -191,7 +191,7 @@ export default function ApiHealthPage() {
     const UsageBar = ({ icon, name, calls, limit }: any) => {
         const percent = Math.min((calls / limit) * 100, 100)
         return (
-            <div className="admin-card bg-[#1A1740] border border-[#2D2B55] p-5 rounded-2xl hover:border-purple-500/50 transition-all">
+            <div className="admin-card bg-[#1E1E1E] border border-[#333333] p-5 rounded-2xl hover:border-purple-500/50 transition-all">
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-2">
                         <span className="text-lg">{icon}</span>
@@ -199,7 +199,7 @@ export default function ApiHealthPage() {
                     </div>
                     <span className="text-purple-400 text-xs font-mono font-bold">{calls.toLocaleString()}/{limit.toLocaleString()}</span>
                 </div>
-                <div className="bg-[#2D2B55] rounded-full h-2 overflow-hidden">
+                <div className="bg-[#2A2A2A] rounded-full h-2 overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-purple-600 to-indigo-500 transition-all duration-1000"
                         style={{ width: `${percent}%`, minWidth: calls > 0 ? '8px' : '0' }} />
                 </div>
@@ -268,7 +268,7 @@ export default function ApiHealthPage() {
                 <h3 className="text-white font-black text-xs uppercase tracking-widest pl-1">Integrated Services</h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Service 1: Supabase */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-green-500/30 transition-all">
+                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-green-500/30 transition-all">
                         <div className="flex items-center justify-between mb-8 relative z-10">
                             <div className="flex items-center gap-4">
                                 <div className="w-14 h-14 rounded-2xl bg-green-900/20 flex items-center justify-center text-2xl border border-green-500/20">🗄️</div>
@@ -316,7 +316,7 @@ export default function ApiHealthPage() {
                     </div>
 
                     {/* Service 2: DataForSEO */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-blue-500/30 transition-all">
+                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-blue-500/30 transition-all">
                         <div className="flex items-center justify-between mb-8 relative z-10">
                             <div className="flex items-center gap-4">
                                 <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center text-2xl border border-blue-500/20">📊</div>
@@ -385,7 +385,7 @@ export default function ApiHealthPage() {
                     </div>
 
                     {/* Service 3: Gemini AI */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-purple-500/30 transition-all">
+                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-purple-500/30 transition-all">
                         <div className="flex items-center justify-between mb-8 relative z-10">
                             <div className="flex items-center gap-4">
                                 <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center text-2xl border border-purple-500/20">🤖</div>
@@ -456,7 +456,7 @@ export default function ApiHealthPage() {
                     </div>
 
                     {/* Service 4: Stripe */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-yellow-500/30 transition-all">
+                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden group hover:border-yellow-500/30 transition-all">
                         <div className="flex items-center justify-between mb-8 relative z-10">
                             <div className="flex items-center gap-4">
                                 <div className="w-14 h-14 rounded-2xl bg-yellow-900/20 flex items-center justify-center text-2xl border border-yellow-500/20">💳</div>
@@ -508,7 +508,7 @@ export default function ApiHealthPage() {
                     </div>
 
                     {/* Service 5: OpenRouter (Coming Soon) */}
-                    <div className="bg-[#1A1740] border border-[#2D2B55] border-dashed rounded-3xl p-8 admin-card relative overflow-hidden group opacity-60">
+                    <div className="bg-[#1E1E1E] border border-[#333333] border-dashed rounded-3xl p-8 admin-card relative overflow-hidden group opacity-60">
                         <div className="flex items-center justify-between mb-8 relative z-10">
                             <div className="flex items-center gap-4">
                                 <div className="w-14 h-14 rounded-2xl bg-pink-900/20 flex items-center justify-center text-2xl border border-pink-500/20">🔀</div>
@@ -556,7 +556,7 @@ export default function ApiHealthPage() {
             </div>
 
             {/* SECTION 5: Users with own API keys */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden">
                 <div className="flex items-center justify-between mb-8">
                     <h3 className="text-white font-black text-sm uppercase tracking-widest">Users Using Own API Keys</h3>
                     {usersWithOwnKeys.length > 0 && (
@@ -646,8 +646,8 @@ export default function ApiHealthPage() {
                         className={cn(
                             "min-w-[300px] flex items-center gap-4 px-6 py-5 rounded-2xl shadow-2xl border pointer-events-auto animate-in slide-in-from-right-full duration-500",
                             toast.type === 'success'
-                                ? "bg-[#1A1740]/90 backdrop-blur-xl border-green-500/30 text-green-400"
-                                : "bg-[#1A1740]/90 backdrop-blur-xl border-red-500/30 text-red-400"
+                                ? "bg-[#1E1E1E]/90 backdrop-blur-xl border-green-500/30 text-green-400"
+                                : "bg-[#1E1E1E]/90 backdrop-blur-xl border-red-500/30 text-red-400"
                         )}
                     >
                         <div className={cn(

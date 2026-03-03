@@ -214,7 +214,7 @@ export default function PlatformSettingsPage() {
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-800 focus:outline-none focus:border-purple-500/50 transition-all font-medium"
+                className="w-full bg-[#121212] border border-[#333333] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-800 focus:outline-none focus:border-purple-500/50 transition-all font-medium"
             />
         </div>
     )
@@ -244,7 +244,7 @@ export default function PlatformSettingsPage() {
             {/* SECTION 2: Grid Config */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* LEFT: General Configuration */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden group">
+                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden group">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20">
                             <Layers className="w-5 h-5 text-purple-400" />
@@ -295,7 +295,7 @@ export default function PlatformSettingsPage() {
                 </div>
 
                 {/* RIGHT: Feature Flags */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden">
+                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20">
                             <Zap className="w-5 h-5 text-purple-400" />
@@ -340,7 +340,7 @@ export default function PlatformSettingsPage() {
             </div>
 
             {/* SECTION 3: Plan Limits */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Default API Limits Per Plan</h3>
@@ -377,7 +377,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.niche}
                                             onChange={(e) => handleLimitChange(idx, 'niche', e.target.value)}
-                                            className="w-20 bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -385,7 +385,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.keywords}
                                             onChange={(e) => handleLimitChange(idx, 'keywords', e.target.value)}
-                                            className="w-20 bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -393,7 +393,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.serp}
                                             onChange={(e) => handleLimitChange(idx, 'serp', e.target.value)}
-                                            className="w-20 bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -401,7 +401,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.content}
                                             onChange={(e) => handleLimitChange(idx, 'content', e.target.value)}
-                                            className="w-20 bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -409,7 +409,7 @@ export default function PlatformSettingsPage() {
                                             type="text"
                                             value={limit.websites === 999 ? '∞' : limit.websites}
                                             onChange={(e) => handleLimitChange(idx, 'websites', e.target.value === '∞' ? '999' : e.target.value)}
-                                            className="w-16 bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-16 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -417,7 +417,7 @@ export default function PlatformSettingsPage() {
                                             type="text"
                                             value={limit.price}
                                             onChange={(e) => handleLimitChange(idx, 'price', e.target.value)}
-                                            className="w-20 bg-[#0F0C29] border border-[#2D2B55] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                 </tr>
@@ -440,7 +440,7 @@ export default function PlatformSettingsPage() {
             {/* SECTION 4: Banner & Danger */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Announcement Banner */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card relative overflow-hidden">
+                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20">
@@ -488,7 +488,7 @@ export default function PlatformSettingsPage() {
                                 value={banner.text}
                                 onChange={(e) => setBanner({ ...banner, text: e.target.value })}
                                 rows={3}
-                                className="w-full bg-[#0F0C29] border border-[#2D2B55] rounded-2xl px-5 py-4 text-xs text-white placeholder:text-gray-800 focus:outline-none focus:border-purple-500/50 transition-all font-medium leading-relaxed"
+                                className="w-full bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4 text-xs text-white placeholder:text-gray-800 focus:outline-none focus:border-purple-500/50 transition-all font-medium leading-relaxed"
                                 placeholder="Banner message text..."
                             />
                         </div>
@@ -514,7 +514,7 @@ export default function PlatformSettingsPage() {
                 </div>
 
                 {/* Danger Zone */}
-                <div className="bg-[#1A1740] border border-red-900/30 rounded-3xl p-8 admin-card relative overflow-hidden">
+                <div className="bg-[#1E1E1E] border border-red-900/30 rounded-3xl p-8 admin-card relative overflow-hidden">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-xl bg-red-600/10 flex items-center justify-center border border-red-500/20">
                             <AlertTriangle className="w-5 h-5 text-red-500" />
@@ -563,9 +563,9 @@ export default function PlatformSettingsPage() {
                         key={toast.id}
                         className={cn(
                             "min-w-[320px] flex items-center gap-4 px-6 py-5 rounded-2xl shadow-2xl border pointer-events-auto animate-in slide-in-from-right-full duration-500 backdrop-blur-3xl",
-                            toast.type === 'success' ? "bg-[#1A1740]/90 border-green-500/30 text-green-400" :
-                                toast.type === 'warning' ? "bg-[#1A1740]/90 border-orange-500/30 text-orange-400" :
-                                    "bg-[#1A1740]/90 border-red-500/30 text-red-400"
+                            toast.type === 'success' ? "bg-[#1E1E1E]/90 border-green-500/30 text-green-400" :
+                                toast.type === 'warning' ? "bg-[#1E1E1E]/90 border-orange-500/30 text-orange-400" :
+                                    "bg-[#1E1E1E]/90 border-red-500/30 text-red-400"
                         )}
                     >
                         <div className={cn(

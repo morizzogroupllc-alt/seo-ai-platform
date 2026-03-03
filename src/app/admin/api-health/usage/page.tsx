@@ -184,7 +184,7 @@ export default function ApiUsageTrackerPage() {
     }
 
     const StatCard = ({ icon, name, value, sub, color }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-lg"
@@ -199,7 +199,7 @@ export default function ApiUsageTrackerPage() {
     )
 
     const ToolCard = ({ icon, name, stats }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] p-5 rounded-2xl admin-card transition-all hover:translate-y-[-2px] hover:border-purple-500/30">
+        <div className="bg-[#1E1E1E] border border-[#333333] p-5 rounded-2xl admin-card transition-all hover:translate-y-[-2px] hover:border-purple-500/30">
             <div className="flex items-center gap-3 mb-5">
                 <div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center text-lg">{icon}</div>
                 <span className="text-white text-[11px] font-black uppercase tracking-widest">{name}</span>
@@ -267,12 +267,12 @@ export default function ApiUsageTrackerPage() {
                             value={timeFilter}
                             onChange={(e) => setTimeFilter(e.target.value)}
                             style={{ colorScheme: 'dark' }}
-                            className="appearance-none bg-[#1A1740] border border-[#2D2B55] rounded-xl pl-4 pr-10 py-3 text-[11px] font-black text-white hover:border-purple-500/50 transition-all focus:outline-none uppercase tracking-widest cursor-pointer"
+                            className="appearance-none bg-[#1E1E1E] border border-[#333333] rounded-xl pl-4 pr-10 py-3 text-[11px] font-black text-white hover:border-purple-500/50 transition-all focus:outline-none uppercase tracking-widest cursor-pointer"
                         >
-                            <option style={{ background: '#1A1740', color: 'white' }}>Today</option>
-                            <option style={{ background: '#1A1740', color: 'white' }}>This Week</option>
-                            <option style={{ background: '#1A1740', color: 'white' }}>This Month</option>
-                            <option style={{ background: '#1A1740', color: 'white' }}>All Time</option>
+                            <option style={{ background: '#1E1E1E', color: 'white' }}>Today</option>
+                            <option style={{ background: '#1E1E1E', color: 'white' }}>This Week</option>
+                            <option style={{ background: '#1E1E1E', color: 'white' }}>This Month</option>
+                            <option style={{ background: '#1E1E1E', color: 'white' }}>All Time</option>
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
                     </div>
@@ -296,7 +296,7 @@ export default function ApiUsageTrackerPage() {
             </div>
 
             {/* SECTION 3: Filters bar */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] p-5 rounded-2xl flex flex-col lg:flex-row items-center gap-4 admin-card">
+            <div className="bg-[#1E1E1E] border border-[#333333] p-5 rounded-2xl flex flex-col lg:flex-row items-center gap-4 admin-card">
                 <div className="relative flex-1 w-full lg:w-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                     <input
@@ -306,9 +306,9 @@ export default function ApiUsageTrackerPage() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         style={{
                             colorScheme: 'dark',
-                            backgroundColor: '#1A1740'
+                            backgroundColor: '#1E1E1E'
                         }}
-                        className="w-full bg-[#1A1740] border border-[#2D2B55] text-white pl-11 pr-10 py-2.5 rounded-xl placeholder-gray-600 focus:border-purple-500 focus:outline-none transition-all"
+                        className="w-full bg-[#1E1E1E] border border-[#333333] text-white pl-11 pr-10 py-2.5 rounded-xl placeholder-gray-600 focus:border-purple-500 focus:outline-none transition-all"
                     />
                     {searchQuery && (
                         <button
@@ -324,40 +324,40 @@ export default function ApiUsageTrackerPage() {
                         value={toolFilter}
                         onChange={(e) => setToolFilter(e.target.value)}
                         style={{ colorScheme: 'dark' }}
-                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
+                        className="bg-[#1E1E1E] border border-[#333333] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
                     >
-                        <option style={{ background: '#1A1740', color: 'white' }}>All Tools</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>Niche Finder</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>Keywords</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>SERP</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>Content AI</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>All Tools</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>Niche Finder</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>Keywords</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>SERP</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>Content AI</option>
                     </select>
                     <select
                         value={apiTypeFilter}
                         onChange={(e) => setApiTypeFilter(e.target.value)}
                         style={{ colorScheme: 'dark' }}
-                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
+                        className="bg-[#1E1E1E] border border-[#333333] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
                     >
-                        <option style={{ background: '#1A1740', color: 'white' }}>All APIs</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>Platform</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>Own Key</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>All APIs</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>Platform</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>Own Key</option>
                     </select>
                     <select
                         value={providerFilter}
                         onChange={(e) => setProviderFilter(e.target.value)}
                         style={{ colorScheme: 'dark' }}
-                        className="bg-[#1A1740] border border-[#2D2B55] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
+                        className="bg-[#1E1E1E] border border-[#333333] text-white text-sm px-3 py-2 rounded-xl hover:border-purple-500 focus:outline-none cursor-pointer"
                     >
-                        <option style={{ background: '#1A1740', color: 'white' }}>All Providers</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>Gemini</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>DataForSEO</option>
-                        <option style={{ background: '#1A1740', color: 'white' }}>OpenRouter</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>All Providers</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>Gemini</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>DataForSEO</option>
+                        <option style={{ background: '#1E1E1E', color: 'white' }}>OpenRouter</option>
                     </select>
                 </div>
             </div>
 
             {/* SECTION 4: Per-User Usage Table */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
                 <h3 className="text-white font-black text-sm uppercase tracking-widest pl-1 mb-8">User API Consumption</h3>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
@@ -408,7 +408,7 @@ export default function ApiUsageTrackerPage() {
                                                 <span className="text-blue-400 px-2 py-0.5 rounded bg-blue-500/5">{user.platformCalls} P</span>
                                                 <span className="text-green-400 px-2 py-0.5 rounded bg-green-500/5">{user.ownCalls} O</span>
                                             </div>
-                                            <div className="w-full max-w-[120px] bg-[#2D2B55] h-1.5 rounded-full overflow-hidden">
+                                            <div className="w-full max-w-[120px] bg-[#2A2A2A] h-1.5 rounded-full overflow-hidden">
                                                 <div
                                                     className="h-full bg-blue-500"
                                                     style={{ width: `${(user.platformCalls / (user.totalCalls || 1)) * 100}%` }}
@@ -454,8 +454,8 @@ export default function ApiUsageTrackerPage() {
                   flex items-center justify-center
                   p-4">
 
-                    <div className="bg-[#1A1740] border
-                    border-[#2D2B55] rounded-2xl
+                    <div className="bg-[#1E1E1E] border
+                    border-[#333333] rounded-2xl
                     w-full max-w-lg
                     max-h-[85vh]
                     flex flex-col
@@ -463,7 +463,7 @@ export default function ApiUsageTrackerPage() {
 
                         {/* Header — fixed */}
                         <div className="p-6 border-b 
-                      border-[#2D2B55] flex-shrink-0">
+                      border-[#333333] flex-shrink-0">
 
                             {/* Close button top-right */}
                             <div className="flex justify-between
@@ -472,7 +472,7 @@ export default function ApiUsageTrackerPage() {
                                 <button
                                     onClick={() => { setSelectedUser(null); setIsModalOpen(false); }}
                                     className="w-8 h-8 rounded-lg
-                            bg-[#0F0C29] border border-[#2D2B55]
+                            bg-[#121212] border border-[#333333]
                             text-gray-400 hover:text-white
                             flex items-center justify-center
                             text-lg transition-all">
@@ -538,7 +538,7 @@ export default function ApiUsageTrackerPage() {
                                     ].map(([label, value]) => (
                                         <div key={label}
                                             className="flex justify-between
-                                bg-[#0F0C29] rounded-lg 
+                                bg-[#121212] rounded-lg 
                                 px-4 py-3">
                                             <span className="text-gray-400 
                                 text-sm">{label}</span>
@@ -590,13 +590,13 @@ export default function ApiUsageTrackerPage() {
                                             <div key={item.key}
                                                 className="flex items-center
                                     justify-between
-                                    bg-[#0F0C29] rounded-xl
+                                    bg-[#121212] rounded-xl
                                     px-4 py-3">
                                                 <div className="flex 
                                     items-center gap-3">
                                                     <div className="w-8 h-8
-                                      rounded-lg bg-[#1A1740]
-                                      border border-[#2D2B55]
+                                      rounded-lg bg-[#1E1E1E]
+                                      border border-[#333333]
                                       flex items-center 
                                       justify-center text-gray-500
                                       text-sm">
@@ -637,7 +637,7 @@ export default function ApiUsageTrackerPage() {
                         </div>
 
                         <div className="p-4 border-t 
-                      border-[#2D2B55] flex-shrink-0">
+                      border-[#333333] flex-shrink-0">
                             <button
                                 onClick={() => { setSelectedUser(null); setIsModalOpen(false); }}
                                 className="w-full bg-purple-700
@@ -656,7 +656,7 @@ export default function ApiUsageTrackerPage() {
                 input:-webkit-autofill,
                 input:-webkit-autofill:hover,
                 input:-webkit-autofill:focus {
-                    -webkit-box-shadow: 0 0 0px 1000px #1A1740 inset !important;
+                    -webkit-box-shadow: 0 0 0px 1000px #1E1E1E inset !important;
                     -webkit-text-fill-color: white !important;
                     transition: background-color 5000s ease-in-out 0s;
                 }

@@ -180,7 +180,7 @@ export default function AnalyticsPage() {
     // --- Components ---
 
     const StatCard = ({ icon, name, value, sub, color }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-lg"
@@ -202,7 +202,7 @@ export default function AnalyticsPage() {
                 </span>
                 <span className="text-white text-[10px] font-black">{count}</span>
             </div>
-            <div className="h-1.5 bg-[#2D2B55] rounded-full overflow-hidden">
+            <div className="h-1.5 bg-[#2A2A2A] rounded-full overflow-hidden">
                 <div
                     className={cn("h-full transition-all duration-1000", colorClass || "bg-purple-600")}
                     style={{ width: `${percentage}%` }}
@@ -230,7 +230,7 @@ export default function AnalyticsPage() {
                         User engagement, growth, and insights
                     </p>
                 </div>
-                <div className="flex items-center bg-[#1A1740] border border-[#2D2B55] p-1 rounded-xl">
+                <div className="flex items-center bg-[#1E1E1E] border border-[#333333] p-1 rounded-xl">
                     {['Today', '7 Days', '30 Days', 'All Time'].map((r) => (
                         <button
                             key={r}
@@ -258,7 +258,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* SECTION 3: User Growth Chart */}
-            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card">
+            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
                 <div className="flex items-center justify-between mb-10">
                     <div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">User Growth</h3>
@@ -273,7 +273,7 @@ export default function AnalyticsPage() {
                     {chartData.data.map((d, i) => (
                         <div key={i} className="flex-1 flex flex-col items-center gap-2 group relative">
                             {/* Tooltip */}
-                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-[#0F0C29] px-2.5 py-1 rounded-lg text-[10px] font-black opacity-0 group-hover:opacity-100 transition-all pointer-events-none shadow-xl z-10 whitespace-nowrap border-2 border-purple-500">
+                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-[#121212] px-2.5 py-1 rounded-lg text-[10px] font-black opacity-0 group-hover:opacity-100 transition-all pointer-events-none shadow-xl z-10 whitespace-nowrap border-2 border-purple-500">
                                 {d.count} Users
                                 <div className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 border-l-6 border-r-6 border-t-6 border-transparent border-t-white" />
                             </div>
@@ -315,7 +315,7 @@ export default function AnalyticsPage() {
             {/* SECTION 4: Distributions */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Users by Type */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card">
+                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
                             <PieChart size={18} />
@@ -335,7 +335,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Users by Plan */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card">
+                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
                             <LayoutGrid size={18} />
@@ -359,7 +359,7 @@ export default function AnalyticsPage() {
             {/* SECTION 5: Usage & Signups */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Top Tools */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card">
+                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
@@ -377,7 +377,7 @@ export default function AnalyticsPage() {
                                 <span className="text-purple-500 font-black text-xs w-6 opacity-40 group-hover:opacity-100 transition-opacity">#{idx + 1}</span>
                                 <div className="flex-1">
                                     <p className="text-white text-xs font-black uppercase tracking-widest">{tool.name}</p>
-                                    <div className="mt-1.5 h-1 bg-[#2D2B55] rounded-full overflow-hidden">
+                                    <div className="mt-1.5 h-1 bg-[#2A2A2A] rounded-full overflow-hidden">
                                         <div
                                             className="h-full bg-gradient-to-r from-purple-600 to-purple-400"
                                             style={{ width: usageData.length > 0 ? `${(tool.count / usageData.length) * 100 * 5}%` : '0%' }}
@@ -394,7 +394,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Recent Activity */}
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-3xl p-8 admin-card">
+                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
