@@ -2,24 +2,11 @@
 
 import React, { useState, useEffect, useMemo } from 'react'
 import {
-    Activity,
-    Zap,
-    Key,
-    DollarSign,
     Search,
     Download,
     ArrowLeft,
-    Clock,
-    CheckCircle2,
-    X,
-    Filter,
     ChevronDown,
-    Loader2,
-    LayoutGrid,
-    Target,
-    BarChart3,
-    Edit3,
-    Info
+    Loader2
 } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { cn } from '../../../../lib/utils'
@@ -584,62 +571,62 @@ export default function ApiUsageTrackerPage() {
                                         {
                                             name: 'DataForSEO Login',
                                             sub: 'PROVIDER',
-                                            key: 'api_key_dataforseo' as keyof UserUsage
+                                            key: 'api_key_dataforseo'
                                         },
                                         {
                                             name: 'Gemini AI Key',
                                             sub: 'GEMINI',
-                                            key: 'api_key_gemini' as keyof UserUsage
+                                            key: 'api_key_gemini'
                                         },
                                         {
                                             name: 'OpenRouter',
                                             sub: 'MULTI-AI',
-                                            key: 'api_key_openrouter' as keyof UserUsage
+                                            key: 'api_key_openrouter'
                                         },
-                                    ].map(item => (
-                                        <div key={item.key}
-                                            className="flex items-center
-                                justify-between
-                                bg-[#0F0C29] rounded-xl
-                                px-4 py-3">
-                                            <div className="flex 
-                                items-center gap-3">
-                                                <div className="w-8 h-8
-                                  rounded-lg bg-[#1A1740]
-                                  border border-[#2D2B55]
-                                  flex items-center 
-                                  justify-center text-gray-500
-                                  text-sm">
-                                                    🔑
-                                                </div>
-                                                <div>
-                                                    <div className="text-white
-                                    text-sm font-medium">
-                                                        {item.name}
+                                    ].map((item) => {
+                                        const key = item.key as keyof Profile;
+                                        const isSet = !!selectedUser?.[key];
+                                        return (
+                                            <div key={item.key}
+                                                className="flex items-center
+                                    justify-between
+                                    bg-[#0F0C29] rounded-xl
+                                    px-4 py-3">
+                                                <div className="flex 
+                                    items-center gap-3">
+                                                    <div className="w-8 h-8
+                                      rounded-lg bg-[#1A1740]
+                                      border border-[#2D2B55]
+                                      flex items-center 
+                                      justify-center text-gray-500
+                                      text-sm">
+                                                        🔑
                                                     </div>
-                                                    <div className="text-gray-600
-                                    text-[10px]">
-                                                        {item.sub}
+                                                    <div>
+                                                        <div className="text-white
+                                        text-sm font-medium">
+                                                            {item.name}
+                                                        </div>
+                                                        <div className="text-gray-600
+                                        text-[10px]">
+                                                            {item.sub}
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <span className={`text-xs 
+                                    font-bold
+                                    ${isSet ? 'text-green-400' : 'text-gray-600'}`}>
+                                                    {isSet ? '✓ SET' : 'NOT SET'}
+                                                </span>
                                             </div>
-                                            <span className={`text-xs 
-                                font-bold
-                                ${selectedUser?.[item.key]
-                                                    ? 'text-green-400'
-                                                    : 'text-gray-600'}`}>
-                                                {selectedUser?.[item.key]
-                                                    ? '✓ SET'
-                                                    : 'NOT SET'}
-                                            </span>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
 
                                     <div className="mt-4 p-3 
                             bg-blue-900/20 border 
                             border-blue-800/40 rounded-xl">
                                         <p className="text-blue-300 
-                              text-xs text-center">
+                                  text-xs text-center">
                                             ℹ️ This user is currently using
                                             the platform API keys for
                                             all tool executions.
@@ -664,7 +651,8 @@ export default function ApiUsageTrackerPage() {
                 </div>
             )}
 
-            <style jsx global>{`
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 input:-webkit-autofill,
                 input:-webkit-autofill:hover,
                 input:-webkit-autofill:focus {
@@ -672,7 +660,7 @@ export default function ApiUsageTrackerPage() {
                     -webkit-text-fill-color: white !important;
                     transition: background-color 5000s ease-in-out 0s;
                 }
-            `}</style>
+            ` }} />
         </div>
     )
 }
