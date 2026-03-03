@@ -44,7 +44,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     if (!isLoaded) return null
 
     return (
-        <div className="min-h-screen bg-[#0F0C29] text-white antialiased">
+        <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-300">
             <TopBar />
             <div className="flex pt-14">
                 <Sidebar />

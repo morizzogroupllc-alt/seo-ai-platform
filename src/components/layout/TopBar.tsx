@@ -39,7 +39,7 @@ export default function TopBar() {
     const userInitial = userType ? userType.charAt(0).toUpperCase() : 'U'
 
     return (
-        <header className="fixed top-0 right-0 left-0 h-14 bg-[#0F0C29] border-b border-white/5 z-30 flex items-center justify-between px-6">
+        <header className="fixed top-0 right-0 left-0 h-14 bg-[var(--bg-secondary)] border-b border-[var(--border-default)] z-30 flex items-center justify-between px-6">
             {/* Left: Page Title (Offset for sidebar on desktop) */}
             <div className="flex items-center md:ml-64">
                 <h2 className="text-sm font-bold text-white uppercase tracking-widest">
@@ -55,7 +55,7 @@ export default function TopBar() {
                     </div>
                     <input
                         type="text"
-                        className="block w-full bg-white/5 border border-white/10 rounded-xl py-1.5 pl-10 pr-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                        className="block w-full bg-[var(--bg-input)] border border-[var(--border-default)] rounded-xl py-1.5 pl-10 pr-3 text-sm text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-blue)]/50 focus:border-[var(--accent-blue)]/50 transition-all"
                         placeholder="Search tools..."
                     />
                 </div>
@@ -71,7 +71,7 @@ export default function TopBar() {
                 {/* Notifications */}
                 <button className="p-2 text-slate-400 hover:text-white transition-colors relative">
                     <Bell className="h-5 w-5" />
-                    <span className="absolute top-2 right-2 w-2 h-2 bg-purple-500 rounded-full border-2 border-[#0F0C29]"></span>
+                    <span className="absolute top-2 right-2 w-2 h-2 bg-[var(--accent-blue)] rounded-full border-2 border-[var(--bg-secondary)]"></span>
                 </button>
 
                 {/* Back to Admin Button */}

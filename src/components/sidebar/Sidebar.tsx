@@ -96,8 +96,8 @@ export default function Sidebar() {
             className={cn(
                 "h-11 px-3 rounded-xl flex items-center gap-3 transition-all duration-200 group relative",
                 active
-                    ? "bg-purple-700 text-white shadow-lg shadow-purple-900/20"
-                    : "text-gray-300 hover:bg-[#1A1740] hover:text-white"
+                    ? "bg-[var(--accent-blue)] text-white shadow-lg shadow-[var(--accent-blue)]/20"
+                    : "text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-white"
             )}
         >
             <Icon className={cn("w-5 h-5", active ? "text-white" : "text-gray-400 group-hover:text-purple-400")} />
@@ -113,7 +113,7 @@ export default function Sidebar() {
             {/* Mobile Hamburger Button */}
             <button
                 type="button"
-                className="md:hidden fixed top-4 left-4 z-50 p-2 text-white bg-purple-700 rounded-lg shadow-xl"
+                className="md:hidden fixed top-4 left-4 z-50 p-2 text-white bg-[var(--accent-blue)] rounded-lg shadow-xl"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -121,13 +121,13 @@ export default function Sidebar() {
 
             {/* Sidebar Container */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-40 w-64 bg-[#0F0C29] border-r border-[#2D2B55] flex flex-col transition-transform duration-300 shadow-2xl",
+                "fixed inset-y-0 left-0 z-40 w-64 bg-[var(--bg-primary)] border-r border-[var(--border-default)] flex flex-col transition-transform duration-300 shadow-2xl",
                 isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
             )}>
                 {/* --- TOP LOGO AREA (h-16) --- */}
                 <div className="h-16 px-5 flex items-center shrink-0">
                     <div className="flex items-center space-x-3">
-                        <div className="w-9 h-9 bg-purple-600 rounded-full flex items-center justify-center font-black text-white italic text-xl shadow-lg shadow-purple-900/40">
+                        <div className="w-9 h-9 bg-[var(--accent-blue)] rounded-full flex items-center justify-center font-black text-white italic text-xl shadow-lg shadow-[var(--accent-blue)]/40">
                             S
                         </div>
                         <span className="text-white font-bold text-sm tracking-wider uppercase leading-none">
@@ -137,12 +137,12 @@ export default function Sidebar() {
                 </div>
 
                 {/* --- USER TYPE SECTION --- */}
-                <div className="mx-3 mt-3 mb-2 bg-[#1A1740] rounded-xl p-3 border border-[#2D2B55]">
+                <div className="mx-3 mt-3 mb-2 bg-[var(--bg-secondary)] rounded-xl p-3 border border-[var(--border-default)]">
                     <div className="text-[10px] text-gray-500 uppercase tracking-wider font-bold">User Type</div>
                     <div className="text-white text-sm font-semibold mt-0.5 truncate">{userType || 'Not Selected'}</div>
                     <button
                         onClick={handleChangeRole}
-                        className="text-purple-400 text-[11px] hover:text-purple-300 font-bold mt-1 inline-flex items-center"
+                        className="text-[var(--accent-blue)] text-[11px] hover:text-blue-300 font-bold mt-1 inline-flex items-center"
                     >
                         ↩ Change Role
                     </button>
@@ -154,15 +154,15 @@ export default function Sidebar() {
                         <span className="text-gray-500 uppercase tracking-wider">Current Progress</span>
                         <span className="text-purple-400">Phase {currentPhaseIndex || 0} of 8</span>
                     </div>
-                    <div className="h-1 w-full bg-[#2D2B55] rounded-full overflow-hidden">
+                    <div className="h-1 w-full bg-[var(--bg-input)] rounded-full overflow-hidden">
                         <div
-                            className="h-full bg-purple-600 rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(147,51,234,0.5)]"
+                            className="h-full bg-[var(--accent-blue)] rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(59,130,246,0.5)]"
                             style={{ width: `${((currentPhaseIndex || 0) / 8) * 100}%` }}
                         />
                     </div>
                 </div>
 
-                <div className="border-t border-[#2D2B55] mx-3" />
+                <div className="border-t border-[var(--border-default)] mx-3" />
 
                 {/* --- NAVIGATION CONTENT --- */}
                 <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6 scrollbar-hide">
@@ -206,8 +206,8 @@ export default function Sidebar() {
                                             className={cn(
                                                 "h-11 px-3 rounded-xl flex items-center gap-3 transition-all duration-200 group",
                                                 isActive
-                                                    ? "bg-purple-700 text-white shadow-lg shadow-purple-900/20"
-                                                    : "text-gray-300 hover:bg-[#1A1740] hover:text-white"
+                                                    ? "bg-[var(--accent-blue)] text-white shadow-lg shadow-[var(--accent-blue)]/20"
+                                                    : "text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-white"
                                             )}
                                         >
                                             <phase.icon className={cn("w-5 h-5", isActive ? "text-white" : "text-gray-400 group-hover:text-purple-400")} />
@@ -219,7 +219,7 @@ export default function Sidebar() {
 
                                         {/* Sub-items (Accordion) */}
                                         {isExpanded && phase.id === 'research' && (
-                                            <div className="ml-3 mt-1 space-y-1 border-l border-[#2D2B55]">
+                                            <div className="ml-3 mt-1 space-y-1 border-l border-[var(--border-default)]">
                                                 {[
                                                     { name: 'Niche Finder', href: '/research', active: pathname === '/research' },
                                                     { name: 'SERP Analyzer', href: '/research/serp', soon: true },
@@ -232,13 +232,13 @@ export default function Sidebar() {
                                                         className={cn(
                                                             "h-9 pl-8 pr-3 flex items-center justify-between text-xs font-semibold rounded-r-xl transition-all",
                                                             sub.active
-                                                                ? "text-purple-400 border-l-2 border-purple-500 bg-purple-500/5"
+                                                                ? "text-[var(--accent-blue)] border-l-2 border-[var(--accent-blue)] bg-[var(--accent-blue)]/5"
                                                                 : "text-gray-500 hover:text-white hover:bg-white/5"
                                                         )}
                                                     >
                                                         <span>{sub.name}</span>
                                                         {sub.soon && (
-                                                            <span className="text-[8px] bg-[#1A1740] px-1.5 py-0.5 rounded text-gray-500 border border-[#2D2B55]">Soon</span>
+                                                            <span className="text-[8px] bg-[var(--bg-secondary)] px-1.5 py-0.5 rounded text-[var(--text-tertiary)] border border-[var(--border-default)]">Soon</span>
                                                         )}
                                                     </Link>
                                                 ))}
@@ -277,17 +277,17 @@ export default function Sidebar() {
 
                 {/* --- BOTTOM AREA --- */}
                 <div className="mt-auto shrink-0">
-                    <div className="border-t border-[#2D2B55] mx-3" />
+                    <div className="border-t border-[var(--border-default)] mx-3" />
                     <div className="px-3 py-4 space-y-3">
                         {/* CREDITS BOX */}
-                        <div className="bg-[#1A1740] rounded-xl p-3 border border-[#2D2B55]">
+                        <div className="bg-[var(--bg-secondary)] rounded-xl p-3 border border-[var(--border-default)]">
                             <div className="flex items-center gap-2 mb-1.5">
                                 <CreditCard size={12} className="text-gray-500" />
                                 <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Plan</span>
                             </div>
                             <div className="text-white text-sm font-semibold">Free Plan</div>
                             <div className="text-purple-400 text-[11px] font-bold mt-1">5 searches remaining</div>
-                            <button className="text-purple-400 text-[11px] font-black uppercase tracking-tighter hover:text-white mt-1.5 inline-flex items-center gap-1 transition-colors">
+                            <button className="text-[var(--accent-blue)] text-[11px] font-black uppercase tracking-tighter hover:text-white mt-1.5 inline-flex items-center gap-1 transition-colors">
                                 Upgrade Plan <ChevronRight size={10} />
                             </button>
                         </div>
