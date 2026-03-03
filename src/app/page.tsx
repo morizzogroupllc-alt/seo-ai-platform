@@ -275,8 +275,8 @@ export default function LandingPage() {
           ].map((card, i) => (
             <div
               key={card.id}
-              className="bg-[#1A1740] border border-white/5 p-8 rounded-3xl hover:border-purple-500/50 transition-all duration-300 group flex flex-col min-h-[220px] animate-slideInUp"
-              style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'forwards' }}
+              className="bg-[#1A1740] border border-white/5 p-8 rounded-3xl hover:border-purple-500/50 transition-all duration-300 group flex flex-col min-h-[220px]"
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
               <span className="text-4xl block mb-6 transition-transform group-hover:scale-110 duration-300">{card.icon}</span>
               <h3 className="text-white font-black text-sm leading-tight mb-3 italic uppercase tracking-wider">{card.title}</h3>
@@ -307,8 +307,8 @@ export default function LandingPage() {
             ].map((phase, i) => (
               <div
                 key={i}
-                className="bg-[#1A1740] border border-white/5 p-6 rounded-2xl space-y-4 hover:bg-purple-600/5 transition-colors animate-slideInUp"
-                style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'forwards' }}
+                className="bg-[#1A1740] border border-white/5 p-6 rounded-2xl space-y-4 hover:bg-purple-600/5 transition-colors"
+                style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <div className="flex justify-between items-center">
                   <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400"><phase.i size={20} /></div>
@@ -379,10 +379,10 @@ export default function LandingPage() {
               <div
                 key={tier.name}
                 className={cn(
-                  "bg-[#1A1740] rounded-3xl p-6 border flex flex-col justify-between transition-all animate-slideInUp",
+                  "bg-[#1A1740] rounded-3xl p-6 border flex flex-col justify-between transition-all",
                   tier.popular ? "border-purple-500 ring-2 ring-purple-500/20 md:scale-105 z-10" : "border-white/5"
                 )}
-                style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'forwards' }}
+                style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <div className="space-y-6 text-left">
                   <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">

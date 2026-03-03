@@ -120,7 +120,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {/* Layout Wrapper */}
             <div className="flex flex-1 relative z-10 overflow-hidden">
                 <aside className={cn(
-                    "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar animate-slideInLeft flex flex-col",
+                    "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar flex flex-col",
                     isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
                     isDarkMode ? "bg-[#1E1E1E] border-r border-[#333333] shadow-sm" : "bg-white border-r border-gray-200"
                 )}>

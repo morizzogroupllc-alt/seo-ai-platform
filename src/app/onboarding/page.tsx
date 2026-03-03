@@ -123,8 +123,8 @@ export default function OnboardingPage() {
                             Setup takes 10 seconds
                         </span>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-                        <span className="bg-gradient-to-r from-white via-purple-100 to-purple-400 bg-clip-text text-transparent italic uppercase py-2">
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.3] py-2">
+                        <span className="bg-gradient-to-r from-white via-purple-100 to-purple-400 bg-clip-text text-transparent italic uppercase pb-4 inline-block">
                             Choose Your Path
                         </span>
                     </h1>
@@ -146,7 +146,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* ACTION AREA */}
-                <div className="mt-12 flex flex-col items-center space-y-4 animate-slideInUp delay-500">
+                <div className="mt-12 flex flex-col items-center space-y-4">
                     <button
                         onClick={handleContinue}
                         disabled={!selectedType}
@@ -166,7 +166,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* TRUST BADGES */}
-                <div className="mt-12 flex flex-wrap justify-center gap-8 md:gap-12 animate-slideInUp delay-700">
+                <div className="mt-12 flex flex-wrap justify-center gap-8 md:gap-12">
                     <TrustBadge label="No Credit Card" icon={<Check className="w-3 h-3" />} />
                     <TrustBadge label="136 Tools Ready" icon={<Zap className="w-3 h-3 fill-slate-500" />} />
                     <TrustBadge label="Personalized Journey" icon={<Home className="w-3 h-3" />} />
@@ -181,13 +181,11 @@ function OnboardingCard({ title, description, icon: Icon, color, bgColor, tag, t
         <button
             onClick={onSelect}
             className={cn(
-                "group relative w-full h-full p-6 rounded-[20px] border transition-all duration-500 text-left flex flex-col animate-slideInUp min-w-0",
-                delay,
+                "group relative w-full h-full p-6 rounded-[20px] border transition-all duration-500 text-left flex flex-col min-w-0",
                 isSelected
                     ? "bg-[#1E1A5E] border-purple-500 shadow-[0_0_40px_rgba(139,92,246,0.1)] scale-[1.02] z-10"
                     : "bg-[#120F2D] border-[#2D2B55] hover:border-purple-500/50 hover:bg-[#1A1650] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
             )}
-            style={{ animationFillMode: 'forwards' }}
         >
             {/* Selected Indicator */}
             <div className={cn(
