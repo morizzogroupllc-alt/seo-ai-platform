@@ -316,6 +316,10 @@ export default function ApiUsageTrackerPage() {
                         placeholder="Search by email..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        style={{
+                            colorScheme: 'dark',
+                            backgroundColor: '#1A1740'
+                        }}
                         className="w-full bg-[#1A1740] border border-[#2D2B55] text-white pl-11 pr-10 py-2.5 rounded-xl placeholder-gray-600 focus:border-purple-500 focus:outline-none transition-all"
                     />
                     {searchQuery && (
@@ -456,10 +460,9 @@ export default function ApiUsageTrackerPage() {
                 </div>
             </div>
 
-            {/* SECTION 6: User Detail Modal */}
             {isModalOpen && selectedUser && (
                 <div className="fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center p-4 backdrop-blur-md animate-fadeIn" onClick={() => setIsModalOpen(false)}>
-                    <div className="relative bg-[#1A1740] border border-[#2D2B55] rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col scale-in custom-scrollbar" onClick={e => e.stopPropagation()}>
+                    <div className="relative bg-[#1A1740] border border-[#2D2B55] rounded-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col scale-in custom-scrollbar" onClick={e => e.stopPropagation()}>
                         {/* Modal Header */}
                         <div className="relative p-8 border-b border-white/5 bg-gradient-to-r from-purple-900/20 to-transparent">
                             <div className="flex items-center justify-between relative z-10">
@@ -593,26 +596,26 @@ export default function ApiUsageTrackerPage() {
                                             { name: 'Gemini AI Key', configured: !!selectedUser.api_key_gemini, provider: 'GEMINI' },
                                             { name: 'OpenRouter Integration', configured: false, provider: 'MULTI-AI' }
                                         ].map((key, i) => (
-                                            <div key={i} className="flex items-center justify-between border-b border-white/5 last:border-0 pb-6 last:pb-0">
-                                                <div className="flex items-center gap-4">
+                                            <div key={i} className="flex items-center justify-between border-b border-white/5 last:border-0 py-2 last:pb-0">
+                                                <div className="flex items-center gap-3">
                                                     <div className={cn(
-                                                        "w-12 h-12 rounded-2xl flex items-center justify-center text-xl",
+                                                        "w-8 h-8 rounded-lg flex items-center justify-center",
                                                         key.configured ? "bg-green-900/20 text-green-400 border border-green-500/10" : "bg-gray-800 text-gray-600 border border-white/5"
                                                     )}>
-                                                        <Key className="w-5 h-5" />
+                                                        <Key size={14} />
                                                     </div>
                                                     <div>
-                                                        <p className="text-white font-black text-sm">{key.name}</p>
-                                                        <p className="text-gray-600 text-[10px] font-bold uppercase tracking-widest">{key.provider}</p>
+                                                        <p className="text-white font-black text-xs">{key.name}</p>
+                                                        <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest">{key.provider}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex items-center gap-3">
                                                     {key.configured ? (
-                                                        <div className="flex items-center gap-1.5 text-green-400 font-black text-[10px] uppercase">
-                                                            <CheckCircle2 size={12} /> Configured
+                                                        <div className="flex items-center gap-1.5 text-green-400 font-black text-[9px] uppercase">
+                                                            <CheckCircle2 size={10} /> Configured
                                                         </div>
                                                     ) : (
-                                                        <span className="text-gray-700 font-bold text-[10px] uppercase">Not set</span>
+                                                        <span className="text-gray-700 font-bold text-[9px] uppercase">Not set</span>
                                                     )}
                                                 </div>
                                             </div>
@@ -632,6 +635,16 @@ export default function ApiUsageTrackerPage() {
                     </div>
                 </div>
             )}
+
+            <style jsx global>{`
+                input:-webkit-autofill,
+                input:-webkit-autofill:hover,
+                input:-webkit-autofill:focus {
+                    -webkit-box-shadow: 0 0 0px 1000px #1A1740 inset !important;
+                    -webkit-text-fill-color: white !important;
+                    transition: background-color 5000s ease-in-out 0s;
+                }
+            `}</style>
         </div>
     )
 }
