@@ -92,7 +92,7 @@ export default function LandingPage() {
 
         <div className="relative z-10 max-w-5xl">
           {/* Heading Section */}
-          <div className="animate-fadeInUp" style={{ animationDelay: '0ms' }}>
+          <div className="animate-slideInUp" style={{ animationDelay: '0ms' }}>
             <p className="text-gray-400 text-lg mb-2 font-medium">
               The Complete Local SEO Platform
             </p>
@@ -104,7 +104,7 @@ export default function LandingPage() {
           </div>
 
           {/* Feature Pills Row */}
-          <div className="flex flex-wrap justify-center gap-6 py-6 animate-fadeInUp" style={{ animationDelay: '200ms' }}>
+          <div className="flex flex-wrap justify-center gap-6 py-6 animate-slideInUp" style={{ animationDelay: '200ms' }}>
             {['136 AI-Powered Tools', 'Rank & Rent Automation', 'No Credit Card Required'].map(p => (
               <div key={p} className="flex items-center space-x-2 text-sm font-bold text-slate-300">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -113,11 +113,11 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '300ms' }}>
+          <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed animate-slideInUp" style={{ animationDelay: '300ms' }}>
             Find niches, build websites, rank on Google Maps, automate everything — all in one platform.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8 animate-fadeInUp" style={{ animationDelay: '400ms' }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8 animate-slideInUp" style={{ animationDelay: '400ms' }}>
             <button
               onClick={handleGetStarted}
               className="w-full sm:w-auto px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-black rounded-2xl shadow-xl shadow-purple-900/40 transition-all active:scale-[0.98] uppercase tracking-[0.2em] text-sm flex items-center justify-center space-x-3"
@@ -135,7 +135,7 @@ export default function LandingPage() {
 
       {/* SECTION 3: DASHBOARD PREVIEW */}
       <section className="py-16 px-8 max-w-6xl mx-auto">
-        <div className="text-center space-y-4 mb-12 animate-fadeInUp" style={{ animationDelay: '300ms' }}>
+        <div className="text-center space-y-4 mb-12 animate-slideInUp" style={{ animationDelay: '300ms' }}>
           <h2 className="text-white text-3xl md:text-4xl font-black italic tracking-tighter uppercase">Powerful dashboard. <br /><span className="text-purple-500">Zero learning curve.</span></h2>
         </div>
 
@@ -263,7 +263,7 @@ export default function LandingPage() {
 
       {/* SECTION 5: WHO IS IT FOR / FEATURE BLOCKS */}
       <section id="features" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
-        <h2 className="text-3xl md:text-5xl font-black text-center text-white italic mb-16 tracking-tight uppercase animate-fadeInUp">Built for every type of<br /><span className="text-purple-400">Local SEO professional</span></h2>
+        <h2 className="text-3xl md:text-5xl font-black text-center text-white italic mb-16 tracking-tight uppercase animate-slideInUp">Built for every type of<br /><span className="text-purple-400">Local SEO professional</span></h2>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
           {[
@@ -275,7 +275,7 @@ export default function LandingPage() {
           ].map((card, i) => (
             <div
               key={card.id}
-              className="bg-[#1A1740] border border-white/5 p-8 rounded-3xl hover:border-purple-500/50 transition-all duration-300 group flex flex-col min-h-[220px] animate-fadeInUp opacity-0"
+              className="bg-[#1A1740] border border-white/5 p-8 rounded-3xl hover:border-purple-500/50 transition-all duration-300 group flex flex-col min-h-[220px] animate-slideInUp"
               style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'forwards' }}
             >
               <span className="text-4xl block mb-6 transition-transform group-hover:scale-110 duration-300">{card.icon}</span>
@@ -289,7 +289,7 @@ export default function LandingPage() {
       {/* SECTION 6: 8 PHASES SHOWCASE */}
       <section id="phases" className="py-24 bg-black/20 scroll-mt-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16 space-y-4 animate-fadeInUp">
+          <div className="text-center mb-16 space-y-4 animate-slideInUp">
             <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-tight uppercase">Your complete SEO journey<br />in 8 phases</h2>
             <p className="text-slate-500 font-bold uppercase text-xs tracking-widest">Follow the journey or jump to any phase — 136 tools at your fingertips</p>
           </div>
@@ -307,7 +307,7 @@ export default function LandingPage() {
             ].map((phase, i) => (
               <div
                 key={i}
-                className="bg-[#1A1740] border border-white/5 p-6 rounded-2xl space-y-4 hover:bg-purple-600/5 transition-colors animate-fadeInUp opacity-0"
+                className="bg-[#1A1740] border border-white/5 p-6 rounded-2xl space-y-4 hover:bg-purple-600/5 transition-colors animate-slideInUp"
                 style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'forwards' }}
               >
                 <div className="flex justify-between items-center">
@@ -326,12 +326,12 @@ export default function LandingPage() {
 
       {/* SECTION 7: EVERYTHING YOU NEED/FEATURE BLOCKS ALIGNMENT */}
       <section className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
-        <div className="text-center mb-16 animate-fadeInUp">
+        <div className="text-center mb-16 animate-slideInUp">
           <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-tight uppercase">Everything you need.<br />Nothing you don't.</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          <div className="bg-[#120F2D] border border-[#2D2B55] rounded-3xl p-8 flex flex-col min-h-[280px] animate-fadeInLeft">
+          <div className="bg-[#120F2D] border border-[#2D2B55] rounded-3xl p-8 flex flex-col min-h-[280px] animate-slideInLeft">
             <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 mb-6">
               <Home className="w-6 h-6" />
             </div>
@@ -339,7 +339,7 @@ export default function LandingPage() {
             <p className="text-slate-400 text-sm leading-relaxed font-medium">Bulk generate 5,000 pages in 10 minutes. Auto internal linking. Auto deploy. The system that changed everything.</p>
           </div>
 
-          <div className="bg-[#120F2D] border border-purple-600 rounded-3xl p-8 flex flex-col min-h-[280px] animate-fadeInUp">
+          <div className="bg-[#120F2D] border border-purple-600 rounded-3xl p-8 flex flex-col min-h-[280px] animate-slideInUp">
             <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-6">
               <Target className="w-6 h-6" />
             </div>
@@ -354,7 +354,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="bg-[#120F2D] border border-[#2D2B55] rounded-3xl p-8 flex flex-col min-h-[280px] animate-fadeInRight">
+          <div className="bg-[#120F2D] border border-[#2D2B55] rounded-3xl p-8 flex flex-col min-h-[280px] animate-fadeIn">
             <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-6">
               <Key className="w-6 h-6" />
             </div>
@@ -367,7 +367,7 @@ export default function LandingPage() {
       {/* SECTION 8: PRICING section */}
       <section id="pricing" className="py-24 px-6 bg-black/20 scroll-mt-20">
         <div className="max-w-7xl mx-auto space-y-16">
-          <h2 className="text-3xl md:text-5xl font-black text-center text-white italic tracking-tight uppercase animate-fadeInUp">Start free. Scale when ready.</h2>
+          <h2 className="text-3xl md:text-5xl font-black text-center text-white italic tracking-tight uppercase animate-slideInUp">Start free. Scale when ready.</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
             {[
@@ -379,7 +379,7 @@ export default function LandingPage() {
               <div
                 key={tier.name}
                 className={cn(
-                  "bg-[#1A1740] rounded-3xl p-6 border flex flex-col justify-between transition-all animate-fadeInUp opacity-0",
+                  "bg-[#1A1740] rounded-3xl p-6 border flex flex-col justify-between transition-all animate-slideInUp",
                   tier.popular ? "border-purple-500 ring-2 ring-purple-500/20 md:scale-105 z-10" : "border-white/5"
                 )}
                 style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'forwards' }}
