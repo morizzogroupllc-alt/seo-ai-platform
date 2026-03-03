@@ -58,6 +58,85 @@ export default function AdminPaymentsPage() {
         return sum + (prices[u.plan] || 0)
     }, 0)
 
+    // Time boundaries
+    const now = new Date()
+    const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1)
+    const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1)
+    const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0)
+
+    // This month paid users
+    const thisMonthPaid = paidUsers.filter(u =>
+        new Date(u.created_at) >= thisMonthStart
+    ).length
+
+    // Last month paid users  
+    const lastMonthPaid = paidUsers.filter(u => {
+        const d = new Date(u.created_at)
+        return d >= lastMonthStart &&
+            d <= lastMonthEnd
+    }).length
+
+    const avgPrice = paidUsersCount > 0 ? revenue / paidUsersCount : 0
+
+    // Helper functions
+    const calcGrowth = (current: number, previous: number) => {
+        if (previous === 0 && current === 0)
+            return { pct: 0, label: '0% vs last month', color: 'text-gray-500' }
+        if (previous === 0 && current > 0)
+            return { pct: 100, label: '+100% vs last month', color: 'text-green-400' }
+        const pct = Math.round(((current - previous) / previous) * 100)
+        return {
+            pct,
+            label: (pct >= 0 ? '+' : '') + pct + '% vs last month',
+            color: pct > 0 ? 'text-green-400' : pct < 0 ? 'text-red-400' : 'text-gray-500'
+        }
+    }
+
+    const getPlanGrowth = (planName: string) => {
+        const thisMon = users.filter(u =>
+            u.plan === planName &&
+            u.role !== 'admin' &&
+            new Date(u.created_at) >= thisMonthStart
+        ).length
+
+        const lastMon = users.filter(u =>
+            u.plan === planName &&
+            u.role !== 'admin' &&
+            new Date(u.created_at) >= lastMonthStart &&
+            new Date(u.created_at) <= lastMonthEnd
+        ).length
+
+        return calcGrowth(thisMon, lastMon)
+    }
+
+    const exportCSV = () => {
+        const headers = ['Email', 'Plan', 'Amount', 'Joined', 'Status']
+        const rows = paidUsers.map(u => [
+            u.email,
+            u.plan,
+            '$' + (({ starter: 19, pro: 49, agency: 99, enterprise: 199 } as any)[u.plan] || 0),
+            new Date(u.created_at).toLocaleDateString(),
+            u.is_active ? 'Active' : 'Inactive'
+        ])
+        const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n')
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'payments_' + new Date().toISOString().split('T')[0] + '.csv'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+    }
+
+    const mrrGrowth = calcGrowth(thisMonthPaid * avgPrice, lastMonthPaid * avgPrice)
+    const activeGrowth = calcGrowth(thisMonthPaid, lastMonthPaid)
+    const freeGrowth = calcGrowth(
+        users.filter(u => u.plan === 'free' && new Date(u.created_at) >= thisMonthStart).length,
+        users.filter(u => u.plan === 'free' && new Date(u.created_at) >= lastMonthStart && new Date(u.created_at) <= lastMonthEnd).length
+    )
+
     if (loading) return (
         <div className="flex flex-col items-center justify-center h-[60vh] space-y-4">
             <div className="w-10 h-10 border-4 border-purple-600/20 border-t-purple-600 rounded-full animate-spin" />
@@ -65,7 +144,7 @@ export default function AdminPaymentsPage() {
         </div>
     )
 
-    const StatCard = ({ icon, name, value, sub, color, badge }: any) => (
+    const StatCard = ({ icon, name, value, sub, color, growth }: any) => (
         <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-5 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
@@ -77,19 +156,16 @@ export default function AdminPaymentsPage() {
                     <span className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
                         {name}
                     </span>
-                    {badge && (
-                        <span className={cn(
-                            "text-[9px] px-2 py-0.5 rounded-full font-bold border whitespace-nowrap",
-                            badge.includes('+') ? "bg-green-900/40 text-green-400 border-green-500/20" : "bg-gray-800 text-gray-400 border-white/5"
-                        )}>
-                            {badge}
-                        </span>
-                    )}
                 </div>
             </div>
             <div className="text-4xl font-black text-white mb-1">
                 {value}
             </div>
+            {growth && (
+                <div className={cn("text-[10px] font-bold mb-4", growth.color)}>
+                    {growth.label}
+                </div>
+            )}
             <div className="flex items-center justify-between">
                 <div className="text-gray-500 text-[11px] font-bold uppercase tracking-wider">
                     {sub || 'TOTAL REVENUE'}
@@ -98,7 +174,7 @@ export default function AdminPaymentsPage() {
         </div>
     )
 
-    const PlanRevenueCard = ({ plan, icon, count, price, color }: any) => (
+    const PlanRevenueCard = ({ plan, icon, count, price, color, growth }: any) => (
         <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card transition-all hover:border-purple-500/50"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex items-center gap-3 mb-4">
@@ -110,9 +186,14 @@ export default function AdminPaymentsPage() {
             <div className="text-3xl font-black text-white mb-1">
                 ${(count * price).toLocaleString()}
             </div>
-            <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+            <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">
                 {count} users × ${price}
             </div>
+            {growth && (
+                <div className={cn("text-[10px] font-bold", growth.color)}>
+                    {growth.label}
+                </div>
+            )}
         </div>
     )
 
@@ -128,7 +209,10 @@ export default function AdminPaymentsPage() {
                         Subscriptions, billing, and ARR tracking
                     </p>
                 </div>
-                <button className="flex items-center gap-2 px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-black rounded-xl transition-all shadow-lg shadow-purple-600/20 active:scale-95 uppercase tracking-widest">
+                <button
+                    onClick={exportCSV}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-black rounded-xl transition-all shadow-lg shadow-purple-600/20 active:scale-95 uppercase tracking-widest"
+                >
                     <Download className="w-3.5 h-3.5" />
                     Export CSV
                 </button>
@@ -142,7 +226,7 @@ export default function AdminPaymentsPage() {
                     value={"$" + revenue.toLocaleString()}
                     sub={"Rs. " + (revenue * 278).toLocaleString()}
                     color="#059669"
-                    badge="+12.5%"
+                    growth={mrrGrowth}
                 />
                 <StatCard
                     icon="⚡"
@@ -150,6 +234,7 @@ export default function AdminPaymentsPage() {
                     value={paidUsersCount}
                     sub="PAID ACCOUNTS"
                     color="#8B5CF6"
+                    growth={activeGrowth}
                 />
                 <StatCard
                     icon="🆓"
@@ -157,6 +242,7 @@ export default function AdminPaymentsPage() {
                     value={freeCount}
                     sub="BASIC USERS"
                     color="#6B7280"
+                    growth={freeGrowth}
                 />
                 <StatCard
                     icon="📉"
@@ -164,6 +250,7 @@ export default function AdminPaymentsPage() {
                     value="0%"
                     sub="LAST 30 DAYS"
                     color="#EF4444"
+                    growth={{ label: 'No data yet', color: 'text-gray-500' }}
                 />
                 <StatCard
                     icon="📈"
@@ -171,6 +258,7 @@ export default function AdminPaymentsPage() {
                     value={"$" + (revenue * 12).toLocaleString()}
                     sub={"Rs. " + (revenue * 12 * 278).toLocaleString()}
                     color="#F59E0B"
+                    growth={mrrGrowth}
                 />
             </div>
 
@@ -178,10 +266,10 @@ export default function AdminPaymentsPage() {
             <div className="space-y-4">
                 <h3 className="text-white font-black text-xs uppercase tracking-widest pl-1">Revenue by Plan</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <PlanRevenueCard plan="Starter" icon="⚡" count={starterCount} price={19} color="#8B5CF6" />
-                    <PlanRevenueCard plan="Pro" icon="🚀" count={proCount} price={49} color="#3B82F6" />
-                    <PlanRevenueCard plan="Agency" icon="🏢" count={agencyCount} price={99} color="#F59E0B" />
-                    <PlanRevenueCard plan="Enterprise" icon="👑" count={enterpriseCount} price={199} color="#EF4444" />
+                    <PlanRevenueCard plan="Starter" icon="⚡" count={starterCount} price={19} color="#8B5CF6" growth={getPlanGrowth('starter')} />
+                    <PlanRevenueCard plan="Pro" icon="🚀" count={proCount} price={49} color="#3B82F6" growth={getPlanGrowth('pro')} />
+                    <PlanRevenueCard plan="Agency" icon="🏢" count={agencyCount} price={99} color="#F59E0B" growth={getPlanGrowth('agency')} />
+                    <PlanRevenueCard plan="Enterprise" icon="👑" count={enterpriseCount} price={199} color="#EF4444" growth={getPlanGrowth('enterprise')} />
                 </div>
             </div>
 
