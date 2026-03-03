@@ -148,18 +148,15 @@
   box-shadow: 0 0 20px rgba(124, 58, 237, 0.15), 0 0 40px rgba(124, 58, 237, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.stat-card-glow {
-  background: #262624 !important;
+.stat-card-glow,
+.admin-card {
+  background: #283548 !important;
   transition: all 0.3s ease;
 }
 
 .stat-card-glow:hover {
   box-shadow: 0 8px 32px rgba(124, 58, 237, 0.2), 0 0 0 1px rgba(124, 58, 237, 0.3);
   transform: translateY(-2px);
-}
-
-.admin-card {
-  background: #262624 !important;
 }
 
 .sidebar-active-glow {
@@ -275,6 +272,12 @@
 }
 
 /* Inputs */
+input,
+select,
+textarea {
+  background: #334155 !important;
+}
+
 .light-mode input,
 .light-mode select {
   background: #FAFAFA !important;
@@ -331,10 +334,31 @@
 }
 
 /* Table background refinements */
-.admin-layout table thead {
-  background: #30302E !important;
+thead tr {
+  background: #1E2434 !important;
 }
 
-.admin-layout table tbody tr:nth-child(odd) {
-  background: #272E3E !important;
+tbody tr {
+  background: #283548 !important;
+}
+
+tbody tr:hover {
+  background: #2E3F54 !important;
+}
+
+/* All dark boxes inside cards */
+[class*="bg-[#0F0C29]"],
+[class*="bg-[#1A1740]"],
+[class*="bg-[#262624]"] {
+  background-color: #283548 !important;
+}
+
+/* Inner boxes inside cards */
+.admin-card div[class*="bg-"] {
+  background: #283548 !important;
+}
+
+/* System service rows */
+.system-row {
+  background: #334155 !important;
 }
