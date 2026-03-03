@@ -272,7 +272,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     background: transparent;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: #2D2B55;
+                    background: #30302E;
                     border-radius: 10px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
