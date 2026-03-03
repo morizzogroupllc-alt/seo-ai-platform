@@ -32,7 +32,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d2b55;
+  background: #30302e;
   border-radius: 10px;
 }
 
@@ -286,9 +286,9 @@
 }
 
 /* Bg overrides */
-.light-mode [style*="background:#1A1740"],
-.light-mode [style*="background: #1A1740"],
-.light-mode [style*="background: rgb(26, 23, 64)"] {
+.light-mode [style*="background:#262624"],
+.light-mode [style*="background: #262624"],
+.light-mode [style*="background: rgb(38, 38, 36)"] {
   background: #FFFFFF !important;
 }
 

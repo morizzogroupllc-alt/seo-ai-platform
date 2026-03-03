@@ -163,7 +163,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     <div className="flex flex-col gap-0 border-t border-[#2D2B55]/50 pt-4">
                         {/* Super Admin Box */}
                         <div className="px-3 pb-2">
-                            <div className="bg-[#1A1740] border border-[#2D2B55] rounded-xl p-3">
+                            <div className="bg-[#262624] border border-[#2D2B55] rounded-xl p-3">
                                 <div className="flex items-center gap-3">
 
                                     {/* Avatar */}
