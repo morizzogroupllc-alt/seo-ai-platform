@@ -1,147 +1,55 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* ================================
-   CORE CLASSES - DO NOT REMOVE
-================================ */
-
-.admin-card {
-    background: #1E1E1E;
-    border: 1px solid #333333;
-    border-radius: 16px;
-    transition: transform 0.2s ease,
-        box-shadow 0.2s ease;
+@theme {
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
-.admin-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    border-color: #444444;
+:root {
+    --background: #0F172A;
+    --foreground: #F1F5F9;
 }
 
-.stat-card-glow {
-    background: #1E1E1E;
-    border: 1px solid #333333;
-    border-radius: 16px;
-    transition: transform 0.2s ease,
-        box-shadow 0.2s ease;
-    position: relative;
-    overflow: hidden;
+@layer base {
+    body {
+        @apply antialiased;
+        background: #0F172A;
+        color: #F1F5F9;
+        font-family: 'Inter', -apple-system,
+            BlinkMacSystemFont, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        letter-spacing: 0.01em;
+    }
 }
 
-.stat-card-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    border-color: #444444;
+.admin-layout {
+    background: #0F172A;
+    color: #F1F5F9;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-.sidebar-item {
-    color: #A1A1A1;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-.sidebar-item:hover {
-    background: #2A2A2A;
-    color: #FFFFFF;
+::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.sidebar-active-glow {
-    background: #2A2A2A !important;
-    color: #FFFFFF !important;
-    border-left: 3px solid #3B82F6;
-}
-
-.sidebar-active-glow * {
-    color: #FFFFFF !important;
-}
-
-.security-badge {
-    background: #1A0000 !important;
-    border: 1px solid rgba(239, 68, 68, 0.25) !important;
-    border-radius: 12px !important;
-}
-
-.security-title {
-    color: #FCA5A5 !important;
-}
-
-.security-sub {
-    color: rgba(239, 68, 68, 0.5) !important;
-}
-
-.quick-action-btn {
-    background: #1E1E1E;
-    border: 1px solid #333333;
+::-webkit-scrollbar-thumb {
+    background: #30302e;
     border-radius: 10px;
-    transition: all 0.2s ease;
 }
 
-.quick-action-btn:hover {
-    background: #2A2A2A;
-    border-color: #3B82F6;
-    transform: translateY(-1px);
-}
-
-.inner-box {
-    background: #2A2A2A;
-    border: 1px solid #333333;
-    border-radius: 8px;
-}
-
-.system-row {
-    background: #2A2A2A;
-    border: 1px solid #333333;
-    border-radius: 8px;
-}
-
-.verified-glow {
-    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.5));
-}
-
-.animate-slideInLeft {
-    animation: slideInLeft 0.3s ease forwards;
-}
-
-.animate-slideInUp {
-    animation: slideInUp 0.4s ease forwards;
-    opacity: 0;
-}
-
-.animate-fadeIn {
-    animation: fadeIn 0.3s ease forwards;
-}
-
-.animate-scaleIn {
-    animation: scaleIn 0.25s ease forwards;
-}
-
-.delay-100 {
-    animation-delay: 0.1s;
-}
-
-.delay-200 {
-    animation-delay: 0.2s;
-}
-
-.delay-300 {
-    animation-delay: 0.3s;
-}
-
-.delay-400 {
-    animation-delay: 0.4s;
-}
-
-.delay-500 {
-    animation-delay: 0.5s;
+::-webkit-scrollbar-thumb:hover {
+    background: #4b487e;
 }
 
 @keyframes slideInLeft {
     from {
         opacity: 0;
-        transform: translateX(-16px);
+        transform: translateX(-20px);
     }
 
     to {
@@ -153,7 +61,7 @@
 @keyframes slideInUp {
     from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(20px);
     }
 
     to {
@@ -175,7 +83,7 @@
 @keyframes scaleIn {
     from {
         opacity: 0;
-        transform: scale(0.96);
+        transform: scale(0.95);
     }
 
     to {
@@ -184,20 +92,235 @@
     }
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 20px 4px rgba(124, 58, 237, 0.3);
+    }
 }
 
-::-webkit-scrollbar-track {
-    background: #121212;
+.animate-slideInLeft {
+    animation: slideInLeft 0.4s ease forwards;
 }
 
-::-webkit-scrollbar-thumb {
-    background: #333333;
-    border-radius: 3px;
+.animate-slideInUp {
+    animation: slideInUp 0.4s ease forwards;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #444444;
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.3s ease forwards;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s infinite;
+}
+
+.delay-75 {
+    animation-delay: 75ms;
+}
+
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-150 {
+    animation-delay: 150ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.admin-card,
+.stat-card-glow {
+    background: #1E293B;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.3s ease;
+}
+
+.admin-card:hover,
+.stat-card-glow:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2),
+        0 4px 24px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.sidebar-item {
+    color: #94A3B8;
+    border-radius: 8px;
+}
+
+.sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #F1F5F9;
+}
+
+.sidebar-active-glow {
+    background: #6366F1 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
+}
+
+.sidebar-active-glow * {
+    color: #FFFFFF !important;
+}
+
+.verified-glow {
+    filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.8));
+}
+
+.system-row,
+.service-row {
+    background: #162032;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.quick-action-btn {
+    background: #1E293B;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #94A3B8;
+}
+
+.quick-action-btn:hover {
+    background: #243347;
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #F1F5F9;
+}
+
+.security-badge {
+    background: #1A0000 !important;
+    border: 1px solid rgba(239, 68, 68, 0.25) !important;
+    border-radius: 12px !important;
+}
+
+.security-title {
+    color: #FCA5A5 !important;
+}
+
+.security-sub {
+    color: rgba(239, 68, 68, 0.5) !important;
+}
+
+table {
+    background: #1E293B;
+}
+
+thead tr {
+    background: #162032;
+}
+
+th {
+    color: #64748B !important;
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+tbody tr:hover {
+    background: #1E3A5F !important;
+}
+
+td {
+    color: #CBD5E1 !important;
+}
+
+input,
+select,
+textarea {
+    background: #0F172A !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #F1F5F9 !important;
+    border-radius: 8px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #6366F1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+    outline: none !important;
+}
+
+.light-mode .admin-layout,
+.light-mode main {
+    background: #F0F4FF !important;
+}
+
+.light-mode .admin-sidebar {
+    background: #FFFFFF !important;
+    border-right: 1px solid #DDD6FE !important;
+}
+
+.light-mode .admin-topbar {
+    background: #FFFFFF !important;
+    border-bottom: 1px solid #DDD6FE !important;
+}
+
+.light-mode .admin-card,
+.light-mode .stat-card-glow {
+    background: #FFFFFF !important;
+    border-color: #DDD6FE !important;
+    box-shadow: 0 2px 12px rgba(109, 40, 217, 0.08) !important;
+}
+
+.light-mode .admin-card:hover {
+    border-color: #7C3AED !important;
+    box-shadow: 0 8px 24px rgba(109, 40, 217, 0.15) !important;
+}
+
+.light-mode table {
+    background: white !important;
+}
+
+.light-mode thead {
+    background: #F5F3FF !important;
+}
+
+.light-mode th {
+    color: #7C3AED !important;
+    border-bottom: 2px solid #DDD6FE !important;
+}
+
+.light-mode td {
+    color: #374151 !important;
+    border-bottom: 1px solid #F3F4F6 !important;
+}
+
+.light-mode tbody tr:hover {
+    background: #FAF5FF !important;
+}
+
+.light-mode input,
+.light-mode select {
+    background: #FAFAFA !important;
+    border-color: #DDD6FE !important;
+    color: #1E1B4B !important;
+}
+
+.light-mode .security-badge {
+    background: #1A0000 !important;
+    border-color: #7F1D1D !important;
 }
