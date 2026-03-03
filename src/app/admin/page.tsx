@@ -92,7 +92,7 @@ export default function AdminPage() {
     )
 
     const StatCard = ({ icon, name, count, sub, color, children, badge }: any) => (
-        <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-5 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="bg-[#2D2B3D] border border-[#2D2B55] rounded-2xl p-5 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
@@ -182,7 +182,7 @@ export default function AdminPage() {
 
             {/* ROW 3: Recent Signups + Quick Actions */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+                <div className="bg-[#2D2B3D] border border-[#2D2B55] rounded-2xl p-6 admin-card">
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h3 className="text-white font-black text-sm uppercase tracking-widest">Recent Signups</h3>
@@ -192,7 +192,7 @@ export default function AdminPage() {
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
-                            <thead className="border-b border-white/5">
+                            <thead className="border-b border-white/5 bg-[#2D2B3D]/50">
                                 <tr className="text-gray-500 text-[10px] uppercase tracking-wider font-bold">
                                     <th className="pb-3 pr-4">User Details</th>
                                     <th className="pb-3 px-4">Plan</th>
@@ -202,7 +202,7 @@ export default function AdminPage() {
                             </thead>
                             <tbody className="divide-y divide-white/5">
                                 {users.slice(0, 5).map((user, i) => (
-                                    <tr key={i} className="group hover:bg-white/5 transition-colors">
+                                    <tr key={i} className="group hover:bg-[#30302E] transition-colors">
                                         <td className="py-3 pr-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-8 h-8 rounded-full bg-purple-700 flex items-center justify-center text-white font-bold text-xs">{user.email?.[0].toUpperCase()}</div>
@@ -232,7 +232,7 @@ export default function AdminPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+                <div className="bg-[#2D2B3D] border border-[#2D2B55] rounded-2xl p-6 admin-card">
                     <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6">Quick Actions</h3>
                     <div className="grid grid-cols-2 gap-4">
                         {[
@@ -242,7 +242,7 @@ export default function AdminPage() {
                             { label: 'Tools', icon: Wrench, path: '/admin/tools' },
                         ].map((action, i) => (
                             <button key={i} onClick={() => router.push(action.path)}
-                                className="bg-[#1A1740] border border-[#2D2B55] rounded-xl p-6 flex flex-col items-center justify-center gap-3 group hover:border-purple-500 transition-all duration-300 hover:bg-purple-500/5">
+                                className="bg-[#2D2B3D] border border-[#2D2B55] rounded-xl p-6 flex flex-col items-center justify-center gap-3 group hover:border-purple-500 transition-all duration-300 hover:bg-purple-500/5">
                                 <action.icon className="w-6 h-6 text-gray-500 group-hover:text-purple-400 transition-colors" />
                                 <span className="text-gray-400 text-[11px] font-black uppercase tracking-widest group-hover:text-white transition-colors">{action.label}</span>
                             </button>
@@ -253,7 +253,7 @@ export default function AdminPage() {
 
             {/* ROW 4: System Services + User Growth chart */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+                <div className="bg-[#2D2B3D] border border-[#2D2B55] rounded-2xl p-6 admin-card">
                     <div className="mb-6">
                         <h3 className="text-white font-black text-sm uppercase tracking-widest flex items-center gap-2">
                             <Zap className="w-4 h-4 text-purple-400 fill-purple-400/20" />
@@ -282,7 +282,7 @@ export default function AdminPage() {
                             const statusLabel = item.status === 'operational' ? 'OPERATIONAL' : item.status === 'not_configured' ? 'NOT CONFIGURED' : 'COMING SOON'
 
                             return (
-                                <div key={i} className="flex items-center justify-between px-2 py-1 rounded-md bg-[#0F0C29] border border-[#1A1740] hover:border-purple-500/30 transition-all">
+                                <div key={i} className="flex items-center justify-between px-2 py-1 rounded-md bg-[#272E3E] border border-[#1A1740] hover:border-purple-500/30 transition-all">
                                     <div className="flex items-center gap-2">
                                         <div className={cn("w-1.5 h-1.5 rounded-full flex-shrink-0", dotColor)} />
                                         <div>
@@ -298,7 +298,7 @@ export default function AdminPage() {
                                         {item.status === 'not_configured' && (
                                             <button
                                                 onClick={() => router.push('/admin/api-health')}
-                                                className="text-[9px] px-1.5 py-0.5 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 text-gray-400 hover:text-white rounded transition-all">
+                                                className="text-[9px] px-1.5 py-0.5 bg-[#2D2B3D] border border-[#2D2B55] hover:border-purple-500 text-gray-400 hover:text-white rounded transition-all">
                                                 Configure →
                                             </button>
                                         )}
@@ -309,7 +309,7 @@ export default function AdminPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col h-full">
+                <div className="bg-[#2D2B3D] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col h-full">
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h3 className="text-white font-black text-sm uppercase tracking-widest">User Growth</h3>
@@ -351,7 +351,7 @@ export default function AdminPage() {
                     { t: 'Authentication', i: Lock, s: 'HEALTHY', stats: [['AUTH SERVER', 'UP ✓'], ['SESSION TTL', '72h ✓'], ['RATE LIMIT', 'Not Tracked']] },
                     { t: 'Environment', i: Server, s: 'HEALTHY', stats: [['NODE VERSION', 'v20 ✓'], ['HOSTING', 'Vercel ✓'], ['UPTIME', '99.9% ✓']] },
                 ].map((item, i) => (
-                    <div key={i} className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+                    <div key={i} className="bg-[#2D2B3D] border border-[#2D2B55] rounded-2xl p-6 admin-card">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <item.i className="w-5 h-5 text-green-500" />
