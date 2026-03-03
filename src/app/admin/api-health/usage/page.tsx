@@ -290,7 +290,7 @@ export default function ApiUsageTrackerPage() {
             {/* SECTION 2: 4 summary cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard icon="⚡" name="TOTAL CALLS" value={summary.total.toLocaleString()} sub="System wide consumption" color="#8B5CF6" />
-                <StatCard icon="🏢" name="PLATFORM API" value={summary.platform.toLocaleString()} sub="PLATFORM FUNDED" color="#3B82F6" />
+                <StatCard icon="🏢" name="PLATFORM API" value={summary.platform.toLocaleString()} sub="PLATFORM API CALLS" color="#3B82F6" />
                 <StatCard icon="🔑" name="OWN API KEYS" value={summary.own.toLocaleString()} sub="USER FUNDED" color="#059669" />
                 <StatCard icon="💰" name="EST. COST" value={"$" + summary.cost.toFixed(2)} sub="DATAFORSEO ESTIMATE" color="#F59E0B" />
             </div>

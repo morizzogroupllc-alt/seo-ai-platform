@@ -37,6 +37,7 @@ interface Profile {
     email: string
     api_key_dataforseo: string | null
     api_key_gemini: string | null
+    api_key_openrouter: string | null
     created_at: string
 }
 
@@ -65,25 +66,46 @@ export default function ApiHealthPage() {
         stripe_sk: ''
     })
 
+    const [latency, setLatency] = useState<number | null>(null)
+    const [adminProfile, setAdminProfile] = useState<Profile | null>(null)
+
     useEffect(() => {
         fetchData()
     }, [])
 
+    const measureLatency = async () => {
+        const start = Date.now()
+        await supabase
+            .from('profiles')
+            .select('count')
+            .limit(1)
+        const ms = Date.now() - start
+        setLatency(ms)
+    }
+
     const fetchData = async () => {
         setLoading(true)
+        measureLatency()
         try {
             const { data } = await supabase.from('profiles').select('*')
             setUsers(data || [])
 
-            // Load current admin's keys if available
+            // Fetch admin profile for configured count (FIX 3)
             const { data: { user } } = await supabase.auth.getUser()
             if (user) {
-                const adminProfile = (data || []).find((u: any) => u.id === user.id)
-                if (adminProfile) {
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single()
+
+                setAdminProfile(profile)
+
+                if (profile) {
                     setApiKeys(prev => ({
                         ...prev,
-                        dataforseo_login: adminProfile.api_key_dataforseo || '',
-                        gemini: adminProfile.api_key_gemini || ''
+                        dataforseo_login: profile.api_key_dataforseo || '',
+                        gemini: profile.api_key_gemini || ''
                     }))
                 }
             }
@@ -141,7 +163,13 @@ export default function ApiHealthPage() {
 
     // Derived Data
     const usersWithOwnKeys = users.filter(u => u.api_key_dataforseo || u.api_key_gemini)
-    const configuredCount = [apiKeys.dataforseo_login, apiKeys.gemini, apiKeys.stripe_pk].filter(Boolean).length
+    const configuredCount = [
+        true, // Supabase always connected
+        true, // Vercel always connected  
+        !!adminProfile?.api_key_dataforseo,
+        !!adminProfile?.api_key_gemini,
+        !!adminProfile?.api_key_openrouter,
+    ].filter(Boolean).length
 
     const StatCard = ({ icon, name, value, sub, color }: any) => (
         <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
@@ -203,7 +231,14 @@ export default function ApiHealthPage() {
                     </p>
                 </div>
                 <button
-                    onClick={() => { setRefreshing(true); fetchData().then(() => { setRefreshing(false); showToast('All status checks completed!', 'success'); }); }}
+                    onClick={() => {
+                        setRefreshing(true);
+                        measureLatency();
+                        fetchData().then(() => {
+                            setRefreshing(false);
+                            showToast('All status checks completed!', 'success');
+                        });
+                    }}
                     className="flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-black rounded-xl transition-all shadow-lg shadow-purple-600/20 active:scale-95 uppercase tracking-widest group"
                 >
                     <RefreshCw className={cn("w-4 h-4 transition-transform duration-700", refreshing && "animate-spin")} />
@@ -214,9 +249,18 @@ export default function ApiHealthPage() {
             {/* SECTION 2: 4 status cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard icon="🟢" name="UPTIME" value="99.9%" sub="All systems operational" color="#059669" />
-                <StatCard icon="🔌" name="CONFIGURED" value={`${configuredCount}/5`} sub="APIs INTEGRATED" color="#8B5CF6" />
+                <StatCard icon="🔌" name="CONFIGURED" value={configuredCount + '/5 APIs'} sub="APIs INTEGRATED" color="#8B5CF6" />
                 <StatCard icon="⚡" name="TOTAL CALLS" value="0" sub="Resets midnight" color="#3B82F6" />
-                <StatCard icon="⏱️" name="RESPONSE TIME" value="~45ms" sub="Optimal range" color="#F59E0B" />
+                <StatCard icon="⏱️" name="RESPONSE TIME"
+                    value={latency ? latency + 'ms' : 'Measuring...'}
+                    sub={latency
+                        ? latency < 100
+                            ? '✓ Excellent'
+                            : latency < 300
+                                ? '✓ Good'
+                                : '⚠ Slow'
+                        : 'Supabase ping'}
+                    color="#F59E0B" />
             </div>
 
             {/* SECTION 3: API Services */}
