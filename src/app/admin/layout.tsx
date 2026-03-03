@@ -83,7 +83,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#0F0C29] flex items-center justify-center">
+            <div className="min-h-screen bg-[#1E2434] flex items-center justify-center">
                 <div className="flex flex-col items-center space-y-4">
                     <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
                     <p className="text-purple-500/50 text-[10px] font-bold uppercase tracking-widest animate-pulse">Verifying Admin Access</p>
@@ -107,7 +107,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const firstLetter = user?.email?.[0]?.toUpperCase() || 'A'
 
     return (
-        <div className={cn("flex flex-col min-h-screen admin-layout", isDarkMode ? "dark-mode" : "light-mode")}>
+        <div className={cn("flex flex-col min-h-screen admin-layout font-sans", isDarkMode ? "dark-mode" : "light-mode")}>
             {/* Sidebar Overlay for Mobile */}
             {isSidebarOpen && (
                 <div
@@ -122,7 +122,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <aside className={cn(
                     "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar animate-slideInLeft flex flex-col",
                     isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
-                    isDarkMode ? "bg-[#0F0C29] border-r border-[#2D2B55]" : "bg-white border-r border-gray-200"
+                    isDarkMode ? "bg-[#1E293B] border-r border-[#2D2B55]" : "bg-white border-r border-gray-200"
                 )}>
                     {/* Sidebar Header - One Line Logo */}
                     <div className="h-16 flex items-center px-4 border-b border-[#2D2B55]">
@@ -210,7 +210,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {/* Main Content Area */}
                 <div className="flex-1 flex flex-col min-w-0 max-h-screen overflow-hidden">
                     {/* Topbar */}
-                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#0F0C29]/80 backdrop-blur-md border-b border-[#2D2B55] z-30">
+                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#1E293B]/80 backdrop-blur-md border-b border-[#2D2B55] z-30">
                         {/* LEFT SECTION */}
                         <div className="flex items-center gap-4">
                             <button

@@ -6,15 +6,19 @@
 }
 
 :root {
-  --background: #0f0c29;
+  --background: #1e2434;
   --foreground: #ffffff;
 }
 
 @layer base {
   body {
     @apply antialiased;
-    background: #0f0c29;
+    background: #1e2434;
     color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.01em;
   }
 }
 
@@ -296,4 +300,36 @@
 
 .light-mode .security-badge * {
   color: inherit !important;
+}
+
+/* Better readability */
+.admin-layout p,
+.admin-layout span,
+.admin-layout td,
+.admin-layout li {
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Headings cleaner */
+.admin-layout h1,
+.admin-layout h2,
+.admin-layout h3 {
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Table text readable */
+.admin-layout table {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Table background refinements */
+.admin-layout table thead {
+  background: #30302E !important;
+}
+
+.admin-layout table tbody tr:nth-child(odd) {
+  background: #272E3E !important;
 }
