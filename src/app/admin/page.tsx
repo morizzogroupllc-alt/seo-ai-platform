@@ -230,46 +230,78 @@ export default function AdminPage() {
                 </div>
             </div>
 
-            {/* ROW 4: System Lifecycle + User Growth chart */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
-                    <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-2"><Zap className="w-4 h-4 text-yellow-500" />System Lifecycle</h3>
-                    <div className="space-y-4">
+            {/* ROW 4: System Services + User Growth chart */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col h-[480px]">
+                    <div className="mb-6">
+                        <h3 className="text-white font-black text-sm uppercase tracking-widest flex items-center gap-2">
+                            <Zap className="w-4 h-4 text-purple-400 fill-purple-400/20" />
+                            System Services
+                        </h3>
+                        <p className="text-gray-500 text-[10px] uppercase tracking-wider">12 integrated services</p>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto space-y-1.5 pr-2 scrollbar-thin scrollbar-thumb-purple-800 scrollbar-track-transparent">
                         {[
-                            { n: 'Platform Core', s: 'OPERATIONAL', c: 'text-green-500' },
-                            { n: 'Supabase DB', s: 'OPERATIONAL', c: 'text-green-500' },
-                            { n: 'Stripe API', s: 'STABLE', c: 'text-yellow-500' },
-                            { n: 'DataForSEO', s: 'CONFIG REQUIRED', c: 'text-orange-500', btn: true },
-                            { n: 'Gemini AI', s: 'OPERATIONAL', c: 'text-green-500' },
-                        ].map((item, i) => (
-                            <div key={i} className="flex items-center justify-between p-3 border border-white/5 rounded-xl bg-white/5">
-                                <div className="flex items-center gap-3">
-                                    <div className={cn("w-2 h-2 rounded-full", item.c.replace('text-', 'bg-'))} />
-                                    <span className="text-white text-xs font-bold uppercase tracking-widest">{item.n}</span>
+                            { name: 'Platform Core', subtitle: 'Next.js App', status: 'operational' },
+                            { name: 'Supabase DB', subtitle: 'Database & Auth', status: 'operational' },
+                            { name: 'Vercel', subtitle: 'Hosting & Deploy', status: 'operational' },
+                            { name: 'Stripe', subtitle: 'Billing & Payments', status: 'not_configured' },
+                            { name: 'DataForSEO', subtitle: 'SERP & Keywords', status: 'not_configured' },
+                            { name: 'Gemini Flash', subtitle: 'Google AI - Primary', status: 'not_configured' },
+                            { name: 'OpenRouter', subtitle: 'Multi-Model Fallback', status: 'not_configured' },
+                            { name: 'Claude API', subtitle: 'Anthropic - Complex Tasks', status: 'not_configured' },
+                            { name: 'GPT-4', subtitle: 'OpenAI - Fallback', status: 'not_configured' },
+                            { name: 'Pexels', subtitle: 'Free Stock Images', status: 'not_configured' },
+                            { name: 'Netlify', subtitle: 'User Site Deploy', status: 'coming_soon' },
+                            { name: 'Google APIs', subtitle: 'GBP & Search Console', status: 'coming_soon' },
+                        ].map((item, i) => {
+                            const dotColor = item.status === 'operational' ? 'bg-green-400' : item.status === 'not_configured' ? 'bg-orange-400' : 'bg-gray-500'
+                            const statusColor = item.status === 'operational' ? 'text-green-400' : item.status === 'not_configured' ? 'text-orange-400' : 'text-gray-500'
+                            const statusLabel = item.status === 'operational' ? 'OPERATIONAL' : item.status === 'not_configured' ? 'NOT CONFIGURED' : 'COMING SOON'
+
+                            return (
+                                <div key={i} className="flex items-center justify-between px-3 py-2 rounded-lg bg-[#0F0C29] border border-[#2D2B55] hover:border-purple-500/30 transition-all">
+                                    <div className="flex items-center gap-3">
+                                        <div className={cn("w-2 h-2 rounded-full flex-shrink-0", dotColor)} />
+                                        <div>
+                                            <div className="text-white text-xs font-semibold">{item.name}</div>
+                                            <div className="text-gray-600 text-[10px]">{item.subtitle}</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-2">
+                                        <span className={cn("text-[10px] font-bold", statusColor)}>
+                                            {statusLabel}
+                                        </span>
+                                        {item.status === 'not_configured' && (
+                                            <button
+                                                onClick={() => router.push('/admin/api-health')}
+                                                className="text-[10px] px-2 py-0.5 bg-[#1A1740] border border-[#2D2B55] hover:border-purple-500 text-gray-400 hover:text-white rounded-md transition-all">
+                                                Configure →
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                    <span className={cn("text-[9px] font-black uppercase tracking-tighter", item.c)}>{item.s}</span>
-                                    {item.btn && <button className="text-[9px] px-2 py-1 rounded bg-white/10 text-white font-black uppercase hover:bg-white/20 transition-all">Configure →</button>}
-                                </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                     </div>
                 </div>
 
-                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
+                <div className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card flex flex-col h-[480px]">
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h3 className="text-white font-black text-sm uppercase tracking-widest">User Growth</h3>
                             <p className="text-gray-500 text-[10px] uppercase tracking-wider">Last 7 Days</p>
                         </div>
                     </div>
-                    <div className="flex items-end justify-between h-[180px] px-2 gap-2">
+                    <div className="flex-1 flex items-end justify-between px-2 gap-2 pb-6">
                         {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map((day, i) => {
                             const heights = [40, 65, 45, 90, 75, 55, 80]
                             return (
                                 <div key={day} className="flex-1 flex flex-col items-center gap-3">
-                                    <div className="w-full relative group">
-                                        <div className="w-full bg-purple-600 rounded-lg transition-all duration-700" style={{ height: `${heights[i]}%`, minHeight: '4px' }} />
+                                    <div className="w-full relative group flex items-end h-full">
+                                        <div className="w-full bg-purple-600 rounded-lg transition-all duration-700 hover:bg-purple-400" style={{ height: `${heights[i]}%`, minHeight: '4px' }} />
                                     </div>
                                     <span className="text-gray-600 text-[9px] font-black uppercase tracking-widest">{day}</span>
                                 </div>
@@ -282,9 +314,9 @@ export default function AdminPage() {
             {/* ROW 5: Database + Auth + Environment */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
-                    { t: 'Database', i: Database, s: 'HEALTHY', stats: [['CONNECTIONS', 'Active ✓'], ['LATENCY', '34ms ✓'], ['STORAGE', '12% ✓']] },
+                    { t: 'Database', i: Database, s: 'HEALTHY', stats: [['CONNECTIONS', 'Active ✓'], ['LATENCY', '< 100ms ✓'], ['STORAGE', 'Free Tier']] },
                     { t: 'Authentication', i: Lock, s: 'HEALTHY', stats: [['AUTH SERVER', 'UP ✓'], ['SESSION TTL', '72h ✓'], ['RATE LIMIT', '0% ✓']] },
-                    { t: 'Environment', i: Server, s: 'HEALTHY', stats: [['NODE VERSION', 'v20 ✓'], ['MEMORY USAGE', '450MB ✓'], ['UPTIME', '99.9% ✓']] },
+                    { t: 'Environment', i: Server, s: 'HEALTHY', stats: [['NODE VERSION', 'v20 ✓'], ['HOSTING', 'Vercel ✓'], ['UPTIME', '99.9% ✓']] },
                 ].map((item, i) => (
                     <div key={i} className="bg-[#1A1740] border border-[#2D2B55] rounded-2xl p-6 admin-card">
                         <div className="flex items-center justify-between mb-6">
