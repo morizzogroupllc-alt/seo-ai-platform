@@ -63,6 +63,27 @@ export default function AdminPage() {
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
     const newThisWeekCount = users.filter(u => new Date(u.created_at) > sevenDaysAgo).length
 
+    const today = new Date()
+    const last7Days = Array.from(
+        { length: 7 }, (_, i) => {
+            const d = new Date()
+            d.setDate(today.getDate() - (6 - i))
+            const dayName = d.toLocaleDateString(
+                'en-US', { weekday: 'short' }
+            ).toUpperCase()
+            const count = users.filter(u => {
+                const ud = new Date(u.created_at)
+                return ud.toDateString() ===
+                    d.toDateString()
+            }).length
+            return { day: dayName, count }
+        }
+    )
+
+    const maxCount = Math.max(
+        ...last7Days.map(d => d.count), 1
+    )
+
     if (loading) return (
         <div className="flex flex-col items-center justify-center h-[60vh] space-y-4">
             <div className="w-10 h-10 border-4 border-purple-600/20 border-t-purple-600 rounded-full animate-spin" />
@@ -252,7 +273,7 @@ export default function AdminPage() {
                             { name: 'OpenRouter', subtitle: 'Multi-Model Fallback', status: 'not_configured' },
                             { name: 'Claude API', subtitle: 'Anthropic - Complex Tasks', status: 'not_configured' },
                             { name: 'GPT-4', subtitle: 'OpenAI - Fallback', status: 'not_configured' },
-                            { name: 'Pexels', subtitle: 'Free Stock Images', status: 'not_configured' },
+                            { name: 'Pexels', subtitle: 'Free Stock Images', status: 'coming_soon' },
                             { name: 'Netlify', subtitle: 'User Site Deploy', status: 'coming_soon' },
                             { name: 'Google APIs', subtitle: 'GBP & Search Console', status: 'coming_soon' },
                         ].map((item, i) => {
@@ -295,18 +316,30 @@ export default function AdminPage() {
                             <p className="text-gray-500 text-[10px] uppercase tracking-wider">Last 7 Days</p>
                         </div>
                     </div>
-                    <div className="flex-1 flex items-end justify-between px-2 gap-2 pb-6">
-                        {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map((day, i) => {
-                            const heights = [40, 65, 45, 90, 75, 55, 80]
-                            return (
-                                <div key={day} className="flex-1 flex flex-col items-center gap-3">
-                                    <div className="w-full relative group flex items-end h-full">
-                                        <div className="w-full bg-purple-600 rounded-lg transition-all duration-700 hover:bg-purple-400" style={{ height: `${heights[i]}%`, minHeight: '4px' }} />
-                                    </div>
-                                    <span className="text-gray-600 text-[9px] font-black uppercase tracking-widest">{day}</span>
-                                </div>
-                            )
-                        })}
+                    <div className="flex items-end justify-between gap-2 h-28 px-2">
+                        {last7Days.map((d, i) => (
+                            <div key={i} className="flex flex-col items-center gap-2 flex-1">
+                                {/* Count label */}
+                                <span className="text-[10px] text-gray-500">
+                                    {d.count > 0 ? d.count : ''}
+                                </span>
+
+                                {/* Bar */}
+                                <div className="w-full rounded-t-md transition-all duration-500"
+                                    style={{
+                                        height: d.count > 0
+                                            ? Math.max((d.count / maxCount) * 80, 8) + 'px'
+                                            : '4px',
+                                        background: d.count > 0
+                                            ? 'linear-gradient(180deg, #9333EA, #6D28D9)'
+                                            : '#2D2B55',
+                                        minHeight: '4px'
+                                    }} />
+
+                                {/* Day label */}
+                                <span className="text-[10px] text-gray-500">{d.day}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
