@@ -1,5 +1,4 @@
 'use client'
-// Deployment trigger: Refined WCAG Dark Mode 1.1
 
 import React, { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
@@ -84,7 +83,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#121212] flex items-center justify-center">
+            <div className="min-h-screen bg-[#0F172A] flex items-center justify-center">
                 <div className="flex flex-col items-center space-y-4">
                     <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
                     <p className="text-purple-500/50 text-[10px] font-bold uppercase tracking-widest animate-pulse">Verifying Admin Access</p>
@@ -119,19 +118,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Layout Wrapper */}
             <div className="flex flex-1 relative z-10 overflow-hidden">
-                <aside
-                    className={cn(
-                        "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar flex flex-col",
-                        isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-                    )}
-                    style={{ background: 'var(--sidebar-bg)', borderRight: '1px solid var(--border)' }}
-                >
+                {/* Sidebar */}
+                <aside className={cn(
+                    "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar animate-slideInLeft flex flex-col",
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+                    isDarkMode ? "bg-[#111827] border-r border-[rgba(255,255,255,0.06)]" : "bg-white border-r border-gray-200"
+                )}>
                     {/* Sidebar Header - One Line Logo */}
-                    <div className="h-16 flex items-center px-4 border-b border-[#333333]">
+                    <div className="h-16 flex items-center px-4 border-b border-[rgba(255,255,255,0.06)]">
                         <div className="w-9 h-9 bg-purple-700 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3 flex-shrink-0">
                             S
                         </div>
-                        <span className="text-white font-bold text-sm tracking-wider whitespace-nowrap uppercase gradient-text">
+                        <span className="text-white font-bold text-sm tracking-wider whitespace-nowrap uppercase">
                             SEO AI PLATFORM
                         </span>
                     </div>
@@ -162,10 +160,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </nav>
 
                     {/* Sidebar Footer */}
-                    <div className="flex flex-col gap-0 border-t border-[#333333] pt-4">
+                    <div className="flex flex-col gap-0 border-t border-[rgba(255,255,255,0.06)] pt-4">
                         {/* Super Admin Box */}
                         <div className="px-3 pb-2">
-                            <div className="bg-[#121212] border border-[#333333] rounded-xl p-3">
+                            <div className="bg-[#1E293B] border border-[rgba(255,255,255,0.06)] rounded-xl p-3">
                                 <div className="flex items-center gap-3">
 
                                     {/* Avatar */}
@@ -189,7 +187,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
                         {/* HIGH SECURITY Box */}
                         <div className="px-3 pb-4">
-                            <div className="security-badge rounded-xl p-3">
+                            <div className="security-badge bg-[#1A0000] border border-red-900 rounded-xl p-3">
                                 <div className="flex items-center justify-center gap-2">
 
                                     <span className="lock-icon text-base leading-none">🔒</span>
@@ -212,15 +210,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {/* Main Content Area */}
                 <div className="flex-1 flex flex-col min-w-0 max-h-screen overflow-hidden">
                     {/* Topbar */}
-                    <header
-                        className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 z-30"
-                        style={{
-                            background: 'rgba(3,0,20,0.5)',
-                            backdropFilter: 'blur(40px) saturate(200%)',
-                            borderBottom: '1px solid var(--border)',
-                            boxShadow: '0 4px 24px -8px rgba(0,0,0,0.4)'
-                        }}
-                    >
+                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#111827]/80 backdrop-blur-md border-b border-[rgba(255,255,255,0.06)] z-30">
                         {/* LEFT SECTION */}
                         <div className="flex items-center gap-4">
                             <button
@@ -267,10 +257,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </header>
 
                     {/* MAIN CONTENT — scrollable */}
-                    <main
-                        className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar relative"
-                        style={{ background: 'var(--bg-primary)' }}
-                    >
+                    <main className="flex-1 overflow-y-auto p-8 custom-scrollbar relative">
                         {children}
                     </main>
                 </div>
@@ -285,13 +272,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     background: transparent;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: var(--border-default);
+                    background: #1E293B;
                     border-radius: 10px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: var(--border-hover);
+                    background: #6B21A8;
                 }
             ` }} />
-        </div >
+        </div>
     )
 }
