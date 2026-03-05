@@ -8,6 +8,16 @@
 :root {
   --background: #0F172A;
   --foreground: #F1F5F9;
+  --bg-primary: #0A1628;
+  --bg-secondary: #0D1B2E;
+  --bg-input: #162032;
+  --bg-hover: #1E3A5F;
+  --border-default: rgba(168, 85, 247, 0.2);
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #475569;
+  --accent-blue: #6366F1;
+  --accent-purple: #A855F7;
 }
 
 @layer base {
@@ -36,6 +46,42 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.sidebar-active-glow {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(59, 130, 246, 0.1)) !important;
+  border: 1px solid rgba(168, 85, 247, 0.3) !important;
+  color: #E2E8F0 !important;
+}
+
+.sidebar-active-glow * {
+  color: #E2E8F0 !important;
+}
+
+.admin-card {
+  background: #0D1B2E;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.admin-card:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+.stat-card-glow {
+  background: #0D1B2E;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.stat-card-glow:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
 }
 
 /* Custom Scrollbar */
