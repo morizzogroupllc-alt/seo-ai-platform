@@ -29,17 +29,17 @@ import {
 // --- Shared Components ---
 
 const StatCard = ({ label, value, icon: Icon, color = "text-purple-400" }: { label: string, value: string | number, icon?: any, color?: string }) => (
-    <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] p-4 rounded-xl text-center flex flex-col items-center justify-center space-y-1 admin-card stat-card-glow transition-all duration-300">
+    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-4 rounded-xl text-center flex flex-col items-center justify-center space-y-1 admin-card stat-card-glow transition-all duration-300">
         {Icon && <Icon size={18} className={`${color} mb-1`} />}
         <div className={`text-2xl font-bold ${color}`}>{value}</div>
-        <div className="text-[var(--text-secondary)] text-[10px] font-bold uppercase tracking-widest">{label}</div>
+        <div className="text-[#94A3B8] text-[10px] font-bold uppercase tracking-widest">{label}</div>
     </div>
 );
 
 const ToolCard = ({ icon: Icon, name, highlighted = false, badge }: { icon: any, name: string, highlighted?: boolean, badge?: string }) => (
     <div className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col items-center justify-center text-center space-y-2 group admin-card ${highlighted
         ? 'bg-purple-600/10 border-purple-500/50 shadow-[0_0_15px_rgba(124,58,237,0.1)]'
-        : 'bg-[var(--bg-secondary)] border-[var(--border-default)] hover:border-purple-500/50'
+        : 'bg-[#0D1B2E] border-[rgba(168,85,247,0.2)] hover:border-purple-500/50'
         }`}>
         <div className={`p-3 rounded-lg ${highlighted ? 'bg-purple-600 text-white' : 'bg-white/5 text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition-colors'}`}>
             <Icon size={24} />
@@ -80,7 +80,7 @@ const ViewNewbie = () => {
         <div className="space-y-8">
             <div className="space-y-1">
                 <h2 className="text-2xl font-bold gradient-text">Let's find your first niche! 🎯</h2>
-                <p className="text-[var(--text-secondary)]">Follow these steps in order</p>
+                <p className="text-[#94A3B8]">Follow these steps in order</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -88,8 +88,8 @@ const ViewNewbie = () => {
                     <div
                         key={step.id}
                         className={`p-6 rounded-2xl border transition-all h-full flex flex-col admin-card ${step.status === 'current'
-                            ? 'border-purple-500 shadow-[0_0_20px_rgba(124,58,237,0.15)] ring-1 ring-purple-500 bg-[var(--bg-secondary)]'
-                            : 'bg-[var(--bg-secondary)]/50 border-[var(--border-default)] opacity-60'
+                            ? 'border-purple-500 shadow-[0_0_20px_rgba(124,58,237,0.15)] ring-1 ring-purple-500 bg-[#0D1B2E]'
+                            : 'bg-[#0D1B2E]/50 border-[rgba(168,85,247,0.2)] opacity-60'
                             }`}
                     >
                         <div className="flex items-center justify-between mb-4">
@@ -146,11 +146,11 @@ const ViewPro = () => {
                         <Plus size={16} />
                         Add New Client
                     </button>
-                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
+                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
                         <FileText size={16} />
                         Generate Report
                     </button>
-                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
+                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
                         <Search size={16} />
                         Run Audit
                     </button>
@@ -160,7 +160,7 @@ const ViewPro = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-4">
                     <h3 className="text-lg font-bold gradient-text">Client Overview</h3>
-                    <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
+                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
                         <div className="p-4 bg-white/5 rounded-full text-gray-500">
                             <Users size={48} />
                         </div>
@@ -182,7 +182,7 @@ const ViewPro = () => {
                             { name: 'Monthly Report', icon: FileText },
                             { name: 'Competitor Analysis', icon: BarChart3 }
                         ].map((tool, i) => (
-                            <div key={i} className="bg-[var(--bg-secondary)] border border-[var(--border-default)] p-6 rounded-2xl flex items-center justify-between group hover:border-purple-500/50 transition-all cursor-pointer admin-card">
+                            <div key={i} className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-6 rounded-2xl flex items-center justify-between group hover:border-purple-500/50 transition-all cursor-pointer admin-card">
                                 <div className="flex items-center gap-4">
                                     <div className="p-2 bg-white/5 text-purple-400 rounded-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">
                                         <tool.icon size={20} />
@@ -216,7 +216,7 @@ const ViewRankRent = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-4">
                     <h3 className="text-lg font-bold gradient-text">Your Sites Portfolio</h3>
-                    <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-16 text-center space-y-6 flex flex-col items-center justify-center h-full admin-card">
+                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-16 text-center space-y-6 flex flex-col items-center justify-center h-full admin-card">
                         <div className="p-4 bg-white/5 rounded-full text-gray-500">
                             <Package size={48} />
                         </div>
@@ -231,7 +231,7 @@ const ViewRankRent = () => {
 
                 <div className="space-y-4">
                     <h3 className="text-lg font-bold gradient-text">Rank & Rent Toolkit</h3>
-                    <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] p-2 rounded-2xl divide-y divide-[var(--border-default)] admin-card">
+                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-2 rounded-2xl divide-y divide-[rgba(168,85,247,0.2)] admin-card">
                         {[
                             { name: 'Niche Finder (CORE)', icon: Search },
                             { name: 'Bulk Page Generator', icon: Layers },
@@ -272,7 +272,7 @@ const ViewAgency = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-4">
                     <h3 className="text-lg font-bold gradient-text">Client Accounts</h3>
-                    <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
+                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
                         <div className="p-4 bg-white/5 rounded-full text-gray-500">
                             <Mail size={48} />
                         </div>
@@ -296,7 +296,7 @@ const ViewAgency = () => {
 
             <div className="space-y-4">
                 <h3 className="text-lg font-bold gradient-text">Team Section</h3>
-                <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] p-6 rounded-2xl flex items-center justify-between admin-card">
+                <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-6 rounded-2xl flex items-center justify-between admin-card">
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold">U</div>
                         <div className="space-y-0.5">
@@ -321,7 +321,7 @@ const ViewAutomation = () => {
 
             <div className="space-y-4">
                 <h3 className="text-lg font-bold gradient-text">Active Pipelines</h3>
-                <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center border-dashed admin-card">
+                <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center border-dashed admin-card">
                     <div className="p-4 bg-white/5 rounded-full text-gray-500">
                         <Cpu size={48} />
                     </div>
@@ -347,7 +347,7 @@ const ViewAutomation = () => {
 
                 <div className="space-y-4">
                     <h3 className="text-lg font-bold gradient-text">Quick Stats</h3>
-                    <div className="bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-2xl overflow-hidden divide-y divide-[var(--border-default)] admin-card">
+                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl overflow-hidden divide-y divide-[rgba(168,85,247,0.2)] admin-card">
                         {[
                             { label: 'Pages Generated', value: 0, color: 'text-blue-400' },
                             { label: 'Sites Deployed', value: 0, color: 'text-purple-400' },
@@ -406,15 +406,15 @@ export default function DashboardPage() {
         <div className="space-y-12 max-w-7xl mx-auto py-4">
 
             {/* SHARED HEADER: Welcome Banner */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-[var(--bg-secondary)] to-purple-900/10 border border-[var(--border-default)] rounded-3xl p-8 lg:p-12">
+            <div className="relative overflow-hidden bg-gradient-to-r from-[#0D1B2E] to-purple-900/10 border border-[rgba(168,85,247,0.2)] rounded-3xl p-8 lg:p-12">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[100px] -mr-32 -mt-32 pointer-events-none"></div>
                 <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                     <div className="space-y-2">
-                        <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] gradient-text">
+                        <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-[#F1F5F9] gradient-text">
                             Welcome back! 👋
                         </h1>
                         <div className="flex items-center gap-2">
-                            <span className="text-[var(--text-secondary)] text-sm font-medium uppercase tracking-[0.2em]">Building as:</span>
+                            <span className="text-[#94A3B8] text-sm font-medium uppercase tracking-[0.2em]">Building as:</span>
                             <span className="bg-purple-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
                                 {userType}
                             </span>
@@ -444,8 +444,8 @@ export default function DashboardPage() {
             </div>
 
             {/* SHARED FOOTER: Links */}
-            <div className="pt-8 border-t border-[var(--border-default)] flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-[var(--text-tertiary)] text-sm font-medium italic">© 2026 SEO AI Platform — Premium Local SEO SaaS</p>
+            <div className="pt-8 border-t border-[rgba(168,85,247,0.2)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-[#475569] text-sm font-medium italic">© 2026 SEO AI Platform — Premium Local SEO SaaS</p>
                 <button className="group flex items-center gap-2 text-purple-400 hover:text-purple-300 font-bold text-sm transition-all">
                     All Phases
                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

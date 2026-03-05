@@ -30,6 +30,14 @@
   letter-spacing: 0.01em !important;
 }
 
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #A855F7, #3B82F6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
