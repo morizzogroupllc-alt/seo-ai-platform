@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
@@ -114,7 +114,7 @@ export default function LandingPage() {
           </div>
 
           <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '300ms' }}>
-            Find niches, build websites, rank on Google Maps, automate everything ΓÇö all in one platform.
+            Find niches, build websites, rank on Google Maps, automate everything — all in one platform.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8 animate-fadeInUp" style={{ animationDelay: '400ms' }}>
@@ -122,7 +122,7 @@ export default function LandingPage() {
               onClick={handleGetStarted}
               className="w-full sm:w-auto px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-black rounded-2xl shadow-xl shadow-purple-900/40 transition-all active:scale-[0.98] uppercase tracking-[0.2em] text-sm flex items-center justify-center space-x-3"
             >
-              <span>≡ƒÜÇ Get Started Free</span>
+              <span>🚀 Get Started Free</span>
               <ArrowRight className="w-5 h-5" />
             </button>
             <button className="w-full sm:w-auto px-8 py-4 border border-white/10 bg-white/5 hover:bg-white/10 text-white font-black rounded-2xl transition-all flex items-center justify-center space-x-3 uppercase tracking-[0.2em] text-sm">
@@ -144,7 +144,7 @@ export default function LandingPage() {
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
           <div className="relative bg-[#1A1740] rounded-2xl border border-[#4C1D95] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.25)]">
             <div className="flex flex-col h-full uppercase italic">
-              {/* ΓöüΓöüΓöü TOPBAR (h-12) ΓöüΓöüΓöü */}
+              {/* ━━━ TOPBAR (h-12) ━━━ */}
               <div className="h-12 bg-[#0D0B1F] border-b border-[#2D2B55] flex items-center px-4 justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-7 h-7 bg-purple-600 rounded flex items-center justify-center text-[10px] font-black italic text-white shadow-lg">S</div>
@@ -152,27 +152,27 @@ export default function LandingPage() {
                 </div>
                 <div className="text-[10px] font-black tracking-[0.3em] text-purple-400">DASHBOARD</div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-gray-500 text-sm">≡ƒöö</span>
+                  <span className="text-gray-500 text-sm">🔔</span>
                   <div className="w-7 h-7 bg-purple-700 rounded-full flex items-center justify-center text-[10px] font-black text-white border border-purple-500/30">L</div>
                 </div>
               </div>
 
-              {/* ΓöüΓöüΓöü MAIN AREA (flex) ΓöüΓöüΓöü */}
+              {/* ━━━ MAIN AREA (flex) ━━━ */}
               <div className="flex flex-1 overflow-hidden">
                 {/* LEFT SIDEBAR (w-36) */}
                 <div className="w-36 bg-[#080617] border-r border-[#1A1740] p-3 h-[320px] hidden sm:flex flex-col">
                   <div className="space-y-1.5 flex-1">
                     {[
-                      { icon: '≡ƒÅá', n: 'Dashboard', active: true },
-                      { icon: '≡ƒöì', n: 'Research' },
-                      { icon: '≡ƒÅù∩╕Å', n: 'Build' },
-                      { icon: '≡ƒÜÇ', n: 'Deploy' },
-                      { icon: '≡ƒô¥', n: 'Optimize' },
-                      { icon: '≡ƒôì', n: 'Authority' },
-                      { icon: '≡ƒô₧', n: 'Convert' },
-                      { icon: '≡ƒôê', n: 'Track' },
-                      { icon: '≡ƒôï', n: 'Reports' },
-                      { icon: 'ΓÜí', n: 'Automation' }
+                      { icon: '🏠', n: 'Dashboard', active: true },
+                      { icon: '🔍', n: 'Research' },
+                      { icon: '🏗️', n: 'Build' },
+                      { icon: '🚀', n: 'Deploy' },
+                      { icon: '📝', n: 'Optimize' },
+                      { icon: '📍', n: 'Authority' },
+                      { icon: '📞', n: 'Convert' },
+                      { icon: '📈', n: 'Track' },
+                      { icon: '📋', n: 'Reports' },
+                      { icon: '⚡', n: 'Automation' }
                     ].map((item, i) => (
                       <div key={i} className={cn(
                         "flex items-center space-x-2 py-1.5 px-2 rounded text-[9px] font-black transition-colors",
@@ -185,7 +185,7 @@ export default function LandingPage() {
                   </div>
                   <div className="pt-2 border-t border-white/5">
                     <div className="flex items-center space-x-2 py-1.5 px-2 rounded text-[9px] font-black text-gray-400">
-                      <span>ΓÜÖ∩╕Å</span>
+                      <span>⚙️</span>
                       <span className="tracking-tighter">System</span>
                     </div>
                   </div>
@@ -193,23 +193,23 @@ export default function LandingPage() {
 
                 {/* RIGHT CONTENT (flex-1) */}
                 <div className="flex-1 bg-[#0F0C1F] p-4 overflow-hidden flex flex-col">
-                  {/* Row 1 ΓÇö Welcome bar */}
+                  {/* Row 1 — Welcome bar */}
                   <div className="flex items-center">
-                    <h4 className="text-sm font-semibold text-white italic tracking-widest">Welcome back ≡ƒæï</h4>
+                    <h4 className="text-sm font-semibold text-white italic tracking-widest">Welcome back 👋</h4>
                     <span className="ml-2 px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded-full text-[8px] font-black text-purple-400 uppercase tracking-widest">Local SEO Newbie</span>
                   </div>
 
-                  {/* Row 2 ΓÇö 8 Phase cards (grid 4├ù2) */}
+                  {/* Row 2 — 8 Phase cards (grid 4×2) */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3">
                     {[
-                      { i: '≡ƒöì', n: 'Research', t: '17 tools' },
-                      { i: '≡ƒÅù∩╕Å', n: 'Build', t: '26 tools' },
-                      { i: '≡ƒÜÇ', n: 'Deploy', t: '8 tools' },
-                      { i: '≡ƒô¥', n: 'Optimize', t: '19 tools' },
-                      { i: '≡ƒôì', n: 'Authority', t: '34 tools' },
-                      { i: '≡ƒô₧', n: 'Convert', t: '5 tools' },
-                      { i: '≡ƒôê', n: 'Track', t: '9 tools' },
-                      { i: '≡ƒôï', n: 'Reports', t: '11 tools' }
+                      { i: '🔍', n: 'Research', t: '17 tools' },
+                      { i: '🏗️', n: 'Build', t: '26 tools' },
+                      { i: '🚀', n: 'Deploy', t: '8 tools' },
+                      { i: '📝', n: 'Optimize', t: '19 tools' },
+                      { i: '📍', n: 'Authority', t: '34 tools' },
+                      { i: '📞', n: 'Convert', t: '5 tools' },
+                      { i: '📈', n: 'Track', t: '9 tools' },
+                      { i: '📋', n: 'Reports', t: '11 tools' }
                     ].map((p, i) => (
                       <div key={i} className="bg-[#1A1740] border border-[#2D2B55] rounded-lg p-2 flex items-center gap-2 relative overflow-hidden group/mcard transition-colors hover:border-purple-500/50">
                         <span className="text-lg">{p.i}</span>
@@ -217,20 +217,20 @@ export default function LandingPage() {
                           <span className="text-white text-[11px] font-semibold">{p.n}</span>
                           <div className="flex items-center space-x-2">
                             <span className="text-purple-400 text-[9px]">{p.t}</span>
-                            <span className="text-purple-300 text-[9px]">Start ΓåÆ</span>
+                            <span className="text-purple-300 text-[9px]">Start →</span>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Row 3 ΓÇö Stats (grid 4 cols) */}
+                  {/* Row 3 — Stats (grid 4 cols) */}
                   <div className="grid grid-cols-4 gap-2 mt-3">
                     {[
-                      { v: '136', l: '≡ƒôª Total Tools' },
-                      { v: '78', l: 'Γ£à Free Tools' },
-                      { v: '58', l: '≡ƒÆ░ Paid Tools' },
-                      { v: '0%', l: '≡ƒôê Progress' }
+                      { v: '136', l: '📦 Total Tools' },
+                      { v: '78', l: '✅ Free Tools' },
+                      { v: '58', l: '💰 Paid Tools' },
+                      { v: '0%', l: '📈 Progress' }
                     ].map((s, i) => (
                       <div key={i} className="bg-[#1A1740] rounded-lg p-2 text-center border border-white/5">
                         <div className="text-purple-400 text-xs font-black tracking-tighter mb-0.5">{s.v}</div>
@@ -239,13 +239,13 @@ export default function LandingPage() {
                     ))}
                   </div>
 
-                  {/* Row 4 ΓÇö CTA Banner */}
+                  {/* Row 4 — CTA Banner */}
                   <div className="mt-auto bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 rounded-lg p-3 flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <span className="text-white text-[10px] font-black italic tracking-tighter uppercase">Ready to find your niche? ≡ƒÄ»</span>
+                      <span className="text-white text-[10px] font-black italic tracking-tighter uppercase">Ready to find your niche? 🎯</span>
                     </div>
                     <button className="border border-white text-white bg-transparent hover:bg-white/10 text-[10px] px-3 py-1 rounded-full transition-all">
-                      Start Research ΓåÆ
+                      Start Research →
                     </button>
                   </div>
                 </div>
@@ -267,11 +267,11 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
           {[
-            { id: 'newbie', icon: '≡ƒåò', title: 'Local SEO Newbie', desc: 'Step-by-step guidance from niche research to first ranking' },
-            { id: 'pro', icon: '≡ƒÆ╝', title: 'Client SEO Pro', desc: 'Manage multiple clients with automated reports and audits' },
-            { id: 'rank', icon: '≡ƒÅá', title: 'Rank & Rent', desc: 'Build sites, rank them, rent them. Bulk page generator.' },
-            { id: 'agency', icon: '≡ƒÅó', title: 'Agency', desc: 'White-label reports, team access and bulk site generation' },
-            { id: 'auto', icon: '≡ƒñû', title: 'Automation', desc: '1-click full SEO campaigns running on autopilot' },
+            { id: 'newbie', icon: '🆕', title: 'Local SEO Newbie', desc: 'Step-by-step guidance from niche research to first ranking' },
+            { id: 'pro', icon: '💼', title: 'Client SEO Pro', desc: 'Manage multiple clients with automated reports and audits' },
+            { id: 'rank', icon: '🏠', title: 'Rank & Rent', desc: 'Build sites, rank them, rent them. Bulk page generator.' },
+            { id: 'agency', icon: '🏢', title: 'Agency', desc: 'White-label reports, team access and bulk site generation' },
+            { id: 'auto', icon: '🤖', title: 'Automation', desc: '1-click full SEO campaigns running on autopilot' },
           ].map((card, i) => (
             <div
               key={card.id}
@@ -291,7 +291,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4 animate-fadeInUp">
             <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-tight uppercase">Your complete SEO journey<br />in 8 phases</h2>
-            <p className="text-slate-500 font-bold uppercase text-xs tracking-widest">Follow the journey or jump to any phase ΓÇö 136 tools at your fingertips</p>
+            <p className="text-slate-500 font-bold uppercase text-xs tracking-widest">Follow the journey or jump to any phase — 136 tools at your fingertips</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -347,7 +347,7 @@ export default function LandingPage() {
             <div className="space-y-4">
               <p className="text-slate-400 text-sm leading-relaxed font-medium">Our proven criteria finds low-competition niches:</p>
               <div className="flex flex-wrap gap-2">
-                {['City Γëñ200k', 'SV ΓëÑ200', 'DA Γëñ15', 'DR Γëñ10', 'BL Γëñ150'].map(p => (
+                {['City ≤200k', 'SV ≥200', 'DA ≤15', 'DR ≤10', 'BL ≤150'].map(p => (
                   <span key={p} className="text-[9px] font-black text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">{p}</span>
                 ))}
               </div>
@@ -417,7 +417,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION 9: FOOTER ΓÇö Professional */}
+      {/* SECTION 9: FOOTER — Professional */}
       <footer id="contact" className="bg-[#080617] border-t border-[#1A1740] pt-20 pb-10 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-left">
           {/* Col 1: Brand */}
@@ -479,7 +479,7 @@ export default function LandingPage() {
         {/* Bottom Bar */}
         <div className="max-w-7xl mx-auto border-t border-[#1A1740] pt-8 mt-16 flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest italic tracking-tighter">
-            ┬⌐ 2025 SEO AI Platform. All rights reserved.
+            © 2025 SEO AI Platform. All rights reserved.
           </p>
 
           {/* Trust Badges */}
@@ -553,10 +553,10 @@ function StatsSection() {
     <section ref={sectionRef} className="bg-[#1A1740] border-y border-white/5 py-12 md:py-16">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
         {[
-          { val: counts.tools, label: 'Total Tools', icon: '≡ƒôª' },
-          { val: counts.users, label: 'User Types', icon: '≡ƒæñ' },
-          { val: counts.phases, label: 'Phases', icon: '≡ƒÜÇ' },
-          { val: `$${counts.cost}`, label: 'To Start', icon: '≡ƒÆ░' },
+          { val: counts.tools, label: 'Total Tools', icon: '📦' },
+          { val: counts.users, label: 'User Types', icon: '👤' },
+          { val: counts.phases, label: 'Phases', icon: '🚀' },
+          { val: `$${counts.cost}`, label: 'To Start', icon: '💰' },
         ].map((stat, i) => (
           <div key={i} className="flex flex-col items-center border-white/5 last:border-0 md:border-r">
             <div className="flex items-center space-x-3 mb-1">
