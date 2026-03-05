@@ -27,6 +27,26 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="border-b border-white/5 py-5 cursor-pointer"
+      onClick={() => setOpen(!open)}>
+      <div className="flex justify-between items-center">
+        <h3 className="text-white font-semibold text-sm pr-4">{question}</h3>
+        <span className={`text-purple-400 text-xl transition-transform duration-300 flex-shrink-0 ${open ? 'rotate-45' : ''}`}>
+          +
+        </span>
+      </div>
+      {open && (
+        <p className="text-gray-400 text-sm mt-3 leading-relaxed animate-fadeIn">
+          {answer}
+        </p>
+      )}
+    </div>
+  )
+}
+
 export default function LandingPage() {
   const router = useRouter()
   const [userType, setUserType] = useState<string | null>(null)
@@ -86,6 +106,14 @@ export default function LandingPage() {
         </div>
       </nav>
 
+      {/* ADD 1: TOP ANNOUNCEMENT BAR */}
+      <div className="w-full bg-purple-900/30 border-b border-purple-500/20 py-2 text-center">
+        <span className="text-purple-300 text-xs font-medium">
+          🚀 Get Ready For The New Era of{' '}
+          <span className="text-purple-400 font-bold">AI Local SEO</span>
+        </span>
+      </div>
+
       {/* SECTION 2: HERO */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden flex flex-col items-center text-center px-6">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none" />
@@ -111,6 +139,27 @@ export default function LandingPage() {
                 <span>{p}</span>
               </div>
             ))}
+          </div>
+
+          {/* ADD 2: STAR RATINGS TRUST BAR */}
+          <div className="flex items-center justify-center gap-6 mt-4">
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map(i => (
+                  <span key={i} className="text-yellow-400 text-sm">★</span>
+                ))}
+              </div>
+              <span className="text-gray-400 text-xs">Rated 4.9/5</span>
+            </div>
+            <div className="w-px h-4 bg-gray-700" />
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map(i => (
+                  <span key={i} className="text-yellow-400 text-sm">★</span>
+                ))}
+              </div>
+              <span className="text-gray-400 text-xs">5,000+ Professionals</span>
+            </div>
           </div>
 
           <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '300ms' }}>
@@ -261,8 +310,34 @@ export default function LandingPage() {
       {/* SECTION 4: STATS BAR WITH COUNT UP */}
       <StatsSection />
 
+      {/* ADD 3: POWERED BY SECTION */}
+      <section className="py-8 border-y border-white/5">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="text-gray-600 text-xs uppercase tracking-widest font-bold mb-6">
+            Powered by Industry Leaders
+          </p>
+          <div className="flex items-center justify-center gap-8 flex-wrap">
+            {[
+              { name: 'Gemini AI', icon: '🤖' },
+              { name: 'DataForSEO', icon: '📊' },
+              { name: 'Supabase', icon: '🗄️' },
+              { name: 'Vercel', icon: '▲' },
+              { name: 'OpenRouter', icon: '🔀' },
+              { name: 'Pexels', icon: '📸' },
+            ].map(tech => (
+              <div key={tech.name}
+                className="flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors">
+                <span className="text-lg">{tech.icon}</span>
+                <span className="text-sm font-semibold">{tech.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 5: WHO IS IT FOR / FEATURE BLOCKS */}
       <section id="features" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
+        <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3 text-center">WHO IS IT FOR</p>
         <h2 className="text-3xl md:text-5xl font-black text-center text-white italic mb-16 tracking-tight uppercase animate-fadeInUp">Built for every type of<br /><span className="text-purple-400">Local SEO professional</span></h2>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
@@ -290,6 +365,7 @@ export default function LandingPage() {
       <section id="phases" className="py-24 bg-black/20 scroll-mt-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4 animate-fadeInUp">
+            <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">THE JOURNEY</p>
             <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-tight uppercase">Your complete SEO journey<br />in 8 phases</h2>
             <p className="text-slate-500 font-bold uppercase text-xs tracking-widest">Follow the journey or jump to any phase — 136 tools at your fingertips</p>
           </div>
@@ -327,6 +403,7 @@ export default function LandingPage() {
       {/* SECTION 7: EVERYTHING YOU NEED/FEATURE BLOCKS ALIGNMENT */}
       <section className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
         <div className="text-center mb-16 animate-fadeInUp">
+          <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">FEATURES</p>
           <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-tight uppercase">Everything you need.<br />Nothing you don't.</h2>
         </div>
 
@@ -364,10 +441,68 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ADD 4: VIDEO DEMO SECTION */}
+      <section className="py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">
+            SEE IT IN ACTION
+          </p>
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+            How To Build & Rank Local Sites
+            <br />
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              With SEO AI Platform
+            </span>
+          </h2>
+          <p className="text-gray-400 mb-10">
+            Watch our complete dashboard walkthrough and see how easy it is
+            to generate, rank and monetize local sites in minutes.
+          </p>
+
+          {/* Video placeholder */}
+          <div className="relative rounded-2xl overflow-hidden border border-purple-500/20 bg-[#1A1740] aspect-video flex items-center justify-center cursor-pointer group hover:border-purple-500/40 transition-all">
+            {/* Thumbnail bg */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 to-blue-900/40" />
+            {/* Play button */}
+            <div className="relative z-10 flex flex-col items-center gap-4">
+              <div className="w-20 h-20 rounded-full bg-purple-600 flex items-center justify-center group-hover:bg-purple-500 group-hover:scale-110 transition-all shadow-lg shadow-purple-600/50">
+                <span className="text-white text-3xl ml-1">▶</span>
+              </div>
+              <div>
+                <p className="text-white font-black text-xl">Complete Walkthrough</p>
+                <p className="text-gray-400 text-sm">Building Local Sites FAST!</p>
+              </div>
+            </div>
+            {/* Duration badge */}
+            <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-2 py-1 rounded">
+              8:45
+            </div>
+          </div>
+
+          {/* 3 points below video */}
+          <div className="grid grid-cols-3 gap-6 mt-10">
+            {[
+              { icon: '⚡', title: 'Quick Setup', desc: 'Get started in under 5 minutes' },
+              { icon: '🤖', title: 'AI-Powered', desc: 'Watch AI generate complete SEO content' },
+              { icon: '🚀', title: 'One-Click Deploy', desc: 'Deploy your site instantly to cloud' },
+            ].map(item => (
+              <div key={item.title} className="text-center">
+                <div className="text-2xl mb-2">{item.icon}</div>
+                <div className="text-white font-bold text-sm mb-1">{item.title}</div>
+                <div className="text-gray-500 text-xs">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 8: PRICING section */}
       <section id="pricing" className="py-24 px-6 bg-black/20 scroll-mt-20">
         <div className="max-w-7xl mx-auto space-y-16">
-          <h2 className="text-3xl md:text-5xl font-black text-center text-white italic tracking-tight uppercase animate-fadeInUp">Start free. Scale when ready.</h2>
+          <div className="text-center">
+            <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">PRICING</p>
+            <h2 className="text-3xl md:text-5xl font-black text-center text-white italic tracking-tight uppercase animate-fadeInUp">Start free. Scale when ready.</h2>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
             {[
@@ -417,82 +552,205 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION 9: FOOTER — Professional */}
-      <footer id="contact" className="bg-[#080617] border-t border-[#1A1740] pt-20 pb-10 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-left">
-          {/* Col 1: Brand */}
-          <div className="space-y-8">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center font-black text-white italic text-lg shadow-lg">S</div>
-              <span className="text-base font-black uppercase tracking-widest">SEO AI Platform</span>
-            </div>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-xs font-medium">
-              The complete Local SEO toolkit for professionals worldwide. Build, rank and rent like a pro.
+      {/* ADD 5: FAQ SECTION */}
+      <section className="py-20 px-6 bg-[#0a0918]">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">FAQ</p>
+            <h2 className="text-3xl font-black text-white">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-gray-400 mt-3">
+              Quick answers to common questions
             </p>
-            <div className="flex items-center space-x-4">
-              <button className="w-10 h-10 rounded-xl bg-[#1A1740] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-purple-900 transition-colors">
-                <Twitter className="w-5 h-5 fill-current" />
-              </button>
-              <button className="w-10 h-10 rounded-xl bg-[#1A1740] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-purple-900 transition-colors">
-                <Linkedin className="w-5 h-5 fill-current" />
-              </button>
-            </div>
           </div>
 
-          {/* Col 2: Platform */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm italic">Platform</h4>
-            <div className="flex flex-col space-y-4">
-              {['Dashboard', 'Research Phase', 'Build Phase', 'Rank & Rent Tools', 'Pricing'].map(item => (
-                <button key={item} className="text-left text-gray-400 hover:text-white transition-colors text-sm font-medium">
-                  {item}
-                </button>
-              ))}
-            </div>
+          {/* FAQ Items */}
+          {[
+            {
+              q: 'How fast can I start ranking?',
+              a: 'Most users see results within 30-60 days. Our AI generates complete SEO-optimized content and our tools handle everything from research to deployment.'
+            },
+            {
+              q: 'Do I need my own API keys?',
+              a: 'No! Platform API keys are included. But you can add your own DataForSEO or Gemini keys for unlimited usage beyond your plan limits.'
+            },
+            {
+              q: 'What is Rank & Rent?',
+              a: 'Build local business websites, rank them on Google, then rent the leads to local businesses. Our automation tools make this scalable at any level.'
+            },
+            {
+              q: 'Can I use this for client SEO?',
+              a: 'Absolutely! Agency plan includes white-label reports, bulk automation, and multi-client management tools.'
+            },
+            {
+              q: 'Is there a free plan?',
+              a: 'Yes! Free plan includes 5 niche searches, 1 website, and access to basic Phase 1 tools. No credit card required to start.'
+            },
+            {
+              q: 'What happens to my sites if I cancel?',
+              a: 'Your deployed sites remain live forever. We never take down sites you have already published.'
+            },
+          ].map((faq, i) => (
+            <FAQItem key={i} question={faq.q} answer={faq.a} />
+          ))}
+        </div>
+      </section>
+
+      {/* ADD 6: TESTIMONIALS SECTION */}
+      <section className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">TESTIMONIALS</p>
+            <h2 className="text-3xl font-black text-white">
+              Trusted by SEO Professionals
+              <br />
+              <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                Everywhere
+              </span>
+            </h2>
           </div>
 
-          {/* Col 3: Resources */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm italic">Resources</h4>
-            <div className="flex flex-col space-y-4">
-              {['Documentation', 'API Keys Setup', 'DataForSEO Guide', 'Video Tutorials', 'Blog'].map(item => (
-                <button key={item} className="text-left text-gray-400 hover:text-white transition-colors text-sm font-medium">
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Col 4: Company */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm italic">Company</h4>
-            <div className="flex flex-col space-y-4">
-              {['About Us', 'Contact', 'Privacy Policy', 'Terms of Service', 'Changelog'].map(item => (
-                <button key={item} className="text-left text-gray-400 hover:text-white transition-colors text-sm font-medium">
-                  {item}
-                </button>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                name: 'Ahmad K.',
+                role: 'Rank & Rent Builder',
+                avatar: 'A',
+                color: 'bg-purple-600',
+                text: 'Built 12 local sites in one week. 3 are already ranking on page 1. The niche finder alone is worth the subscription.'
+              },
+              {
+                name: 'Sarah M.',
+                role: 'Local SEO Agency',
+                avatar: 'S',
+                color: 'bg-blue-600',
+                text: 'Managing 20+ clients was a nightmare before this. Now automated reports go out every week. My clients love the white-label PDFs.'
+              },
+              {
+                name: 'Marcus T.',
+                role: 'SEO Freelancer',
+                avatar: 'M',
+                color: 'bg-green-600',
+                text: 'The AI content writer produces better copy than most humans. Combined with the schema generator, my sites rank fast.'
+              },
+              {
+                name: 'Priya R.',
+                role: 'Digital Marketer',
+                avatar: 'P',
+                color: 'bg-orange-600',
+                text: 'Went from 0 to 5 paying clients in 2 months using the Rank & Rent automation. The ROI calculator showed me exactly what to charge.'
+              },
+              {
+                name: 'James L.',
+                role: 'SEO Consultant',
+                avatar: 'J',
+                color: 'bg-pink-600',
+                text: 'Finally a tool built for local SEO specifically. Not a generic SEO tool. The GBP management alone saves me 10 hours a week.'
+              },
+              {
+                name: 'Zara A.',
+                role: 'Agency Owner',
+                avatar: 'Z',
+                color: 'bg-yellow-600',
+                text: 'Scaled from 5 to 30 clients without hiring. The bulk automation handles what used to take my whole team a month.'
+              },
+            ].map((t, i) => (
+              <div key={i}
+                className="bg-[#1A1740] border border-white/5 rounded-2xl p-6 hover:border-purple-500/30 transition-all">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-10 h-10 rounded-full ${t.color} flex items-center justify-center text-white font-bold`}>
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold text-sm">{t.name}</div>
+                    <div className="text-gray-500 text-xs">{t.role}</div>
+                  </div>
+                  <div className="ml-auto flex">
+                    {[1, 2, 3, 4, 5].map(s => (
+                      <span key={s} className="text-yellow-400 text-xs">★</span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Bottom Bar */}
-        <div className="max-w-7xl mx-auto border-t border-[#1A1740] pt-8 mt-16 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest italic tracking-tighter">
-            © 2025 SEO AI Platform. All rights reserved.
-          </p>
+      {/* SECTION 9: FOOTER — 4 Column */}
+      <footer className="bg-[#050410] border-t border-white/5 py-16 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            {/* Col 1: Brand */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">S</div>
+                <span className="text-white font-bold">SEO AI Platform</span>
+              </div>
+              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                The complete Local SEO toolkit for freelancers, agencies and Rank & Rent builders.
+              </p>
+              <div className="flex gap-3">
+                {['𝕏', 'in', '📘'].map(s => (
+                  <div key={s}
+                    className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-gray-400 hover:bg-purple-600/20 hover:text-purple-400 cursor-pointer transition-all text-sm">
+                    {s}
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          {/* Trust Badges */}
-          <div className="flex items-center space-x-8">
-            <TrustBadgeSmall icon={ShieldCheck} label="SSL Secured" />
-            <TrustBadgeSmall icon={Zap} label="99.9% Uptime" />
-            <TrustBadgeSmall icon={LayoutDashboard} label="Global CDN" />
+            {/* Col 2: Platform */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4 uppercase tracking-wider">Platform</h4>
+              {['Dashboard', 'Research Phase', 'Build Phase', 'Rank & Rent Tools', 'Pricing'].map(l => (
+                <div key={l}
+                  className="text-gray-500 text-sm mb-2 hover:text-purple-400 cursor-pointer transition-colors">
+                  {l}
+                </div>
+              ))}
+            </div>
+
+            {/* Col 3: Resources */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4 uppercase tracking-wider">Resources</h4>
+              {['Documentation', 'API Keys Setup', 'DataForSEO Guide', 'Video Tutorials', 'Blog', 'Changelog'].map(l => (
+                <div key={l}
+                  className="text-gray-500 text-sm mb-2 hover:text-purple-400 cursor-pointer transition-colors">
+                  {l}
+                </div>
+              ))}
+            </div>
+
+            {/* Col 4: Company */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4 uppercase tracking-wider">Company</h4>
+              {['About Us', 'Contact', 'Privacy Policy', 'Terms of Service', 'Become an Affiliate'].map(l => (
+                <div key={l}
+                  className="text-gray-500 text-sm mb-2 hover:text-purple-400 cursor-pointer transition-colors">
+                  {l}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex items-center space-x-6 text-gray-600 text-[10px] font-black uppercase tracking-widest italic tracking-tighter">
-            <button className="hover:text-white transition-colors">Privacy</button>
-            <button className="hover:text-white transition-colors">Terms</button>
-            <button className="hover:text-white transition-colors">Cookies</button>
+          {/* Bottom bar */}
+          <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-600 text-sm">
+              © 2025 SEO AI Platform. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              {['Privacy Policy', 'Terms of Service', 'Contact'].map(l => (
+                <span key={l}
+                  className="text-gray-600 text-xs hover:text-gray-400 cursor-pointer transition-colors">
+                  {l}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
