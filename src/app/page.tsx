@@ -329,22 +329,19 @@ export default function LandingPage() {
         <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3 text-center">WHO IS IT FOR</p>
         <h2 className="text-3xl md:text-5xl font-black text-center text-white italic mb-16 tracking-tight uppercase animate-fadeInUp">Built for every type of<br /><span className="text-purple-400">Local SEO professional</span></h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mt-10">
           {[
-            { id: 'newbie', icon: '🆕', title: 'Local SEO Newbie', desc: 'Step-by-step guidance from niche research to first ranking' },
-            { id: 'pro', icon: '💼', title: 'Client SEO Pro', desc: 'Manage multiple clients with automated reports and audits' },
-            { id: 'rank', icon: '🏠', title: 'Rank & Rent', desc: 'Build sites, rank them, rent them. Bulk page generator.' },
-            { id: 'agency', icon: '🏢', title: 'Agency', desc: 'White-label reports, team access and bulk site generation' },
-            { id: 'auto', icon: '🤖', title: 'Automation', desc: '1-click full SEO campaigns running on autopilot' },
+            { icon: '🆕', title: 'Local SEO Newbie', desc: 'Step-by-step guidance from niche research to first ranking' },
+            { icon: '💼', title: 'Client SEO Pro', desc: 'Manage multiple clients with automated reports and audits' },
+            { icon: '🏠', title: 'Rank & Rent', desc: 'Build, rank and monetize local sites at scale' },
+            { icon: '🏢', title: 'Agency', desc: 'White-label reports, team access, bulk automation' },
+            { icon: '🤖', title: 'Automation', desc: '1-click full SEO campaigns running on autopilot' },
           ].map((card, i) => (
-            <div
-              key={card.id}
-              className="bg-[#1A1740] border border-white/5 p-8 rounded-3xl hover:border-purple-500/50 transition-all duration-300 group flex flex-col min-h-[220px] animate-fadeInUp opacity-0"
-              style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'forwards' }}
-            >
-              <span className="text-4xl block mb-6 transition-transform group-hover:scale-110 duration-300">{card.icon}</span>
-              <h3 className="text-white font-black text-sm leading-tight mb-3 italic uppercase tracking-wider">{card.title}</h3>
-              <p className="text-slate-400 text-xs font-medium leading-relaxed mt-auto">{card.desc}</p>
+            <div key={i}
+              className="bg-[#1A1740] border border-white/5 rounded-2xl p-6 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 group">
+              <div className="text-3xl mb-3">{card.icon}</div>
+              <h3 className="text-white font-bold text-sm mb-2">{card.title}</h3>
+              <p className="text-gray-500 text-xs leading-relaxed">{card.desc}</p>
             </div>
           ))}
         </div>
