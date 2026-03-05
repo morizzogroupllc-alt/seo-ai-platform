@@ -119,11 +119,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Layout Wrapper */}
             <div className="flex flex-1 relative z-10 overflow-hidden">
-                <aside className={cn(
-                    "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar flex flex-col",
-                    isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
-                    isDarkMode ? "bg-[#1E1E1E] border-r border-[#333333] shadow-sm" : "bg-white border-r border-gray-200"
-                )}>
+                <aside
+                    className={cn(
+                        "fixed lg:static inset-y-0 left-0 z-50 w-72 transform transition-all duration-300 ease-in-out admin-sidebar flex flex-col",
+                        isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+                    )}
+                    style={{ background: 'var(--sidebar-bg)', borderRight: '1px solid var(--border)' }}
+                >
                     {/* Sidebar Header - One Line Logo */}
                     <div className="h-16 flex items-center px-4 border-b border-[#333333]">
                         <div className="w-9 h-9 bg-purple-700 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3 flex-shrink-0">
@@ -210,7 +212,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {/* Main Content Area */}
                 <div className="flex-1 flex flex-col min-w-0 max-h-screen overflow-hidden">
                     {/* Topbar */}
-                    <header className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 bg-[#1E1E1E] backdrop-blur-md shadow-[var(--shadow-sm)] border-b border-[#333333] z-30">
+                    <header
+                        className="admin-topbar h-16 flex-shrink-0 flex items-center relative px-6 z-30"
+                        style={{
+                            background: 'rgba(3,0,20,0.5)',
+                            backdropFilter: 'blur(40px) saturate(200%)',
+                            borderBottom: '1px solid var(--border)',
+                            boxShadow: '0 4px 24px -8px rgba(0,0,0,0.4)'
+                        }}
+                    >
                         {/* LEFT SECTION */}
                         <div className="flex items-center gap-4">
                             <button
@@ -257,7 +267,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </header>
 
                     {/* MAIN CONTENT — scrollable */}
-                    <main className="flex-1 overflow-y-auto p-6 md:p-8 bg-[#121212] custom-scrollbar relative">
+                    <main
+                        className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar relative"
+                        style={{ background: 'var(--bg-primary)' }}
+                    >
                         {children}
                     </main>
                 </div>
