@@ -513,3 +513,62 @@ textarea:focus {
 [class*="bg-[#2D2B55]"] {
   background-color: #243347 !important;
 }
+
+/* ── FIX 11: Global glow effects ─────────────────────────────────────────── */
+
+/* Gradient border card */
+.gradient-border-card {
+  position: relative;
+  background: linear-gradient(135deg, #1A1740, #1C2433);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.gradient-border-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, #A855F7, #3B82F6, #10B981);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.gradient-border-card:hover::before {
+  opacity: 1;
+}
+
+.gradient-border-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Section glow on scroll */
+.section-glow {
+  transition: box-shadow 0.5s ease;
+}
+
+.section-glow.in-view {
+  box-shadow: 0 0 100px rgba(168, 85, 247, 0.05) inset;
+}
+
+/* Animated gradient text */
+.gradient-text-animated {
+  background: linear-gradient(135deg, #A855F7, #3B82F6, #A855F7);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerText 3s linear infinite;
+}
+
+@keyframes shimmerText {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
