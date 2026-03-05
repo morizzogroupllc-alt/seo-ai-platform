@@ -257,7 +257,7 @@ export default function PlatformSettingsPage() {
                             "p-5 rounded-2xl transition-all border inner-box",
                             settings.maintenanceMode
                                 ? "bg-red-950/20 border-red-500/30 shadow-[0_0_20px_rgba(239,68,68,0.05)]"
-                                : "border-white/5"
+                                : "border-[rgba(255,255,255,0.06)]"
                         )}>
                             <Toggle
                                 label="Maintenance Mode"
@@ -303,7 +303,7 @@ export default function PlatformSettingsPage() {
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Feature Flags</h3>
                     </div>
 
-                    <div className="divide-y divide-white/5 inner-box rounded-2xl border border-white/5 px-6">
+                    <div className="divide-y divide-white/5 inner-box rounded-2xl border border-[rgba(255,255,255,0.06)] px-6">
                         <Toggle
                             label="Show Pricing Page"
                             sub="Display pricing on landing page"
@@ -350,7 +350,7 @@ export default function PlatformSettingsPage() {
 
                 <div className="overflow-x-auto">
                     <table className="data-table w-full text-center">
-                        <thead className="border-b border-white/5">
+                        <thead className="border-b border-[rgba(255,255,255,0.06)]">
                             <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest">
                                 <th className="pb-6 text-left pl-4 font-black">Subscription Plan</th>
                                 <th className="pb-6 font-black">Niche Finder</th>
@@ -366,7 +366,7 @@ export default function PlatformSettingsPage() {
                                 <tr key={limit.plan} className="group hover:bg-white/5 transition-colors">
                                     <td className="py-6 text-left pl-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-xs font-black text-purple-400 border border-white/5">
+                                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-xs font-black text-purple-400 border border-[rgba(255,255,255,0.06)]">
                                                 {limit.plan[0]}
                                             </div>
                                             <span className="text-white text-xs font-black uppercase tracking-widest">{limit.plan}</span>
@@ -429,7 +429,7 @@ export default function PlatformSettingsPage() {
                 <div className="mt-8 flex justify-center">
                     <button
                         onClick={saveAllSettings}
-                        className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-xl border border-white/5 transition-all uppercase tracking-widest active:scale-95"
+                        className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-xl border border-[rgba(255,255,255,0.06)] transition-all uppercase tracking-widest active:scale-95"
                     >
                         <RefreshCw className="w-3.5 h-3.5" />
                         Update Limits Table
@@ -474,7 +474,7 @@ export default function PlatformSettingsPage() {
                                             ? t === 'info' ? "bg-blue-600 border-blue-400 text-white shadow-lg shadow-blue-600/20" :
                                                 t === 'warning' ? "bg-orange-600 border-orange-400 text-white shadow-lg shadow-orange-600/20" :
                                                     "bg-green-600 border-green-400 text-white shadow-lg shadow-green-600/20"
-                                            : "bg-white/5 border-white/5 text-gray-500 hover:text-white"
+                                            : "bg-white/5 border-[rgba(255,255,255,0.06)] text-gray-500 hover:text-white"
                                     )}
                                 >
                                     {t}
@@ -493,7 +493,7 @@ export default function PlatformSettingsPage() {
                             />
                         </div>
 
-                        <div className="pt-4 border-t border-white/5">
+                        <div className="pt-4 border-t border-[rgba(255,255,255,0.06)]">
                             <p className="text-gray-600 text-[9px] font-black uppercase tracking-widest mb-4 flex items-center gap-2">
                                 <Eye className="w-3 h-3" /> Live Preview
                             </p>
@@ -529,9 +529,9 @@ export default function PlatformSettingsPage() {
                             { label: 'Clear API Usage Logs', sub: 'Permanently delete all logs from api_usage', icon: Trash2, action: clearLogs, color: 'text-red-400', btn: 'Clear', type: 'outline' },
                             { label: 'Force Sign Out All Users', sub: 'Invalidate all sessions immediately', icon: LogOut, action: () => confirm('Force logout all users?'), color: 'text-red-600', btn: 'Force Logout', type: 'solid' },
                         ].map((item, i) => (
-                            <div key={i} className="flex items-center justify-between p-4 inner-box rounded-2xl border border-white/5 hover:border-red-500/20 transition-all group">
+                            <div key={i} className="flex items-center justify-between p-4 inner-box rounded-2xl border border-[rgba(255,255,255,0.06)] hover:border-red-500/20 transition-all group">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-red-500/10 group-hover:border-red-500/20 transition-all">
+                                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-[rgba(255,255,255,0.06)] group-hover:bg-red-500/10 group-hover:border-red-500/20 transition-all">
                                         <item.icon className={cn("w-4 h-4", item.color)} />
                                     </div>
                                     <div className="space-y-0.5">

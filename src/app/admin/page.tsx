@@ -192,7 +192,7 @@ export default function AdminPage() {
                     </div>
                     <div className="overflow-x-auto">
                         <table className="data-table w-full text-left">
-                            <thead className="border-b border-white/5 bg-[#1E1E1E]/50">
+                            <thead className="border-b border-[rgba(255,255,255,0.06)] bg-[#1E1E1E]/50">
                                 <tr className="text-gray-500 text-[10px] uppercase tracking-wider font-bold">
                                     <th className="pb-3 pr-4">User Details</th>
                                     <th className="pb-3 px-4">Plan</th>

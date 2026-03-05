@@ -401,7 +401,7 @@ export default function ToolsManagerPage() {
                         placeholder="Search tool by name or ID..."
                         value={searchQuery}
                         onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-                        className="w-full bg-black/20 border border-white/5 rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-purple-500/30 transition-all font-medium"
+                        className="w-full bg-black/20 border border-[rgba(255,255,255,0.06)] rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-purple-500/30 transition-all font-medium"
                     />
                 </div>
                 <div className="flex items-center gap-3 w-full lg:w-auto">
@@ -434,7 +434,7 @@ export default function ToolsManagerPage() {
             <div className="glass-card shimmer-border overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="data-table w-full text-left">
-                        <thead className="bg-black/20 border-b border-white/5">
+                        <thead className="bg-black/20 border-b border-[rgba(255,255,255,0.06)]">
                             <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest">
                                 <th className="px-6 py-5 w-12">
                                     <input
@@ -483,7 +483,7 @@ export default function ToolsManagerPage() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-5 text-center">
-                                        <span className="px-2.5 py-1 bg-white/5 text-gray-400 text-[9px] font-black rounded-lg border border-white/5 uppercase tracking-widest">
+                                        <span className="px-2.5 py-1 bg-white/5 text-gray-400 text-[9px] font-black rounded-lg border border-[rgba(255,255,255,0.06)] uppercase tracking-widest">
                                             Phase {tool.phase}
                                         </span>
                                     </td>
@@ -537,7 +537,7 @@ export default function ToolsManagerPage() {
 
                 {/* PAGINATION */}
                 {totalPages > 1 && (
-                    <div className="px-8 py-6 border-t border-white/5 bg-black/10 flex items-center justify-between">
+                    <div className="px-8 py-6 border-t border-[rgba(255,255,255,0.06)] bg-black/10 flex items-center justify-between">
                         <p className="text-gray-600 text-[10px] font-bold uppercase tracking-widest">
                             Showing <span className="text-white">{(currentPage - 1) * pageSize + 1} - {Math.min(currentPage * pageSize, filteredTools.length)}</span> of <span className="text-white">{filteredTools.length}</span> tools
                         </p>
@@ -545,7 +545,7 @@ export default function ToolsManagerPage() {
                             <button
                                 disabled={currentPage === 1}
                                 onClick={() => setCurrentPage(prev => prev - 1)}
-                                className="p-2 bg-white/5 hover:bg-white/10 text-white rounded-lg disabled:opacity-30 transition-all border border-white/5"
+                                className="p-2 bg-white/5 hover:bg-white/10 text-white rounded-lg disabled:opacity-30 transition-all border border-[rgba(255,255,255,0.06)]"
                             >
                                 <ChevronLeft size={16} />
                             </button>
@@ -558,7 +558,7 @@ export default function ToolsManagerPage() {
                                             "w-8 h-8 rounded-lg text-[10px] font-black transition-all border",
                                             currentPage === i + 1
                                                 ? "bg-purple-600 border-purple-400 text-white shadow-lg shadow-purple-900/40"
-                                                : "bg-white/5 border-white/5 text-gray-500 hover:text-white hover:bg-white/10"
+                                                : "bg-white/5 border-[rgba(255,255,255,0.06)] text-gray-500 hover:text-white hover:bg-white/10"
                                         )}
                                     >
                                         {i + 1}
@@ -568,7 +568,7 @@ export default function ToolsManagerPage() {
                             <button
                                 disabled={currentPage === totalPages}
                                 onClick={() => setCurrentPage(prev => prev + 1)}
-                                className="p-2 bg-white/5 hover:bg-white/10 text-white rounded-lg disabled:opacity-30 transition-all border border-white/5"
+                                className="p-2 bg-white/5 hover:bg-white/10 text-white rounded-lg disabled:opacity-30 transition-all border border-[rgba(255,255,255,0.06)]"
                             >
                                 <ChevronRight size={16} />
                             </button>
@@ -581,7 +581,7 @@ export default function ToolsManagerPage() {
             {selectedTools.length > 0 && (
                 <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] animate-slideUp">
                     <div className="bg-[#1E1E1E] border border-purple-500/30 px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-8 backdrop-blur-xl ring-1 ring-purple-500/10">
-                        <div className="flex items-center gap-3 border-r border-white/10 pr-8">
+                        <div className="flex items-center gap-3 border-r border-[rgba(255,255,255,0.06)] pr-8">
                             <div className="w-9 h-9 rounded-xl bg-purple-600 flex items-center justify-center text-white font-black text-sm">
                                 {selectedTools.length}
                             </div>
@@ -610,7 +610,7 @@ export default function ToolsManagerPage() {
                             </button>
                             <button
                                 onClick={() => setSelectedTools([])}
-                                className="px-5 py-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-[10px] font-black rounded-xl transition-all border border-white/5 uppercase tracking-widest ml-2"
+                                className="px-5 py-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-[10px] font-black rounded-xl transition-all border border-[rgba(255,255,255,0.06)] uppercase tracking-widest ml-2"
                             >
                                 Clear Selection
                             </button>

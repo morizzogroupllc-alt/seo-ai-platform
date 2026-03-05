@@ -280,7 +280,7 @@ export default function AdminPaymentsPage() {
                 {paidUsersCount > 0 ? (
                     <div className="overflow-x-auto">
                         <table className="data-table w-full text-left">
-                            <thead className="border-b border-white/5">
+                            <thead className="border-b border-[rgba(255,255,255,0.06)]">
                                 <tr className="text-gray-500 text-[10px] uppercase tracking-wider font-bold">
                                     <th className="pb-3 pr-4">User</th>
                                     <th className="pb-3 px-4">Plan</th>
@@ -328,7 +328,7 @@ export default function AdminPaymentsPage() {
                                             </div>
                                         </td>
                                         <td className="py-4 pl-4 text-right">
-                                            <button className="text-[10px] px-3 py-1 rounded-lg bg-white/5 text-gray-400 font-bold uppercase hover:bg-red-500/10 hover:text-red-400 transition-all border border-white/5">
+                                            <button className="text-[10px] px-3 py-1 rounded-lg bg-white/5 text-gray-400 font-bold uppercase hover:bg-red-500/10 hover:text-red-400 transition-all border border-[rgba(255,255,255,0.06)]">
                                                 Downgrade
                                             </button>
                                         </td>

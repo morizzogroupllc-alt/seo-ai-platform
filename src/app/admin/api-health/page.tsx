@@ -281,7 +281,7 @@ export default function ApiHealthPage() {
                                 CONNECTED
                             </span>
                         </div>
-                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-white/5 py-6">
+                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-[rgba(255,255,255,0.06)] py-6">
                             <div>
                                 <p className="text-gray-600 text-[9px] font-black uppercase tracking-widest mb-1">Today's Usage</p>
                                 <p className="text-white text-lg font-black uppercase tracking-tight">Real-time</p>
@@ -295,7 +295,7 @@ export default function ApiHealthPage() {
                             <div>
                                 <label className="text-gray-600 text-[9px] font-black uppercase tracking-widest ml-1 mb-2 block">Project URL</label>
                                 <div className="flex items-center gap-2">
-                                    <div className="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 font-mono text-xs text-purple-400 overflow-hidden">
+                                    <div className="flex-1 bg-black/40 border border-[rgba(255,255,255,0.06)] rounded-xl px-4 py-3 font-mono text-xs text-purple-400 overflow-hidden">
                                         {users[0] ? "https://•••••.supabase.co" : "Checking..."}
                                     </div>
                                     <button
@@ -307,7 +307,7 @@ export default function ApiHealthPage() {
                                     </button>
                                 </div>
                             </div>
-                            <a href="https://supabase.com/dashboard" target="_blank" className="flex items-center justify-center gap-2 w-full py-4 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-2xl transition-all border border-white/5 uppercase tracking-widest group">
+                            <a href="https://supabase.com/dashboard" target="_blank" className="flex items-center justify-center gap-2 w-full py-4 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-2xl transition-all border border-[rgba(255,255,255,0.06)] uppercase tracking-widest group">
                                 View Dashboard
                                 <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                             </a>
@@ -332,7 +332,7 @@ export default function ApiHealthPage() {
                                 {apiKeys.dataforseo_login ? 'CONNECTED' : 'NOT CONFIGURED'}
                             </span>
                         </div>
-                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-white/5 py-6">
+                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-[rgba(255,255,255,0.06)] py-6">
                             <div>
                                 <p className="text-gray-600 text-[9px] font-black uppercase tracking-widest mb-1">Today's Usage</p>
                                 <p className="text-white text-lg font-black uppercase tracking-tight">0 Calls</p>
@@ -350,7 +350,7 @@ export default function ApiHealthPage() {
                                         placeholder="Enter DataForSEO login..."
                                         value={apiKeys.dataforseo_login}
                                         onChange={(e) => setApiKeys({ ...apiKeys, dataforseo_login: e.target.value })}
-                                        className="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50"
+                                        className="flex-1 bg-black/40 border border-[rgba(255,255,255,0.06)] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50"
                                     />
                                     <button
                                         onClick={() => saveApiKey('api_key_dataforseo', apiKeys.dataforseo_login)}
@@ -363,12 +363,12 @@ export default function ApiHealthPage() {
                                     <input
                                         type="password"
                                         placeholder="Enter password..."
-                                        className="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50"
+                                        className="flex-1 bg-black/40 border border-[rgba(255,255,255,0.06)] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50"
                                     />
                                     <button
                                         onClick={() => testConnection('DataForSEO')}
                                         disabled={testingService === 'DataForSEO'}
-                                        className="px-6 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/5 text-[10px] font-black uppercase tracking-widest transition-all disabled:opacity-50"
+                                        className="px-6 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-[rgba(255,255,255,0.06)] text-[10px] font-black uppercase tracking-widest transition-all disabled:opacity-50"
                                     >
                                         {testingService === 'DataForSEO' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Test'}
                                     </button>
@@ -401,7 +401,7 @@ export default function ApiHealthPage() {
                                 {apiKeys.gemini ? 'CONNECTED' : 'NOT CONFIGURED'}
                             </span>
                         </div>
-                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-white/5 py-6">
+                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-[rgba(255,255,255,0.06)] py-6">
                             <div>
                                 <p className="text-gray-600 text-[9px] font-black uppercase tracking-widest mb-1">Today's Usage</p>
                                 <p className="text-white text-lg font-black uppercase tracking-tight">0 Tokens</p>
@@ -421,7 +421,7 @@ export default function ApiHealthPage() {
                                             placeholder="Enter Gemini API key..."
                                             value={apiKeys.gemini}
                                             onChange={(e) => setApiKeys({ ...apiKeys, gemini: e.target.value })}
-                                            className="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 pr-10 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-purple-500/50"
+                                            className="w-full bg-black/40 border border-[rgba(255,255,255,0.06)] rounded-xl px-4 py-3 pr-10 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-purple-500/50"
                                         />
                                         <button
                                             onClick={() => setShowKeyId(showKeyId === 'gemini' ? null : 'gemini')}
@@ -469,7 +469,7 @@ export default function ApiHealthPage() {
                                 NOT CONFIGURED
                             </span>
                         </div>
-                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-white/5 py-6">
+                        <div className="grid grid-cols-2 gap-8 mb-8 relative z-10 border-y border-[rgba(255,255,255,0.06)] py-6">
                             <div>
                                 <p className="text-gray-600 text-[9px] font-black uppercase tracking-widest mb-1">Today's Transactions</p>
                                 <p className="text-white text-lg font-black uppercase tracking-tight">0</p>
@@ -484,13 +484,13 @@ export default function ApiHealthPage() {
                                 <input
                                     type="password"
                                     placeholder="Publishable Key (pk_...)"
-                                    className="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-yellow-500/50"
+                                    className="w-full bg-black/40 border border-[rgba(255,255,255,0.06)] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-yellow-500/50"
                                 />
                                 <div className="flex gap-2">
                                     <input
                                         type="password"
                                         placeholder="Secret Key (sk_...)"
-                                        className="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-yellow-500/50"
+                                        className="flex-1 bg-black/40 border border-[rgba(255,255,255,0.06)] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-700 focus:outline-none focus:border-yellow-500/50"
                                     />
                                     <button className="px-6 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-[10px] font-black uppercase tracking-widest transition-all">
                                         Save
@@ -517,7 +517,7 @@ export default function ApiHealthPage() {
                                     <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Multi-Model LLM</p>
                                 </div>
                             </div>
-                            <span className="px-3 py-1.5 rounded-full bg-white/5 text-gray-500 text-[9px] font-black uppercase tracking-widest border border-white/10">
+                            <span className="px-3 py-1.5 rounded-full bg-white/5 text-gray-500 text-[9px] font-black uppercase tracking-widest border border-[rgba(255,255,255,0.06)]">
                                 COMING SOON
                             </span>
                         </div>
@@ -525,7 +525,7 @@ export default function ApiHealthPage() {
                             <p className="text-gray-400 text-xs font-medium max-w-xs mx-auto mb-6 uppercase tracking-widest leading-relaxed">
                                 OpenRouter integration planned for Phase 2 multi-model AI support.
                             </p>
-                            <a href="https://openrouter.ai" target="_blank" className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-xl transition-all border border-white/5 uppercase tracking-widest">
+                            <a href="https://openrouter.ai" target="_blank" className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-xl transition-all border border-[rgba(255,255,255,0.06)] uppercase tracking-widest">
                                 Learn More
                                 <ArrowRightLeft className="w-3.5 h-3.5" />
                             </a>
@@ -569,7 +569,7 @@ export default function ApiHealthPage() {
                 {usersWithOwnKeys.length > 0 ? (
                     <div className="overflow-x-auto">
                         <table className="data-table w-full text-left">
-                            <thead className="border-b border-white/5">
+                            <thead className="border-b border-[rgba(255,255,255,0.06)]">
                                 <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest">
                                     <th className="pb-4">User</th>
                                     <th className="pb-4 text-center">DataForSEO</th>
@@ -621,7 +621,7 @@ export default function ApiHealthPage() {
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center py-20 text-center">
-                        <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-6 border border-white/5">
+                        <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-6 border border-[rgba(255,255,255,0.06)]">
                             <Key className="w-10 h-10 text-gray-700" />
                         </div>
                         <h4 className="text-white font-black text-lg uppercase tracking-tight mb-2">No users providing keys</h4>
@@ -630,7 +630,7 @@ export default function ApiHealthPage() {
                         </p>
                         <button
                             disabled
-                            className="flex items-center gap-2 px-8 py-3 bg-white/5 text-gray-600 text-[11px] font-black rounded-xl border border-white/5 uppercase tracking-widest cursor-not-allowed"
+                            className="flex items-center gap-2 px-8 py-3 bg-white/5 text-gray-600 text-[11px] font-black rounded-xl border border-[rgba(255,255,255,0.06)] uppercase tracking-widest cursor-not-allowed"
                         >
                             No Activity Yet
                         </button>

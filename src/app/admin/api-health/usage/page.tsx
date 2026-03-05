@@ -205,7 +205,7 @@ export default function ApiUsageTrackerPage() {
                 <span className="text-white text-[11px] font-black uppercase tracking-widest">{name}</span>
             </div>
             <div className="space-y-4">
-                <div className="flex justify-between items-end border-b border-white/5 pb-3">
+                <div className="flex justify-between items-end border-b border-[rgba(255,255,255,0.06)] pb-3">
                     <span className="text-gray-600 text-[10px] font-black uppercase tracking-widest">Total Usage</span>
                     <span className="text-white text-xl font-black">{stats.total}</span>
                 </div>
@@ -361,7 +361,7 @@ export default function ApiUsageTrackerPage() {
                 <h3 className="text-white font-black text-sm uppercase tracking-widest pl-1 mb-8">User API Consumption</h3>
                 <div className="overflow-x-auto">
                     <table className="data-table w-full text-left">
-                        <thead className="border-b border-white/5">
+                        <thead className="border-b border-[rgba(255,255,255,0.06)]">
                             <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest">
                                 <th className="pb-5">User Profile</th>
                                 <th className="pb-5 text-center">Plan</th>
@@ -393,7 +393,7 @@ export default function ApiUsageTrackerPage() {
                                     <td className="py-5 text-center px-4">
                                         <span className={cn(
                                             "text-[9px] px-2.5 py-1 rounded-full font-black uppercase border",
-                                            user.plan === 'free' ? "bg-gray-800 text-gray-500 border-white/5" : "bg-purple-900/20 text-purple-300 border-purple-500/10"
+                                            user.plan === 'free' ? "bg-gray-800 text-gray-500 border-[rgba(255,255,255,0.06)]" : "bg-purple-900/20 text-purple-300 border-purple-500/10"
                                         )}>
                                             {user.plan}
                                         </span>
@@ -424,7 +424,7 @@ export default function ApiUsageTrackerPage() {
                                     <td className="py-5 text-right">
                                         <button
                                             onClick={() => { setSelectedUser(user); setIsModalOpen(true); setActiveTab(0); }}
-                                            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-xl border border-white/5 transition-all uppercase tracking-widest active:scale-95 translate-x-1"
+                                            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black rounded-xl border border-[rgba(255,255,255,0.06)] transition-all uppercase tracking-widest active:scale-95 translate-x-1"
                                         >
                                             Details
                                             <ArrowLeft className="w-3 h-3 rotate-180" />

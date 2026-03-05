@@ -300,7 +300,7 @@ export default function UsersManagementPage() {
     };
 
     const getUserTypeColor = (type: string) => {
-        if (!type || type === 'Not Selected') return 'text-gray-500 bg-white/5 border-white/10';
+        if (!type || type === 'Not Selected') return 'text-gray-500 bg-white/5 border-[rgba(255,255,255,0.06)]';
 
         const t = type.toLowerCase();
         if (t.includes('newbie')) return 'text-purple-400 bg-purple-500/10 border-purple-500/20';
@@ -309,7 +309,7 @@ export default function UsersManagementPage() {
         if (t.includes('agency')) return 'text-orange-400 bg-orange-500/10 border-orange-500/20';
         if (t.includes('automation')) return 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20';
 
-        return 'text-gray-400 bg-white/5 border-white/10';
+        return 'text-gray-400 bg-white/5 border-[rgba(255,255,255,0.06)]';
     };
 
     return (
@@ -474,7 +474,7 @@ export default function UsersManagementPage() {
                                             <td className="px-4 py-4 text-left">
                                                 <div className="flex items-center gap-3 text-[#EEF2FF]">
                                                     <div
-                                                        className="w-9 h-9 flex-shrink-0 rounded-full flex items-center justify-center font-bold text-sm border border-white/10 user-avatar"
+                                                        className="w-9 h-9 flex-shrink-0 rounded-full flex items-center justify-center font-bold text-sm border border-[rgba(255,255,255,0.06)] user-avatar"
                                                         style={{ background: getAvatarColor(user.email) }}
                                                     >
                                                         {user.email[0].toUpperCase()}
@@ -628,12 +628,12 @@ export default function UsersManagementPage() {
                                         { label: 'DataForSEO API Key', value: selectedUser.api_key_dataforseo ? '••••••••••••••••' : 'Not set' },
                                         { label: 'Gemini API Key', value: selectedUser.api_key_gemini ? '••••••••••••••••' : 'Not set' }
                                     ].map((field, i) => (
-                                        <div key={i} className="bg-white/5 border border-white/10 p-4 rounded-xl space-y-1">
+                                        <div key={i} className="bg-white/5 border border-[rgba(255,255,255,0.06)] p-4 rounded-xl space-y-1">
                                             <p className="text-xs text-gray-400 uppercase font-bold text-[10px] tracking-widest">{field.label}</p>
                                             <div className="text-sm font-medium text-gray-200">{field.value}</div>
                                         </div>
                                     ))}
-                                    <div className="bg-white/5 border border-white/10 p-4 rounded-xl space-y-1 flex items-center justify-between col-span-full">
+                                    <div className="bg-white/5 border border-[rgba(255,255,255,0.06)] p-4 rounded-xl space-y-1 flex items-center justify-between col-span-full">
                                         <div>
                                             <p className="text-xs text-gray-400 uppercase font-bold text-[10px]">Subscription Plan</p>
                                             <p className="text-sm font-medium capitalize">{selectedUser.plan}</p>
@@ -661,7 +661,7 @@ export default function UsersManagementPage() {
                                                 <span className="text-gray-400 font-medium">{item.label}</span>
                                                 <span className="text-white font-bold">{item.current} / {item.limit} searches</span>
                                             </div>
-                                            <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+                                            <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-[rgba(255,255,255,0.06)]">
                                                 <div
                                                     className="h-full bg-gradient-to-r from-purple-600 to-blue-500 transition-all duration-500"
                                                     style={{ width: `${Math.min((item.current / item.limit) * 100, 100)}%` }}
@@ -680,7 +680,7 @@ export default function UsersManagementPage() {
                                         { icon: "👤", label: `User Type: ${selectedUser.user_type || 'Not Set'}`, date: selectedUser.user_type ? "Set" : "-" },
                                         { icon: selectedUser.is_active ? "🟢" : "🔴", label: `Status: ${selectedUser.is_active ? 'Active' : 'Banned'}`, date: "Today" }
                                     ].map((act, i) => (
-                                        <div key={i} className="flex items-center justify-between p-3 bg-white/5 border border-white/10 rounded-xl transition hover:bg-white/10">
+                                        <div key={i} className="flex items-center justify-between p-3 bg-white/5 border border-[rgba(255,255,255,0.06)] rounded-xl transition hover:bg-white/10">
                                             <div className="flex items-center gap-3">
                                                 <span className="text-lg">{act.icon}</span>
                                                 <span className="text-sm font-medium text-gray-200">{act.label}</span>

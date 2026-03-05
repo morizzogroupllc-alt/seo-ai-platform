@@ -302,7 +302,7 @@ export default function AnalyticsPage() {
                         </div>
                     ))}
                 </div>
-                <div className="mt-10 pt-6 border-t border-white/5 flex justify-between items-center text-[9px] font-black text-gray-600 uppercase tracking-widest">
+                <div className="mt-10 pt-6 border-t border-[rgba(255,255,255,0.06)] flex justify-between items-center text-[9px] font-black text-gray-600 uppercase tracking-widest">
                     <span>JAN 10</span>
                     <div className="flex items-center gap-10">
                         <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-purple-500" /> Registrations</div>
@@ -322,7 +322,7 @@ export default function AnalyticsPage() {
                         </div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Users by Type</h3>
                     </div>
-                    <div className="space-y-6 inner-box p-6 rounded-2xl border border-white/5">
+                    <div className="space-y-6 inner-box p-6 rounded-2xl border border-[rgba(255,255,255,0.06)]">
                         {userTypeDistribution.map((item, idx) => (
                             <DistributionRow
                                 key={idx}
@@ -342,7 +342,7 @@ export default function AnalyticsPage() {
                         </div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Users by Plan</h3>
                     </div>
-                    <div className="space-y-6 inner-box p-6 rounded-2xl border border-white/5">
+                    <div className="space-y-6 inner-box p-6 rounded-2xl border border-[rgba(255,255,255,0.06)]">
                         {planDistribution.map((item, idx) => (
                             <DistributionRow
                                 key={idx}
@@ -373,7 +373,7 @@ export default function AnalyticsPage() {
                     </div>
                     <div className="space-y-3">
                         {topTools.map((tool, idx) => (
-                            <div key={idx} className="flex items-center gap-4 inner-box px-5 py-4 rounded-2xl border border-white/5 group hover:border-purple-500/30 transition-all">
+                            <div key={idx} className="flex items-center gap-4 inner-box px-5 py-4 rounded-2xl border border-[rgba(255,255,255,0.06)] group hover:border-purple-500/30 transition-all">
                                 <span className="text-purple-500 font-black text-xs w-6 opacity-40 group-hover:opacity-100 transition-opacity">#{idx + 1}</span>
                                 <div className="flex-1">
                                     <p className="text-white text-xs font-black uppercase tracking-widest">{tool.name}</p>
@@ -408,7 +408,7 @@ export default function AnalyticsPage() {
                     </div>
                     <div className="space-y-4">
                         {users.slice(0, 5).map((u, i) => (
-                            <div key={u.id} className="flex items-center justify-between p-4 inner-box rounded-2xl border border-white/5 hover:bg-white/5 transition-all">
+                            <div key={u.id} className="flex items-center justify-between p-4 inner-box rounded-2xl border border-[rgba(255,255,255,0.06)] hover:bg-white/5 transition-all">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-full bg-purple-700/20 flex items-center justify-center text-purple-400 font-bold text-sm border border-purple-500/10 shadow-lg">
                                         {u.email[0].toUpperCase()}
@@ -418,7 +418,7 @@ export default function AnalyticsPage() {
                                         <div className="flex items-center gap-2 mt-0.5">
                                             <span className={cn(
                                                 "text-[8px] px-2 py-0.5 rounded font-black uppercase tracking-tighter border",
-                                                u.plan === 'free' ? "bg-gray-800 text-gray-500 border-white/5" : "bg-purple-900/40 text-purple-400 border-purple-500/20"
+                                                u.plan === 'free' ? "bg-gray-800 text-gray-500 border-[rgba(255,255,255,0.06)]" : "bg-purple-900/40 text-purple-400 border-purple-500/20"
                                             )}>
                                                 {u.plan}
                                             </span>
@@ -426,13 +426,13 @@ export default function AnalyticsPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white rounded-xl transition-all border border-white/5">
+                                <button className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white rounded-xl transition-all border border-[rgba(255,255,255,0.06)]">
                                     <ArrowRight size={14} />
                                 </button>
                             </div>
                         ))}
                     </div>
-                    <button className="w-full mt-6 py-4 bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white text-[10px] font-black rounded-2xl border border-white/5 transition-all uppercase tracking-widest active:scale-[0.98]">
+                    <button className="w-full mt-6 py-4 bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white text-[10px] font-black rounded-2xl border border-[rgba(255,255,255,0.06)] transition-all uppercase tracking-widest active:scale-[0.98]">
                         Full User Audit Log
                     </button>
                 </div>
