@@ -56,6 +56,21 @@ export default function LandingPage() {
     if (type) setUserType(type)
   }, [])
 
+  const badges = [
+    "🏆 #1 Local SEO Platform",
+    "🚀 136 AI-Powered Tools",
+    "📍 Rank & Rent Automation",
+    "💰 Free To Start",
+    "🤖 AI-Powered SEO"
+  ]
+  const [badgeIndex, setBadgeIndex] = useState(0)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBadgeIndex(i => (i + 1) % badges.length)
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [])
+
   const handleGetStarted = () => {
     router.push('/signup')
   }
@@ -106,14 +121,6 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* ADD 1: TOP ANNOUNCEMENT BAR */}
-      <div className="w-full bg-purple-900/30 border-b border-purple-500/20 py-2 text-center">
-        <span className="text-purple-300 text-xs font-medium">
-          🚀 Get Ready For The New Era of{' '}
-          <span className="text-purple-400 font-bold">AI Local SEO</span>
-        </span>
-      </div>
-
       {/* SECTION 2: HERO */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden flex flex-col items-center text-center px-6">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none" />
@@ -121,6 +128,12 @@ export default function LandingPage() {
         <div className="relative z-10 max-w-5xl">
           {/* Heading Section */}
           <div className="animate-fadeInUp" style={{ animationDelay: '0ms' }}>
+            {/* Cycling Badge */}
+            <div className="inline-flex items-center gap-2 bg-purple-900/30 border border-purple-500/30 rounded-full px-4 py-1.5 mb-4">
+              <span className="text-purple-300 text-xs font-medium animate-fadeIn" key={badgeIndex}>
+                {badges[badgeIndex]}
+              </span>
+            </div>
             <p className="text-gray-400 text-lg mb-2 font-medium">
               The Complete Local SEO Platform
             </p>
@@ -189,7 +202,7 @@ export default function LandingPage() {
         </div>
 
         {/* FAKE DASHBOARD MOCKUP */}
-        <div className="relative group animate-float max-w-5xl mx-auto w-full" style={{ animationDelay: '300ms' }}>
+        <div className="relative group max-w-5xl mx-auto w-full" style={{ animation: 'float 4s ease-in-out infinite' }}>
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
           <div className="relative bg-[#1A1740] rounded-2xl border border-[#4C1D95] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.25)]">
             <div className="flex flex-col h-full uppercase italic">
@@ -310,37 +323,13 @@ export default function LandingPage() {
       {/* SECTION 4: STATS BAR WITH COUNT UP */}
       <StatsSection />
 
-      {/* ADD 3: POWERED BY SECTION */}
-      <section className="py-8 border-y border-white/5">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-gray-600 text-xs uppercase tracking-widest font-bold mb-6">
-            Powered by Industry Leaders
-          </p>
-          <div className="flex items-center justify-center gap-8 flex-wrap">
-            {[
-              { name: 'Gemini AI', icon: '🤖' },
-              { name: 'DataForSEO', icon: '📊' },
-              { name: 'Supabase', icon: '🗄️' },
-              { name: 'Vercel', icon: '▲' },
-              { name: 'OpenRouter', icon: '🔀' },
-              { name: 'Pexels', icon: '📸' },
-            ].map(tech => (
-              <div key={tech.name}
-                className="flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors">
-                <span className="text-lg">{tech.icon}</span>
-                <span className="text-sm font-semibold">{tech.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* SECTION 5: WHO IS IT FOR / FEATURE BLOCKS */}
       <section id="features" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
         <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3 text-center">WHO IS IT FOR</p>
         <h2 className="text-3xl md:text-5xl font-black text-center text-white italic mb-16 tracking-tight uppercase animate-fadeInUp">Built for every type of<br /><span className="text-purple-400">Local SEO professional</span></h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {[
             { id: 'newbie', icon: '🆕', title: 'Local SEO Newbie', desc: 'Step-by-step guidance from niche research to first ranking' },
             { id: 'pro', icon: '💼', title: 'Client SEO Pro', desc: 'Manage multiple clients with automated reports and audits' },

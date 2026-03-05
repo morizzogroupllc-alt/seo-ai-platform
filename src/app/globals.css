@@ -107,6 +107,18 @@
   }
 }
 
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
 .animate-slideInLeft {
   animation: slideInLeft 0.4s ease forwards;
 }
@@ -158,31 +170,31 @@
 
 .admin-card {
   background: #1E293B !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 16px !important;
   transition: all 0.3s ease;
 }
 
 .stat-card-glow {
   background: #1E293B !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 16px !important;
   transition: all 0.3s ease;
 }
 
 .glass-card {
-  border: 1px solid rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 16px !important;
 }
 
 div[class*="rounded-2xl"],
 div[class*="rounded-xl"] {
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .admin-card:hover,
 .stat-card-glow:hover {
-  border-color: rgba(99,102,241,0.4) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
   box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2), 0 4px 24px rgba(0, 0, 0, 0.4) !important;
   transform: translateY(-2px);
 }
@@ -309,7 +321,7 @@ th {
   font-size: 11px !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
 tbody tr {
@@ -436,13 +448,13 @@ textarea:focus {
 /* Quick actions */
 .quick-action-btn {
   background: #1E293B !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
   color: #94A3B8 !important;
 }
 
 .quick-action-btn:hover {
   background: #243347 !important;
-  border-color: rgba(99,102,241,0.4) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
   color: #F1F5F9 !important;
 }
 
