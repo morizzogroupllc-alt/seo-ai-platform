@@ -8,22 +8,25 @@ import { cn } from '@/lib/utils'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800', '900'] })
 
-// ── Card hover handlers (FIX 12: visible purple border by default) ──────────
+// ── Card hover handlers ──────────────────────────────────────────────────────
 const cardBase: React.CSSProperties = {
   background: 'linear-gradient(135deg, #0D1B2E, #0A1628)',
   border: '1px solid rgba(168,85,247,0.2)',
   borderRadius: '16px',
   transition: 'all 0.3s ease',
 }
+// FIX 8: card bg changes on hover
 const onCardEnter = (e: React.MouseEvent<HTMLDivElement>) => {
   e.currentTarget.style.border = '1px solid rgba(168,85,247,0.6)'
   e.currentTarget.style.boxShadow = '0 0 40px rgba(168,85,247,0.25), 0 0 80px rgba(59,130,246,0.1)'
   e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)'
+  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(168,85,247,0.08), rgba(59,130,246,0.05))'
 }
 const onCardLeave = (e: React.MouseEvent<HTMLDivElement>) => {
   e.currentTarget.style.border = '1px solid rgba(168,85,247,0.2)'
   e.currentTarget.style.boxShadow = 'none'
   e.currentTarget.style.transform = 'translateY(0) scale(1)'
+  e.currentTarget.style.background = 'linear-gradient(135deg, #0D1B2E, #0A1628)'
 }
 
 // ── Footer link hover ────────────────────────────────────────────────────────
@@ -54,31 +57,42 @@ const socialIcons = [
   { label: 'WhatsApp', svg: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg> },
 ]
 
-const SocialIcon = ({ icon }: { icon: typeof socialIcons[0] }) => (
-  <div
-    style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748B', cursor: 'pointer', transition: 'all 0.2s ease' }}
-    title={icon.label}
-    onMouseEnter={e => {
-      e.currentTarget.style.background = 'linear-gradient(135deg,rgba(168,85,247,0.2),rgba(59,130,246,0.2))'
-      e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'
-      e.currentTarget.style.color = '#A855F7'
-      e.currentTarget.style.transform = 'translateY(-2px)'
-    }}
-    onMouseLeave={e => {
-      e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
-      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
-      e.currentTarget.style.color = '#64748B'
-      e.currentTarget.style.transform = 'translateY(0)'
-    }}>
-    {icon.svg}
-  </div>
-)
+// FIX 11: brand colors per icon
+const brandColors: Record<string, string> = {
+  'Twitter/X': '#E7E9EA',
+  'LinkedIn': '#0A66C2',
+  'Facebook': '#1877F2',
+  'Instagram': '#E1306C',
+  'WhatsApp': '#25D366',
+}
+const SocialIcon = ({ icon }: { icon: typeof socialIcons[0] }) => {
+  const brand = brandColors[icon.label] || '#64748B'
+  return (
+    <div
+      style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: brand, cursor: 'pointer', transition: 'all 0.2s ease' }}
+      title={icon.label}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = 'scale(1.15)'
+        e.currentTarget.style.boxShadow = `0 0 12px ${brand}55`
+        e.currentTarget.style.borderColor = brand + '60'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = 'scale(1)'
+        e.currentTarget.style.boxShadow = 'none'
+        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
+      }}>
+      {icon.svg}
+    </div>
+  )
+}
 
 // ── GradientH2 ───────────────────────────────────────────────────────────────
+// FIX 7: larger headings with gap between lines
 const GradH2 = ({ first, second }: { first: string; second: string }) => (
-  <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+  <h2 className="text-4xl md:text-5xl font-black tracking-tight" style={{ lineHeight: '1.15', marginBottom: '8px' }}>
     <span className="text-white">{first}</span>
     <br />
+    <div style={{ height: '4px' }} />
     <span style={{ background: 'linear-gradient(135deg,#A855F7,#3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{second}</span>
   </h2>
 )
@@ -159,15 +173,40 @@ export default function LandingPage() {
             <span className="text-sm font-bold uppercase tracking-widest hidden sm:block">SEO AI Platform</span>
           </div>
 
-          {/* FIX 3: Nav links gradient hover with underline */}
-          <div className="hidden md:flex items-center space-x-8">
-            {['Features', 'Phases', 'Pricing', 'Contact'].map(link => (
-              <span key={link} className="relative group cursor-pointer" onClick={() => scrollTo(link.toLowerCase())}>
-                <span className="text-gray-400 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-200 text-sm font-medium">{link}</span>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-300" />
-              </span>
-            ))}
-          </div>
+          {/* FIX 1+2: Nav links with inline hover + all 7 sections */}
+          {(() => {
+            const navLinks = [
+              { label: 'Features', href: 'features' },
+              { label: 'Phases', href: 'phases' },
+              { label: 'Pricing', href: 'pricing' },
+              { label: 'Demo', href: 'demo' },
+              { label: 'Testimonials', href: 'testimonials' },
+              { label: 'FAQ', href: 'faq' },
+              { label: 'Contact', href: 'contact' },
+            ]
+            return (
+              <div className="hidden md:flex items-center space-x-6">
+                {navLinks.map(link => (
+                  <span
+                    key={link.label}
+                    style={{ color: '#94A3B8', fontSize: '14px', fontWeight: 500, cursor: 'pointer', transition: 'all 0.2s ease', position: 'relative' }}
+                    onClick={() => scrollTo(link.href)}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = 'linear-gradient(135deg,#A855F7,#3B82F6)'
+                        ; (e.currentTarget.style as any).WebkitBackgroundClip = 'text'
+                        ; (e.currentTarget.style as any).WebkitTextFillColor = 'transparent'
+                      e.currentTarget.style.backgroundClip = 'text'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = 'none'
+                        ; (e.currentTarget.style as any).WebkitTextFillColor = '#94A3B8'
+                    }}>
+                    {link.label}
+                  </span>
+                ))}
+              </div>
+            )
+          })()}
 
           <div className="flex items-center space-x-4">
             {/* FIX 4: Sign In button */}
@@ -184,7 +223,8 @@ export default function LandingPage() {
         </nav>
 
         {/* ── HERO ───────────────────────────────────────────────── */}
-        <section ref={r1 as React.RefObject<HTMLElement>} className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden flex flex-col items-center text-center px-6" style={anim(v1)}>
+        {/* FIX 3: hero moved up */}
+        <section ref={r1 as React.RefObject<HTMLElement>} className="relative overflow-hidden flex flex-col items-center text-center px-6" style={{ ...anim(v1), paddingTop: '60px', paddingBottom: '64px' }}>
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(ellipse, rgba(168,85,247,0.15) 0%, transparent 70%)', animation: 'pulse 4s ease-in-out infinite' }} />
           <div className="relative z-10 max-w-5xl">
             <div style={{ position: 'relative' }}>
@@ -224,61 +264,59 @@ export default function LandingPage() {
         </section>
 
         {/* ── DASHBOARD ──────────────────────────────────────────── */}
+        {/* FIX 4+6: no hover handlers, clean container, 16/9 ratio, 900px max */}
         <section ref={r2 as React.RefObject<HTMLElement>} className="py-16 px-4" style={anim(v2)}>
           <div className="text-center mb-12">
             <GradH2 first="Powerful dashboard." second="Zero learning curve." />
           </div>
-          <div className="w-full max-w-6xl mx-auto" style={{ width: '100%' }}>
-            <div className="relative group" style={{ animation: 'float 4s ease-in-out infinite' }}>
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000" />
-              <div style={{ background: '#0D1B2E', borderRadius: '16px', border: '1px solid #4C1D95', overflow: 'hidden', boxShadow: '0 0 80px rgba(139,92,246,0.25)' }}>
-                <div className="flex flex-col uppercase italic">
-                  <div className="h-12 flex items-center px-4 justify-between" style={{ background: '#050C1A', borderBottom: '1px solid #1A2D4D' }}>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-7 h-7 bg-purple-600 rounded flex items-center justify-center text-[10px] font-black italic text-white">S</div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-white">SEO AI Platform</span>
-                    </div>
-                    <div className="text-[10px] font-black tracking-[0.3em] text-purple-400">DASHBOARD</div>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-gray-500 text-sm">🔔</span>
-                      <div className="w-7 h-7 bg-purple-700 rounded-full flex items-center justify-center text-[10px] font-black text-white border border-purple-500/30">L</div>
+          <div style={{ width: '100%', maxWidth: '900px', margin: '0 auto', aspectRatio: '16/9', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 0 80px rgba(168,85,247,0.15)', animation: 'float 4s ease-in-out infinite' }}>
+            <div style={{ width: '100%', height: '100%', background: '#0D1B2E' }}>
+              <div className="flex flex-col uppercase italic">
+                <div className="h-12 flex items-center px-4 justify-between" style={{ background: '#050C1A', borderBottom: '1px solid #1A2D4D' }}>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-7 h-7 bg-purple-600 rounded flex items-center justify-center text-[10px] font-black italic text-white">S</div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white">SEO AI Platform</span>
+                  </div>
+                  <div className="text-[10px] font-black tracking-[0.3em] text-purple-400">DASHBOARD</div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-gray-500 text-sm">🔔</span>
+                    <div className="w-7 h-7 bg-purple-700 rounded-full flex items-center justify-center text-[10px] font-black text-white border border-purple-500/30">L</div>
+                  </div>
+                </div>
+                <div className="flex flex-1 overflow-hidden">
+                  <div className="w-36 border-r p-3 hidden sm:flex flex-col" style={{ background: '#030A14', borderColor: '#0D1B2E', height: '320px' }}>
+                    <div className="space-y-1.5 flex-1">
+                      {[{ icon: '🏠', n: 'Dashboard', a: true }, { icon: '🔍', n: 'Research' }, { icon: '🏗️', n: 'Build' }, { icon: '🚀', n: 'Deploy' }, { icon: '📝', n: 'Optimize' }, { icon: '📍', n: 'Authority' }, { icon: '📞', n: 'Convert' }, { icon: '📈', n: 'Track' }, { icon: '📋', n: 'Reports' }, { icon: '⚡', n: 'Automation' }].map((item, i) => (
+                        <div key={i} className={cn("flex items-center space-x-2 py-1.5 px-2 rounded text-[9px] font-black transition-colors", (item as any).a ? "bg-purple-700/40 text-white" : "text-gray-400 hover:bg-white/5 hover:text-white")}>
+                          <span>{item.icon}</span><span className="tracking-tighter capitalize">{item.n.toLowerCase()}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                  <div className="flex flex-1 overflow-hidden">
-                    <div className="w-36 border-r p-3 hidden sm:flex flex-col" style={{ background: '#030A14', borderColor: '#0D1B2E', height: '320px' }}>
-                      <div className="space-y-1.5 flex-1">
-                        {[{ icon: '🏠', n: 'Dashboard', a: true }, { icon: '🔍', n: 'Research' }, { icon: '🏗️', n: 'Build' }, { icon: '🚀', n: 'Deploy' }, { icon: '📝', n: 'Optimize' }, { icon: '📍', n: 'Authority' }, { icon: '📞', n: 'Convert' }, { icon: '📈', n: 'Track' }, { icon: '📋', n: 'Reports' }, { icon: '⚡', n: 'Automation' }].map((item, i) => (
-                          <div key={i} className={cn("flex items-center space-x-2 py-1.5 px-2 rounded text-[9px] font-black transition-colors", (item as any).a ? "bg-purple-700/40 text-white" : "text-gray-400 hover:bg-white/5 hover:text-white")}>
-                            <span>{item.icon}</span><span className="tracking-tighter capitalize">{item.n.toLowerCase()}</span>
-                          </div>
-                        ))}
-                      </div>
+                  <div className="flex-1 p-4 overflow-hidden flex flex-col" style={{ background: '#070F1D' }}>
+                    <div className="flex items-center">
+                      <h4 className="text-sm font-semibold text-white italic tracking-widest">Welcome back 👋</h4>
+                      <span className="ml-2 px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded-full text-[8px] font-black text-purple-400 uppercase tracking-widest">Local SEO Newbie</span>
                     </div>
-                    <div className="flex-1 p-4 overflow-hidden flex flex-col" style={{ background: '#070F1D' }}>
-                      <div className="flex items-center">
-                        <h4 className="text-sm font-semibold text-white italic tracking-widest">Welcome back 👋</h4>
-                        <span className="ml-2 px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded-full text-[8px] font-black text-purple-400 uppercase tracking-widest">Local SEO Newbie</span>
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3">
-                        {[{ i: '🔍', n: 'Research', t: '17 tools' }, { i: '🏗️', n: 'Build', t: '26 tools' }, { i: '🚀', n: 'Deploy', t: '8 tools' }, { i: '📝', n: 'Optimize', t: '19 tools' }, { i: '📍', n: 'Authority', t: '34 tools' }, { i: '📞', n: 'Convert', t: '5 tools' }, { i: '📈', n: 'Track', t: '9 tools' }, { i: '📋', n: 'Reports', t: '11 tools' }].map((p, i) => (
-                          <div key={i} style={{ background: '#0D1B2E', border: '1px solid #1A2D4D', borderRadius: '8px' }} className="p-2 flex items-center gap-2 transition-colors hover:border-purple-500/50">
-                            <span className="text-lg">{p.i}</span>
-                            <div className="flex flex-col"><span className="text-white text-[11px] font-semibold">{p.n}</span><span className="text-purple-400 text-[9px]">{p.t}</span></div>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="grid grid-cols-4 gap-2 mt-3">
-                        {[{ v: '136', l: '📦 Total Tools' }, { v: '78', l: '✅ Free Tools' }, { v: '58', l: '💰 Paid Tools' }, { v: '0%', l: '📈 Progress' }].map((s, i) => (
-                          <div key={i} style={{ background: '#0D1B2E', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px' }} className="p-2 text-center">
-                            <div className="text-purple-400 text-xs font-black tracking-tighter mb-0.5">{s.v}</div>
-                            <div className="text-gray-400 text-[8px] font-semibold leading-none">{s.l}</div>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-auto rounded-lg p-3 flex items-center justify-between" style={{ background: 'linear-gradient(135deg,rgba(168,85,247,0.15),rgba(59,130,246,0.15))', border: '1px solid rgba(168,85,247,0.2)' }}>
-                        <span className="text-white text-[10px] font-black italic tracking-tighter uppercase">Ready to find your niche? 🎯</span>
-                        <button className="border border-white text-white bg-transparent hover:bg-white/10 text-[10px] px-3 py-1 rounded-full transition-all">Start Research →</button>
-                      </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3">
+                      {[{ i: '🔍', n: 'Research', t: '17 tools' }, { i: '🏗️', n: 'Build', t: '26 tools' }, { i: '🚀', n: 'Deploy', t: '8 tools' }, { i: '📝', n: 'Optimize', t: '19 tools' }, { i: '📍', n: 'Authority', t: '34 tools' }, { i: '📞', n: 'Convert', t: '5 tools' }, { i: '📈', n: 'Track', t: '9 tools' }, { i: '📋', n: 'Reports', t: '11 tools' }].map((p, i) => (
+                        <div key={i} style={{ background: '#0D1B2E', border: '1px solid #1A2D4D', borderRadius: '8px' }} className="p-2 flex items-center gap-2 transition-colors hover:border-purple-500/50">
+                          <span className="text-lg">{p.i}</span>
+                          <div className="flex flex-col"><span className="text-white text-[11px] font-semibold">{p.n}</span><span className="text-purple-400 text-[9px]">{p.t}</span></div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 mt-3">
+                      {[{ v: '136', l: '📦 Total Tools' }, { v: '78', l: '✅ Free Tools' }, { v: '58', l: '💰 Paid Tools' }, { v: '0%', l: '📈 Progress' }].map((s, i) => (
+                        <div key={i} style={{ background: '#0D1B2E', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px' }} className="p-2 text-center">
+                          <div className="text-purple-400 text-xs font-black tracking-tighter mb-0.5">{s.v}</div>
+                          <div className="text-gray-400 text-[8px] font-semibold leading-none">{s.l}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-auto rounded-lg p-3 flex items-center justify-between" style={{ background: 'linear-gradient(135deg,rgba(168,85,247,0.15),rgba(59,130,246,0.15))', border: '1px solid rgba(168,85,247,0.2)' }}>
+                      <span className="text-white text-[10px] font-black italic tracking-tighter uppercase">Ready to find your niche? 🎯</span>
+                      <button className="border border-white text-white bg-transparent hover:bg-white/10 text-[10px] px-3 py-1 rounded-full transition-all">Start Research →</button>
                     </div>
                   </div>
                 </div>
@@ -292,6 +330,7 @@ export default function LandingPage() {
 
         {/* ── WHO IS IT FOR ──────────────────────────────────────── */}
         <section ref={r3 as React.RefObject<HTMLElement>} id="features" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-20" style={anim(v3)}>
+          {/* FIX 2: id added above */}
           <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3 text-center">WHO IS IT FOR</p>
           {/* FIX 5: clean heading */}
           <div className="text-center mb-10">
@@ -354,7 +393,8 @@ export default function LandingPage() {
         </section>
 
         {/* ── VIDEO DEMO ─────────────────────────────────────────── */}
-        <section ref={r6 as React.RefObject<HTMLElement>} className="py-20 px-6" style={anim(v6)}>
+        {/* FIX 2: id="demo" */}
+        <section ref={r6 as React.RefObject<HTMLElement>} id="demo" className="py-20 px-6" style={anim(v6)}>
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">SEE IT IN ACTION</p>
             <h2 className="text-4xl md:text-5xl font-black mb-4">
@@ -416,17 +456,15 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS (FIX 8: inline marquee) ──────────────── */}
-        <section ref={r8 as React.RefObject<HTMLElement>} className="py-20 px-6" style={anim(v8)}>
+        {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
+        {/* FIX 2: id="testimonials"; FIX 9: no fade masks */}
+        <section ref={r8 as React.RefObject<HTMLElement>} id="testimonials" className="py-20 px-6" style={anim(v8)}>
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">TESTIMONIALS</p>
               <GradH2 first="Trusted by SEO" second="Professionals Everywhere" />
             </div>
-            {/* FIX 8 */}
-            <div style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-              <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '150px', background: 'linear-gradient(to right, #0A1628, transparent)', zIndex: 10, pointerEvents: 'none' }} />
-              <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '150px', background: 'linear-gradient(to left, #0A1628, transparent)', zIndex: 10, pointerEvents: 'none' }} />
+            <div style={{ overflow: 'hidden', width: '100%' }}>
               <div
                 style={{ display: 'flex', gap: '24px', animation: 'marquee 35s linear infinite', width: 'max-content' }}
                 onMouseEnter={e => { e.currentTarget.style.animationPlayState = 'paused' }}
@@ -450,7 +488,8 @@ export default function LandingPage() {
         </section>
 
         {/* ── FAQ ────────────────────────────────────────────────── */}
-        <section ref={r9 as React.RefObject<HTMLElement>} className="py-20 px-6" style={anim(v9)}>
+        {/* FIX 2: id="faq" */}
+        <section ref={r9 as React.RefObject<HTMLElement>} id="faq" className="py-20 px-6" style={anim(v9)}>
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-purple-400 text-xs uppercase tracking-widest font-bold mb-3">FAQ</p>
@@ -488,8 +527,8 @@ export default function LandingPage() {
         </section>
 
         {/* ── FOOTER ─────────────────────────────────────────────── */}
-        {/* FIX 2: #0D1B2E footer bg */}
-        <footer ref={r10 as React.RefObject<HTMLElement>} style={{ background: '#0D1B2E', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '64px 24px' }} {...(v10 ? {} : {})}>
+        {/* FIX 2: id="contact" */}
+        <footer ref={r10 as React.RefObject<HTMLElement>} id="contact" style={{ background: '#0D1B2E', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '64px 24px' }}>
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
               <div>
@@ -510,7 +549,8 @@ export default function LandingPage() {
               </div>
               <div>
                 <h4 className="text-white font-bold text-sm mb-4 uppercase tracking-wider">Resources</h4>
-                <div className="flex flex-col">{['Documentation', 'API Keys Setup', 'DataForSEO Guide', 'Video Tutorials', 'Blog', 'Changelog'].map(l => <FooterLink key={l} label={l} />)}</div>
+                {/* FIX 12: Documentation removed */}
+                <div className="flex flex-col">{['API Keys Setup', 'DataForSEO Guide', 'Video Tutorials', 'Blog', 'Changelog'].map(l => <FooterLink key={l} label={l} />)}</div>
               </div>
               <div>
                 <h4 className="text-white font-bold text-sm mb-4 uppercase tracking-wider">Company</h4>
@@ -518,7 +558,8 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-              <FooterLink label="© 2025 SEO AI Platform. All rights reserved." />
+              {/* FIX 10: copyright plain, no hover */}
+              <span style={{ color: '#CBD5E1', fontSize: '14px' }}>© 2025 SEO AI Platform. All rights reserved.</span>
               <div className="flex gap-6">{['Privacy Policy', 'Terms of Service', 'Contact'].map(l => <FooterLink key={l} label={l} />)}</div>
             </div>
           </div>
