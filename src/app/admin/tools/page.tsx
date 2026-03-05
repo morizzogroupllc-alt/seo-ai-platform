@@ -308,7 +308,7 @@ export default function ToolsManagerPage() {
 
     // Components
     const StatCard = ({ icon, name, value, color }: any) => (
-        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 admin-card stat-card-glow"
+        <div className="admin-stat-card card-enter"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-lg"
@@ -355,7 +355,7 @@ export default function ToolsManagerPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <h1 className="text-4xl font-black text-white tracking-tight uppercase">
-                        Tools <span className="text-purple-400">Manager</span>
+                        Tools <span className="gradient-text">Manager</span>
                     </h1>
                     <p className="text-gray-500 text-xs font-medium mt-1 uppercase tracking-widest leading-relaxed">
                         Control {stats.total} AI SEO tools across all development phases
@@ -393,7 +393,7 @@ export default function ToolsManagerPage() {
             </div>
 
             {/* SECTION 3: Filters */}
-            <div className="bg-[#1E1E1E] border border-[#333333] p-5 rounded-2xl flex flex-col lg:flex-row items-center gap-4 admin-card">
+            <div className="glass-card shimmer-border p-5 flex flex-col lg:flex-row items-center gap-4">
                 <div className="relative flex-1 w-full lg:w-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                     <input
@@ -431,9 +431,9 @@ export default function ToolsManagerPage() {
             </div>
 
             {/* SECTION 4: Tools Table */}
-            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl overflow-hidden admin-card">
+            <div className="glass-card shimmer-border overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="data-table w-full text-left">
                         <thead className="bg-black/20 border-b border-white/5">
                             <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest">
                                 <th className="px-6 py-5 w-12">
@@ -623,7 +623,7 @@ export default function ToolsManagerPage() {
             {configModal && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
                     onClick={() => setConfigModal(null)}>
-                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 w-full max-w-sm shadow-2xl"
+                    <div className="inner-box border border-[#333333] rounded-2xl p-6 w-full max-w-sm shadow-2xl"
                         onClick={e => e.stopPropagation()}>
 
                         <h3 className="text-white font-black text-lg mb-6 uppercase tracking-tight flex items-center gap-2">
@@ -634,7 +634,7 @@ export default function ToolsManagerPage() {
                             <label className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2 block">
                                 DEVELOPMENT PHASE
                             </label>
-                            <div className="text-white text-xs font-bold bg-[#121212] border border-[#333333] rounded-xl px-4 py-3">
+                            <div className="text-white text-xs font-bold inner-box border border-[#333333] rounded-xl px-4 py-3">
                                 Phase {configModal?.phase}
                             </div>
                         </div>
@@ -646,7 +646,7 @@ export default function ToolsManagerPage() {
                             <select
                                 value={configModal?.status}
                                 onChange={e => setConfigModal((prev: any) => ({ ...prev, status: e.target.value }))}
-                                className="w-full bg-[#121212] border border-[#333333] text-white text-xs font-bold rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 transition-all cursor-pointer"
+                                className="w-full inner-box border border-[#333333] text-white text-xs font-bold rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 transition-all cursor-pointer"
                                 style={{ colorScheme: 'dark' }}>
                                 <option value="active" style={{ background: '#1E1E1E' }}>🟢 Active</option>
                                 <option value="soon" style={{ background: '#1E1E1E' }}>🟡 Coming Soon</option>
@@ -680,7 +680,7 @@ export default function ToolsManagerPage() {
             {previewModal && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
                     onClick={() => setPreviewModal(null)}>
-                    <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
+                    <div className="inner-box border border-[#333333] rounded-3xl p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
                         onClick={e => e.stopPropagation()}>
 
                         {/* Decorative background glass */}
@@ -703,7 +703,7 @@ export default function ToolsManagerPage() {
                         </div>
 
                         <div className="space-y-4 relative z-10">
-                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center inner-box border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Status</span>
                                 <span className={cn(
                                     "text-[10px] font-black uppercase tracking-widest flex items-center gap-2",
@@ -715,14 +715,14 @@ export default function ToolsManagerPage() {
                                 </span>
                             </div>
 
-                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center inner-box border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Phase</span>
                                 <span className="text-white text-xs font-black uppercase tracking-widest">
                                     {previewModal?.phase}
                                 </span>
                             </div>
 
-                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center inner-box border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Usage</span>
                                 <div className="flex flex-col items-end">
                                     <span className="text-white text-xs font-black">{previewModal?.usage || 0}</span>
@@ -730,7 +730,7 @@ export default function ToolsManagerPage() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-between items-center bg-[#121212] border border-[#333333] rounded-2xl px-5 py-4">
+                            <div className="flex justify-between items-center inner-box border border-[#333333] rounded-2xl px-5 py-4">
                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Available For</span>
                                 <span className="text-purple-400 text-[10px] font-black uppercase tracking-widest">
                                     All Plans

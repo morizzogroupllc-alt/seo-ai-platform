@@ -214,7 +214,7 @@ export default function PlatformSettingsPage() {
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full bg-[#121212] border border-[#333333] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-800 focus:outline-none focus:border-purple-500/50 transition-all font-medium"
+                className="w-full inner-box border border-[#333333] rounded-xl px-4 py-3 text-xs text-white placeholder:text-gray-800 focus:outline-none focus:border-purple-500/50 transition-all font-medium"
             />
         </div>
     )
@@ -225,7 +225,7 @@ export default function PlatformSettingsPage() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-4xl font-black text-white tracking-tight uppercase">
-                        Platform <span className="text-purple-400">Settings</span>
+                        Platform <span className="gradient-text">Settings</span>
                     </h1>
                     <p className="text-gray-500 text-xs font-medium mt-1 uppercase tracking-widest leading-relaxed">
                         Global configuration and feature control
@@ -244,7 +244,7 @@ export default function PlatformSettingsPage() {
             {/* SECTION 2: Grid Config */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* LEFT: General Configuration */}
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden group">
+                <div className="glass-card shimmer-border p-8 relative overflow-hidden group">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20">
                             <Layers className="w-5 h-5 text-purple-400" />
@@ -254,10 +254,10 @@ export default function PlatformSettingsPage() {
 
                     <div className="space-y-8">
                         <div className={cn(
-                            "p-5 rounded-2xl transition-all border",
+                            "p-5 rounded-2xl transition-all border inner-box",
                             settings.maintenanceMode
                                 ? "bg-red-950/20 border-red-500/30 shadow-[0_0_20px_rgba(239,68,68,0.05)]"
-                                : "bg-black/20 border-white/5"
+                                : "border-white/5"
                         )}>
                             <Toggle
                                 label="Maintenance Mode"
@@ -295,7 +295,7 @@ export default function PlatformSettingsPage() {
                 </div>
 
                 {/* RIGHT: Feature Flags */}
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden">
+                <div className="glass-card shimmer-border p-8 relative overflow-hidden">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20">
                             <Zap className="w-5 h-5 text-purple-400" />
@@ -303,7 +303,7 @@ export default function PlatformSettingsPage() {
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Feature Flags</h3>
                     </div>
 
-                    <div className="divide-y divide-white/5 bg-black/20 rounded-2xl border border-white/5 px-6">
+                    <div className="divide-y divide-white/5 inner-box rounded-2xl border border-white/5 px-6">
                         <Toggle
                             label="Show Pricing Page"
                             sub="Display pricing on landing page"
@@ -340,7 +340,7 @@ export default function PlatformSettingsPage() {
             </div>
 
             {/* SECTION 3: Plan Limits */}
-            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
+            <div className="glass-card shimmer-border p-8">
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Default API Limits Per Plan</h3>
@@ -349,7 +349,7 @@ export default function PlatformSettingsPage() {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-center">
+                    <table className="data-table w-full text-center">
                         <thead className="border-b border-white/5">
                             <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest">
                                 <th className="pb-6 text-left pl-4 font-black">Subscription Plan</th>
@@ -377,7 +377,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.niche}
                                             onChange={(e) => handleLimitChange(idx, 'niche', e.target.value)}
-                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 inner-box border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -385,7 +385,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.keywords}
                                             onChange={(e) => handleLimitChange(idx, 'keywords', e.target.value)}
-                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 inner-box border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -393,7 +393,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.serp}
                                             onChange={(e) => handleLimitChange(idx, 'serp', e.target.value)}
-                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 inner-box border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -401,7 +401,7 @@ export default function PlatformSettingsPage() {
                                             type="number"
                                             value={limit.content}
                                             onChange={(e) => handleLimitChange(idx, 'content', e.target.value)}
-                                            className="w-20 bg-[#121212] border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
+                                            className="w-20 inner-box border border-[#333333] rounded-xl px-3 py-2 text-white text-center text-xs font-bold hover:border-purple-500 focus:border-purple-400 focus:outline-none transition-all"
                                         />
                                     </td>
                                     <td className="py-6">
@@ -440,7 +440,7 @@ export default function PlatformSettingsPage() {
             {/* SECTION 4: Banner & Danger */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Announcement Banner */}
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card relative overflow-hidden">
+                <div className="glass-card shimmer-border p-8 relative overflow-hidden">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20">
@@ -514,7 +514,7 @@ export default function PlatformSettingsPage() {
                 </div>
 
                 {/* Danger Zone */}
-                <div className="bg-[#1E1E1E] border border-red-900/30 rounded-3xl p-8 admin-card relative overflow-hidden">
+                <div className="glass-card shimmer-border border-red-900/30 p-8 relative overflow-hidden">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-xl bg-red-600/10 flex items-center justify-center border border-red-500/20">
                             <AlertTriangle className="w-5 h-5 text-red-500" />
@@ -529,7 +529,7 @@ export default function PlatformSettingsPage() {
                             { label: 'Clear API Usage Logs', sub: 'Permanently delete all logs from api_usage', icon: Trash2, action: clearLogs, color: 'text-red-400', btn: 'Clear', type: 'outline' },
                             { label: 'Force Sign Out All Users', sub: 'Invalidate all sessions immediately', icon: LogOut, action: () => confirm('Force logout all users?'), color: 'text-red-600', btn: 'Force Logout', type: 'solid' },
                         ].map((item, i) => (
-                            <div key={i} className="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5 hover:border-red-500/20 transition-all group">
+                            <div key={i} className="flex items-center justify-between p-4 inner-box rounded-2xl border border-white/5 hover:border-red-500/20 transition-all group">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-red-500/10 group-hover:border-red-500/20 transition-all">
                                         <item.icon className={cn("w-4 h-4", item.color)} />

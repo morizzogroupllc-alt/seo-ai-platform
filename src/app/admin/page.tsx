@@ -92,7 +92,7 @@ export default function AdminPage() {
     )
 
     const StatCard = ({ icon, name, count, sub, color, children, badge }: any) => (
-        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-5 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="admin-stat-card card-enter"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
@@ -126,7 +126,7 @@ export default function AdminPage() {
             {/* 1. Page Title */}
             <div>
                 <h1 className="text-3xl font-black text-white tracking-tight uppercase">
-                    Admin Dashboard <span className="text-purple-400">Overview</span>
+                    Admin Dashboard <span className="gradient-text">Overview</span>
                 </h1>
                 <p className="text-gray-500 text-xs font-medium mt-1 uppercase tracking-widest">
                     Real-time platform metrics and user activity
@@ -182,7 +182,7 @@ export default function AdminPage() {
 
             {/* ROW 3: Recent Signups + Quick Actions */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card">
+                <div className="glass-card shimmer-border p-6">
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h3 className="text-white font-black text-sm uppercase tracking-widest">Recent Signups</h3>
@@ -191,7 +191,7 @@ export default function AdminPage() {
                         <button onClick={() => router.push('/admin/users')} className="text-purple-400 text-[10px] font-black uppercase tracking-widest hover:text-purple-300 transition-colors">VIEW ALL →</button>
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left">
+                        <table className="data-table w-full text-left">
                             <thead className="border-b border-white/5 bg-[#1E1E1E]/50">
                                 <tr className="text-gray-500 text-[10px] uppercase tracking-wider font-bold">
                                     <th className="pb-3 pr-4">User Details</th>
@@ -232,7 +232,7 @@ export default function AdminPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card">
+                <div className="glass-card shimmer-border p-6">
                     <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6">Quick Actions</h3>
                     <div className="grid grid-cols-2 gap-4">
                         {[
@@ -253,7 +253,7 @@ export default function AdminPage() {
 
             {/* ROW 4: System Services + User Growth chart */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card">
+                <div className="glass-card shimmer-border p-6">
                     <div className="mb-6">
                         <h3 className="text-white font-black text-sm uppercase tracking-widest flex items-center gap-2">
                             <Zap className="w-4 h-4 text-purple-400 fill-purple-400/20" />
@@ -282,7 +282,7 @@ export default function AdminPage() {
                             const statusLabel = item.status === 'operational' ? 'OPERATIONAL' : item.status === 'not_configured' ? 'NOT CONFIGURED' : 'COMING SOON'
 
                             return (
-                                <div key={i} className="flex items-center justify-between px-2 py-1 rounded-md bg-[#121212] border border-[#333333] hover:border-purple-500/30 transition-all">
+                                <div key={i} className="system-row flex items-center justify-between px-2 py-1 rounded-md bg-[#121212] border border-[#333333] hover:border-purple-500/30 transition-all">
                                     <div className="flex items-center gap-2">
                                         <div className={cn("w-1.5 h-1.5 rounded-full flex-shrink-0", dotColor)} />
                                         <div>
@@ -309,7 +309,7 @@ export default function AdminPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#2D2B3D] border border-[#333333] rounded-2xl p-6 admin-card flex flex-col h-full">
+                <div className="glass-card shimmer-border p-6 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h3 className="text-white font-black text-sm uppercase tracking-widest">User Growth</h3>
@@ -351,7 +351,7 @@ export default function AdminPage() {
                     { t: 'Authentication', i: Lock, s: 'HEALTHY', stats: [['AUTH SERVER', 'UP ✓'], ['SESSION TTL', '72h ✓'], ['RATE LIMIT', 'Not Tracked']] },
                     { t: 'Environment', i: Server, s: 'HEALTHY', stats: [['NODE VERSION', 'v20 ✓'], ['HOSTING', 'Vercel ✓'], ['UPTIME', '99.9% ✓']] },
                 ].map((item, i) => (
-                    <div key={i} className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card">
+                    <div key={i} className="glass-card shimmer-border p-6">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <item.i className="w-5 h-5 text-green-500" />

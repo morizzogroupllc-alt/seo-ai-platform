@@ -145,7 +145,7 @@ export default function AdminPaymentsPage() {
     )
 
     const StatCard = ({ icon, name, value, sub, color, growth }: any) => (
-        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-5 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="admin-stat-card card-enter"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
@@ -175,7 +175,7 @@ export default function AdminPaymentsPage() {
     )
 
     const PlanRevenueCard = ({ plan, icon, count, price, color, growth }: any) => (
-        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card transition-all hover:border-purple-500/50"
+        <div className="glass-card shimmer-border p-6 transition-all hover:border-purple-500/50"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center text-lg bg-white/5">
@@ -203,7 +203,7 @@ export default function AdminPaymentsPage() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-black text-white tracking-tight uppercase">
-                        Payments & <span className="text-purple-400">Revenue</span>
+                        Payments & <span className="gradient-text">Revenue</span>
                     </h1>
                     <p className="text-gray-500 text-xs font-medium mt-1 uppercase tracking-widest">
                         Subscriptions, billing, and ARR tracking
@@ -274,12 +274,12 @@ export default function AdminPaymentsPage() {
             </div>
 
             {/* SECTION 4: Subscriptions Table */}
-            <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 admin-card">
+            <div className="glass-card shimmer-border p-6">
                 <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6">Active Subscriptions</h3>
 
                 {paidUsersCount > 0 ? (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left">
+                        <table className="data-table w-full text-left">
                             <thead className="border-b border-white/5">
                                 <tr className="text-gray-500 text-[10px] uppercase tracking-wider font-bold">
                                     <th className="pb-3 pr-4">User</th>
@@ -357,7 +357,7 @@ export default function AdminPaymentsPage() {
             </div>
 
             {/* SECTION 5: Stripe Integration Banner */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-purple-900/40 via-blue-900/40 to-indigo-900/20 border border-purple-500/30 rounded-3xl p-8 admin-card">
+            <div className="relative overflow-hidden bg-gradient-to-r from-purple-900/40 via-blue-900/40 to-indigo-900/20 border border-purple-500/30 rounded-3xl p-8 glass-card shimmer-border">
                 <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
                     <div className="flex flex-col lg:flex-row items-center gap-6 text-center lg:text-left">
                         <div className="w-16 h-16 rounded-2xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 animate-pulse">

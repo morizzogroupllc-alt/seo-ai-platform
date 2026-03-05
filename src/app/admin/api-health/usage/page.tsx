@@ -184,7 +184,7 @@ export default function ApiUsageTrackerPage() {
     }
 
     const StatCard = ({ icon, name, value, sub, color }: any) => (
-        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="admin-stat-card card-enter"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-lg"
@@ -199,7 +199,7 @@ export default function ApiUsageTrackerPage() {
     )
 
     const ToolCard = ({ icon, name, stats }: any) => (
-        <div className="bg-[#1E1E1E] border border-[#333333] p-5 rounded-2xl admin-card transition-all hover:translate-y-[-2px] hover:border-purple-500/30">
+        <div className="glass-card shimmer-border p-5 transition-all hover:translate-y-[-2px] hover:border-purple-500/30">
             <div className="flex items-center gap-3 mb-5">
                 <div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center text-lg">{icon}</div>
                 <span className="text-white text-[11px] font-black uppercase tracking-widest">{name}</span>
@@ -254,7 +254,7 @@ export default function ApiUsageTrackerPage() {
                     </button>
                     <div>
                         <h1 className="text-4xl font-black text-white tracking-tight uppercase">
-                            API Usage <span className="text-purple-400">Tracker</span>
+                            API Usage <span className="gradient-text">Tracker</span>
                         </h1>
                         <p className="text-gray-500 text-xs font-medium mt-1 uppercase tracking-widest leading-relaxed">
                             Per-user API consumption and cost analysis
@@ -296,7 +296,7 @@ export default function ApiUsageTrackerPage() {
             </div>
 
             {/* SECTION 3: Filters bar */}
-            <div className="bg-[#1E1E1E] border border-[#333333] p-5 rounded-2xl flex flex-col lg:flex-row items-center gap-4 admin-card">
+            <div className="glass-card shimmer-border p-5 flex flex-col lg:flex-row items-center gap-4">
                 <div className="relative flex-1 w-full lg:w-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                     <input
@@ -357,10 +357,10 @@ export default function ApiUsageTrackerPage() {
             </div>
 
             {/* SECTION 4: Per-User Usage Table */}
-            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
+            <div className="glass-card shimmer-border p-8">
                 <h3 className="text-white font-black text-sm uppercase tracking-widest pl-1 mb-8">User API Consumption</h3>
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="data-table w-full text-left">
                         <thead className="border-b border-white/5">
                             <tr className="text-gray-600 text-[10px] font-black uppercase tracking-widest">
                                 <th className="pb-5">User Profile</th>
@@ -454,7 +454,7 @@ export default function ApiUsageTrackerPage() {
                   flex items-center justify-center
                   p-4">
 
-                    <div className="bg-[#1E1E1E] border
+                    <div className="inner-box border
                     border-[#333333] rounded-2xl
                     w-full max-w-lg
                     max-h-[85vh]

@@ -180,7 +180,7 @@ export default function AnalyticsPage() {
     // --- Components ---
 
     const StatCard = ({ icon, name, value, sub, color }: any) => (
-        <div className="bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 stat-card-glow admin-card"
+        <div className="admin-stat-card card-enter"
             style={{ borderBottom: `3px solid ${color}` }}>
             <div className="flex justify-between items-start mb-6">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-lg"
@@ -224,7 +224,7 @@ export default function AnalyticsPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <h1 className="text-4xl font-black text-white tracking-tight uppercase">
-                        Platform <span className="text-purple-400">Analytics</span>
+                        Platform <span className="gradient-text">Analytics</span>
                     </h1>
                     <p className="text-gray-500 text-xs font-medium mt-1 uppercase tracking-widest leading-relaxed">
                         User engagement, growth, and insights
@@ -258,7 +258,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* SECTION 3: User Growth Chart */}
-            <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
+            <div className="glass-card shimmer-border p-8">
                 <div className="flex items-center justify-between mb-10">
                     <div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">User Growth</h3>
@@ -315,14 +315,14 @@ export default function AnalyticsPage() {
             {/* SECTION 4: Distributions */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Users by Type */}
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
+                <div className="glass-card shimmer-border p-8">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
                             <PieChart size={18} />
                         </div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Users by Type</h3>
                     </div>
-                    <div className="space-y-6 bg-black/20 p-6 rounded-2xl border border-white/5">
+                    <div className="space-y-6 inner-box p-6 rounded-2xl border border-white/5">
                         {userTypeDistribution.map((item, idx) => (
                             <DistributionRow
                                 key={idx}
@@ -335,14 +335,14 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Users by Plan */}
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
+                <div className="glass-card shimmer-border p-8">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
                             <LayoutGrid size={18} />
                         </div>
                         <h3 className="text-white font-black text-sm uppercase tracking-widest">Users by Plan</h3>
                     </div>
-                    <div className="space-y-6 bg-black/20 p-6 rounded-2xl border border-white/5">
+                    <div className="space-y-6 inner-box p-6 rounded-2xl border border-white/5">
                         {planDistribution.map((item, idx) => (
                             <DistributionRow
                                 key={idx}
@@ -359,7 +359,7 @@ export default function AnalyticsPage() {
             {/* SECTION 5: Usage & Signups */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Top Tools */}
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
+                <div className="glass-card shimmer-border p-8">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
@@ -373,7 +373,7 @@ export default function AnalyticsPage() {
                     </div>
                     <div className="space-y-3">
                         {topTools.map((tool, idx) => (
-                            <div key={idx} className="flex items-center gap-4 bg-black/20 px-5 py-4 rounded-2xl border border-white/5 group hover:border-purple-500/30 transition-all">
+                            <div key={idx} className="flex items-center gap-4 inner-box px-5 py-4 rounded-2xl border border-white/5 group hover:border-purple-500/30 transition-all">
                                 <span className="text-purple-500 font-black text-xs w-6 opacity-40 group-hover:opacity-100 transition-opacity">#{idx + 1}</span>
                                 <div className="flex-1">
                                     <p className="text-white text-xs font-black uppercase tracking-widest">{tool.name}</p>
@@ -394,7 +394,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Recent Activity */}
-                <div className="bg-[#1E1E1E] border border-[#333333] rounded-3xl p-8 admin-card">
+                <div className="glass-card shimmer-border p-8">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
@@ -408,7 +408,7 @@ export default function AnalyticsPage() {
                     </div>
                     <div className="space-y-4">
                         {users.slice(0, 5).map((u, i) => (
-                            <div key={u.id} className="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5 hover:bg-white/5 transition-all">
+                            <div key={u.id} className="flex items-center justify-between p-4 inner-box rounded-2xl border border-white/5 hover:bg-white/5 transition-all">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-full bg-purple-700/20 flex items-center justify-center text-purple-400 font-bold text-sm border border-purple-500/10 shadow-lg">
                                         {u.email[0].toUpperCase()}

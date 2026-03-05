@@ -83,7 +83,7 @@ const Modal = ({ isOpen, onClose, title, children }: { isOpen: boolean, onClose:
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="bg-[#1E1E1E] border border-[#333333] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div className="inner-box border border-[#333333] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
                 <div className="flex items-center justify-between p-6 border-b border-[#333333]">
                     <h3 className="text-xl font-semibold text-white">{title}</h3>
                     <button onClick={onClose} className="p-2 transition-colors rounded-lg text-gray-400 hover:text-white hover:bg-white/10">
@@ -317,7 +317,7 @@ export default function UsersManagementPage() {
             {/* SECTION 1: Page Header */}
             <div className="space-y-6">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Users Management</h1>
+                    <h1 className="text-3xl font-bold tracking-tight">Users <span className="gradient-text">Management</span></h1>
                     <p className="text-gray-400 mt-1">Manage all platform users</p>
                 </div>
 
@@ -328,8 +328,8 @@ export default function UsersManagementPage() {
                         { label: 'Paid Plan', value: stats.paid, icon: Shield, color: 'text-emerald-400' },
                         { label: 'Banned', value: stats.banned, icon: Ban, color: 'text-red-400' }
                     ].map((stat, i) => (
-                        <div key={i} className={`bg-[#1E1E1E] border border-[#333333] p-6 rounded-xl space-y-2 admin-card shadow-xl animate-slideInUp transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/20 ${i === 0 ? 'delay-75' : i === 1 ? 'delay-100' : i === 2 ? 'delay-150' : 'delay-200'
-                            }`}>
+                        <div key={i} className={cn("admin-stat-card card-enter", i === 0 ? 'delay-75' : i === 1 ? 'delay-100' : i === 2 ? 'delay-150' : 'delay-200'
+                        )}>
                             <div className="flex items-center justify-between">
                                 <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">{stat.label}</p>
                                 <stat.icon size={18} className={stat.color} />
@@ -341,7 +341,7 @@ export default function UsersManagementPage() {
             </div>
 
             {/* SECTION 2: Filters Bar */}
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-[#1E1E1E] border border-[#333333] p-4 rounded-xl admin-card shadow-lg animate-fadeIn delay-200">
+            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between glass-card shimmer-border p-4 rounded-xl shadow-lg animate-fadeIn delay-200">
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto flex-1">
                     <div className="relative flex-1 max-w-sm">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
@@ -413,9 +413,9 @@ export default function UsersManagementPage() {
             </div>
 
             {/* SECTION 3: Users Table */}
-            <div className="bg-[#1E1E1E] border border-[#333333] rounded-xl overflow-hidden shadow-xl admin-card dark-glow animate-slideInUp delay-300 transition-all duration-300">
+            <div className="glass-card shimmer-border overflow-hidden shadow-xl dark-glow animate-slideInUp delay-300 transition-all duration-300">
                 <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="data-table w-full">
                         <thead>
                             <tr className="border-b border-[#333333] bg-white/5">
                                 <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-wider w-[260px]">
