@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
-    Home,
     Search,
     Wrench,
     Rocket,
@@ -19,9 +18,7 @@ import {
     X,
     ChevronRight,
     LayoutDashboard,
-    LogOut,
     ShieldAlert,
-    CreditCard
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -68,89 +65,45 @@ export default function Sidebar() {
 
     const currentPhaseIndex = phasesNav.findIndex(p => pathname.startsWith(p.href)) + 1
 
-    const handleSignOut = async () => {
-        try {
-            const { signOut } = await import('@/lib/auth')
-            await signOut()
-            window.location.href = '/login'
-        } catch (error) {
-            console.error('Logout failed:', error)
-        }
-    }
-
     const handleChangeRole = () => {
         localStorage.removeItem('user_type')
         window.location.href = '/onboarding'
     }
 
-    // Section label style
+    // Styles
     const sectionLabel: React.CSSProperties = {
-        fontSize: '10px',
-        fontWeight: 700,
-        color: '#334155',
-        letterSpacing: '0.15em',
-        textTransform: 'uppercase',
-        padding: '8px 12px 4px',
+        fontSize: '10px', fontWeight: 700, color: '#334155',
+        letterSpacing: '0.15em', textTransform: 'uppercase', padding: '8px 12px 4px',
     }
-
-    // Active nav item style
     const activeNavStyle: React.CSSProperties = {
         background: 'linear-gradient(135deg, rgba(168,85,247,0.15), rgba(59,130,246,0.08))',
-        border: '1px solid rgba(168,85,247,0.3)',
-        borderRadius: '12px',
-        color: '#E2E8F0',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        padding: '10px 12px',
-        textDecoration: 'none',
-        fontWeight: 600,
-        fontSize: '13px',
+        border: '1px solid rgba(168,85,247,0.3)', borderRadius: '12px', color: '#E2E8F0',
+        position: 'relative', display: 'flex', alignItems: 'center', gap: '12px',
+        padding: '10px 12px', textDecoration: 'none', fontWeight: 600, fontSize: '13px',
     }
-
-    // Inactive nav item style
     const inactiveNavStyle: React.CSSProperties = {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        padding: '10px 12px',
-        borderRadius: '12px',
-        border: '1px solid transparent',
-        color: '#64748B',
-        textDecoration: 'none',
-        fontWeight: 500,
-        fontSize: '13px',
-        transition: 'all 0.2s ease',
-        cursor: 'pointer',
+        display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px',
+        borderRadius: '12px', border: '1px solid transparent', color: '#64748B',
+        textDecoration: 'none', fontWeight: 500, fontSize: '13px',
+        transition: 'all 0.2s ease', cursor: 'pointer',
+    }
+    const compactCardStyle: React.CSSProperties = {
+        background: 'linear-gradient(135deg, rgba(168,85,247,0.08), rgba(59,130,246,0.05))',
+        border: '1px solid rgba(168,85,247,0.2)', borderRadius: '10px', padding: '8px 12px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     }
 
     const NavItem = ({ href, icon: Icon, children, active }: {
-        href: string,
-        icon: any,
-        children: React.ReactNode,
-        active?: boolean,
+        href: string, icon: any, children: React.ReactNode, active?: boolean,
     }) => (
         <Link
             href={href}
             onClick={() => setIsOpen(false)}
             style={active ? activeNavStyle : inactiveNavStyle}
-            onMouseEnter={e => {
-                if (!active) {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
-                    e.currentTarget.style.color = '#94A3B8'
-                }
-            }}
-            onMouseLeave={e => {
-                if (!active) {
-                    e.currentTarget.style.background = 'transparent'
-                    e.currentTarget.style.color = '#64748B'
-                }
-            }}
+            onMouseEnter={e => { if (!active) { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = '#94A3B8' } }}
+            onMouseLeave={e => { if (!active) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#64748B' } }}
         >
-            {active && (
-                <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: '3px', height: '20px', background: 'linear-gradient(180deg, #A855F7, #3B82F6)', borderRadius: '0 4px 4px 0', boxShadow: '0 0 8px rgba(168,85,247,0.8)' }} />
-            )}
+            {active && <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: '3px', height: '20px', background: 'linear-gradient(180deg, #A855F7, #3B82F6)', borderRadius: '0 4px 4px 0', boxShadow: '0 0 8px rgba(168,85,247,0.8)' }} />}
             <Icon style={{ width: '17px', height: '17px', color: active ? '#A855F7' : 'currentColor', flexShrink: 0 }} />
             <span>{children}</span>
             {!active && <span style={{ marginLeft: 'auto', color: '#334155', fontSize: '16px', lineHeight: 1 }}>›</span>}
@@ -159,7 +112,7 @@ export default function Sidebar() {
 
     return (
         <>
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Hamburger */}
             <button
                 type="button"
                 className="md:hidden fixed top-4 left-4 z-50 p-2 text-white rounded-lg shadow-xl"
@@ -169,7 +122,7 @@ export default function Sidebar() {
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
 
-            {/* Sidebar Container */}
+            {/* Sidebar */}
             <aside
                 className={cn(
                     "fixed inset-y-0 left-0 z-40 w-64 flex flex-col transition-transform duration-300 shadow-2xl",
@@ -177,59 +130,30 @@ export default function Sidebar() {
                 )}
                 style={{ background: '#0D1B2E', borderRight: '1px solid rgba(168,85,247,0.15)' }}
             >
-                {/* --- TOP LOGO AREA --- */}
+                {/* 1. LOGO */}
                 <div className="h-16 px-5 flex items-center shrink-0" style={{ borderBottom: '1px solid rgba(168,85,247,0.1)' }}>
                     <div className="flex items-center space-x-3">
-                        <div
-                            className="w-9 h-9 rounded-full flex items-center justify-center font-black text-white italic text-xl"
-                            style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', boxShadow: '0 0 20px rgba(168,85,247,0.4)', flexShrink: 0 }}
-                        >
-                            S
-                        </div>
-                        <span className="text-white font-bold text-sm tracking-wider uppercase leading-none gradient-text">
-                            SEO AI Platform
-                        </span>
+                        <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-white italic text-xl" style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', boxShadow: '0 0 20px rgba(168,85,247,0.4)', flexShrink: 0 }}>S</div>
+                        <span className="text-white font-bold text-sm tracking-wider uppercase leading-none gradient-text">SEO AI Platform</span>
                     </div>
                 </div>
 
-                {/* --- USER TYPE SECTION --- */}
-                <div className="mx-3 mt-3 mb-2 p-3" style={{ background: 'linear-gradient(135deg, rgba(168,85,247,0.08), rgba(59,130,246,0.05))', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '12px' }}>
-                    <div style={{ fontSize: '10px', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>User Type</div>
-                    <div className="mt-0.5 truncate" style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 700, fontSize: '14px' }}>{userType || 'Not Selected'}</div>
-                    <button
-                        onClick={handleChangeRole}
-                        className="text-[11px] font-bold mt-1 inline-flex items-center hover:opacity-80 transition-opacity"
-                        style={{ color: '#A855F7' }}
-                    >
-                        ↩ Change Role
-                    </button>
-                </div>
-
-                {/* --- PROGRESS BAR --- */}
-                <div className="mx-3 mt-2 mb-4">
+                {/* 2. PROGRESS BAR */}
+                <div className="mx-3 mt-4 mb-3">
                     <div className="flex justify-between items-center mb-2" style={{ fontSize: '10px', fontWeight: 700 }}>
                         <span style={{ color: '#334155', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Current Progress</span>
                         <span style={{ color: '#A855F7' }}>Phase {currentPhaseIndex || 0} of 8</span>
                     </div>
                     <div style={{ height: '6px', width: '100%', background: 'rgba(168,85,247,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
-                        <div
-                            style={{
-                                height: '100%',
-                                background: 'linear-gradient(90deg, #A855F7, #3B82F6)',
-                                borderRadius: '3px',
-                                transition: 'width 1s ease',
-                                boxShadow: '0 0 10px rgba(168,85,247,0.5)',
-                                width: `${((currentPhaseIndex || 0) / 8) * 100}%`
-                            }}
-                        />
+                        <div style={{ height: '100%', background: 'linear-gradient(90deg, #A855F7, #3B82F6)', borderRadius: '3px', transition: 'width 1s ease', boxShadow: '0 0 10px rgba(168,85,247,0.5)', width: `${((currentPhaseIndex || 0) / 8) * 100}%` }} />
                     </div>
                 </div>
 
-                <div style={{ borderTop: '1px solid rgba(168,85,247,0.1)', margin: '0 12px' }} />
+                <div style={{ borderTop: '1px solid rgba(168,85,247,0.1)', margin: '0 12px 4px' }} />
 
-                {/* --- NAVIGATION CONTENT --- */}
-                <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5 scrollbar-hide">
-                    {/* OVERVIEW */}
+                {/* 3. NAVIGATION */}
+                <div className="flex-1 overflow-y-auto px-3 py-3 space-y-5 scrollbar-hide">
+                    {/* Overview */}
                     <div className="space-y-1">
                         <div style={sectionLabel}>Overview</div>
                         {isAdmin && (
@@ -237,50 +161,30 @@ export default function Sidebar() {
                                 <span style={{ color: pathname.startsWith('/admin') ? '#E2E8F0' : '#EF4444' }}>Admin Panel</span>
                             </NavItem>
                         )}
-                        <NavItem href="/dashboard" icon={LayoutDashboard} active={pathname === '/dashboard'}>
-                            Dashboard
-                        </NavItem>
+                        <NavItem href="/dashboard" icon={LayoutDashboard} active={pathname === '/dashboard'}>Dashboard</NavItem>
                     </div>
 
-                    {/* GROWTH PHASES */}
+                    {/* Growth Phases */}
                     <div className="space-y-1">
                         <div style={sectionLabel}>Growth Phases</div>
                         <div className="space-y-1">
                             {phasesNav.map((phase) => {
                                 const isActive = pathname.startsWith(phase.href)
                                 const isExpanded = expandedPhase === phase.id
-
                                 return (
                                     <div key={phase.id} className="space-y-1">
                                         <Link
                                             href={phase.href}
-                                            onClick={() => {
-                                                setIsOpen(false)
-                                                setExpandedPhase(isExpanded ? null : phase.id)
-                                            }}
+                                            onClick={() => { setIsOpen(false); setExpandedPhase(isExpanded ? null : phase.id) }}
                                             style={isActive ? activeNavStyle : inactiveNavStyle}
-                                            onMouseEnter={e => {
-                                                if (!isActive) {
-                                                    e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
-                                                    e.currentTarget.style.color = '#94A3B8'
-                                                }
-                                            }}
-                                            onMouseLeave={e => {
-                                                if (!isActive) {
-                                                    e.currentTarget.style.background = 'transparent'
-                                                    e.currentTarget.style.color = '#64748B'
-                                                }
-                                            }}
+                                            onMouseEnter={e => { if (!isActive) { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = '#94A3B8' } }}
+                                            onMouseLeave={e => { if (!isActive) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#64748B' } }}
                                         >
-                                            {isActive && (
-                                                <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: '3px', height: '20px', background: 'linear-gradient(180deg, #A855F7, #3B82F6)', borderRadius: '0 4px 4px 0', boxShadow: '0 0 8px rgba(168,85,247,0.8)' }} />
-                                            )}
+                                            {isActive && <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: '3px', height: '20px', background: 'linear-gradient(180deg, #A855F7, #3B82F6)', borderRadius: '0 4px 4px 0', boxShadow: '0 0 8px rgba(168,85,247,0.8)' }} />}
                                             <phase.icon style={{ width: '17px', height: '17px', color: isActive ? '#A855F7' : 'currentColor', flexShrink: 0 }} />
                                             <span>{phase.name}</span>
                                             {!isActive && <span style={{ marginLeft: 'auto', color: '#334155', fontSize: '16px', lineHeight: 1 }}>›</span>}
                                         </Link>
-
-                                        {/* Sub-items (Accordion) */}
                                         {isExpanded && phase.id === 'research' && (
                                             <div className="ml-3 mt-1 space-y-1" style={{ borderLeft: '1px solid rgba(168,85,247,0.15)' }}>
                                                 {[
@@ -289,22 +193,12 @@ export default function Sidebar() {
                                                     { name: 'Competitor Research', href: '/research/competitor', soon: true },
                                                     { name: 'Keyword Discovery', href: '/research/keywords', soon: true },
                                                 ].map((sub) => (
-                                                    <Link
-                                                        key={sub.name}
-                                                        href={sub.soon ? '#' : sub.href}
+                                                    <Link key={sub.name} href={sub.soon ? '#' : sub.href}
                                                         className="h-9 pl-8 pr-3 flex items-center justify-between text-xs font-semibold rounded-r-xl transition-all"
-                                                        style={sub.active ? {
-                                                            color: '#A855F7',
-                                                            borderLeft: '2px solid #A855F7',
-                                                            background: 'rgba(168,85,247,0.05)',
-                                                        } : {
-                                                            color: '#475569',
-                                                        }}
+                                                        style={sub.active ? { color: '#A855F7', borderLeft: '2px solid #A855F7', background: 'rgba(168,85,247,0.05)' } : { color: '#475569' }}
                                                     >
                                                         <span>{sub.name}</span>
-                                                        {sub.soon && (
-                                                            <span style={{ fontSize: '8px', background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '4px', padding: '1px 6px', color: '#64748B' }}>Soon</span>
-                                                        )}
+                                                        {sub.soon && <span style={{ fontSize: '8px', background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '4px', padding: '1px 6px', color: '#64748B' }}>Soon</span>}
                                                     </Link>
                                                 ))}
                                             </div>
@@ -315,60 +209,41 @@ export default function Sidebar() {
                         </div>
                     </div>
 
-                    {/* PLATFORM */}
+                    {/* Platform */}
                     <div className="space-y-1">
                         <div style={sectionLabel}>Platform</div>
-                        <NavItem href="/automation" icon={Zap} active={pathname === '/automation'}>
-                            Automation
-                        </NavItem>
+                        <NavItem href="/automation" icon={Zap} active={pathname === '/automation'}>Automation</NavItem>
                     </div>
 
-                    {/* PREFERENCES */}
+                    {/* Preferences */}
                     <div className="space-y-1">
                         <div style={sectionLabel}>Preferences</div>
-                        <NavItem href="/system" icon={SettingsIcon} active={pathname === '/system'}>
-                            System
-                        </NavItem>
+                        <NavItem href="/system" icon={SettingsIcon} active={pathname === '/system'}>System</NavItem>
                     </div>
                 </div>
 
-                {/* --- BOTTOM AREA --- */}
-                <div className="mt-auto shrink-0">
-                    <div style={{ borderTop: '1px solid rgba(168,85,247,0.1)', margin: '0 12px' }} />
-                    <div className="px-3 py-4 space-y-3">
-                        {/* CREDITS BOX */}
-                        <div className="p-3" style={{ background: 'linear-gradient(135deg, rgba(168,85,247,0.08), rgba(59,130,246,0.05))', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '12px' }}>
-                            <div className="flex items-center gap-2 mb-1.5">
-                                <CreditCard size={12} style={{ color: '#64748B' }} />
-                                <span style={{ fontSize: '10px', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>Plan</span>
+                {/* 4. BOTTOM FIXED — 2 compact cards */}
+                <div style={{ padding: '8px 12px 12px', borderTop: '1px solid rgba(168,85,247,0.1)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {/* Card 1: User Type */}
+                    <div style={compactCardStyle}>
+                        <div style={{ minWidth: 0 }}>
+                            <div style={{ fontSize: '10px', color: '#475569', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>User Type</div>
+                            <div className="truncate" style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 700, fontSize: '12px', maxWidth: '130px' }}>
+                                {userType || 'Not Selected'}
                             </div>
-                            <div style={{ color: 'white', fontSize: '13px', fontWeight: 600 }}>Free Plan</div>
-                            <div style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '11px', fontWeight: 700, marginTop: '2px' }}>
-                                5 searches remaining
-                            </div>
-                            <button
-                                className="mt-1.5 inline-flex items-center gap-1 hover:opacity-80 transition-opacity"
-                                style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 800, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                            >
-                                Upgrade Plan <ChevronRight size={10} style={{ color: '#A855F7', WebkitTextFillColor: 'initial' }} />
-                            </button>
                         </div>
+                        <button onClick={handleChangeRole} style={{ color: '#A855F7', fontSize: '11px', fontWeight: 700, cursor: 'pointer', flexShrink: 0, marginLeft: '8px' }}>↩</button>
+                    </div>
 
-                        {/* SIGN OUT */}
-                        <button
-                            onClick={handleSignOut}
-                            style={{ color: '#EF4444', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: '10px', padding: '8px 12px', width: '100%', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease' }}
-                            onMouseEnter={e => {
-                                e.currentTarget.style.background = 'rgba(239,68,68,0.12)'
-                                e.currentTarget.style.borderColor = 'rgba(239,68,68,0.3)'
-                            }}
-                            onMouseLeave={e => {
-                                e.currentTarget.style.background = 'rgba(239,68,68,0.06)'
-                                e.currentTarget.style.borderColor = 'rgba(239,68,68,0.15)'
-                            }}
-                        >
-                            <LogOut size={14} />
-                            Sign Out
+                    {/* Card 2: Plan */}
+                    <div style={compactCardStyle}>
+                        <div>
+                            <div style={{ fontSize: '10px', color: '#475569', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>My Plan</div>
+                            <div style={{ color: 'white', fontSize: '12px', fontWeight: 600 }}>Free Plan</div>
+                            <div style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '10px', fontWeight: 700 }}>5 searches left</div>
+                        </div>
+                        <button style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '11px', fontWeight: 800, cursor: 'pointer', flexShrink: 0, marginLeft: '8px' }}>
+                            Upgrade ›
                         </button>
                     </div>
                 </div>
@@ -376,10 +251,7 @@ export default function Sidebar() {
 
             {/* Mobile Overlay */}
             {isOpen && (
-                <div
-                    className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden"
-                    onClick={() => setIsOpen(false)}
-                />
+                <div className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden" onClick={() => setIsOpen(false)} />
             )}
         </>
     )
