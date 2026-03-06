@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Poppins } from 'next/font/google'
-import { CheckCircle2, ArrowRight, Play } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Play, Compass } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800', '900'] })
@@ -258,6 +258,34 @@ export default function LandingPage() {
               </button>
               <button className="w-full sm:w-auto px-8 py-4 border border-white/10 bg-white/5 hover:bg-white/10 text-white font-black rounded-2xl transition-all flex items-center justify-center space-x-3 uppercase tracking-[0.2em] text-sm">
                 <Play className="w-4 h-4 fill-white" /><span>Watch Demo</span>
+              </button>
+              <button
+                onClick={() => router.push('/explore')}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '14px 28px',
+                  background: 'transparent',
+                  border: '1px solid rgba(168,85,247,0.4)',
+                  borderRadius: '12px',
+                  color: '#A855F7',
+                  fontWeight: 700,
+                  fontSize: '15px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(168,85,247,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(168,85,247,0.7)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'
+                }}
+              >
+                <Compass size={18} />
+                Explore Platform
               </button>
             </div>
           </div>
