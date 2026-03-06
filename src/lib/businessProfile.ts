@@ -38,12 +38,11 @@ export interface BusinessProfile {
     updated_at: string
 }
 
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 export async function getProfiles(
     userId: string
 ): Promise<BusinessProfile[]> {
-    const supabase = createClient()
     const { data, error } = await supabase
         .from('business_profiles')
         .select('*')
@@ -59,7 +58,6 @@ export async function createProfile(
     userId: string,
     data: Partial<BusinessProfile>
 ): Promise<BusinessProfile> {
-    const supabase = createClient()
     const { data: created, error } =
         await supabase
             .from('business_profiles')
@@ -74,7 +72,6 @@ export async function updateProfile(
     id: string,
     data: Partial<BusinessProfile>
 ): Promise<BusinessProfile> {
-    const supabase = createClient()
     const { data: updated, error } =
         await supabase
             .from('business_profiles')
@@ -93,7 +90,6 @@ export async function updateProfile(
 export async function deleteProfile(
     id: string
 ): Promise<void> {
-    const supabase = createClient()
     const { error } = await supabase
         .from('business_profiles')
         .delete()
@@ -105,7 +101,6 @@ export async function setActiveProfile(
     id: string,
     userId: string
 ): Promise<void> {
-    const supabase = createClient()
     // First set all inactive
     await supabase
         .from('business_profiles')
@@ -127,7 +122,6 @@ export async function setActiveProfile(
 export async function getActiveProfile(
     userId: string
 ): Promise<BusinessProfile | null> {
-    const supabase = createClient()
     const { data, error } = await supabase
         .from('business_profiles')
         .select('*')
