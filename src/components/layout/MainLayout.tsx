@@ -41,14 +41,26 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         return <>{children}</>
     }
 
-    if (!isLoaded) return null
+    if (!isLoaded) return (
+        <div style={{ minHeight: '100vh', background: '#0A1628', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+            <div style={{ width: '40px', height: '40px', border: '3px solid rgba(168,85,247,0.2)', borderTop: '3px solid #A855F7', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+            <p style={{ background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '10px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Loading...</p>
+        </div>
+    )
 
     return (
-        <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-300">
+        <div className="min-h-screen antialiased transition-colors duration-300" style={{ background: '#0A1628', color: '#F1F5F9' }}>
             <TopBar />
             <div className="flex pt-14">
                 <Sidebar />
-                <main className="flex-1 md:pl-64 min-h-[calc(100vh-3.5rem)]">
+                <main
+                    className="flex-1 md:pl-64 min-h-[calc(100vh-3.5rem)]"
+                    style={{
+                        background: '#0A1628',
+                        backgroundImage: 'radial-gradient(circle, rgba(168,85,247,0.06) 1px, transparent 1px)',
+                        backgroundSize: '32px 32px',
+                    }}
+                >
                     {children}
                 </main>
             </div>
