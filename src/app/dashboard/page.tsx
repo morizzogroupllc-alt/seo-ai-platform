@@ -1,457 +1,696 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-    Search,
-    Plus,
-    FileText,
-    Activity,
-    Layout,
-    ArrowRight,
-    Lock,
-    CheckCircle2,
-    Zap,
-    Globe,
-    Users,
-    Rocket,
-    Mail,
-    Layers,
-    Settings,
-    Cpu,
-    BarChart3,
-    MousePointer2,
-    Package,
-    Grip,
-    MapPin
+    Search, Plus, FileText, Activity, Layout, ArrowRight,
+    Lock, CheckCircle2, Zap, Globe, Users, Rocket, Layers,
+    Settings, Cpu, BarChart3, Package, MapPin, Building2,
+    TrendingUp, Star, Target, ChevronRight, Heart, AlertCircle,
+    Clock, DollarSign, Shield, Sparkles, Database, Link,
+    MousePointer2, LayoutDashboard, Play, Check, Circle
 } from 'lucide-react';
 
-// --- Shared Components ---
+// ═══════════════════════════════════════════
+// SHARED MINI COMPONENTS
+// ═══════════════════════════════════════════
 
-const StatCard = ({ label, value, icon: Icon, color = "text-purple-400" }: { label: string, value: string | number, icon?: any, color?: string }) => (
-    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-4 rounded-xl text-center flex flex-col items-center justify-center space-y-1 admin-card stat-card-glow transition-all duration-300">
-        {Icon && <Icon size={18} className={`${color} mb-1`} />}
-        <div className={`text-2xl font-bold ${color}`}>{value}</div>
-        <div className="text-[#94A3B8] text-[10px] font-bold uppercase tracking-widest">{label}</div>
-    </div>
+const GradientText = ({ children, className = '' }: any) => (
+    <span className={`bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent ${className}`}>
+        {children}
+    </span>
 );
 
-const ToolCard = ({ icon: Icon, name, highlighted = false, badge }: { icon: any, name: string, highlighted?: boolean, badge?: string }) => (
-    <div className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col items-center justify-center text-center space-y-2 group admin-card ${highlighted
-        ? 'bg-purple-600/10 border-purple-500/50 shadow-[0_0_15px_rgba(124,58,237,0.1)]'
-        : 'bg-[#0D1B2E] border-[rgba(168,85,247,0.2)] hover:border-purple-500/50'
-        }`}>
-        <div className={`p-3 rounded-lg ${highlighted ? 'bg-purple-600 text-white' : 'bg-white/5 text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition-colors'}`}>
-            <Icon size={24} />
+const StatCard = ({ label, value, icon: Icon, color = '#A855F7', sublabel = '' }: any) => (
+    <div style={{
+        background: '#0D1B2E',
+        border: '1px solid rgba(168,85,247,0.15)',
+        borderRadius: '16px',
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        transition: 'all 0.3s ease',
+        cursor: 'default',
+        position: 'relative',
+        overflow: 'hidden'
+    }}
+        onMouseEnter={e => {
+            e.currentTarget.style.border = '1px solid rgba(168,85,247,0.4)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(168,85,247,0.1)';
+        }}
+        onMouseLeave={e => {
+            e.currentTarget.style.border = '1px solid rgba(168,85,247,0.15)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+        }}
+    >
+        <div style={{ position: 'absolute', top: 0, right: 0, width: '80px', height: '80px', background: `radial-gradient(circle, ${color}15, transparent)`, borderRadius: '50%', transform: 'translate(20px, -20px)' }} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{label}</span>
+            {Icon && <Icon size={16} style={{ color }} />}
         </div>
-        <div className="space-y-1">
-            <div className="text-white font-semibold text-sm">{name}</div>
-            {badge && (
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter ${badge === 'Active' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-gray-500/10 text-gray-500'
-                    }`}>
-                    {badge}
-                </span>
-            )}
+        <div style={{ fontSize: '28px', fontWeight: 800, color: 'white', lineHeight: 1 }}>{value}</div>
+        {sublabel && <div style={{ fontSize: '11px', color: '#64748B' }}>{sublabel}</div>}
+    </div>
+);
+
+const QuickToolBtn = ({ icon: Icon, label, onClick, active = false, locked = false }: any) => (
+    <button
+        onClick={locked ? undefined : onClick}
+        style={{
+            background: active ? 'linear-gradient(135deg, rgba(168,85,247,0.2), rgba(59,130,246,0.1))' : '#0D1B2E',
+            border: active ? '1px solid rgba(168,85,247,0.5)' : '1px solid rgba(168,85,247,0.15)',
+            borderRadius: '14px',
+            padding: '16px 12px',
+            cursor: locked ? 'not-allowed' : 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 0.2s ease',
+            opacity: locked ? 0.4 : 1,
+            position: 'relative'
+        }}
+        onMouseEnter={e => {
+            if (!locked) {
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.5)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+            }
+        }}
+        onMouseLeave={e => {
+            if (!locked) {
+                e.currentTarget.style.borderColor = active ? 'rgba(168,85,247,0.5)' : 'rgba(168,85,247,0.15)';
+                e.currentTarget.style.transform = 'translateY(0)';
+            }
+        }}
+    >
+        {locked && <Lock size={10} style={{ position: 'absolute', top: 8, right: 8, color: '#475569' }} />}
+        <div style={{
+            width: '40px', height: '40px', borderRadius: '12px',
+            background: active ? 'linear-gradient(135deg, #A855F7, #3B82F6)' : 'rgba(168,85,247,0.1)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+        }}>
+            <Icon size={18} style={{ color: active ? 'white' : '#A855F7' }} />
         </div>
+        <span style={{ fontSize: '11px', fontWeight: 600, color: active ? '#E2D9F3' : '#94A3B8', textAlign: 'center', lineHeight: 1.3 }}>{label}</span>
+    </button>
+);
+
+const SectionTitle = ({ children }: any) => (
+    <h3 style={{ fontSize: '13px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '16px' }}>
+        {children}
+    </h3>
+);
+
+const Card = ({ children, style = {} }: any) => (
+    <div style={{
+        background: '#0D1B2E',
+        border: '1px solid rgba(168,85,247,0.15)',
+        borderRadius: '20px',
+        padding: '24px',
+        ...style
+    }}>
+        {children}
     </div>
 );
 
-const TipBox = ({ children }: { children: React.ReactNode }) => (
-    <div className="bg-purple-600/5 border border-purple-500/20 p-4 rounded-xl flex items-start gap-4 admin-card">
-        <div className="text-xl">💡</div>
-        <p className="text-purple-300/80 text-sm leading-relaxed italic">
-            {children}
-        </p>
-    </div>
-);
+// ═══════════════════════════════════════════
+// BUSINESS PROFILE BANNER
+// Shows if no active profile set
+// ═══════════════════════════════════════════
 
-// --- VIEW 1: Local SEO Newbie ---
+const ProfileBanner = ({ userType, router }: any) => {
+    const labels: any = {
+        'Local SEO Newbie': 'Setup your business profile first',
+        'Client SEO Professional': 'Add your first client profile',
+        'Rank & Rent': 'Add your first site/niche profile',
+        'Agency': 'Setup your agency profile',
+        'Automation / Scale': 'Configure your first campaign profile',
+    };
+    return (
+        <div
+            onClick={() => router.push('/system')}
+            style={{
+                background: 'linear-gradient(135deg, rgba(168,85,247,0.08), rgba(59,130,246,0.05))',
+                border: '1px solid rgba(168,85,247,0.3)',
+                borderRadius: '16px',
+                padding: '16px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                cursor: 'pointer',
+                gap: '12px',
+                flexWrap: 'wrap',
+                transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(168,85,247,0.6)'}
+            onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'}
+        >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, rgba(168,85,247,0.3), rgba(59,130,246,0.2))', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Heart size={16} style={{ color: '#A855F7' }} />
+                </div>
+                <div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: 'white' }}>
+                        {labels[userType] || 'Setup your business profile'}
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px' }}>
+                        Tamam tools isko use karte hain — pehle ye setup karo
+                    </div>
+                </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 700, color: '#A855F7', flexShrink: 0 }}>
+                Setup Now <ChevronRight size={14} />
+            </div>
+        </div>
+    );
+};
 
-const ViewNewbie = () => {
-    const router = useRouter();
+// ═══════════════════════════════════════════
+// VIEW 1: 🆕 LOCAL SEO NEWBIE
+// ═══════════════════════════════════════════
+const ViewNewbie = ({ router, hasProfile }: any) => {
     const steps = [
-        { id: 1, title: 'Find Your Niche', desc: 'Start here — find a low-competition local niche', status: 'current', icon: Search },
-        { id: 2, title: 'Build Your Website', desc: 'Complete Step 1 first', status: 'locked', icon: Layout },
-        { id: 3, title: 'Deploy & Go Live', desc: 'Complete Step 2 first', status: 'locked', icon: Rocket },
-        { id: 4, title: 'Get on Google Maps', desc: 'Complete Step 3 first', status: 'locked', icon: MapPin },
+        { step: 1, title: 'Setup Business Profile', desc: 'Apna business info enter karo', icon: Heart, path: '/system', done: hasProfile, color: '#A855F7' },
+        { step: 2, title: 'Find Your Niche', desc: 'Low-competition local niche dhundo', icon: Search, path: '/research', done: false, color: '#3B82F6' },
+        { step: 3, title: 'Build Your Website', desc: 'AI se website generate karo', icon: Layout, path: '/build', done: false, color: '#10B981' },
+        { step: 4, title: 'Deploy & Go Live', desc: 'Site ko live karo', icon: Rocket, path: '/deploy', done: false, color: '#F59E0B' },
+        { step: 5, title: 'Get on Google Maps', desc: 'GBP setup karo', icon: MapPin, path: '/authority', done: false, color: '#EF4444' },
     ];
 
-    return (
-        <div className="space-y-8">
-            <div className="space-y-1">
-                <h2 className="text-2xl font-bold gradient-text">Let's find your first niche! 🎯</h2>
-                <p className="text-[#94A3B8]">Follow these steps in order</p>
-            </div>
+    const currentStep = steps.findIndex(s => !s.done);
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                {steps.map((step) => (
-                    <div
-                        key={step.id}
-                        className={`p-6 rounded-2xl border transition-all h-full flex flex-col admin-card ${step.status === 'current'
-                            ? 'border-purple-500 shadow-[0_0_20px_rgba(124,58,237,0.15)] ring-1 ring-purple-500 bg-[#0D1B2E]'
-                            : 'bg-[#0D1B2E]/50 border-[rgba(168,85,247,0.2)] opacity-60'
-                            }`}
-                    >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className={`p-2 rounded-lg ${step.status === 'current' ? 'bg-purple-600 text-white' : 'bg-white/5 text-gray-500'}`}>
-                                <step.icon size={20} />
-                            </div>
-                            <span className={`text-[10px] font-bold uppercase tracking-widest ${step.status === 'current' ? 'text-purple-400' : 'text-gray-600'}`}>
-                                Step {step.id}
-                            </span>
-                        </div>
-                        <h3 className="font-bold text-lg mb-2">{step.title}</h3>
-                        <p className="text-sm text-gray-400 mb-6 flex-1 italic">{step.desc}</p>
-                        {step.status === 'current' ? (
-                            <button
-                                onClick={() => router.push('/research')}
-                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 group"
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            {/* Journey Progress */}
+            <Card>
+                <SectionTitle>🎯 Your Journey — Step by Step</SectionTitle>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {steps.map((s, i) => {
+                        const isCurrent = i === currentStep;
+                        const isLocked = i > currentStep;
+                        const isDone = s.done;
+                        return (
+                            <div
+                                key={s.step}
+                                onClick={() => !isLocked && router.push(s.path)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
+                                    padding: '16px 20px',
+                                    borderRadius: '14px',
+                                    background: isCurrent ? `linear-gradient(135deg, ${s.color}12, ${s.color}06)` : 'rgba(255,255,255,0.02)',
+                                    border: isCurrent ? `1px solid ${s.color}40` : '1px solid rgba(255,255,255,0.05)',
+                                    cursor: isLocked ? 'not-allowed' : 'pointer',
+                                    opacity: isLocked ? 0.4 : 1,
+                                    transition: 'all 0.2s ease',
+                                    boxShadow: isCurrent ? `0 0 20px ${s.color}10` : 'none'
+                                }}
+                                onMouseEnter={e => { if (!isLocked) e.currentTarget.style.borderColor = `${s.color}60`; }}
+                                onMouseLeave={e => { if (!isLocked) e.currentTarget.style.borderColor = isCurrent ? `${s.color}40` : 'rgba(255,255,255,0.05)'; }}
                             >
-                                Start Step 1
-                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                            </button>
-                        ) : (
-                            <div className="flex items-center gap-2 text-gray-500 text-xs font-medium uppercase tracking-tighter bg-white/5 py-2 px-3 rounded-lg justify-center">
-                                <Lock size={12} />
-                                LOCKED
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
-
-            <div className="space-y-4 pt-4">
-                <h3 className="text-lg font-bold gradient-text">Your Tools</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <ToolCard icon={Search} name="Niche Finder" highlighted={true} />
-                    <ToolCard icon={BarChart3} name="SERP Analyzer" />
-                    <ToolCard icon={Grip} name="Keyword Research" />
-                </div>
-            </div>
-
-            <TipBox>
-                Newbie Tip: Start with Research. Don't skip steps — the order matters!
-            </TipBox>
-        </div>
-    );
-};
-
-const ViewPro = () => {
-    return (
-        <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <h2 className="text-2xl font-bold gradient-text">Manage your clients 💼</h2>
-                <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all">
-                        <Plus size={16} />
-                        Add New Client
-                    </button>
-                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
-                        <FileText size={16} />
-                        Generate Report
-                    </button>
-                    <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] hover:border-purple-500/50 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all admin-card">
-                        <Search size={16} />
-                        Run Audit
-                    </button>
-                </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                    <h3 className="text-lg font-bold gradient-text">Client Overview</h3>
-                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
-                        <div className="p-4 bg-white/5 rounded-full text-gray-500">
-                            <Users size={48} />
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-gray-400 font-medium">No clients yet</p>
-                            <button className="text-purple-400 hover:text-purple-300 text-sm font-bold flex items-center gap-2 mx-auto mt-2">
-                                <Plus size={16} /> Add First Client
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="space-y-4">
-                    <h3 className="text-lg font-bold gradient-text">Quick Tools</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {[
-                            { name: 'Site Audit', icon: Search },
-                            { name: 'GBP Audit', icon: Globe },
-                            { name: 'Monthly Report', icon: FileText },
-                            { name: 'Competitor Analysis', icon: BarChart3 }
-                        ].map((tool, i) => (
-                            <div key={i} className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-6 rounded-2xl flex items-center justify-between group hover:border-purple-500/50 transition-all cursor-pointer admin-card">
-                                <div className="flex items-center gap-4">
-                                    <div className="p-2 bg-white/5 text-purple-400 rounded-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                                        <tool.icon size={20} />
+                                {/* Step indicator */}
+                                <div style={{
+                                    width: '36px', height: '36px', borderRadius: '50%', flexShrink: 0,
+                                    background: isDone ? '#059669' : isCurrent ? s.color : 'rgba(255,255,255,0.05)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    boxShadow: isCurrent ? `0 0 16px ${s.color}40` : 'none'
+                                }}>
+                                    {isDone ? <Check size={16} style={{ color: 'white' }} /> :
+                                        isLocked ? <Lock size={14} style={{ color: '#475569' }} /> :
+                                            <s.icon size={16} style={{ color: 'white' }} />}
+                                </div>
+                                {/* Content */}
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontSize: '14px', fontWeight: 700, color: isDone ? '#64748B' : 'white', textDecoration: isDone ? 'line-through' : 'none' }}>
+                                        {s.title}
                                     </div>
-                                    <span className="font-semibold text-sm">{tool.name}</span>
+                                    <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>{s.desc}</div>
                                 </div>
-                                <button className="text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ArrowRight size={18} />
-                                </button>
+                                {/* Action */}
+                                {isCurrent && (
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 700, color: s.color, flexShrink: 0 }}>
+                                        Start <ChevronRight size={14} />
+                                    </div>
+                                )}
+                                {isDone && <Check size={16} style={{ color: '#059669', flexShrink: 0 }} />}
                             </div>
-                        ))}
-                    </div>
+                        );
+                    })}
                 </div>
+            </Card>
+
+            {/* Quick Tools */}
+            <div>
+                <SectionTitle>🛠️ Your Tools (Research Phase)</SectionTitle>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '12px' }}>
+                    <QuickToolBtn icon={Search} label="Niche Finder" onClick={() => router.push('/research')} active />
+                    <QuickToolBtn icon={BarChart3} label="SERP Analyzer" onClick={() => router.push('/research')} />
+                    <QuickToolBtn icon={Target} label="Competitor Research" onClick={() => router.push('/research')} />
+                    <QuickToolBtn icon={Database} label="Keyword Research" onClick={() => router.push('/research')} />
+                    <QuickToolBtn icon={Layout} label="Website Builder" locked />
+                    <QuickToolBtn icon={MapPin} label="GBP Setup" locked />
+                </div>
+            </div>
+
+            {/* Tip */}
+            <div style={{ background: 'rgba(168,85,247,0.05)', border: '1px solid rgba(168,85,247,0.15)', borderRadius: '14px', padding: '16px 20px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <Sparkles size={16} style={{ color: '#A855F7', marginTop: '2px', flexShrink: 0 }} />
+                <p style={{ fontSize: '13px', color: '#94A3B8', lineHeight: 1.6, margin: 0 }}>
+                    <strong style={{ color: '#A855F7' }}>Newbie Tip:</strong> Pehle Business Profile setup karo — phir Research shuru karo. Steps unlock hote jaenge!
+                </p>
             </div>
         </div>
     );
 };
 
-const ViewRankRent = () => {
-    return (
-        <div className="space-y-8">
-            <h2 className="text-2xl font-bold gradient-text">Build your empire 🏠</h2>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <StatCard label="Sites" value="0" icon={Globe} color="text-blue-400" />
-                <StatCard label="Ranked" value="0" icon={Activity} color="text-yellow-400" />
-                <StatCard label="Rented" value="0" icon={Users} color="text-emerald-400" />
-                <StatCard label="Revenue" value="$0" icon={Zap} color="text-purple-400" />
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 space-y-4">
-                    <h3 className="text-lg font-bold gradient-text">Your Sites Portfolio</h3>
-                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-16 text-center space-y-6 flex flex-col items-center justify-center h-full admin-card">
-                        <div className="p-4 bg-white/5 rounded-full text-gray-500">
-                            <Package size={48} />
-                        </div>
-                        <div className="space-y-4">
-                            <p className="text-gray-400 italic font-medium">No sites yet — find a niche first</p>
-                            <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg flex items-center gap-2 mx-auto">
-                                <Search size={18} /> Find Niche
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="space-y-4">
-                    <h3 className="text-lg font-bold gradient-text">Rank & Rent Toolkit</h3>
-                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-2 rounded-2xl divide-y divide-[rgba(168,85,247,0.2)] admin-card">
-                        {[
-                            { name: 'Niche Finder (CORE)', icon: Search },
-                            { name: 'Bulk Page Generator', icon: Layers },
-                            { name: 'Internal Linking Engine', icon: Settings },
-                            { name: 'Geo-Grid Tracker', icon: Globe }
-                        ].map((tool, i) => (
-                            <div key={i} className="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors cursor-pointer first:rounded-t-xl last:rounded-b-xl group">
-                                <div className="text-yellow-400">⭐</div>
-                                <div className="p-2 bg-white/5 text-purple-400 rounded-lg group-hover:bg-purple-600 group-hover:text-white transition-all">
-                                    <tool.icon size={18} />
-                                </div>
-                                <span className="text-sm font-semibold">{tool.name}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            <TipBox>
-                Start: Find niche → Build site → Rank → Rent
-            </TipBox>
+// ═══════════════════════════════════════════
+// VIEW 2: 💼 CLIENT SEO PROFESSIONAL
+// ═══════════════════════════════════════════
+const ViewPro = ({ router, hasProfile }: any) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '16px' }}>
+            <StatCard label="Active Clients" value="0" icon={Users} color="#3B82F6" sublabel="Add your first client" />
+            <StatCard label="Sites Managed" value="0" icon={Globe} color="#A855F7" sublabel="Across all clients" />
+            <StatCard label="Reports Sent" value="0" icon={FileText} color="#10B981" sublabel="This month" />
+            <StatCard label="Monthly Revenue" value="$0" icon={DollarSign} color="#F59E0B" sublabel="From all clients" />
         </div>
-    );
-};
 
-const ViewAgency = () => {
-    return (
-        <div className="space-y-8">
-            <h2 className="text-2xl font-bold gradient-text">Your Agency Hub 🏢</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+            {/* Client List */}
+            <Card>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <SectionTitle>👥 Client Accounts</SectionTitle>
+                    <button
+                        onClick={() => router.push('/system')}
+                        style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: '#A855F7', background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '8px', padding: '6px 12px', cursor: 'pointer' }}
+                    >
+                        <Plus size={12} /> Add Client
+                    </button>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 0', gap: '12px' }}>
+                    <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(168,85,247,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Users size={24} style={{ color: '#475569' }} />
+                    </div>
+                    <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>No clients yet</p>
+                    <button onClick={() => router.push('/system')} style={{ fontSize: '12px', color: '#A855F7', fontWeight: 700, background: 'none', border: 'none', cursor: 'pointer' }}>+ Add First Client →</button>
+                </div>
+            </Card>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <StatCard label="Clients" value="0" icon={Users} color="text-blue-400" />
-                <StatCard label="Sites" value="0" icon={Globe} color="text-purple-400" />
-                <StatCard label="Reports" value="0" icon={FileText} color="text-emerald-400" />
-                <StatCard label="Revenue" value="$0" icon={Zap} color="text-yellow-400" />
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                    <h3 className="text-lg font-bold gradient-text">Client Accounts</h3>
-                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center admin-card">
-                        <div className="p-4 bg-white/5 rounded-full text-gray-500">
-                            <Mail size={48} />
+            {/* Quick Tools */}
+            <Card>
+                <SectionTitle>⚡ Quick Actions</SectionTitle>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {[
+                        { icon: Search, label: 'Site Audit', path: '/optimize', color: '#3B82F6' },
+                        { icon: Globe, label: 'GBP Audit', path: '/authority', color: '#10B981' },
+                        { icon: FileText, label: 'Monthly Report', path: '/reports', color: '#A855F7' },
+                        { icon: BarChart3, label: 'Competitor Analysis', path: '/research', color: '#F59E0B' },
+                        { icon: Target, label: 'Keyword Research', path: '/research', color: '#EF4444' },
+                    ].map((item, i) => (
+                        <div
+                            key={i}
+                            onClick={() => router.push(item.path)}
+                            style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', borderRadius: '12px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                            onMouseEnter={e => { e.currentTarget.style.background = `${item.color}10`; e.currentTarget.style.borderColor = `${item.color}30`; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'; }}
+                        >
+                            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: `${item.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <item.icon size={15} style={{ color: item.color }} />
+                            </div>
+                            <span style={{ fontSize: '13px', fontWeight: 600, color: '#E2E8F0', flex: 1 }}>{item.label}</span>
+                            <ChevronRight size={14} style={{ color: '#475569' }} />
                         </div>
-                        <p className="text-gray-400 font-medium">No clients added</p>
-                        <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2">
-                            <Plus size={18} /> Add Client
+                    ))}
+                </div>
+            </Card>
+        </div>
+
+        {/* Tools Grid */}
+        <div>
+            <SectionTitle>🛠️ Client SEO Tools</SectionTitle>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '12px' }}>
+                <QuickToolBtn icon={Search} label="Niche Finder" onClick={() => router.push('/research')} active />
+                <QuickToolBtn icon={Layout} label="Website Builder" onClick={() => router.push('/build')} />
+                <QuickToolBtn icon={Shield} label="SEO Audit" onClick={() => router.push('/optimize')} />
+                <QuickToolBtn icon={MapPin} label="GBP Tools" onClick={() => router.push('/authority')} />
+                <QuickToolBtn icon={Star} label="Reviews" onClick={() => router.push('/authority')} />
+                <QuickToolBtn icon={BarChart3} label="Rank Tracker" onClick={() => router.push('/track')} />
+                <QuickToolBtn icon={FileText} label="Reports" onClick={() => router.push('/reports')} />
+                <QuickToolBtn icon={Link} label="Citations" onClick={() => router.push('/authority')} />
+            </div>
+        </div>
+    </div>
+);
+
+// ═══════════════════════════════════════════
+// VIEW 3: 🏠 RANK & RENT
+// ═══════════════════════════════════════════
+const ViewRankRent = ({ router, hasProfile }: any) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '16px' }}>
+            <StatCard label="Total Sites" value="0" icon={Globe} color="#3B82F6" sublabel="In portfolio" />
+            <StatCard label="Ranking" value="0" icon={TrendingUp} color="#F59E0B" sublabel="Getting traffic" />
+            <StatCard label="Rented" value="0" icon={DollarSign} color="#10B981" sublabel="Earning revenue" />
+            <StatCard label="Monthly Revenue" value="$0" icon={Zap} color="#A855F7" sublabel="From rentals" />
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px' }}>
+            {/* Sites Portfolio */}
+            <Card>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <SectionTitle>🏗️ Sites Portfolio</SectionTitle>
+                    <button
+                        onClick={() => router.push('/research')}
+                        style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: '#A855F7', background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '8px', padding: '6px 12px', cursor: 'pointer' }}
+                    >
+                        <Plus size={12} /> New Site
+                    </button>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 0', gap: '16px' }}>
+                    <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(168,85,247,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Package size={28} style={{ color: '#475569' }} />
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                        <p style={{ fontSize: '14px', color: '#64748B', margin: '0 0 8px 0', fontWeight: 600 }}>No sites yet</p>
+                        <p style={{ fontSize: '12px', color: '#475569', margin: '0 0 16px 0' }}>Pehle niche dhundo, phir site banao</p>
+                        <button onClick={() => router.push('/research')} style={{ padding: '10px 24px', background: 'linear-gradient(135deg, #A855F7, #3B82F6)', border: 'none', borderRadius: '10px', color: 'white', fontWeight: 700, fontSize: '13px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                            <Search size={14} /> Find Niche
                         </button>
                     </div>
                 </div>
+            </Card>
 
-                <div className="space-y-4">
-                    <h3 className="text-lg font-bold">Agency Tools</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <ToolCard icon={Activity} name="Multi-Client Dashboard" highlighted={true} />
-                        <ToolCard icon={FileText} name="White Label Reports" />
-                        <ToolCard icon={Layers} name="Bulk Site Generator" />
-                        <ToolCard icon={Package} name="Client Proposal Generator" />
-                    </div>
-                </div>
-            </div>
-
-            <div className="space-y-4">
-                <h3 className="text-lg font-bold gradient-text">Team Section</h3>
-                <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] p-6 rounded-2xl flex items-center justify-between admin-card">
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold">U</div>
-                        <div className="space-y-0.5">
-                            <p className="text-sm font-semibold">Team Members: Just you</p>
-                            <p className="text-xs text-gray-500 italic">Expand your team for better scale</p>
+            {/* R&R Toolkit */}
+            <Card>
+                <SectionTitle>⭐ Core Toolkit</SectionTitle>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {[
+                        { icon: Search, label: 'Niche Finder', path: '/research', active: true },
+                        { icon: Layers, label: 'Bulk Page Gen', path: '/automation' },
+                        { icon: Link, label: 'Internal Linking', path: '/optimize' },
+                        { icon: Rocket, label: 'Auto Deploy', path: '/deploy' },
+                        { icon: BarChart3, label: 'Geo-Grid Tracker', path: '/track' },
+                    ].map((t, i) => (
+                        <div
+                            key={i}
+                            onClick={() => router.push(t.path)}
+                            style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', borderRadius: '10px', background: t.active ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.02)', border: t.active ? '1px solid rgba(168,85,247,0.2)' : '1px solid transparent', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                            onMouseEnter={e => e.currentTarget.style.background = 'rgba(168,85,247,0.08)'}
+                            onMouseLeave={e => e.currentTarget.style.background = t.active ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.02)'}
+                        >
+                            <t.icon size={15} style={{ color: t.active ? '#A855F7' : '#64748B', flexShrink: 0 }} />
+                            <span style={{ fontSize: '12px', fontWeight: 600, color: t.active ? '#E2D9F3' : '#94A3B8' }}>{t.label}</span>
+                            {t.active && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', marginLeft: 'auto' }} />}
                         </div>
-                    </div>
-                    <button className="flex items-center gap-2 text-gray-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-all">
-                        <Plus size={14} /> Invite Team Member
-                        <span className="bg-white/5 text-[8px] px-1.5 py-0.5 rounded ml-1 border border-white/10">COMING SOON</span>
-                    </button>
+                    ))}
                 </div>
+            </Card>
+        </div>
+
+        {/* All Tools */}
+        <div>
+            <SectionTitle>🛠️ Rank & Rent Tools</SectionTitle>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '12px' }}>
+                <QuickToolBtn icon={Search} label="Niche Finder" onClick={() => router.push('/research')} active />
+                <QuickToolBtn icon={Layout} label="Static Site Gen" onClick={() => router.push('/build')} />
+                <QuickToolBtn icon={Layers} label="Bulk Pages" onClick={() => router.push('/automation')} />
+                <QuickToolBtn icon={Link} label="Internal Links" onClick={() => router.push('/optimize')} />
+                <QuickToolBtn icon={Rocket} label="Deploy" onClick={() => router.push('/deploy')} />
+                <QuickToolBtn icon={BarChart3} label="Rank Track" onClick={() => router.push('/track')} />
+                <QuickToolBtn icon={MapPin} label="GBP Audit" onClick={() => router.push('/authority')} />
+                <QuickToolBtn icon={Target} label="Competitor Spy" onClick={() => router.push('/research')} />
             </div>
         </div>
-    );
-};
+    </div>
+);
 
-const ViewAutomation = () => {
-    return (
-        <div className="space-y-8">
-            <h2 className="text-2xl font-bold gradient-text">Automate everything ⚡</h2>
+// ═══════════════════════════════════════════
+// VIEW 4: 🏢 AGENCY
+// ═══════════════════════════════════════════
+const ViewAgency = ({ router, hasProfile }: any) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '16px' }}>
+            <StatCard label="Total Clients" value="0" icon={Users} color="#3B82F6" sublabel="Active accounts" />
+            <StatCard label="Sites Managed" value="0" icon={Globe} color="#A855F7" sublabel="Across clients" />
+            <StatCard label="Reports Sent" value="0" icon={FileText} color="#10B981" sublabel="This month" />
+            <StatCard label="MRR" value="$0" icon={DollarSign} color="#F59E0B" sublabel="Monthly revenue" />
+        </div>
 
-            <div className="space-y-4">
-                <h3 className="text-lg font-bold gradient-text">Active Pipelines</h3>
-                <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl p-12 text-center space-y-4 flex flex-col items-center justify-center border-dashed admin-card">
-                    <div className="p-4 bg-white/5 rounded-full text-gray-500">
-                        <Cpu size={48} />
-                    </div>
-                    <p className="text-gray-400 font-medium">No pipelines running</p>
-                    <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(124,58,237,0.3)] flex items-center gap-2">
-                        <Plus size={18} /> Create Pipeline
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+            {/* Clients */}
+            <Card>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <SectionTitle>👥 Client Accounts</SectionTitle>
+                    <button onClick={() => router.push('/system')} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: '#A855F7', background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '8px', padding: '6px 12px', cursor: 'pointer' }}>
+                        <Plus size={12} /> Add Client
                     </button>
                 </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 space-y-4">
-                    <h3 className="text-lg font-bold">Automation Toolkit</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <ToolCard icon={Zap} name="1-Click Full SEO" badge="Coming Soon" />
-                        <ToolCard icon={Layers} name="Bulk Page Generator" badge="Active" highlighted={true} />
-                        <ToolCard icon={Search} name="Bulk Niche Finder" badge="Coming Soon" />
-                        <ToolCard icon={Settings} name="Auto Internal Linking" badge="Coming Soon" />
-                        <ToolCard icon={Rocket} name="Auto Deploy" badge="Coming Soon" />
-                        <ToolCard icon={FileText} name="Auto Reports" badge="Coming Soon" />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px 0', gap: '12px' }}>
+                    <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(168,85,247,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Users size={24} style={{ color: '#475569' }} />
                     </div>
+                    <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>No clients added</p>
+                    <button onClick={() => router.push('/system')} style={{ fontSize: '12px', color: '#A855F7', fontWeight: 700, background: 'none', border: 'none', cursor: 'pointer' }}>+ Add First Client →</button>
                 </div>
+            </Card>
 
-                <div className="space-y-4">
-                    <h3 className="text-lg font-bold gradient-text">Quick Stats</h3>
-                    <div className="bg-[#0D1B2E] border border-[rgba(168,85,247,0.2)] rounded-2xl overflow-hidden divide-y divide-[rgba(168,85,247,0.2)] admin-card">
-                        {[
-                            { label: 'Pages Generated', value: 0, color: 'text-blue-400' },
-                            { label: 'Sites Deployed', value: 0, color: 'text-purple-400' },
-                            { label: 'Keywords Tracked', value: 0, color: 'text-emerald-400' }
-                        ].map((stat, i) => (
-                            <div key={i} className="p-6 flex items-center justify-between">
-                                <span className="text-sm text-gray-400 font-medium">{stat.label}</span>
-                                <span className={`text-2xl font-bold ${stat.color}`}>{stat.value}</span>
-                            </div>
-                        ))}
-                    </div>
+            {/* Agency Tools */}
+            <Card>
+                <SectionTitle>🏢 Agency Tools</SectionTitle>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    {[
+                        { icon: Activity, label: 'Multi-Client Dashboard', active: true },
+                        { icon: FileText, label: 'White Label Reports' },
+                        { icon: Layers, label: 'Bulk Site Generator' },
+                        { icon: Package, label: 'Client Proposals' },
+                        { icon: Shield, label: 'Site Audits' },
+                        { icon: BarChart3, label: 'Rank Tracking' },
+                    ].map((t, i) => (
+                        <div key={i} style={{ padding: '12px', borderRadius: '12px', background: t.active ? 'rgba(168,85,247,0.1)' : 'rgba(255,255,255,0.02)', border: t.active ? '1px solid rgba(168,85,247,0.2)' : '1px solid rgba(255,255,255,0.05)', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <t.icon size={16} style={{ color: t.active ? '#A855F7' : '#64748B' }} />
+                            <span style={{ fontSize: '11px', fontWeight: 600, color: t.active ? '#E2D9F3' : '#94A3B8', lineHeight: 1.3 }}>{t.label}</span>
+                        </div>
+                    ))}
                 </div>
-            </div>
-
-            <TipBox>
-                Set up once → AI handles everything
-            </TipBox>
+            </Card>
         </div>
-    );
-};
 
-// --- Main Dashboard Page ---
+        {/* All Tools */}
+        <div>
+            <SectionTitle>🛠️ Full Agency Toolkit</SectionTitle>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '12px' }}>
+                <QuickToolBtn icon={Search} label="Research" onClick={() => router.push('/research')} active />
+                <QuickToolBtn icon={Layout} label="Build Sites" onClick={() => router.push('/build')} />
+                <QuickToolBtn icon={Rocket} label="Deploy" onClick={() => router.push('/deploy')} />
+                <QuickToolBtn icon={Shield} label="Optimize" onClick={() => router.push('/optimize')} />
+                <QuickToolBtn icon={MapPin} label="GBP & Local" onClick={() => router.push('/authority')} />
+                <QuickToolBtn icon={MousePointer2} label="Convert" onClick={() => router.push('/convert')} />
+                <QuickToolBtn icon={BarChart3} label="Track" onClick={() => router.push('/track')} />
+                <QuickToolBtn icon={FileText} label="Reports" onClick={() => router.push('/reports')} />
+            </div>
+        </div>
+    </div>
+);
 
+// ═══════════════════════════════════════════
+// VIEW 5: 🤖 AUTOMATION / SCALE
+// ═══════════════════════════════════════════
+const ViewAutomation = ({ router, hasProfile }: any) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '16px' }}>
+            <StatCard label="Pages Generated" value="0" icon={Layers} color="#3B82F6" sublabel="Total pages" />
+            <StatCard label="Sites Deployed" value="0" icon={Rocket} color="#A855F7" sublabel="Live sites" />
+            <StatCard label="Pipelines" value="0" icon={Zap} color="#F59E0B" sublabel="Active automations" />
+            <StatCard label="Keywords Tracked" value="0" icon={BarChart3} color="#10B981" sublabel="Across all sites" />
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px' }}>
+            {/* Pipelines */}
+            <Card style={{ border: '1px dashed rgba(168,85,247,0.3)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <SectionTitle>⚡ Active Pipelines</SectionTitle>
+                    <button style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: '#A855F7', background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '8px', padding: '6px 12px', cursor: 'pointer' }}>
+                        <Plus size={12} /> Create Pipeline
+                    </button>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '40px 0', gap: '16px' }}>
+                    <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(168,85,247,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Cpu size={28} style={{ color: '#475569' }} />
+                    </div>
+                    <p style={{ fontSize: '14px', color: '#64748B', margin: 0, fontWeight: 600 }}>No pipelines running</p>
+                    <button style={{ padding: '10px 24px', background: 'linear-gradient(135deg, #A855F7, #3B82F6)', border: 'none', borderRadius: '10px', color: 'white', fontWeight: 700, fontSize: '13px', cursor: 'pointer', boxShadow: '0 0 24px rgba(168,85,247,0.3)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                        <Zap size={14} /> Create First Pipeline
+                    </button>
+                </div>
+            </Card>
+
+            {/* Quick Stats */}
+            <Card>
+                <SectionTitle>📊 Quick Stats</SectionTitle>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                    {[
+                        { label: 'Pages Generated', value: 0, color: '#3B82F6' },
+                        { label: 'Sites Deployed', value: 0, color: '#A855F7' },
+                        { label: 'Keywords Tracked', value: 0, color: '#10B981' },
+                        { label: 'Automations Active', value: 0, color: '#F59E0B' },
+                    ].map((s, i) => (
+                        <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 0', borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                            <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>{s.label}</span>
+                            <span style={{ fontSize: '20px', fontWeight: 800, color: s.color }}>{s.value}</span>
+                        </div>
+                    ))}
+                </div>
+            </Card>
+        </div>
+
+        {/* Automation Tools */}
+        <div>
+            <SectionTitle>🤖 Automation Toolkit</SectionTitle>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '12px' }}>
+                <QuickToolBtn icon={Zap} label="1-Click Full SEO" onClick={() => router.push('/automation')} active />
+                <QuickToolBtn icon={Layers} label="Bulk Page Gen" onClick={() => router.push('/automation')} active />
+                <QuickToolBtn icon={Search} label="Bulk Niche Finder" onClick={() => router.push('/research')} />
+                <QuickToolBtn icon={Link} label="Auto Int. Linking" onClick={() => router.push('/optimize')} />
+                <QuickToolBtn icon={Rocket} label="Auto Deploy" onClick={() => router.push('/deploy')} />
+                <QuickToolBtn icon={FileText} label="Auto Reports" onClick={() => router.push('/reports')} />
+                <QuickToolBtn icon={MapPin} label="Auto GBP" onClick={() => router.push('/authority')} />
+                <QuickToolBtn icon={BarChart3} label="Rank Alerts" onClick={() => router.push('/track')} />
+            </div>
+        </div>
+
+        <div style={{ background: 'rgba(168,85,247,0.05)', border: '1px solid rgba(168,85,247,0.15)', borderRadius: '14px', padding: '16px 20px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <Sparkles size={16} style={{ color: '#A855F7', marginTop: '2px', flexShrink: 0 }} />
+            <p style={{ fontSize: '13px', color: '#94A3B8', lineHeight: 1.6, margin: 0 }}>
+                <strong style={{ color: '#A855F7' }}>Automation Tip:</strong> Pehle API keys setup karo System mein — phir 1-Click Full SEO se sab kuch auto ho jayega!
+            </p>
+        </div>
+    </div>
+);
+
+// ═══════════════════════════════════════════
+// MAIN DASHBOARD
+// ═══════════════════════════════════════════
 export default function DashboardPage() {
-    const [userType, setUserType] = useState<string>('');
+    const router = useRouter();
+    const [userType, setUserType] = useState('');
+    const [hasProfile, setHasProfile] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const userConfig: any = {
+        'Local SEO Newbie': { emoji: '🆕', color: '#3B82F6', label: 'Local SEO Newbie', greeting: "Chalo shuru karte hain! 🚀" },
+        'Client SEO Professional': { emoji: '💼', color: '#8B5CF6', label: 'Client SEO Pro', greeting: "Aaj kaunsa client dekhna hai? 💼" },
+        'Rank & Rent': { emoji: '🏠', color: '#F59E0B', label: 'Rank & Rent', greeting: "Apni empire banate hain! 🏠" },
+        'Agency': { emoji: '🏢', color: '#10B981', label: 'Agency', greeting: "Agency ka din shuru ho gaya! 🏢" },
+        'Automation / Scale': { emoji: '🤖', color: '#EF4444', label: 'Automation / Scale', greeting: "Sab kuch automate karte hain! ⚡" },
+    };
+
     useEffect(() => {
-        // Read user_type from localStorage
-        const savedType = localStorage.getItem('user_type') || 'Local SEO Newbie';
-        setUserType(savedType);
+        const ut = localStorage.getItem('user_type') || 'Local SEO Newbie';
+        const pid = localStorage.getItem('active_profile_id');
+        setUserType(ut);
+        setHasProfile(!!pid);
         setLoading(false);
     }, []);
 
-    if (loading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-                <div className="w-10 h-10 border-4 border-purple-600/20 border-t-purple-600 rounded-full animate-spin" />
-                <p className="text-purple-500/50 text-[10px] font-bold uppercase tracking-widest animate-pulse">Initializing Dashboard</p>
-            </div>
-        );
-    }
+    if (loading) return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '16px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '50%', border: '3px solid rgba(168,85,247,0.2)', borderTop: '3px solid #A855F7', animation: 'spin 1s linear infinite' }} />
+            <p style={{ color: '#475569', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Loading Dashboard...</p>
+        </div>
+    );
+
+    const cfg = userConfig[userType] || userConfig['Local SEO Newbie'];
+    const now = new Date();
+    const hour = now.getHours();
+    const timeGreet = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
 
     const renderView = () => {
+        const props = { router, hasProfile };
         switch (userType) {
-            case 'Local SEO Newbie': return <ViewNewbie />;
-            case 'Client SEO Professional': return <ViewPro />;
-            case 'Rank & Rent': return <ViewRankRent />;
-            case 'Agency': return <ViewAgency />;
-            case 'Automation / Scale': return <ViewAutomation />;
-            default: return <ViewNewbie />;
+            case 'Local SEO Newbie': return <ViewNewbie {...props} />;
+            case 'Client SEO Professional': return <ViewPro {...props} />;
+            case 'Rank & Rent': return <ViewRankRent {...props} />;
+            case 'Agency': return <ViewAgency {...props} />;
+            case 'Automation / Scale': return <ViewAutomation {...props} />;
+            default: return <ViewNewbie {...props} />;
         }
     };
 
     return (
-        <div className="space-y-12 max-w-7xl mx-auto py-4">
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '28px', fontFamily: 'Inter, sans-serif' }}>
 
-            {/* SHARED HEADER: Welcome Banner */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-[#0D1B2E] to-purple-900/10 border border-[rgba(168,85,247,0.2)] rounded-3xl p-8 lg:p-12">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[100px] -mr-32 -mt-32 pointer-events-none"></div>
-                <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                    <div className="space-y-2">
-                        <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-[#F1F5F9] gradient-text">
-                            Welcome back! 👋
+            {/* ── HERO BANNER ── */}
+            <div style={{
+                background: 'linear-gradient(135deg, #0D1B2E 0%, #0F1E35 50%, rgba(168,85,247,0.06) 100%)',
+                border: '1px solid rgba(168,85,247,0.2)',
+                borderRadius: '24px',
+                padding: '32px 36px',
+                position: 'relative',
+                overflow: 'hidden'
+            }}>
+                {/* BG blobs */}
+                <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '200px', height: '200px', background: `radial-gradient(circle, ${cfg.color}18, transparent)`, borderRadius: '50%', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: '-40px', left: '30%', width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(59,130,246,0.08), transparent)', borderRadius: '50%', pointerEvents: 'none' }} />
+
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px' }}>
+                    {/* Left */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+                            {timeGreet} 👋
+                        </div>
+                        <h1 style={{ margin: 0, fontSize: '28px', fontWeight: 800, color: 'white', lineHeight: 1.2 }}>
+                            {cfg.greeting}
                         </h1>
-                        <div className="flex items-center gap-2">
-                            <span className="text-[#94A3B8] text-sm font-medium uppercase tracking-[0.2em]">Building as:</span>
-                            <span className="bg-purple-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
-                                {userType}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Building as:</span>
+                            <span style={{ background: `${cfg.color}20`, border: `1px solid ${cfg.color}40`, color: cfg.color, fontSize: '11px', fontWeight: 800, padding: '3px 10px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                                {cfg.emoji} {cfg.label}
                             </span>
+                            <button
+                                onClick={() => router.push('/onboarding')}
+                                style={{ fontSize: '10px', color: '#475569', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, textDecoration: 'underline' }}
+                            >
+                                Change Role
+                            </button>
                         </div>
                     </div>
 
-                    <div className="flex divide-x divide-white/10">
-                        <div className="px-6 text-center">
-                            <p className="text-2xl font-black text-white">136</p>
-                            <p className="text-[10px] text-purple-400 uppercase font-black tracking-widest">Tools</p>
-                        </div>
-                        <div className="px-6 text-center">
-                            <p className="text-2xl font-black text-white">9</p>
-                            <p className="text-[10px] text-purple-400 uppercase font-black tracking-widest">Phases</p>
-                        </div>
-                        <div className="px-6 text-center">
-                            <p className="text-2xl font-black text-white">READY</p>
-                            <p className="text-[10px] text-purple-400 uppercase font-black tracking-widest">Status</p>
-                        </div>
+                    {/* Right — platform stats */}
+                    <div style={{ display: 'flex', gap: '0', background: 'rgba(0,0,0,0.2)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+                        {[
+                            { val: '136', label: 'Tools' },
+                            { val: '8', label: 'Phases' },
+                            { val: '5', label: 'User Types' },
+                        ].map((s, i) => (
+                            <div key={i} style={{ padding: '16px 24px', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                                <div style={{ fontSize: '22px', fontWeight: 800, background: 'linear-gradient(135deg, #A855F7, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{s.val}</div>
+                                <div style={{ fontSize: '10px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '2px' }}>{s.label}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
 
-            {/* DYNAMIC VIEW */}
-            <div className="min-h-[500px]">
-                {renderView()}
-            </div>
+            {/* ── PROFILE BANNER (if no profile) ── */}
+            {!hasProfile && <ProfileBanner userType={userType} router={router} />}
 
-            {/* SHARED FOOTER: Links */}
-            <div className="pt-8 border-t border-[rgba(168,85,247,0.2)] flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-[#475569] text-sm font-medium italic">© 2026 SEO AI Platform — Premium Local SEO SaaS</p>
-                <button className="group flex items-center gap-2 text-purple-400 hover:text-purple-300 font-bold text-sm transition-all">
-                    All Phases
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            {/* ── DYNAMIC VIEW ── */}
+            {renderView()}
+
+            {/* ── FOOTER ── */}
+            <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(168,85,247,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                <p style={{ fontSize: '11px', color: '#334155', margin: 0 }}>© 2026 Local SEO AI Platform</p>
+                <button onClick={() => router.push('/research')} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 700, color: '#A855F7', background: 'none', border: 'none', cursor: 'pointer' }}>
+                    Explore All Tools <ArrowRight size={14} />
                 </button>
             </div>
-
         </div>
     );
 }
